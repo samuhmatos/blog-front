@@ -1,4 +1,5 @@
-import { Navigation, NavigationPathType } from "@components";import { PostScreenProps } from "../page";
+import { Navigation, NavigationPathType } from "@components";
+import { PostScreenProps } from "../page";
 import { linkUtils } from "@utils";
 import { Post as PostType } from "@domain";
 import { Post } from "./Post";
@@ -26,8 +27,9 @@ export function PostSession({ params, post }: Props) {
       <Navigation paths={paths} />
 
       <Post post={post} />
-      <Share />
-      <NavPost />
+
+      <Share title={post.title} subTitle={post.subTitle} />
+      {/* <NavPost /> */}
       <Author author={post.author} />
       <Suggestion post={post} />
     </div>

@@ -1,6 +1,7 @@
-import Image from "next/image";import Link from "next/link";
+import Image from "next/image";
+import Link from "next/link";
 import { Post } from "@domain";
-import { CategoryBox } from "../../CategoryBox/CategoryBox";
+import { CategoryBox } from "@components";
 import { linkUtils, textUtils } from "@utils";
 
 interface BoxProps {

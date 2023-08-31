@@ -1,9 +1,12 @@
 import "./globals.css";
-import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
-import { Header } from "@components";
+import "react-toastify/ReactToastify.min.css";
 
-const inter = Inter({ subsets: ["latin"] });
+import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
+import { Footer, Header } from "@components";
+import { AuthProvider } from "@context";
+import NextTopLoader from "nextjs-toploader";
+import { ToastContainer } from "react-toastify";
 const poppins = Poppins({ subsets: ["devanagari"], weight: "400" });
 
 export const metadata: Metadata = {
@@ -24,12 +27,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-br">
-      <body className={poppins.className}>
-        <Header />
+    <AuthProvider>
+      <html lang="pt-br">
+        <body className={poppins.className}>
+          <NextTopLoader color="rgb(21, 14, 233)" showSpinner={false} />
 
-        <main>{children}</main>
-      </body>
-    </html>
+          <Header />
+
+          <main>{children}</main>
+
+          <Footer />
+
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

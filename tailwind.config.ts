@@ -8,9 +8,9 @@ const config: Config = {
   ],
   theme: {
     screens: {
-      "2sm": "560px",
-      "3sm": "480px",
       "4sm": "360px",
+      "3sm": "480px",
+      "2sm": "560px",
       sm: "640px",
       md: "768px",
       lg: "1024px",

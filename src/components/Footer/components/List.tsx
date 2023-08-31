@@ -10,7 +10,7 @@ interface Props {
 export function List({ slug, name, postsCount }: Props) {
   const linkCategory = linkUtils.linkCategory(slug);
   return (
-    <li className="mb-1">
+    <li className="mb-1 hover:text-sky-500 transition-all">
       <Link href={linkCategory}>
         {name} <small>({postsCount})</small>
       </Link>

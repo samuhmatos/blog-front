@@ -1,5 +1,5 @@
-import { Footer, Banner, Feed, Header, SideBar, Screen } from "@components";
-import { useRouter } from "next/navigation";
+import { SideBar, Screen } from "@components";
+import { Feed, Banner } from "./components/";
 
 export default function HomeScreen({
   searchParams,
@@ -16,8 +16,6 @@ export default function HomeScreen({
           <SideBar />
         </Screen>
       </div>
-
-      <Footer />
     </>
   );
 }

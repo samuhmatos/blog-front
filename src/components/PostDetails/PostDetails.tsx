@@ -19,7 +19,7 @@ export function PostDetails({
 }: Props) {
   return (
     <div
-      className={`flex flex-1 justify-around items-center gap-2 text-gray-500 flex-wrap sm:flex-nowrap sm:justify-${justify}`}
+      className={`flex flex-1 justify-around items-center gap-2 text-gray-500 flex-wrap sm:flex-nowrap sm:justify-center`}
     >
       <small>
         <Link href={linkPost} className="hover:underline">

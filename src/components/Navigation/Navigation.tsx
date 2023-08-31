@@ -1,5 +1,4 @@
-import Link from "next/link";
-export interface NavigationPathType {
+import Link from "next/link";export interface NavigationPathType {
   slug: string;
   url: string;
 }
@@ -10,7 +9,7 @@ interface NavigationProps {
 
 export function Navigation({ paths }: NavigationProps) {
   return (
-    <ul className="flex text-gray-500">
+    <ul className="hidden text-gray-500 lg:flex">
       {paths.map((path, index) => (
         <li key={index}>
           <Link href={path.url} className="flex">

@@ -1,4 +1,4 @@
-export interface MetaDataPageAPI {
+import { User, UserApi } from "@domain";export interface MetaDataPageAPI {
   total: number; // 24;
   per_page: number; // 10;
   current_page: number; // 1;
@@ -44,3 +44,28 @@ export interface Page<Data> {
   meta: MetaDataPage;
   data: Data[];
 }
+
+export interface AuthAPI {
+  user: UserApi;
+  token: string;
+}
+
+export interface Auth {
+  user: User;
+  token: string;
+}
+
+export interface ErrorApi {
+  message: string;
+  errors: Record<string, string[]>;
+}
+
+// const apiResponse: ErrorApi = {
+//   message: "The email field is required. (and 1 more error)",
+//   errors: {
+//     email: ["The email field is required."],
+//     password: ["The password field is required."],
+//   },
+// };
+
+// const errorMessages = getErrorMessages(apiResponse);

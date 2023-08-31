@@ -1,22 +1,35 @@
-import Link from "next/link";import { BsFacebook, BsTwitter } from "react-icons/bs";
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { BsFacebook, BsTwitter } from "react-icons/bs";
 
 interface Props {
   justify?: "center" | "normal";
+  title: string;
+  subTitle: string;
 }
-export function Share({ justify = "center" }: Props) {
+
+export function Share({ justify = "center", subTitle, title }: Props) {
+  const actualLink = usePathname();
+
   return (
     <nav className={`text-white font-bold flex gap-2 justify-${justify} my-4`}>
-      <button
+      <Link
         className="px-6 py-3 bg-blue-900 flex items-center gap-4 rounded transition-all hover:bg-blue-950"
-        type="button"
+        target="_blank"
+        href={`https://www.facebook.com/sharer/sharer.php?u=${actualLink}`}
       >
         <BsFacebook />
-        <span>Compartilhar no Facebook</span>
-      </button>
-      <button className="px-6 py-3 bg-sky-400 flex items-center gap-4 rounded transition-all hover:bg-sky-500">
+        <span className="hidden md:block">Compartilhar no Facebook</span>
+      </Link>
+      <Link
+        className="px-6 py-3 bg-sky-400 flex items-center gap-4 rounded transition-all hover:bg-sky-500"
+        target="_blank"
+        href={`http://twitter.com/share?&url=${title}&text=${subTitle}`}
+      >
         <BsTwitter />
-        <span>Compartilhar no Twitter</span>
-      </button>
+        <span className="hidden md:block">Compartilhar no Twitter</span>
+      </Link>
     </nav>
   );
 }

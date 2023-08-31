@@ -1,5 +1,4 @@
-import { Category, postCategoryService } from "@domain";
-import Image from "next/image";
+import { Category, postCategoryService } from "@domain";import Image from "next/image";
 import Link from "next/link";
 import { BsInstagram, BsGithub, BsFillEnvelopeFill } from "react-icons/bs";
 import { AiFillLinkedin } from "react-icons/ai";
@@ -98,10 +97,10 @@ export async function Footer() {
           <div className="">
             <h2 className="font-bold">Copyrights</h2>
             <ul className="text-sm mt-8 text-gray-400">
-              <li className="mb-1">
+              <li className="mb-1 hover:text-sky-500 transition-all">
                 <Link href="/contact">Entre em contato</Link>
               </li>
-              <li className="mb-1">
+              <li className="mb-1 hover:text-sky-500 transition-all">
                 <Link href="/contact">Tem sugestão?</Link>
               </li>
             </ul>
@@ -113,7 +112,13 @@ export async function Footer() {
             <br />
             <div className="copyright">
               &copy; Blog. Desenvolvedor:{" "}
-              <Link href="/contact">Samuel Matos</Link>.
+              <Link
+                href="/contact"
+                className="hover:text-sky-500 transition-all"
+              >
+                Samuel Matos
+              </Link>
+              .
             </div>
           </div>
         </div>

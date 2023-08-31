@@ -9,7 +9,7 @@ type AuthorType = Pick<Post, "author">;
 export function Author({ author }: AuthorType) {
   return (
     <Box title="Autor">
-      <div className="relative flex gap-5">
+      <div className="relative flex justify-center gap-5 flex-wrap 2sm:flex-nowrap">
         <div>
           <Image
             // src={author.imageURL}

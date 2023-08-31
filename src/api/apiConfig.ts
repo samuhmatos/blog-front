@@ -1,7 +1,11 @@
-import axios from "axios";export const api = axios.create({
+import axios from "axios";
+import { getCookie } from "cookies-next";
+
+export const api = axios.create({
   baseURL: "http://127.0.0.1:8000/api/",
   headers: {
-    Authorization:
-      "Bearer MQ.KDe_95qLCFE7L0td35MmwOwqoDaDXSoXDOH_KSAWEbVxYkqc7Q9vfuMTid63",
+    Authorization: "Bearer " + getCookie("token"),
+    "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });

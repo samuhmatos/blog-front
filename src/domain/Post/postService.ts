@@ -1,4 +1,5 @@
-import { Page, apiAdapter } from "@api";import { Post, PostList } from "./postTypes";
+import { Page, apiAdapter } from "@api";
+import { Post, PostList } from "./postTypes";
 import { postApi } from "./postApi";
 import { postAdapter } from "./postAdapter";
 
@@ -17,17 +18,26 @@ async function getFeed(page: number, search?: string): Promise<Page<Post>> {
   };
 }
 
-async function getBySlug(
-  categorySlug: string,
-  postSlug: string
-): Promise<Post> {
-  const postAPI = await postApi.getBySlug(categorySlug, postSlug);
+async function getBySlug(postSlug: string): Promise<Post> {
+  const postAPI = await postApi.getBySlug(postSlug);
 
   return postAdapter.toPost(postAPI);
+}
+
+async function getSuggestion(): Promise<Post[]> {
+  const postAPI = await postApi.getSuggestion();
+
+  return postAPI.map(postAdapter.toPost);
+}
+
+async function addView(postId: number): Promise<Pick<Post, "views">> {
+  return await postApi.addView(postId);
 }
 
 export const postService = {
   getFeed,
   getList,
   getBySlug,
+  getSuggestion,
+  addView,
 };

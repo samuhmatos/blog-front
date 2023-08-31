@@ -1,4 +1,5 @@
-import { Page, PageAPI } from "@api";import { Category, CategoryAPI } from "../PostCategory/categoryTypes";
+import { Page, PageAPI } from "@api";
+import { Category, CategoryAPI } from "../PostCategory/categoryTypes";
 import { User, UserApi } from "../User";
 
 export interface Post {
@@ -12,7 +13,7 @@ export interface Post {
   category: Category;
   likeCount: number | null;
   unlikeCount: number | null;
-  author: Omit<User, "is_admin" | "email">;
+  author: Omit<User, "isAdmin" | "email" | "createdAt" | "createdAtFormatted">;
   createdAt: string;
   createdAtFormatted: string;
 }
@@ -32,7 +33,7 @@ export interface PostApi {
   category: CategoryAPI;
   like_count: number | null;
   unlike_count: number | null;
-  author: Omit<UserApi, "is_admin" | "email">;
+  author: Omit<UserApi, "isAdmin" | "email" | "created_at">;
 }
 
 export interface PostListApi {
