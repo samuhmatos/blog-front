@@ -7,32 +7,32 @@ function formatRelative(dateISO: string): string {
   const diffInSeconds = differenceInSeconds(now, date);
 
   if (diffInSeconds < 60) {
-    return `${diffInSeconds} s`;
+    return `${diffInSeconds} segundos`;
   }
 
   const diffInMinutes = Math.round(diffInSeconds / 60);
   if (diffInMinutes < 60) {
-    return `${diffInMinutes} m`;
+    return `${diffInMinutes} minutos`;
   }
 
   const diffInHours = Math.round(diffInMinutes / 60);
   if (diffInHours < 24) {
-    return `${diffInHours} h`;
+    return `${diffInHours} horas`;
   }
 
   const diffInDays = Math.round(diffInHours / 24);
   if (diffInDays < 7) {
-    return `${diffInDays} d`;
+    return `${diffInDays} dias`;
   }
 
   const diffInWeeks = Math.round(diffInDays / 7);
   if (diffInWeeks < 4) {
-    return `${diffInWeeks} sem`;
+    return `${diffInWeeks} semanas`;
   }
 
   const diffInMonths = Math.round(diffInWeeks / 30);
   if (diffInMonths < 12) {
-    return `${diffInMonths} m`;
+    return `${diffInMonths} meses`;
   }
 
   return format(date, "dd/mm/yyyy");

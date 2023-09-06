@@ -5,11 +5,18 @@ function linkPost(postSlug: string, categorySlug: string): string {
 }
 
 function linkCategory(categorySlug: string): string {
-  var link = `/category/${categorySlug}`;
+  //var link = `/categoria/${categorySlug}`;
+  var link = linkCategories() + categorySlug;
+  return link;
+}
+
+function linkCategories(): string {
+  var link = `/categoria/`;
   return link;
 }
 
 export const linkUtils = {
   linkPost,
   linkCategory,
+  linkCategories,
 };

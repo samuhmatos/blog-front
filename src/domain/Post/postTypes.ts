@@ -1,6 +1,7 @@
 import { Page, PageAPI } from "@api";
 import { Category, CategoryAPI } from "../PostCategory/categoryTypes";
 import { User, UserApi } from "../User";
+import { PostComment, PostCommentApi } from "../PostComment";
 
 export interface Post {
   id: number;
@@ -10,12 +11,13 @@ export interface Post {
   content: string;
   imageURL: string;
   views: number;
-  category: Category;
   likeCount: number | null;
   unlikeCount: number | null;
-  author: Omit<User, "isAdmin" | "email" | "createdAt" | "createdAtFormatted">;
   createdAt: string;
   createdAtFormatted: string;
+  category: Category;
+  author: Omit<User, "isAdmin" | "email" | "createdAt" | "createdAtFormatted">;
+  comments?: PostComment[];
 }
 
 export interface PostApi {
@@ -30,10 +32,11 @@ export interface PostApi {
   author_id: number;
   created_at: string;
   updated_at: string;
-  category: CategoryAPI;
   like_count: number | null;
   unlike_count: number | null;
-  author: Omit<UserApi, "isAdmin" | "email" | "created_at">;
+  category: CategoryAPI;
+  author: Omit<UserApi, "is_admin" | "email" | "created_at">;
+  comments?: PostCommentApi[];
 }
 
 export interface PostListApi {

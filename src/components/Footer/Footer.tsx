@@ -1,4 +1,5 @@
-import { Category, postCategoryService } from "@domain";import Image from "next/image";
+import { Category, postCategoryService } from "@domain";
+import Image from "next/image";
 import Link from "next/link";
 import { BsInstagram, BsGithub, BsFillEnvelopeFill } from "react-icons/bs";
 import { AiFillLinkedin } from "react-icons/ai";
@@ -78,7 +79,7 @@ export async function Footer() {
             </div>
           </div>
 
-          <div className="">
+          <div>
             <h2 className="font-bold">Categorias</h2>
             <ul className="mt-8 text-sm text-gray-400">
               {popularCategories.map((category) => {
@@ -94,7 +95,7 @@ export async function Footer() {
             </ul>
           </div>
 
-          <div className="">
+          <div>
             <h2 className="font-bold">Copyrights</h2>
             <ul className="text-sm mt-8 text-gray-400">
               <li className="mb-1 hover:text-sky-500 transition-all">

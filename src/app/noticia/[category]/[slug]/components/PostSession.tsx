@@ -1,5 +1,4 @@
-import { Navigation, NavigationPathType } from "@components";
-import { PostScreenProps } from "../page";
+import { Navigation, NavigationPathType } from "@components";import { PostScreenProps } from "../page";
 import { linkUtils } from "@utils";
 import { Post as PostType } from "@domain";
 import { Post } from "./Post";
@@ -7,6 +6,8 @@ import { Share } from "./Share";
 import { NavPost } from ".";
 import { Author } from "./Author";
 import { Suggestion } from "./Suggestion";
+import { Comment } from "./Comment/Comment";
+import { CommentProvider } from "@context";
 
 interface Props extends PostScreenProps {
   post: PostType;
@@ -32,6 +33,10 @@ export function PostSession({ params, post }: Props) {
       {/* <NavPost /> */}
       <Author author={post.author} />
       <Suggestion post={post} />
+
+      <CommentProvider>
+        <Comment comments={post.comments!} postId={post.id} />
+      </CommentProvider>
     </div>
   );
 }

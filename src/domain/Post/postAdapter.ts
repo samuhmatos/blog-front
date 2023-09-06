@@ -1,5 +1,6 @@
 import { dateUtils } from "@utils";
 import { Post, PostApi } from "./postTypes";
+import { postCommentAdapter } from "../PostComment/postCommentAdapter";
 
 function toPost(postAPI: PostApi): Post {
   return {
@@ -12,6 +13,8 @@ function toPost(postAPI: PostApi): Post {
     imageURL: postAPI.image_url,
     likeCount: postAPI.like_count,
     unlikeCount: postAPI.unlike_count,
+    createdAt: postAPI.category.created_at,
+    createdAtFormatted: dateUtils.formatDefault(postAPI.category.created_at),
     author: {
       id: postAPI.author.id,
       name: postAPI.author.name,
@@ -28,8 +31,7 @@ function toPost(postAPI: PostApi): Post {
       createdAt: postAPI.category.created_at,
       createdAtFormatted: dateUtils.formatDefault(postAPI.category.created_at),
     },
-    createdAt: postAPI.category.created_at,
-    createdAtFormatted: dateUtils.formatDefault(postAPI.category.created_at),
+    comments: postAPI.comments?.map(postCommentAdapter.toPostComment),
   };
 }
 export const postAdapter = {

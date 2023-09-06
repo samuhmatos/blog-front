@@ -1,6 +1,8 @@
-import Link from "next/link";export interface NavigationPathType {
+import Link from "next/link";
+export interface NavigationPathType {
   slug: string;
   url: string;
+  disabled?: boolean;
 }
 
 interface NavigationProps {

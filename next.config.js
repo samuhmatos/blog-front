@@ -8,6 +8,7 @@ const nextConfig = {
       "cursinhoparamedicina.com.br",
       "media.geeksforgeeks.org",
       "blog.samuelmatos.tech",
+      "flowbite.com",
     ], // Adicione 'robohash.org' à lista de domínios permitidos
   },
 };

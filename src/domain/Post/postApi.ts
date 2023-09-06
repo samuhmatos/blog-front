@@ -1,5 +1,4 @@
-import { PageAPI, PageParams, api } from "@api";
-import { Post, PostApi, PostListApi } from "./postTypes";
+import { PageAPI, PageParams, api } from "@api";import { Post, PostApi, PostListApi } from "./postTypes";
 
 async function getBySlug(postSlug: string): Promise<PostApi> {
   const response = await api.get<PostApi>(`post/${postSlug}`);
@@ -29,10 +28,28 @@ async function getSuggestion(): Promise<PostApi[]> {
   return response.data;
 }
 
+async function getPostsByCategorySlug(
+  categorySlug: string,
+  { page, per_page }: PageParams
+): Promise<PageAPI<PostApi>> {
+  const response = await api.get<PageAPI<PostApi>>(
+    `category/paginate/${categorySlug}`,
+    {
+      params: {
+        per_page,
+        page,
+      },
+    }
+  );
+
+  return response.data;
+}
+
 export const postApi = {
   getList,
   getFeed,
   getBySlug,
   getSuggestion,
   addView,
+  getPostsByCategorySlug,
 };

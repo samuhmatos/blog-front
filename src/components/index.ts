@@ -8,6 +8,9 @@ export * from "./Screen/Screen";
 export * from "./Navigation/Navigation";
 export * from "./CategoryBox/CategoryBox";
 export * from "./PostDetails/PostDetails";
-
+export * from "./InputText/InputText";
+export * from "./LoadButton/LoadButton";
+export * from "./TextAreaInput/TextAreaInput";
+export * from "./FormTextAreaInput/FormTextAreaInput";
 export * from "./Card";
 export * from "./Alerts";

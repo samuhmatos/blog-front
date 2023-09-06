@@ -1,5 +1,4 @@
-import { Page, PageParams } from "@api";
-import { useEffect, useState } from "react";
+import { Page, PageParams } from "@api";import { useEffect, useState } from "react";
 
 interface Params {
   page: number;
@@ -27,7 +26,7 @@ export async function usePaginatedList<Data>(
   // async function fetchData() {
   //   try {
   //     setError(false);
-  //     setLoading(true);
+  //     set(true);
   //     const { data, meta } = await getList(params.page, params.search);
   //     setList(data);
   //     setTotalPage(meta.totalPage);

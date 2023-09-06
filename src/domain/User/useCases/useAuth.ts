@@ -1,5 +1,4 @@
-"use client";
-import { AxiosError } from "axios";
+"use client";import { AxiosError } from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@context";
 import { ErrorApi } from "@api";
@@ -18,7 +17,7 @@ interface Props {
 export function useAuth() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string[] | null>(null);
-  const { setUser, user } = useContext(AuthContext);
+  const { setUser, user, token, setToken } = useContext(AuthContext);
 
   async function signIn(
     params: Pick<Props, "email" | "password">,
@@ -82,11 +81,13 @@ export function useAuth() {
 
   function loadStorageData() {
     const userStorage = getCookie("user");
+    const tokenStorage = getCookie("token");
 
-    if (userStorage && hasCookie("token")) {
+    if (userStorage && tokenStorage) {
       const userParsed: User = JSON.parse(userStorage);
 
       if (!user) setUser(userParsed);
+      if (!token) setToken(tokenStorage);
     } else {
       setUser(null);
     }

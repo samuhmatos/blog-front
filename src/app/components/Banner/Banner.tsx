@@ -1,8 +1,14 @@
-import { postService } from "@domain";
-import { BannerBox } from "./components/BannerBox";
+import { Post, postService } from "@domain";import { BannerBox } from "./components/BannerBox";
 
+async function getList(): Promise<Post[]> {
+  try {
+    return await postService.getList("best");
+  } catch (error) {
+    console.log(error);
+  }
+}
 export async function Banner() {
-  const posts = await postService.getList("best");
+  const posts = await getList();
 
   return (
     <section className="py-3 mt-4">

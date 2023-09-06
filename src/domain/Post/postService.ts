@@ -34,10 +34,26 @@ async function addView(postId: number): Promise<Pick<Post, "views">> {
   return await postApi.addView(postId);
 }
 
+async function getPostsByCategorySlug(
+  categorySlug: string,
+  page: number
+): Promise<Page<Post>> {
+  const postsAPI = await postApi.getPostsByCategorySlug(categorySlug, {
+    page,
+    per_page: 10,
+  });
+
+  return {
+    data: postsAPI.data.map(postAdapter.toPost),
+    meta: apiAdapter.toMetaDataPage(postsAPI.meta),
+  };
+}
+
 export const postService = {
   getFeed,
   getList,
   getBySlug,
   getSuggestion,
   addView,
+  getPostsByCategorySlug,
 };

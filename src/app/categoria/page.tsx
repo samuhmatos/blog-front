@@ -1,7 +1,16 @@
-"use client";import { toast } from "react-toastify";
+"use client";
+import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
+import { api } from "@api";
 
 export default function CategoryScreen() {
+  async function test() {
+    const res = await api.get(`category/filter/popular`);
+    console.log({ res });
+  }
+
+  test();
+
   const notify = () => {
     toast("🦄 Wow so easy!", {
       position: "top-right",

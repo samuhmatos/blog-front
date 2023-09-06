@@ -13,12 +13,10 @@ export default function Loading({
         <BannerSkeleton />
 
         <Screen container>
-          <FeedSkeleton />
+          <FeedSkeleton top />
           <SideBarSkeleton />
         </Screen>
       </div>
-
-      <Footer />
     </>
   );
 }

@@ -1,11 +1,11 @@
-import { MouseEvent } from "react";interface Props {
+import { MouseEvent } from "react";
+interface Props {
   title: string;
   message?: string;
 }
 export function TraditionalAlert({ title, message }: Props) {
   function handleClose(event: MouseEvent<HTMLSpanElement>) {
     const div = event.currentTarget.parentElement!.classList.add("hidden");
-    console.log(div);
   }
 
   return (

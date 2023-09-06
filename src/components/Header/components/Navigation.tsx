@@ -4,6 +4,7 @@ import { BsInstagram, BsGithub, BsFillEnvelopeFill } from "react-icons/bs";
 import { AiFillLinkedin } from "react-icons/ai";
 import { AuthModal } from "./AuthModal";
 import { useAuth } from "@domain";
+import { linkUtils } from "@utils";
 
 interface Props {
   isDropDown: boolean;
@@ -20,52 +21,58 @@ export function Navigation({ isDropDown }: Props) {
     >
       <ul className="flex justify-center items-center flex-wrap">
         <li>
-          <Link className="px-2 py-2 hover:text-zinc-300" href="/">
+          <Link
+            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300"
+            href="/"
+          >
             Home
           </Link>
         </li>
         <li>
           <Link
-            className="px-2 py-2 hover:text-zinc-300"
-            href="/category/videos"
+            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300 "
+            href={linkUtils.linkCategory("tech")}
           >
             Tech
           </Link>
         </li>
         <li>
           <Link
-            className="px-2 py-2 hover:text-zinc-300"
-            href="/category/videos"
+            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300 "
+            href={linkUtils.linkCategory("videos")}
           >
             Videos
           </Link>
         </li>
         <li>
           <Link
-            className="px-2 py-2 hover:text-zinc-300"
-            href="/category/portfolio"
+            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300 "
+            href={linkUtils.linkCategory("portfolio")}
           >
             Portfólio
           </Link>
         </li>
         <li>
           <Link
-            className="px-2 py-2 hover:text-zinc-300"
-            href="/category/qualificacoes"
+            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300 "
+            href={linkUtils.linkCategory("qualificacoes")}
           >
             Qualificações
           </Link>
         </li>
         <li>
           <Link
-            className="px-2 py-2 hover:text-zinc-300"
-            href="/category/reviews"
+            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300 "
+            href={linkUtils.linkCategory("reviews")}
           >
             Reviews
           </Link>
         </li>
         <li>
-          <Link className="px-2 py-2 hover:text-zinc-300" href="/contact">
+          <Link
+            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300 "
+            href="/contato"
+          >
             Contato
           </Link>
         </li>
