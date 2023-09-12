@@ -2,11 +2,17 @@
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import { api } from "@api";
+import { UserHeader } from "../../components/UserProfile/components/UserHeader";
+import { userService } from "../../domain/User/userService";
 
 export default function CategoryScreen() {
+  console.log(process.env.BASE_URL);
   async function test() {
-    const res = await api.get(`category/filter/popular`);
-    console.log({ res });
+    try {
+      await userService.CSRF_token();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   test();
@@ -24,10 +30,5 @@ export default function CategoryScreen() {
     });
   };
 
-  return (
-    <div className="my-20">
-      <button onClick={notify}>Notify !</button>
-      <ToastContainer />
-    </div>
-  );
+  return <div className="my-20"></div>;
 }

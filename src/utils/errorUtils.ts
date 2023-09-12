@@ -1,4 +1,5 @@
-import { ErrorApi } from "@api";import { AxiosError } from "axios";
+import { ErrorApi } from "@api";
+import { AxiosError } from "axios";
 import { toastUtils } from "./toastUtils";
 
 function getErrorMessages(errorAPI: ErrorApi): string[] {
@@ -17,7 +18,7 @@ interface ErrorCustomProps {
   422?: string;
 }
 
-function setErrorMessage(
+function setGlobalErrorMessage(
   err: AxiosError<ErrorApi>,
   customMessage?: ErrorCustomProps
 ) {
@@ -52,5 +53,5 @@ function setErrorMessage(
 
 export const errorUtils = {
   getErrorMessages,
-  setErrorMessage,
+  setGlobalErrorMessage,
 };

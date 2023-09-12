@@ -1,10 +1,11 @@
-"use client";
-import Link from "next/link";
+"use client";import Link from "next/link";
 import { BsInstagram, BsGithub, BsFillEnvelopeFill } from "react-icons/bs";
 import { AiFillLinkedin } from "react-icons/ai";
 import { AuthModal } from "./AuthModal";
 import { useAuth } from "@domain";
 import { linkUtils } from "@utils";
+import Image from "next/image";
+import { UserCard } from "../../UserCard/UserCard";
 
 interface Props {
   isDropDown: boolean;
@@ -12,6 +13,8 @@ interface Props {
 
 export function Navigation({ isDropDown }: Props) {
   const { user, logout } = useAuth();
+
+  console.log(user);
 
   return (
     <div
@@ -117,17 +120,8 @@ export function Navigation({ isDropDown }: Props) {
       </ul>
       <div className="flex items-center justify-center mt-2 ml-1 lg:mt-0">
         <ul className="flex items-center gap-3">
-          {user && user.isAdmin && (
-            <li className="hover:text-zinc-300">
-              <Link href="/dashboard">Painel</Link>
-            </li>
-          )}
           {user ? (
-            <li className="hover:text-zinc-300">
-              <button type="button" onClick={logout}>
-                Desconectar
-              </button>
-            </li>
+            <UserCard />
           ) : (
             <>
               <li className="hover:text-zinc-300">

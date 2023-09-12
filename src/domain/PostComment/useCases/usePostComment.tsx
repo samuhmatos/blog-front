@@ -1,4 +1,5 @@
-"use client";import { useState, useContext } from "react";
+"use client";
+import { useState, useContext } from "react";
 import { PostComment, PostCommentParams } from "..";
 import {
   EditPostCommentProps,
@@ -90,7 +91,7 @@ export function usePostComment() {
       })
       .catch((err: AxiosError<ErrorApi>) => {
         console.log(err);
-        errorUtils.setErrorMessage(err);
+        errorUtils.setGlobalErrorMessage(err);
       })
       .finally(() => {
         setLoading(false);
@@ -117,7 +118,7 @@ export function usePostComment() {
         setContext(filteredComments, undefined, true);
       })
       .catch((err: AxiosError<ErrorApi>) => {
-        errorUtils.setErrorMessage(err);
+        errorUtils.setGlobalErrorMessage(err);
       })
       .finally(() => {
         setLoading(false);
@@ -142,7 +143,7 @@ export function usePostComment() {
         callBack && callBack();
       })
       .catch((err) => {
-        errorUtils.setErrorMessage(err);
+        errorUtils.setGlobalErrorMessage(err);
       })
       .finally(() => {
         setLoading(false);

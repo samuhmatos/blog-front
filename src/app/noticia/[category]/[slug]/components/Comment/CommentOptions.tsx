@@ -1,4 +1,5 @@
-"use client";import Menu from "@mui/material/Menu";
+"use client";
+import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { PostComment, useAuth, usePostComment } from "@domain";
 import { useState } from "react";
@@ -55,6 +56,8 @@ export function CommentOptions({ commentId, userId, comment, postId }: Props) {
 
     handleCloseOptions();
   }
+
+  console.log(anchorEl);
 
   return (
     <>

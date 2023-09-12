@@ -1,10 +1,10 @@
-"use client";
-import { ChangeEvent, useEffect, useState } from "react";
+"use client";import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { AuthModalInputs } from "./AuthModalInputs";
 import { useAuth } from "@domain";
 import { Alert, CircularProgress } from "@mui/material";
+import { LoadButton } from "../../LoadButton/LoadButton";
 
 const style = {
   position: "absolute" as "absolute",
@@ -71,7 +71,9 @@ export function AuthModal({ isSignIn = false }: { isSignIn?: boolean }) {
     setDisabled(true);
   }, [inputs]);
 
-  async function handleSubmit() {
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
     if (isSignIn) {
       await signIn(
         {
@@ -98,54 +100,45 @@ export function AuthModal({ isSignIn = false }: { isSignIn?: boolean }) {
       <button className={`hover:text-zinc-300`} onClick={handleOpen}>
         {renderContent("Entrar", "Cadastrar")}
       </button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <div className="p-2 h-[400px]">
-            {loading ? (
-              <div className="flex justify-center py-24">
-                <CircularProgress />
+            <>
+              {error && (
+                <Alert severity="error" className="mb-4">
+                  {error[0]}
+                </Alert>
+              )}
+              <div className="uppercase font-bold text-center pb-2 border-b mb-2">
+                <p className="text-sm">
+                  {renderContent("Entrar ", "Criar Conta")}
+                </p>
               </div>
-            ) : (
-              <>
-                {error && (
-                  <Alert severity="error" className="mb-4">
-                    {error[0]}
-                  </Alert>
-                )}
-                <div className="uppercase font-bold text-center pb-2 border-b mb-2">
-                  <p className="text-sm">
-                    {renderContent("Entrar ", "Criar Conta")}
-                  </p>
-                </div>
 
-                <div className="m-auto">
-                  <h2 className="text-2xl font-light text-center">
-                    {renderContent(
-                      "Faça login na sua conta",
-                      "Crie sua conta no blog"
-                    )}
-                  </h2>
+              <div className="m-auto">
+                <h2 className="text-2xl font-light text-center">
+                  {renderContent(
+                    "Faça login na sua conta",
+                    "Crie sua conta no blog"
+                  )}
+                </h2>
 
+                <form onSubmit={handleSubmit}>
                   <AuthModalInputs
                     inputs={inputs}
                     handleChangeInputs={handleChangeInputs}
                     isSignIn={isSignIn}
                   />
-                  <button
-                    className="uppercase bg-sky-500 w-full text-white p-3 rounded text-sm mb-5 transition-all disabled:bg-gray-400 hover:bg-sky-600"
+                  <LoadButton
+                    loading={loading}
+                    placeholder={renderContent("Entrar", "Criar conta")}
+                    full
                     disabled={disabled}
-                    onClick={handleSubmit}
-                  >
-                    {renderContent("Entrar", "Criar conta")}
-                  </button>
-                </div>
-              </>
-            )}
+                    className="p-3"
+                  />
+                </form>
+              </div>
+            </>
           </div>
         </Box>
       </Modal>

@@ -10,14 +10,14 @@ export function Author({ author }: AuthorType) {
   return (
     <Box title="Autor">
       <div className="relative flex justify-center gap-5 flex-wrap 2sm:flex-nowrap">
-        <div>
+        <div className="w-40 h-24">
           <Image
             // src={author.imageURL}
             src={"https://via.placeholder.com/640x480.png/007788?text=autem"}
-            width={200}
-            height={200}
+            width={150}
+            height={150}
             alt={`Image do autor ${author.name}`}
-            className="rounded-full"
+            className="rounded-full w-full h-full"
           />
         </div>
 

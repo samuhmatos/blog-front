@@ -1,5 +1,4 @@
-export interface User {
-  id: number;
+export interface User {  id: number;
   name: string;
   username: string;
   imageURL: string | null;
@@ -23,8 +22,14 @@ export interface UserApi {
   updated_at: string; // "2023-08-30T02:07:20.000000Z";
 }
 
-export interface UserParams extends Pick<User, "email"> {
+export interface UserAuthParams extends Pick<User, "email"> {
   name: string;
   password: string;
   password_confirmation: string;
+}
+
+export interface UserParams
+  extends Partial<Pick<UserApi, "email" | "name" | "username">> {
+  image?: any;
+  //userId: number;
 }

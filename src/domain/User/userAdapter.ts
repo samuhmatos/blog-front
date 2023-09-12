@@ -20,6 +20,7 @@ function toAuthResponse(authAPI: AuthAPI): Auth {
   return {
     user: toUser(authAPI.user),
     token: authAPI.token,
+    CSRF: authAPI.CSRF,
   };
 }
 

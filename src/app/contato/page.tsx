@@ -6,9 +6,12 @@ import { useForm } from "react-hook-form";
 import { ContatoSchema, contatoSchema } from "./ContatoPageSchema";
 import { BsGithub, BsSend } from "react-icons/bs";
 import Link from "next/link";
+import { useCreateContact } from "@domain";
 
 export default function ContatoScreen() {
-  const { control, formState, handleSubmit } = useForm<ContatoSchema>({
+  const { loading, create } = useCreateContact();
+
+  const { control, formState, handleSubmit, reset } = useForm<ContatoSchema>({
     resolver: zodResolver(contatoSchema),
     defaultValues: {
       email: "",
@@ -20,8 +23,14 @@ export default function ContatoScreen() {
     mode: "onChange",
   });
 
-  function submitForm({ fullName }: ContatoSchema) {
-    alert(fullName);
+  function submitForm(data: ContatoSchema) {
+    create(
+      {
+        ...data,
+        name: data.fullName,
+      },
+      () => reset()
+    );
   }
 
   return (
@@ -81,6 +90,11 @@ export default function ContatoScreen() {
           <h4 className="text-lg font-bold mb-4 text-center mt-2 2sm:mt-0 2sm:text-start">
             Entre em contato comigo
           </h4>
+          <img
+            src="http://localhost:8000/storage/uploads/users/EiHtGDlSwmfNWdVp69VNbYQuW1VHrf7wLMxXxPtq.jpg"
+            alt="asd"
+            className="w-24 h-24"
+          />
           <form onSubmit={handleSubmit(submitForm)}>
             <FormTextInput
               control={control}
@@ -99,6 +113,7 @@ export default function ContatoScreen() {
             <FormTextInput
               control={control}
               name="phone"
+              type="tel"
               placeholder="Digite seu número de telefone"
               label="Telefone"
             />
@@ -118,7 +133,7 @@ export default function ContatoScreen() {
             />
 
             <LoadButton
-              loading={false}
+              loading={loading}
               endIcon={<BsSend />}
               disabled={!formState.isValid}
               placeholder="Enviar"

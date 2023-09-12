@@ -1,11 +1,24 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import { getCookie } from "cookies-next";
 
-export const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/",
-  headers: {
-    Authorization: "Bearer " + getCookie("token"),
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-});
+const createAxiosInstance = (): AxiosInstance => {
+  const token = getCookie("token");
+  const CSRF = getCookie("CSRF");
+
+  const instance = axios.create({
+    baseURL: process.env.BASE_URL_API,
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "X-CSRF-TOKEN": CSRF,
+    },
+    withCredentials: true,
+  });
+
+  return instance;
+};
+
+//const getApiInstance = () => createAxiosInstance();
+
+export const api = createAxiosInstance();

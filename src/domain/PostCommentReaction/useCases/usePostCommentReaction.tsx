@@ -1,4 +1,5 @@
-"use client";import { useState } from "react";
+"use client";
+import { useState } from "react";
 import {
   PostCommentReaction,
   postCommentReactionService,
@@ -34,7 +35,7 @@ export function usePostCommentReaction({ like, unLike }: Props) {
         return res.type;
       })
       .catch((err) => {
-        errorUtils.setErrorMessage(err);
+        errorUtils.setGlobalErrorMessage(err);
       })
       .finally(() => {
         setLoading(false);
@@ -56,7 +57,7 @@ export function usePostCommentReaction({ like, unLike }: Props) {
         setReaction(null);
       })
       .catch((err) => {
-        errorUtils.setErrorMessage(err);
+        errorUtils.setGlobalErrorMessage(err);
       })
       .finally(() => {
         setLoading(false);

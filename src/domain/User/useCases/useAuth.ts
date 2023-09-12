@@ -17,7 +17,8 @@ interface Props {
 export function useAuth() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string[] | null>(null);
-  const { setUser, user, token, setToken } = useContext(AuthContext);
+  const { setUser, user, token, setToken, setCSRF, CSRF } =
+    useContext(AuthContext);
 
   async function signIn(
     params: Pick<Props, "email" | "password">,
@@ -33,6 +34,7 @@ export function useAuth() {
         setCookie("user", response.user);
 
         setUser(response.user);
+        setToken(response.token);
 
         handleClose();
       })
@@ -55,12 +57,12 @@ export function useAuth() {
         setCookie("user", response.user);
 
         setUser(response.user);
+        setToken(response.token);
 
         handleClose();
       })
       .catch((err: AxiosError<ErrorApi>) => {
         let errors = errorUtils.getErrorMessages(err.response!.data);
-
         setError(errors);
       })
       .finally(() => setLoading(false));
@@ -72,7 +74,11 @@ export function useAuth() {
       .then(() => {
         deleteCookie("user");
         deleteCookie("token");
+        deleteCookie("CSRF");
+
         setUser(null);
+        setToken(null);
+        setCSRF(null);
       })
       .catch((err: AxiosError) => {
         console.log(err);
@@ -90,6 +96,7 @@ export function useAuth() {
       if (!token) setToken(tokenStorage);
     } else {
       setUser(null);
+      setToken(null);
     }
   }
 
@@ -104,5 +111,6 @@ export function useAuth() {
     loading,
     error,
     user,
+    token,
   };
 }
