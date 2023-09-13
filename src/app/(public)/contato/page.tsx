@@ -1,6 +1,5 @@
 "use client";
-import { FormTextAreaInput, LoadButton } from "@components";
-import { FormTextInput } from "../../components/FormTextInput/FormTextInput";
+import { FormTextAreaInput, LoadButton, FormTextInput } from "@components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ContatoSchema, contatoSchema } from "./ContatoPageSchema";
@@ -90,11 +89,6 @@ export default function ContatoScreen() {
           <h4 className="text-lg font-bold mb-4 text-center mt-2 2sm:mt-0 2sm:text-start">
             Entre em contato comigo
           </h4>
-          <img
-            src="http://localhost:8000/storage/uploads/users/EiHtGDlSwmfNWdVp69VNbYQuW1VHrf7wLMxXxPtq.jpg"
-            alt="asd"
-            className="w-24 h-24"
-          />
           <form onSubmit={handleSubmit(submitForm)}>
             <FormTextInput
               control={control}

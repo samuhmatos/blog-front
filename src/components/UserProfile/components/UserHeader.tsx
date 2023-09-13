@@ -1,8 +1,8 @@
-"use client";
-import { useAuth, useUserUpdate } from "@domain";
+"use client";import { useAuth, useUserUpdate } from "@domain";
 import Image from "next/image";
 import { AiFillPicture } from "react-icons/ai";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { CircularProgress } from "@mui/material";
 
 export function UserHeader() {
   const { user } = useAuth();
@@ -10,7 +10,8 @@ export function UserHeader() {
   const inputUpload = useRef<HTMLInputElement>(null);
   const buttonUpload = useRef<HTMLButtonElement>(null);
 
-  const { loading, update } = useUserUpdate();
+  const { update } = useUserUpdate();
+  const [loading, setLoading] = useState<boolean>(false);
 
   function handleUpdateAvatar(e: Event) {
     const target = e.target as HTMLInputElement;
@@ -18,13 +19,17 @@ export function UserHeader() {
     const selectedFile = target.files;
 
     if (selectedFile) {
+      setLoading(true);
+
       var formData = new FormData();
       formData.append("image", selectedFile[0]);
 
       update(user!.id, formData);
+      setLoading(false);
     } else {
       return;
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -38,22 +43,28 @@ export function UserHeader() {
   return (
     <div>
       <div className="relative mx-auto w-24 h-16">
-        <Image
-          // src={
-          //   "https://via.placeholder.com/640x480.png/006655?text=consequatur"
-          // }
+        {/* <Image
           src={user?.imageURL || "/assets/user.png"}
           alt="Foto do usuário"
           width={100}
           height={100}
           className="rounded-2xl"
+        /> */}
+
+        <img
+          src={user?.imageURL || "/assets/user.png"}
+          width={100}
+          height={100}
+          className="rounded-2xl h-full w-full"
+          alt={`Foto do usuário`}
         />
         <button
-          className="absolute -bottom-1 right-0 text-3xl rounded-lg"
+          className="absolute -bottom-1 right-0 text-4xl rounded-lg"
           ref={buttonUpload}
           onClick={handleOpenUpload}
+          disabled={loading}
         >
-          <AiFillPicture />
+          {loading ? <CircularProgress size={25} /> : <AiFillPicture />}
         </button>
         <input
           type="file"

@@ -7,8 +7,6 @@ import { useForm } from "react-hook-form";
 import { FormTextInput } from "../FormTextInput/FormTextInput";
 import { FormTextAreaInput } from "../FormTextAreaInput/FormTextAreaInput";
 import { LoadButton } from "../LoadButton/LoadButton";
-import { useEffect } from "react";
-import { api } from "../../api/apiConfig";
 
 interface Props {
   open: boolean;
@@ -23,10 +21,10 @@ export function USerProfile({ open, onClose }: Props) {
     useForm<UserProfileSchema>({
       resolver: zodResolver(userProfileSchema),
       defaultValues: {
-        email: user!.email,
-        name: user!.name,
-        description: user!.description || "",
-        username: user!.username,
+        email: user?.email,
+        name: user?.name,
+        description: user?.description || "",
+        username: user?.username,
       },
       mode: "onChange",
     });
@@ -48,18 +46,6 @@ export function USerProfile({ open, onClose }: Props) {
     onClose();
     reset();
   }
-
-  async function teste() {
-    const response = await api.get(
-      "http://localhost:8000/storage/uploads/users/U3WEn8pg9fBU34uhMlrqcPaUdopizGUpwq8lg0iH.png", {
-        
-      }
-    );
-  }
-
-  useEffect(() => {
-    teste();
-  }, []);
 
   return (
     <Modal onClose={onClose} open={open}>

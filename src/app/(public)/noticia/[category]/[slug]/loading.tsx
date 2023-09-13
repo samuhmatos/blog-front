@@ -1,4 +1,5 @@
-import { Footer, Screen } from "@components";import { SideBarSkeleton } from "../../../../components/Skeleton";
+import { Footer, Screen } from "@components";
+import { SideBarSkeleton } from "@components/Skeleton";
 
 export default function Loading() {
   return (

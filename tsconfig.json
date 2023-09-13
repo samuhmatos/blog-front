@@ -25,7 +25,8 @@
       "@domain": ["./src/domain"],
       "@api": ["./src/api"],
       "@utils": ["./src/utils"],
-      "@context": ["./src/context"]
+      "@context": ["./src/context"],
+      "@config": ["./config.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

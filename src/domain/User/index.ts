@@ -1,1 +1,2 @@
-export * from "./userTypes";export * from "./useCases/";
+export * from "./userTypes";export * from "./userService";
+export * from "./useCases/";

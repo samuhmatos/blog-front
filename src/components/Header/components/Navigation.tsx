@@ -1,4 +1,5 @@
-"use client";import Link from "next/link";
+"use client";
+import Link from "next/link";
 import { BsInstagram, BsGithub, BsFillEnvelopeFill } from "react-icons/bs";
 import { AiFillLinkedin } from "react-icons/ai";
 import { AuthModal } from "./AuthModal";
@@ -13,8 +14,6 @@ interface Props {
 
 export function Navigation({ isDropDown }: Props) {
   const { user, logout } = useAuth();
-
-  console.log(user);
 
   return (
     <div

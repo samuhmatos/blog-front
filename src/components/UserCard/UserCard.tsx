@@ -1,9 +1,7 @@
-"use client";
-import { useAuth } from "@domain";
+"use client";import { useAuth } from "@domain";
 import Image from "next/image";
 import { useState } from "react";
 import { UserOptions } from "../UserOptions/UserOptions";
-import { Menu } from "@mui/material";
 
 export function UserCard() {
   const { user } = useAuth();
@@ -25,7 +23,6 @@ export function UserCard() {
     closeModal();
   };
 
-  console.log(user);
   return (
     <>
       <button
@@ -38,16 +35,23 @@ export function UserCard() {
         onClick={handleOpenUserOptions}
       >
         <span className="sr-only">Abrir Menu</span>
-        <Image
+
+        <img
+          src={user?.imageURL || "/assets/user.png"}
+          width={100}
+          height={100}
+          className="w-10 h-10 rounded-full"
+          alt={`Foto do usuário`}
+        />
+
+        {/* <Image
           width={100}
           height={100}
           className="w-8 h-8 rounded-full"
-          // src={
-          //   "https://via.placeholder.com/640x480.png/006655?text=consequatur"
-          // }
-          src={user?.imageURL || "/assets/user.png"}
-          alt="user photo"
-        />
+          //src={user?.imageURL || "/assets/user.png"}
+          src="http://localhost:8000/storage/uploads/users/eP4AhjMCBK7JH038rbpOSRm978LpvzI93B0tlRKH.jpg"
+          alt={`Foto do usuário`}
+        /> */}
       </button>
 
       <UserOptions

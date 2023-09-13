@@ -1,4 +1,6 @@
-import { UserApi, UserAuthParams, UserParams } from ".";import { AuthAPI, api } from "@api";
+import { BASE_URL } from "@config";
+import { UserAuthParams } from ".";
+import { AuthAPI, api } from "@api";
 
 async function login(
   params: Pick<UserAuthParams, "email" | "password">
@@ -30,17 +32,13 @@ async function update(user_id: number, params: FormData): Promise<AuthAPI> {
     },
   });
 
-  console.log({ response });
-
   return response.data;
 }
 
 async function CSRF_token(): Promise<void> {
-  const response = await api.get("sanctum/csrf-cookie", {
-    baseURL: process.env.BASE_URL,
+  await api.get("sanctum/csrf-cookie", {
+    baseURL: BASE_URL,
   });
-
-  console.log(response);
 
   return;
 }
@@ -52,4 +50,3 @@ export const userApi = {
   update,
   CSRF_token,
 };
-//XSRF-TOKEN

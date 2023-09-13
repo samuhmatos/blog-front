@@ -1,5 +1,4 @@
-export * from "./Footer/Footer";
-export * from "./AdsBox/AdsBox";
+export * from "./Footer/Footer";export * from "./AdsBox/AdsBox";
 export * from "./Pagination/Pagination";
 export * from "./Header/Header";
 export * from "./SideBar/SideBar";
@@ -13,6 +12,7 @@ export * from "./InputText/InputText";
 export * from "./LoadButton/LoadButton";
 export * from "./TextAreaInput/TextAreaInput";
 export * from "./FormTextAreaInput/FormTextAreaInput";
+export * from "./FormTextInput/FormTextInput";
 export * from "./Card";
 export * from "./Alerts";
 export * from "./UserCard/UserCard";

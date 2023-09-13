@@ -1,8 +1,6 @@
-import { PageAPI, PageParams, api } from "@api";
-import { Post, PostApi, PostListApi } from "./postTypes";
+import { PageAPI, PageParams, api } from "@api";import { Post, PostApi, PostListApi } from "./postTypes";
 
 async function getBySlug(postSlug: string): Promise<PostApi> {
-  console.log(`${process.env.BASE_URL_API}post/${postSlug}`);
   const response = await api.get<PostApi>(`post/${postSlug}`);
   return response.data;
 }

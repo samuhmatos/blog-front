@@ -15,8 +15,15 @@ function linkCategories(): string {
   return link;
 }
 
+function linkDashboard(path: string): string {
+  var link = `/dashboard/${path}`;
+
+  return link;
+}
+
 export const linkUtils = {
   linkPost,
   linkCategory,
   linkCategories,
+  linkDashboard,
 };

@@ -37,11 +37,11 @@ export function UserOptions({ anchor, onClose, open }: Props) {
             {user?.name}
           </span>
           <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
-            {user!.email}
+            {user?.email}
           </span>
         </div>
         <ul className="py-2" aria-labelledby="user-menu-button">
-          {user!.isAdmin && (
+          {user?.isAdmin && (
             <MenuItem>
               <Link
                 href="/dashboard"

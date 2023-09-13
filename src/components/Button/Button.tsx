@@ -1,12 +1,13 @@
-interface Props {
-  placeholder?: string;
+interface Props {  placeholder: string;
+  onClick?: () => {};
 }
 
-export function Button({ placeholder = "Enviar" }: Props) {
+export function Button({ placeholder = "Enviar", onClick }: Props) {
   return (
     <button
       type="submit"
-      className="py-2 px-4 bg-sky-500 rounded-lg text-gray-200 font-medium hover:bg-sky-600 hover:text-white"
+      className="py-2 px-4 transition-all bg-primary-700 rounded-lg text-white focus:ring-primary-200 text-xs font-medium hover:bg-primary-800 hover:text-white"
+      onClick={onClick}
     >
       <small className="text-sm">{placeholder}</small>
     </button>
