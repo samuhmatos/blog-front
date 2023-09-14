@@ -33,10 +33,8 @@ export function LoadButton({
       type={type}
       endIcon={endIcon}
       className={twMerge(
-        `py-2.5 px-4 text-xs font-medium text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800 disabled:bg-gray-500 disabled:text-primary-900 disabled:opacity-60 disabled:font-bold ${
-          full && "w-full"
-        }`,
-        className
+        `py-2 px-4 text-xs font-medium text-gray-200 bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900  hover:bg-primary-800 disabled:bg-primary-950 disabled:text-gray-400 disabled:opacity-90`,
+        [full && "w-full", className]
       )}
       disabled={disabled}
       onClick={onClick}
@@ -47,3 +45,4 @@ export function LoadButton({
     </LoadingButton>
   );
 }
+//  s    disabled:opacity-60  disabled:font-bold  disabled:text-gray-100

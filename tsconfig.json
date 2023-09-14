@@ -20,6 +20,7 @@
       }
     ],
     "paths": {
+      "@types": ["./src/@types"],
       "@components": ["./src/components"],
       "@components/Skeleton": ["./src/components/Skeleton"],
       "@domain": ["./src/domain"],

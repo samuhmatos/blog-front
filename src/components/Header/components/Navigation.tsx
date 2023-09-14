@@ -1,5 +1,4 @@
-"use client";
-import Link from "next/link";
+"use client";import Link from "next/link";
 import { BsInstagram, BsGithub, BsFillEnvelopeFill } from "react-icons/bs";
 import { AiFillLinkedin } from "react-icons/ai";
 import { AuthModal } from "./AuthModal";
@@ -136,3 +135,5 @@ export function Navigation({ isDropDown }: Props) {
     </div>
   );
 }
+
+// TODO: usercard appear by server rendering end then appear using the custom hook

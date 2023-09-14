@@ -6,15 +6,11 @@ export default function middleware(request: NextRequest) {
   var token = request.cookies.get("token");
   var userStorage = request.cookies.get("user");
 
-  console.log(userStorage);
-
-  if (!userStorage) {
+  if (!userStorage || !token) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
   var user = JSON.parse(userStorage?.value) as User;
-
-  console.log(user);
 
   if (!user.isAdmin) {
     return NextResponse.redirect(new URL("/", request.url));
@@ -24,13 +20,6 @@ export default function middleware(request: NextRequest) {
 
   return response;
 }
-
-// export function middleware(req: NextRequest, res: NextResponse) {
-//   //return NextResponse.redirect(new URL("/home", res.url));
-//   console.log("Middleware chamado");
-
-//   return res;
-// }
 
 export const config = {
   matcher: ["/dashboard/:path*"],

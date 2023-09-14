@@ -6,6 +6,8 @@ import {
   PostCommentReactionType,
 } from "..";
 import { errorUtils } from "@utils";
+import { AxiosError } from "axios";
+import { ErrorApi } from "@api";
 
 interface Props {
   like: number;
@@ -34,7 +36,8 @@ export function usePostCommentReaction({ like, unLike }: Props) {
         }
         return res.type;
       })
-      .catch((err) => {
+      .catch((err: AxiosError<ErrorApi>) => {
+        console.log(err);
         errorUtils.setGlobalErrorMessage(err);
       })
       .finally(() => {
@@ -56,7 +59,8 @@ export function usePostCommentReaction({ like, unLike }: Props) {
 
         setReaction(null);
       })
-      .catch((err) => {
+      .catch((err: AxiosError<ErrorApi>) => {
+        console.log(err);
         errorUtils.setGlobalErrorMessage(err);
       })
       .finally(() => {
@@ -73,3 +77,5 @@ export function usePostCommentReaction({ like, unLike }: Props) {
     unLikeCount,
   };
 }
+
+// TODO: error handler post comment reaction

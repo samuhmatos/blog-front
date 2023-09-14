@@ -4,11 +4,9 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@context";
 import { Auth, ErrorApi } from "@api";
 import { userService } from "../userService";
-import { deleteCookie, getCookie, hasCookie, setCookie } from "cookies-next";
+import { deleteCookie, setCookie } from "cookies-next";
 import { errorUtils, storageUtils } from "@utils";
-import { User } from "..";
 import { usePathname, useRouter } from "next/navigation";
-import Link from "next/link";
 
 interface Props {
   name: string;
@@ -48,7 +46,6 @@ export function useAuth() {
         handleClose();
       })
       .catch((err: AxiosError<ErrorApi>) => {
-        console.log(err);
         let errors = errorUtils.getErrorMessages(err.response!.data);
 
         setError(errors);
@@ -99,18 +96,6 @@ export function useAuth() {
   function loadStorageData() {
     const { user: userStorage, token: tokenStorage } =
       storageUtils.loadStorageData();
-    // const userStorage = getCookie("user");
-    // const tokenStorage = getCookie("token");
-
-    // if (userStorage && tokenStorage) {
-    //   const userParsed: User = JSON.parse(userStorage);
-
-    //   if (!user) setUser(userParsed);
-    //   if (!token) setToken(tokenStorage);
-    // } else {
-    //   setUser(null);
-    //   setToken(null);
-    // }
 
     setUser(userStorage);
     setToken(tokenStorage);

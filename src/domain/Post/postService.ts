@@ -1,5 +1,4 @@
-import { Page, apiAdapter } from "@api";
-import { Post, PostList } from "./postTypes";
+import { Page, PageParams, apiAdapter } from "@api";import { Post, PostList } from "./postTypes";
 import { postApi } from "./postApi";
 import { postAdapter } from "./postAdapter";
 
@@ -9,8 +8,12 @@ async function getList(query: keyof PostList): Promise<Post[]> {
   return postList.map(postAdapter.toPost);
 }
 
-async function getFeed(page: number, search?: string): Promise<Page<Post>> {
-  const postPageAPI = await postApi.getFeed({ page, per_page: 10, search });
+async function getFeed({
+  page,
+  per_page = 10,
+  search,
+}: PageParams): Promise<Page<Post>> {
+  const postPageAPI = await postApi.getFeed({ page, per_page, search });
 
   return {
     data: postPageAPI.data.map(postAdapter.toPost),

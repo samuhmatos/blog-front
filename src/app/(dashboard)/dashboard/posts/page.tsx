@@ -1,4 +1,6 @@
 import { Button } from "@components";
+import { Table } from "./components";
+
 export default function DashPostScreen() {
   return (
     <>
@@ -6,9 +8,7 @@ export default function DashPostScreen() {
         <Button placeholder="Criar Postagem" />
       </div>
 
-      <div>
-        <h2>testo</h2>
-      </div>
+      <Table />
     </>
   );
 }
