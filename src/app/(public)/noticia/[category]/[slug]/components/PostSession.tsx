@@ -1,6 +1,7 @@
-import { Navigation, NavigationPathType } from "@components";import { PostScreenProps } from "../page";
+import { Navigation, NavigationPathType } from "@components";
+import { PostScreenProps } from "../page";
 import { linkUtils } from "@utils";
-import { Post as PostType } from "@domain";
+import { PostWithDetails } from "@domain";
 import { Post } from "./Post";
 import { Share } from "./Share";
 import { NavPost } from ".";
@@ -10,7 +11,7 @@ import { Comment } from "./Comment/Comment";
 import { CommentProvider } from "@context";
 
 interface Props extends PostScreenProps {
-  post: PostType;
+  post: PostWithDetails;
 }
 
 export function PostSession({ params, post }: Props) {

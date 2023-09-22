@@ -1,5 +1,4 @@
-import { ErrorApi } from "@api";
-import { AxiosError } from "axios";
+import { ErrorApi } from "@api";import { AxiosError } from "axios";
 import { toastUtils } from "./toastUtils";
 
 function getErrorMessages(errorAPI: ErrorApi): string[] {
@@ -22,32 +21,34 @@ function setGlobalErrorMessage(
   err: AxiosError<ErrorApi>,
   customMessage?: ErrorCustomProps
 ) {
-  switch (err.response!.status) {
-    case 401:
-      toastUtils.show({
-        type: "error",
-        message: customMessage?.[401] || "faça o login primeiro!",
-      });
-      break;
+  if (err.response?.status) {
+    switch (err.response.status) {
+      case 401:
+        toastUtils.show({
+          type: "error",
+          message: customMessage?.[401] || "faça o login primeiro!",
+        });
+        break;
 
-    case 403:
-      toastUtils.show({
-        type: "error",
-        message: customMessage?.[403] || "Ação não autorizada!",
-      });
-      break;
-    case 422:
-      toastUtils.show({
-        type: "error",
-        message: customMessage?.[422] || err.response!.data.message,
-      });
-      break;
-    default:
-      toastUtils.show({
-        type: "error",
-        message: "Um erro aconteceu",
-      });
-      break;
+      case 403:
+        toastUtils.show({
+          type: "error",
+          message: customMessage?.[403] || "Ação não autorizada!",
+        });
+        break;
+      case 422:
+        toastUtils.show({
+          type: "error",
+          message: customMessage?.[422] || err.response!.data.message,
+        });
+        break;
+      default:
+        toastUtils.show({
+          type: "error",
+          message: "Um erro aconteceu",
+        });
+        break;
+    }
   }
 }
 

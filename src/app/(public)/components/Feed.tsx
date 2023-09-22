@@ -1,13 +1,15 @@
-import { BsWifi } from "react-icons/bs";import { Post, postService } from "@domain";
+import { BsWifi } from "react-icons/bs";
+import { PostWithDetails, postService } from "@domain";
 import { AdsBox, Pagination } from "@components";
 import { CardMedium } from "@components";
 import { Page } from "@api";
+import Image from "next/image";
 
 async function fetchData(
   page: number,
   search: string | undefined
-): Promise<Page<Post>> {
-  const response = await postService.getFeed(page, search);
+): Promise<Page<PostWithDetails>> {
+  const response = await postService.getFeed({ page, search });
   return response;
 }
 

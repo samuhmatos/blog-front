@@ -1,9 +1,9 @@
 import { CardSemiSmall, CardSmall } from "@components";
-import { Post } from "@domain";
+import { PostWithDetails } from "@domain";
 
 interface Props {
   title: string;
-  data: Post[];
+  data: PostWithDetails[];
   semiSmall?: boolean;
 }
 

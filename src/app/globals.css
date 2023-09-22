@@ -27,3 +27,12 @@
 .post-media:hover .videoHover {
   color: white;
 }
+
+.createPostForm > div {
+  margin-bottom: 1rem;
+}
+
+#createPost .ck-editor__editable_inline:not(.ck-comment__input *) {
+  height: auto;
+  min-height: 300px;
+}

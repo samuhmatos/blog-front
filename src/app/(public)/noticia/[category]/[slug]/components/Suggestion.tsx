@@ -1,13 +1,13 @@
-import { Post, postService } from "@domain";import { Box } from "./Box";
+import { PostWithDetails, postService } from "@domain";import { Box } from "./Box";
 import Image from "next/image";
 import Link from "next/link";
 import { linkUtils } from "@utils";
 
 interface Props {
-  post: Post;
+  post: PostWithDetails;
 }
 
-async function getPostSuggestion(): Promise<Post[]> {
+async function getPostSuggestion(): Promise<PostWithDetails[]> {
   try {
     return await postService.getSuggestion();
   } catch (error: any) {

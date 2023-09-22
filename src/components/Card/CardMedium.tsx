@@ -1,13 +1,14 @@
-import Image from "next/image";import Link from "next/link";
+import Image from "next/image";
+import Link from "next/link";
 import { BsEye } from "react-icons/bs";
 
-import { Post } from "@domain";
+import { Post, PostWithDetails } from "@domain";
 import { CategoryBox } from "../CategoryBox/CategoryBox";
 import { linkUtils } from "@utils";
 import { PostDetails } from "../PostDetails/PostDetails";
 
 interface CardProps {
-  post: Post;
+  post: PostWithDetails;
 }
 
 export function CardMedium({ post }: CardProps) {
@@ -18,7 +19,7 @@ export function CardMedium({ post }: CardProps) {
     <div className="flex flex-wrap mb-6  md:h-52 md:flex-nowrap">
       <div className="post-media w-full h-72 md:h-auto md:w-64">
         <Link href={linkPost}>
-          <Image src={post.imageURL} alt="" width={400} height={200} />
+          <img src={post.imageURL} alt="" width={400} height={200} />
         </Link>
       </div>
 

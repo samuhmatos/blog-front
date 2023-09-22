@@ -79,9 +79,7 @@ export function useAuth() {
         deleteCookie("user");
         deleteCookie("token");
 
-        console.log(pathName);
         if (!pathName.includes("dashboard")) {
-          console.log("ROTA DASH");
           router.push("/");
         }
 
@@ -115,3 +113,5 @@ export function useAuth() {
     token,
   };
 }
+
+// TODO: logut fazer os redirecionamentos

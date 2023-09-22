@@ -1,6 +1,7 @@
-import { Post, postService } from "@domain";import { BannerBox } from "./components/BannerBox";
+import { PostWithDetails, postService } from "@domain";
+import { BannerBox } from "./components/BannerBox";
 
-async function getList(): Promise<Post[]> {
+async function getList(): Promise<PostWithDetails[]> {
   try {
     return await postService.getList("best");
   } catch (error) {

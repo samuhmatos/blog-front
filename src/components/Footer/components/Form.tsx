@@ -1,6 +1,5 @@
-"use client";
-import { FormEvent, useState } from "react";
-import { Button, TextInput } from "@components";
+"use client";import { FormEvent, useState } from "react";
+import { Button, InputText, LoadButton } from "@components";
 
 export function Form() {
   const [email, setEmail] = useState("");
@@ -11,21 +10,22 @@ export function Form() {
 
   return (
     <form className="form-inline form_getEmail" onSubmit={handleSubmit}>
-      <label className="text-sm mb-1" htmlFor="contact">
+      <label className="text-sm mb-2" htmlFor="contact">
         Quer receber notificação de novas postagens?
       </label>
       <div className="flex gap-3">
-        <TextInput
-          text={email}
-          setText={setEmail}
-          type="email"
+        <InputText
           placeholder="Deixe seu email"
-          required
-          id="contact"
+          value={email}
+          setValue={setEmail}
+          name="email"
         />
 
-        <Button />
+        {/* <Button /> */}
+        <LoadButton loading={false} placeholder="Enviar" />
       </div>
     </form>
   );
 }
+
+// TODO: ENVIAR EMAIL PARA API

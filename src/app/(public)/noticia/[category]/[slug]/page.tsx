@@ -1,6 +1,6 @@
-import { Footer, Screen, SideBar } from "@components";
+import { Screen, SideBar } from "@components";
 import { PostSession } from "./components/PostSession";
-import { Post, postService } from "@domain";
+import { PostWithDetails, postService } from "@domain";
 import { notFound } from "next/navigation";
 
 export interface PostScreenProps {
@@ -10,7 +10,7 @@ export interface PostScreenProps {
   };
 }
 
-async function getPost(postSlug: string): Promise<Post> {
+async function getPost(postSlug: string): Promise<PostWithDetails> {
   try {
     return await postService.getBySlug(postSlug);
   } catch (error: any) {

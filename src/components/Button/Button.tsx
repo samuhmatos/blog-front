@@ -1,5 +1,5 @@
-interface Props {  placeholder: string;
-  onClick?: () => {};
+interface Props {  placeholder?: string;
+  onClick?: () => void;
 }
 
 export function Button({ placeholder = "Enviar", onClick }: Props) {

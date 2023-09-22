@@ -1,11 +1,13 @@
-import { notFound } from "next/navigation";
-import { PageParams } from "../page";
-import { Category, Post, postService } from "@domain";
+import { notFound } from "next/navigation";import { PageParams } from "../page";
+import { Category, PostWithDetails, postService } from "@domain";
 import { Page } from "@api";
 import { CardMedium, NavigationPathType, Pagination } from "@components";
 import { linkUtils } from "@utils";
 
-async function getPosts(slug: string, page: number): Promise<Page<Post>> {
+async function getPosts(
+  slug: string,
+  page: number
+): Promise<Page<PostWithDetails>> {
   try {
     const res = await postService.getPostsByCategorySlug(slug, page);
     return res;
@@ -45,3 +47,4 @@ export async function CategorySession({
     </div>
   );
 }
+// TODO: ADD NOT FOUND PAGE

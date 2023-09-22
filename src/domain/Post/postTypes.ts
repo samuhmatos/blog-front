@@ -15,6 +15,9 @@ export interface Post {
   unlikeCount: number | null;
   createdAt: string;
   createdAtFormatted: string;
+}
+
+export interface PostWithDetails extends Post {
   category: Category;
   author: Omit<User, "isAdmin" | "email" | "createdAt" | "createdAtFormatted">;
   comments?: PostComment[];
@@ -34,25 +37,28 @@ export interface PostApi {
   updated_at: string;
   like_count: number | null;
   unlike_count: number | null;
+}
+
+export interface PostApiWithDetails extends PostApi {
   category: CategoryAPI;
   author: Omit<UserApi, "is_admin" | "email" | "created_at">;
   comments?: PostCommentApi[];
 }
 
 export interface PostListApi {
-  feed: PageAPI<PostApi>;
-  popular: PostApi[];
-  videos: PostApi[];
-  reviews: PostApi[];
-  best: PostApi[];
-  tech: PostApi[];
+  feed: PageAPI<PostApiWithDetails>;
+  popular: PostApiWithDetails[];
+  videos: PostApiWithDetails[];
+  reviews: PostApiWithDetails[];
+  best: PostApiWithDetails[];
+  tech: PostApiWithDetails[];
 }
 
 export interface PostList {
-  feed: Page<Post>;
-  popular: Post[];
-  videos: Post[];
-  reviews: Post[];
-  best: Post[];
-  tech: Post[];
+  feed: Page<PostWithDetails>;
+  popular: PostWithDetails[];
+  videos: PostWithDetails[];
+  reviews: PostWithDetails[];
+  best: PostWithDetails[];
+  tech: PostWithDetails[];
 }

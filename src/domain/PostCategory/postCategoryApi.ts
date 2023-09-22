@@ -1,5 +1,4 @@
-import { PageAPI, api } from "@api";
-import { CategoryAPI } from "./categoryTypes";
+import { PageAPI, api } from "@api";import { CategoryAPI } from "./categoryTypes";
 import { PostApi } from "../Post";
 
 async function getPopular(): Promise<CategoryAPI[]> {
@@ -12,7 +11,13 @@ async function show(slug: string): Promise<CategoryAPI> {
   return response.data;
 }
 
+async function getAll(): Promise<CategoryAPI[]> {
+  const response = await api.get<CategoryAPI[]>(`category`);
+  return response.data;
+}
+
 export const postCategoryApi = {
   getPopular,
   show,
+  getAll,
 };

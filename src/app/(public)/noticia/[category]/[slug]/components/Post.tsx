@@ -1,14 +1,16 @@
 "use client";
 import { CategoryBox, PostDetails } from "@components";
-import { Post, postService } from "@domain";
+import { PostWithDetails, postService } from "@domain";
 import { linkUtils } from "@utils";
 import { Share } from "./Share";
 import Image from "next/image";
 import { Reaction } from ".";
 import { useEffect, useState } from "react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 interface Props {
-  post: Post;
+  post: PostWithDetails;
 }
 export function Post({ post }: Props) {
   const [views, setViews] = useState<number>(post.views);
@@ -55,15 +57,24 @@ export function Post({ post }: Props) {
         <Share title={post.title} subTitle={post.subTitle} />
 
         <main className="mt-6">
-          <Image
+          <img
             src={post.imageURL}
             width={700}
-            height={600}
+            height={500}
             className="mx-auto"
             alt={`Banner da postagem ${post.title}`}
           />
 
-          <div className="post mt-8">{post.content}</div>
+          <CKEditor
+            editor={ClassicEditor}
+            data={post.content}
+            onReady={(editor) => {
+              editor.enableReadOnlyMode(`read-post`);
+              const toolbarElement = editor.ui.view.toolbar.element;
+              editor.ui.getEditableElement()!.style.border = "none";
+              toolbarElement!.style.display = "none";
+            }}
+          />
 
           <Reaction postId={post.id} />
         </main>

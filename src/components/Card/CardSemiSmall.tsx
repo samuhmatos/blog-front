@@ -1,11 +1,10 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Post } from "@domain";
+import Image from "next/image";import Link from "next/link";
+import { PostWithDetails } from "@domain";
 import { FaPlay } from "react-icons/fa";
 import { linkUtils, textUtils } from "@utils";
 
 interface Props {
-  post: Post;
+  post: PostWithDetails;
 }
 
 export function CardSemiSmall({ post }: Props) {
@@ -17,7 +16,7 @@ export function CardSemiSmall({ post }: Props) {
       <div className="post-media">
         <Link href={linkPost} className="relative w-full">
           <div className="h-48 w-full mx-auto">
-            <Image
+            <img
               src={post.imageURL}
               alt=""
               className="w-full"

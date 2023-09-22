@@ -1,7 +1,7 @@
-import { Post, PostList, postService } from "@domain";
+import { PostList, PostWithDetails, postService } from "@domain";
 import { Session } from "./components/Session";
 
-async function getList(query: keyof PostList): Promise<Post[]> {
+async function getList(query: keyof PostList): Promise<PostWithDetails[]> {
   try {
     return await postService.getList("videos");
   } catch (error: any) {

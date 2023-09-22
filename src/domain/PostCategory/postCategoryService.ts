@@ -1,5 +1,4 @@
-import { Category } from "./categoryTypes";
-import { postCategoryApi } from "./postCategoryApi";
+import { Category } from "./categoryTypes";import { postCategoryApi } from "./postCategoryApi";
 import { postCategoryAdapter } from "./postCategoryAdapter";
 
 async function getPopular(): Promise<Category[]> {
@@ -14,7 +13,13 @@ async function show(slug: string): Promise<Category> {
   return postCategoryAdapter.toCategory(categoryAPI);
 }
 
+async function getAll(): Promise<Category[]> {
+  const categoryAPI = await postCategoryApi.getAll();
+  return categoryAPI.map(postCategoryAdapter.toCategory);
+}
+
 export const postCategoryService = {
   getPopular,
   show,
+  getAll,
 };

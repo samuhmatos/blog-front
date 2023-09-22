@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Post } from "@domain";
+import { PostWithDetails } from "@domain";
 import { CategoryBox } from "@components";
 import { linkUtils, textUtils } from "@utils";
 
 interface BoxProps {
-  post: Post;
+  post: PostWithDetails;
   first?: boolean;
 }
 
