@@ -4,4 +4,3 @@ export * from "./textUtils";
 export * from "./errorUtils";
 export * from "./toastUtils";
 export * from "./storageUtils";
-export * from "./fileUtils";
