@@ -1,6 +1,8 @@
 "use client";import { Box, Modal, SxProps, Theme } from "@mui/material";
-import { CreatePostForm } from "../../components/";
+import { PostForm } from "../../components/";
 import { useRouter } from "next/navigation";
+import { usePostSchema } from "../../hooks/usePostSchema";
+import { CreatePostButton } from "../../create/components/CreatePostButton";
 
 const style: SxProps<Theme> = {
   position: "absolute" as "absolute",
@@ -27,10 +29,15 @@ export default function CreatePostPage() {
     router.back();
   };
 
+  const schema = usePostSchema({});
+
   return (
     <Modal open onClose={handleClose}>
       <Box sx={style}>
-        <CreatePostForm />
+        <PostForm
+          ActionsButton={<CreatePostButton schema={schema} />}
+          schema={schema}
+        />
       </Box>
     </Modal>
   );

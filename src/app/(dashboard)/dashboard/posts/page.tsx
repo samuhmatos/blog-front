@@ -1,8 +1,10 @@
-import { Table, CreatePostButton } from "./components";
+"use client";
+import { Table, PostNavigateButton } from "./components";
 export default function DashPostScreen(props: unknown) {
   return (
     <>
-      <CreatePostButton />
+      <PostNavigateButton />
+
       <Table />
     </>
   );

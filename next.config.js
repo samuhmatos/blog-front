@@ -10,6 +10,7 @@ const nextConfig = {
       "blog.samuelmatos.tech",
       "flowbite.com",
       "localhost",
+      "images.unsplash.com",
     ], // Adicione 'robohash.org' à lista de domínios permitidos
   },
 };

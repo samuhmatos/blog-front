@@ -1,4 +1,5 @@
-"use client";import { twMerge } from "tailwind-merge";
+"use client";
+import { twMerge } from "tailwind-merge";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import React, { ReactNode } from "react";
 import { CircularProgress } from "@mui/material";
@@ -8,7 +9,7 @@ interface Props {
   type?: "button" | "reset" | "submit";
   endIcon?: ReactNode;
   loading?: boolean;
-  placeholder: string;
+  placeholder: string | ReactNode;
   disabled?: boolean;
   full?: boolean;
   className?: string;
@@ -40,7 +41,7 @@ export function LoadButton({
     }
   };
 
-  const paleteColors = () => {
+  const paleteColors = (): string => {
     switch (paleteColor) {
       case "danger":
         return "bg-red-700 hover:bg-red-800 text-gray-200 disabled:bg-red-900 disabled:text-gray-400";
@@ -52,7 +53,7 @@ export function LoadButton({
   };
 
   const renderPlaceholder = () => {
-    if (loadingPosition === "center") {
+    if (loadingPosition === "center" && loading) {
       return null;
     }
 
@@ -60,7 +61,7 @@ export function LoadButton({
   };
 
   const renderIcon = () => {
-    const circularProgress = <CircularProgress size={16} />;
+    const circularProgress = <CircularProgress size={16} color="inherit" />;
 
     if (loading) {
       return circularProgress;

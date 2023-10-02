@@ -24,3 +24,7 @@ export * from "./FormSelectOption/FormSelectOption";
 export * from "./FileInput/FIleInput";
 export * from "./FormFileInput/FormFileInput";
 export * from "./FormLayout/FormLayout";
+export * from "./ImagePreviewUpload/ImagePreviewUpload";
+export * from "./FormImagePreviewUpload/FormImagePreviewUpload";
+export * from "./Checkbox/CheckBox";
+export * from "./FormCheckbox/FormCheckbox";

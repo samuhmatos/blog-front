@@ -6,6 +6,7 @@ export interface InputFileProps {
   errorMessage?: string;
   label?: string;
   value: File | undefined;
+  visible?: boolean;
 }
 
 export function FileInput({
@@ -13,6 +14,7 @@ export function FileInput({
   errorMessage,
   label,
   value,
+  visible = false,
 }: InputFileProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -23,7 +25,12 @@ export function FileInput({
   }, [value]);
 
   return (
-    <div className="mb-1 text-sm text-gray-900 dark:text-white">
+    <div
+      className={twMerge(
+        "mb-1 text-sm text-gray-900 dark:text-white",
+        visible && "hidden"
+      )}
+    >
       {label && (
         <label className="block mb-2 text-sm font-bold" htmlFor="file_input">
           {label}
@@ -46,7 +53,7 @@ export function FileInput({
         }}
         accept=".png, .jpg, .jpeg, .webp"
         ref={inputRef}
-      ></input>
+      />
       {errorMessage && (
         <span className="text-red-700 font-semibold">{errorMessage}</span>
       )}

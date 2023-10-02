@@ -1,8 +1,17 @@
-import { PageAPI, PageParams, api } from "@api";
-import { Post, PostApi, PostApiWithDetails, PostListApi } from "./postTypes";
+import { PageAPI, PagePaginationParams, api } from "@api";
+import {
+  PostApi,
+  PostApiWithDetails,
+  PostListApi,
+  PostPageParams,
+} from "./postTypes";
 
-async function getBySlug(postSlug: string): Promise<PostApiWithDetails> {
-  const response = await api.get<PostApiWithDetails>(`post/${postSlug}`);
+const PATH = "post";
+
+async function getOne(slugOrId: string): Promise<PostApiWithDetails> {
+  const response = await api.get<PostApiWithDetails>(
+    `${PATH}/filter/${slugOrId}`
+  );
   return response.data;
 }
 
@@ -10,34 +19,54 @@ async function getList(
   query: keyof PostListApi
 ): Promise<PostApiWithDetails[]> {
   const response = await api.get<PostApiWithDetails[]>(
-    `post?category=${query}`
+    `${PATH}?category=${query}`
   );
   return response.data;
 }
 
 async function getFeed(
-  params?: PageParams
+  params?: PagePaginationParams
 ): Promise<PageAPI<PostApiWithDetails>> {
-  const response = await api.get<PageAPI<PostApiWithDetails>>("post/feed", {
+  const response = await api.get<PageAPI<PostApiWithDetails>>(`${PATH}/feed`, {
     params,
   });
   return response.data;
 }
 
-async function addView(post_id: number): Promise<Pick<Post, "views">> {
-  const response = await api.post<Pick<Post, "views">>(`post/${post_id}/view`);
+async function getDraft(
+  params?: PagePaginationParams
+): Promise<PageAPI<PostApiWithDetails>> {
+  const response = await api.get<PageAPI<PostApiWithDetails>>(`${PATH}/draft`, {
+    params,
+  });
+  return response.data;
+}
+
+async function getTrash(
+  params?: PagePaginationParams
+): Promise<PageAPI<PostApiWithDetails>> {
+  const response = await api.get<PageAPI<PostApiWithDetails>>(`${PATH}/trash`, {
+    params,
+  });
+  return response.data;
+}
+
+async function addView(post_id: number): Promise<Pick<PostApi, "views">> {
+  const response = await api.post<Pick<PostApi, "views">>(
+    `${PATH}/${post_id}/view`
+  );
   return response.data;
 }
 
 async function getSuggestion(): Promise<PostApiWithDetails[]> {
-  const response = await api.get<PostApiWithDetails[]>("post/suggestion");
+  const response = await api.get<PostApiWithDetails[]>(`${PATH}/suggestion`);
 
   return response.data;
 }
 
 async function getPostsByCategorySlug(
   categorySlug: string,
-  { page, per_page }: PageParams
+  { page, per_page }: PagePaginationParams
 ): Promise<PageAPI<PostApiWithDetails>> {
   const response = await api.get<PageAPI<PostApiWithDetails>>(
     `category/paginate/${categorySlug}`,
@@ -53,7 +82,7 @@ async function getPostsByCategorySlug(
 }
 
 async function create(formData: FormData): Promise<PostApi> {
-  const response = await api.post<PostApi>("post", formData, {
+  const response = await api.post<PostApi>(PATH, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -61,12 +90,63 @@ async function create(formData: FormData): Promise<PostApi> {
   return response.data;
 }
 
+interface UpdateProps {
+  title: string;
+  sub_title: string;
+  content: string;
+  category_id: number;
+  is_draft: boolean;
+}
+async function update(
+  post_id: number,
+  formData: FormData | UpdateProps
+): Promise<PostApi> {
+  let params;
+  let headers;
+
+  if (formData instanceof FormData) {
+    params = formData;
+    headers = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+  } else {
+    params = { ...formData };
+    headers = {};
+  }
+
+  const response = await api.put<PostApi>(
+    `${PATH}/${post_id}`,
+    params,
+    headers
+  );
+
+  return response.data;
+}
+
+async function remove(post_id: number): Promise<void> {
+  const response = await api.delete(`${PATH}/${post_id}`);
+
+  return;
+}
+
+async function restore(post_id: number): Promise<PostApi> {
+  const response = await api.post<PostApi>(`${PATH}/${post_id}/restore`);
+  return response.data;
+}
+
 export const postApi = {
   getList,
   getFeed,
-  getBySlug,
+  getDraft,
+  getTrash,
+  getOne,
   getSuggestion,
   addView,
   getPostsByCategorySlug,
   create,
+  update,
+  remove,
+  restore,
 };

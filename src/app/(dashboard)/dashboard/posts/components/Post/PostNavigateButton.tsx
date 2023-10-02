@@ -1,9 +1,8 @@
-"use client";
-import { Button } from "@components";
+"use client";import { Button } from "@components";
 import { useRouter } from "next/navigation";
 import { linkUtils } from "@utils";
 
-export function CreatePostButton() {
+export function PostNavigateButton() {
   const router = useRouter();
 
   const handleOpen = () => {

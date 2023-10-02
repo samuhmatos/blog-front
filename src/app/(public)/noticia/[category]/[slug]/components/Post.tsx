@@ -1,5 +1,4 @@
-"use client";
-import { CategoryBox, PostDetails } from "@components";
+"use client";import { CategoryBox, PostDetails } from "@components";
 import { PostWithDetails, postService } from "@domain";
 import { linkUtils } from "@utils";
 import { Share } from "./Share";
@@ -7,7 +6,7 @@ import Image from "next/image";
 import { Reaction } from ".";
 import { useEffect, useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Editor from "ckeditor5-custom-build/build/ckeditor";
 
 interface Props {
   post: PostWithDetails;
@@ -66,7 +65,7 @@ export function Post({ post }: Props) {
           />
 
           <CKEditor
-            editor={ClassicEditor}
+            editor={Editor.Editor}
             data={post.content}
             onReady={(editor) => {
               editor.enableReadOnlyMode(`read-post`);

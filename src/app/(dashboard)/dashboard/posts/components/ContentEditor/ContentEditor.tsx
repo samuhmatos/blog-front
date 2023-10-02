@@ -1,5 +1,4 @@
-"use client";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
+"use client";import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic";
 import Editor from "ckeditor5-custom-build/build/ckeditor";
 import { FormLayout } from "@components";
@@ -12,13 +11,17 @@ export interface CommentEditorProps {
   errorMessage?: string;
   label?: string;
   isDirty: boolean;
+  initialData?: string;
+  isSubmitted: boolean;
 }
 
 export function ContentEditor({
   onChange,
   errorMessage,
   label,
+  initialData = "",
   isDirty,
+  isSubmitted,
 }: CommentEditorProps) {
   const [data, setData] = useState<string>("");
   const [error, setError] = useState<string | undefined>(undefined);
@@ -31,7 +34,7 @@ export function ContentEditor({
 
   useEffect(() => {
     if (ref.current) {
-      if (!isDirty && data !== "") {
+      if (!isDirty && data !== "" && isSubmitted) {
         ref.current.editor?.data.set("");
       }
 
@@ -46,6 +49,7 @@ export function ContentEditor({
       <div id="createPost" className={errorMessage && "border border-red-700"}>
         <CKEditor
           editor={ckCustomEditor}
+          data={initialData}
           ref={ref}
           config={{
             image: { upload: { types: ["png", "jpeg", "gif", "jpg", "webp"] } },
@@ -60,49 +64,47 @@ export function ContentEditor({
             },
           }}
           onReady={(editor) => {
-            // const element = editor.ui.getEditableElement();
-            // element!.style.height = "400";
-            // element!.classList.add("h-[400px]");
-
-            editor.plugins.get("FileRepository").createUploadAdapter =
-              function (loader) {
-                return {
-                  upload: async function () {
-                    return loader.file.then((file) => {
-                      var form = new FormData();
-                      form.append("file", file);
-                      return api
-                        .post<{ url: string }>("post/upload-content", form, {
-                          headers: {
-                            "Content-Type": "multipart/form-data",
-                            Authorization: `Bearer ${getCookie("token")}`,
-                          },
-                        })
-                        .then((res) => {
-                          var imageUrl = res.data.url;
-
-                          return {
-                            default: imageUrl,
-                            html: editor.getData(),
-                            getMediaWidget: function () {
-                              var img = new Image();
-                              img.src = imageUrl;
-                              return img;
+            if (data)
+              editor.plugins.get("FileRepository").createUploadAdapter =
+                function (loader) {
+                  return {
+                    upload: async function () {
+                      return loader.file.then((file) => {
+                        var form = new FormData();
+                        form.append("file", file);
+                        return api
+                          .post<{ url: string }>("post/upload-content", form, {
+                            headers: {
+                              "Content-Type": "multipart/form-data",
+                              Authorization: `Bearer ${getCookie("token")}`,
                             },
-                          };
-                        })
-                        .catch((error) => {
-                          throw new Error(
-                            `Unable to upload file: ${error.message}`
-                          );
-                        });
-                    });
-                  },
+                          })
+                          .then((res) => {
+                            var imageUrl = res.data.url;
+
+                            return {
+                              default: imageUrl,
+                              html: editor.getData(),
+                              getMediaWidget: function () {
+                                var img = new Image();
+                                img.src = imageUrl;
+                                return img;
+                              },
+                            };
+                          })
+                          .catch((error) => {
+                            throw new Error(
+                              `Unable to upload file: ${error.message}`
+                            );
+                          });
+                      });
+                    },
+                  };
                 };
-              };
           }}
           onChange={(event, editor) => {
-            setData(editor.getData());
+            let onChangeData = editor.getData();
+            setData(onChangeData);
           }}
         />
       </div>

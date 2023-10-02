@@ -1,5 +1,4 @@
-import { Page, PageAPI } from "@api";
-import { Category, CategoryAPI } from "../PostCategory/categoryTypes";
+import { Page, PageAPI, PagePaginationParams } from "@api";import { Category, CategoryAPI } from "../PostCategory/categoryTypes";
 import { User, UserApi } from "../User";
 import { PostComment, PostCommentApi } from "../PostComment";
 
@@ -15,6 +14,8 @@ export interface Post {
   unlikeCount: number | null;
   createdAt: string;
   createdAtFormatted: string;
+  isDraft: boolean;
+  categoryId: number;
 }
 
 export interface PostWithDetails extends Post {
@@ -37,6 +38,7 @@ export interface PostApi {
   updated_at: string;
   like_count: number | null;
   unlike_count: number | null;
+  is_draft: boolean;
 }
 
 export interface PostApiWithDetails extends PostApi {
@@ -61,4 +63,9 @@ export interface PostList {
   reviews: PostWithDetails[];
   best: PostWithDetails[];
   tech: PostWithDetails[];
+}
+
+export interface PostPageParams extends PagePaginationParams {
+  is_draft?: boolean;
+  is_trash?: boolean;
 }

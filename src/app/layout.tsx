@@ -1,4 +1,6 @@
-import "./globals.css";import "react-toastify/ReactToastify.min.css";
+"use client";
+import "./globals.css";
+import "react-toastify/ReactToastify.min.css";
 
 import { Poppins } from "next/font/google";
 
@@ -7,6 +9,7 @@ import NextTopLoader from "nextjs-toploader";
 import { ToastContainer } from "react-toastify";
 import { userService } from "@domain";
 import { hasCookie } from "cookies-next";
+import { useEffect } from "react";
 
 const poppins = Poppins({ subsets: ["devanagari"], weight: "400" });
 
@@ -17,7 +20,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }
   }
 
-  getCsrfToken();
+  useEffect(() => {
+    getCsrfToken();
+  }, []);
 
   return (
     <AuthProvider>

@@ -13,6 +13,7 @@ export function TableHead() {
         <TableCell align="right">Data</TableCell>
         <TableCell align="right">Likes</TableCell>
         <TableCell align="right">UnLikes</TableCell>
+        <TableCell align="right">Rascunho</TableCell>
         <TableCell />
         <TableCell />
       </TableRow>

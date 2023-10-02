@@ -1,10 +1,10 @@
 "use client";
-import { Page, PageParams } from "@api";
+import { Page, PagePaginationParams } from "@api";
 import { useEffect, useState } from "react";
 
 export function usePaginatedList<Data>(
-  getList: (params: PageParams) => Promise<Page<Data>>,
-  params: PageParams
+  getList: (params: PagePaginationParams) => Promise<Page<Data>>,
+  params: PagePaginationParams
 ) {
   const [loading, setLoading] = useState<boolean>(false);
   const [list, setList] = useState<Data[]>([]);
@@ -18,7 +18,9 @@ export function usePaginatedList<Data>(
   async function fetchData() {
     try {
       setLoading(true);
+
       const { data, meta } = await getList(params);
+
       setList(data);
       setTotalPage(meta.totalPage);
       setCurrentPage(meta.currentPage);

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, Suspense } from "react";
 
 import TableMUI from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,14 +10,20 @@ import { TablePagination } from "@mui/material";
 import { Row } from "./Row";
 import { TableHead } from "./TableHead";
 import { useFeedList } from "@domain";
+import { Checkbox } from "@components";
+import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 
 export function Table() {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  const [isDraft, setIsDraft] = useState<boolean>(false);
+  const [isTrash, setIsTrash] = useState<boolean>(false);
 
   const { list, total, refetch } = useFeedList({
     page: page + 1,
     per_page: rowsPerPage,
+    is_draft: isDraft,
+    is_trash: isTrash,
   });
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -31,7 +37,24 @@ export function Table() {
 
   useEffect(() => {
     refetch();
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage, isDraft, isTrash]);
+
+  const handleShowDraft = (e: ChangeEvent<HTMLInputElement>) => {
+    var checked = e.target.checked;
+    setStates(false, checked);
+  };
+
+  const handleShowTrash = (e: ChangeEvent<HTMLInputElement>) => {
+    var checked = e.target.checked;
+    setStates(checked, false);
+  };
+
+  function setStates(trash: boolean, draft: boolean) {
+    setIsDraft(draft);
+    setIsTrash(trash);
+    setPage(0);
+    setRowsPerPage(10);
+  }
 
   return (
     <div className="w-full my-5">
@@ -39,11 +62,18 @@ export function Table() {
         <TableContainer component={Paper} sx={{ height: 440 }}>
           <TableMUI stickyHeader aria-label="collapsible sticky table">
             <TableHead />
-            <TableBody>
-              {list.map((post) => (
-                <Row post={post} key={post.id} />
-              ))}
-            </TableBody>
+            <Suspense fallback={<h1>Carregando</h1>}>
+              <TableBody>
+                {list.map((post) => (
+                  <Row
+                    post={post}
+                    key={post.id}
+                    refetch={refetch}
+                    isTrash={isTrash}
+                  />
+                ))}
+              </TableBody>
+            </Suspense>
           </TableMUI>
         </TableContainer>
         <TablePagination
@@ -54,6 +84,38 @@ export function Table() {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          ActionsComponent={(subprops) => {
+            return (
+              <>
+                <Checkbox
+                  onChange={handleShowDraft}
+                  id="draftCheckBox"
+                  checked={isDraft}
+                  label="Exibir Rascunhos"
+                  className={subprops.className}
+                />
+
+                <Checkbox
+                  onChange={handleShowTrash}
+                  id="trashCheckBox"
+                  checked={isTrash}
+                  label="Exibir lixeira"
+                  className={subprops.className}
+                />
+
+                <TablePaginationActions
+                  count={total}
+                  onPageChange={handleChangePage}
+                  rowsPerPage={rowsPerPage}
+                  showLastButton
+                  showFirstButton
+                  page={page}
+                  getItemAriaLabel={() => ""}
+                  className="flex"
+                />
+              </>
+            );
+          }}
         />
       </Paper>
     </div>

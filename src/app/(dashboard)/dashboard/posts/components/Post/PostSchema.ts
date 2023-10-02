@@ -1,5 +1,4 @@
-import { z } from "zod";
-const MAX_FILE_SIZE = 500000;
+import { z } from "zod";const MAX_FILE_SIZE = 500000;
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
   "image/jpg",
@@ -7,8 +6,12 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/webp",
 ];
 
-export function createPostSchema(categories: string[]) {
-  return z.object({
+interface Props {
+  editMode?: boolean;
+  categories: string[];
+}
+export function createPostSchema({ categories, editMode = false }: Props) {
+  const baseSchema = z.object({
     title: z
       .string()
       .min(20, "Título muito curto")
@@ -36,6 +39,26 @@ export function createPostSchema(categories: string[]) {
         "Apenas os formatos .jpg, .jpeg, .png and .webp são suportados"
       ),
   });
+
+  const shema = editMode
+    ? baseSchema.extend({
+        image: z
+          .any()
+          .refine((file: File) => {
+            return (
+              file?.size <= MAX_FILE_SIZE, `Tamanho máximo da imagem é 5MB.`
+            );
+          })
+          .refine(
+            (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+            "Apenas os formatos .jpg, .jpeg, .png and .webp são suportados"
+          )
+          .optional(),
+        isDraft: z.boolean().optional(),
+      })
+    : baseSchema;
+
+  return shema;
 }
 
 export type CreatePostSchema = {
@@ -44,4 +67,5 @@ export type CreatePostSchema = {
   content: string;
   category: string;
   image: File;
+  isDraft: boolean;
 };

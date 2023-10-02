@@ -34,7 +34,12 @@ export function SelectOption({
 
   useEffect(() => {
     if (!value?.length) {
-      setSelectedOption(null);
+      clearSelection();
+    } else {
+      if (!selectedOption) {
+        const filtered = options.filter((option) => option.value === value);
+        setSelectedOption(filtered[0]);
+      }
     }
   }, [value]);
 

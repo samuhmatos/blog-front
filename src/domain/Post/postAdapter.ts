@@ -1,5 +1,4 @@
-import { dateUtils } from "@utils";
-import {
+import { dateUtils } from "@utils";import {
   Post,
   PostApi,
   PostApiWithDetails,
@@ -20,22 +19,14 @@ function toPost(postAPI: PostApi): Post {
     unlikeCount: postAPI.unlike_count,
     createdAt: postAPI.created_at,
     createdAtFormatted: dateUtils.formatDefault(postAPI.created_at),
+    isDraft: postAPI.is_draft,
+    categoryId: postAPI.category_id,
   };
 }
 
 function toPostWithDetails(postAPI: PostApiWithDetails): PostWithDetails {
   return {
-    id: postAPI.id,
-    title: postAPI.title,
-    subTitle: postAPI.sub_title,
-    slug: postAPI.slug,
-    content: postAPI.content,
-    views: postAPI.views,
-    imageURL: postAPI.image_url,
-    likeCount: postAPI.like_count,
-    unlikeCount: postAPI.unlike_count,
-    createdAt: postAPI.created_at,
-    createdAtFormatted: dateUtils.formatDefault(postAPI.created_at),
+    ...toPost(postAPI),
     author: {
       id: postAPI.author.id,
       name: postAPI.author.name,

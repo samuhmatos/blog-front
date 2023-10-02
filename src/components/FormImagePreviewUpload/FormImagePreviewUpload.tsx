@@ -1,14 +1,17 @@
-"use client";
-import { Controller, UseControllerProps, FieldValues } from "react-hook-form";
-import { FileInput, InputFileProps } from "@components";
+"use client";import { Controller, UseControllerProps, FieldValues } from "react-hook-form";
+import { ImagePreviewUploadProps, ImagePreviewUpload } from "@components";
 
-type InputProps = Omit<InputFileProps, "setValue" | "errorMessage" | "value">;
+type InputProps = Omit<
+  ImagePreviewUploadProps,
+  "setValue" | "errorMessage" | "value"
+>;
 
-export function FormFileInput<FormType extends FieldValues>({
+export function FormImagePreviewUpload<FormType extends FieldValues>({
   control,
   name,
   rules,
   label,
+  ...rest
 }: InputProps & UseControllerProps<FormType>) {
   return (
     <Controller
@@ -17,11 +20,11 @@ export function FormFileInput<FormType extends FieldValues>({
       rules={rules}
       render={({ field, fieldState }) => {
         return (
-          <FileInput
+          <ImagePreviewUpload
             setValue={field.onChange}
             errorMessage={fieldState.error?.message}
-            label={label}
             value={field.value}
+            {...rest}
           />
         );
       }}

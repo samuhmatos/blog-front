@@ -1,4 +1,5 @@
-import { notFound } from "next/navigation";import { PageParams } from "../page";
+import { notFound } from "next/navigation";
+import { PagePaginationParams } from "../page";
 import { Category, PostWithDetails, postService } from "@domain";
 import { Page } from "@api";
 import { CardMedium, NavigationPathType, Pagination } from "@components";
@@ -17,7 +18,7 @@ async function getPosts(
   }
 }
 
-interface Props extends PageParams {
+interface Props extends PagePaginationParams {
   category: Category;
 }
 

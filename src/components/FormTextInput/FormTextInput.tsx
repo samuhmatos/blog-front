@@ -1,4 +1,5 @@
-"use client";import { Controller, UseControllerProps, FieldValues } from "react-hook-form";
+"use client";
+import { Controller, UseControllerProps, FieldValues } from "react-hook-form";
 import { InputText, InputTextProps } from "@components";
 
 type InputProps = Omit<InputTextProps, "setValue" | "value" | "errorMessage">;

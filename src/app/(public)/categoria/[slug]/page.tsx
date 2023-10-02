@@ -1,10 +1,9 @@
-import { Screen, SideBar } from "@components";
-import { CategorySession } from "./components/CategorySession";
+import { Screen, SideBar } from "@components";import { CategorySession } from "./components/CategorySession";
 import { Category, postCategoryService } from "@domain";
 import { notFound } from "next/navigation";
 import { CategoryHeader } from "./components/CategoryHeader";
 
-export interface PageParams {
+export interface PagePaginationParams {
   params: {
     slug: string;
     page?: number;
@@ -19,7 +18,7 @@ async function loadCategory(slug: string): Promise<Category> {
   }
 }
 
-export default async function CategoryScreen({ params }: PageParams) {
+export default async function CategoryScreen({ params }: PagePaginationParams) {
   const category = await loadCategory(params.slug);
   return (
     <>

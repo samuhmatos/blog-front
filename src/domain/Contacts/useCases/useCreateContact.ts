@@ -1,4 +1,5 @@
-"use client";import { useState } from "react";
+"use client";
+import { useState } from "react";
 import { contactService } from "../contactService";
 import { ContactParamsProps } from "../contactApi";
 import { errorUtils, toastUtils } from "@utils";
@@ -20,7 +21,6 @@ export function useCreateContact() {
         callBack && callBack();
       })
       .catch((err: AxiosError<ErrorApi>) => {
-        console.log(err.response);
         errorUtils.setGlobalErrorMessage(err);
       })
       .finally(() => {

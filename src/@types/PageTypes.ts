@@ -1,4 +1,4 @@
-export interface PageParams<SearchParams, Params = []> {
-  searchParams: SearchParams[];
-  params: Params;
+export interface PageParams<SearchParams> {
+  searchParams: SearchParams;
+  params: [];
 }

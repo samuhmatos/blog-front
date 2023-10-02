@@ -1,5 +1,4 @@
-import { User, UserApi } from "@domain";
-export interface MetaDataPageAPI {
+import { User, UserApi } from "@domain";export interface MetaDataPageAPI {
   total: number; // 24;
   per_page: number; // 10;
   current_page: number; // 1;
@@ -21,7 +20,7 @@ export interface PageAPI<Data> {
   data: Data[];
 }
 
-export interface PageParams {
+export interface PagePaginationParams {
   page?: number;
   per_page?: number;
   search?: string;
