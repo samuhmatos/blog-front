@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image";import Link from "next/link";
 import { BsEye } from "react-icons/bs";
 
 import { Post, PostWithDetails } from "@domain";
@@ -19,7 +18,12 @@ export function CardMedium({ post }: CardProps) {
     <div className="flex flex-wrap mb-6  md:h-52 md:flex-nowrap">
       <div className="post-media w-full h-72 md:h-auto md:w-64">
         <Link href={linkPost}>
-          <img src={post.imageURL} alt="" width={400} height={200} />
+          <img
+            src={post.imageURL}
+            className="rounded"
+            width={400}
+            height={200}
+          />
         </Link>
       </div>
 

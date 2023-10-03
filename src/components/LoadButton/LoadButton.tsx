@@ -1,5 +1,4 @@
-"use client";
-import { twMerge } from "tailwind-merge";
+"use client";import { twMerge } from "tailwind-merge";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import React, { ReactNode } from "react";
 import { CircularProgress } from "@mui/material";
@@ -77,7 +76,7 @@ export function LoadButton({
   return (
     <button
       className={twMerge(
-        `py-2 px-4 rounded-lg flex items-center gap-2 font-medium focus:ring-4 focus:ring-primary-200 disabled:opacity-90 disabled:cursor-default cursor-pointer text-sm`,
+        `py-2 px-4 text-sm font-medium rounded-lg flex items-center gap-2  focus:ring-4 focus:ring-primary-200 disabled:opacity-90 disabled:cursor-default cursor-pointer `,
         [full ? "w-full" : "", position(), paleteColors(), className]
       )}
       disabled={disabled}

@@ -1,5 +1,5 @@
 "use client";
-import { FormEvent, useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { UsePostCommentProps, usePostComment } from "@domain";
 import { LoadButton, TextAreaInput } from "@components";
 
@@ -9,20 +9,19 @@ interface Props {
 
 export function CommentForm({ postId }: Props) {
   const [text, setText] = useState<string>("");
-  const commentRef = useRef<HTMLDivElement | null>(null);
 
   const { comment, loading, replyTo, action, setCommentState, createUpdate } =
     usePostComment();
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function handleSubmit() {
+    var textArea = document.querySelector("#comment-field") as HTMLDivElement;
 
-    commentRef.current?.classList.remove("border-red-700");
-    commentRef.current?.classList.add("border-gray-200");
+    textArea.classList.remove("border-red-700");
+    textArea.classList.add("border-gray-200");
 
     if (!text.length) {
-      commentRef.current?.classList.remove("border-gray-200");
-      commentRef.current?.classList.add("border-red-700");
+      textArea.classList.remove("border-gray-200");
+      textArea.classList.add("border-red-700");
       return;
     }
 
@@ -69,8 +68,11 @@ export function CommentForm({ postId }: Props) {
   }
 
   function scrollToForm() {
-    var textArea = commentRef.current!.querySelector("textarea");
+    var textArea = document.querySelector(
+      "#commentSection textarea"
+    ) as HTMLTextAreaElement;
     var offSetTop = textArea!.offsetTop;
+
     window.scrollTo({ top: offSetTop - 100 });
     textArea!.focus();
   }
@@ -83,28 +85,28 @@ export function CommentForm({ postId }: Props) {
   }, [replyTo, action]);
 
   return (
-    <form className="mb-6" onSubmit={handleSubmit}>
+    <div className="mb-6">
       <TextAreaInput
-        id="comment"
         placeholder="Deixe um comentário"
         value={text}
         setValue={setText}
         name="comment"
-        ref={commentRef}
       />
-      <LoadButton
-        loading={loading}
-        placeholder={renderSuccessButtonText()}
-        disabled={!!!text}
-      />
-      {(replyTo || action === "edit") && (
-        <button
-          onClick={handleCancelAction}
-          className="py-2.5 px-4 text-xs font-medium text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-red-800 ml-4 uppercase"
-        >
-          {renderCancelButtonText()}
-        </button>
-      )}
-    </form>
+      <div className="flex gap-3 mt-3">
+        <LoadButton
+          loading={loading}
+          placeholder={renderSuccessButtonText()}
+          disabled={!!!text}
+          onClick={handleSubmit}
+        />
+        {(replyTo || action === "edit") && (
+          <LoadButton
+            paleteColor="danger"
+            placeholder={renderCancelButtonText()}
+            onClick={handleCancelAction}
+          />
+        )}
+      </div>
+    </div>
   );
 }
