@@ -1,5 +1,4 @@
-import { Navigation, NavigationPathType } from "@components";
-import { PostScreenProps } from "../page";
+import { Breadcrumb, BreadcrumbPathType } from "@components";import { PostScreenProps } from "../page";
 import { linkUtils } from "@utils";
 import { PostWithDetails } from "@domain";
 import { Post } from "./Post";
@@ -15,18 +14,18 @@ interface Props extends PostScreenProps {
 }
 
 export function PostSession({ params, post }: Props) {
-  var paths: NavigationPathType[] = [
+  var paths: BreadcrumbPathType[] = [
     { slug: "Home", url: "/" },
-    { slug: params.category, url: linkUtils.linkCategory(params.category) },
+    { slug: post.category.name, url: linkUtils.linkCategory(params.category) },
     {
       slug: post.title,
-      url: linkUtils.linkPost(post.slug, post.category.name),
+      url: linkUtils.linkPost(post.slug, post.category.slug),
     },
   ];
 
   return (
     <div className="w-full lg:w-3/4">
-      <Navigation paths={paths} />
+      <Breadcrumb paths={paths} />
 
       <Post post={post} />
 

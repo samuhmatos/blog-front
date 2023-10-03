@@ -1,5 +1,5 @@
-"use client";import { BiDislike, BiLike, BiSolidDislike, BiSolidLike } from "react-icons/bi";
-import { ReactionType, useAuth, useReaction } from "@domain";
+"use client";import { ReactionType, useAuth, useReaction } from "@domain";
+import { Icon } from "@components";
 
 interface Props {
   postId: number;
@@ -28,7 +28,11 @@ export function Reaction({ postId }: Props) {
           } rounded-full p-3 transition-all`}
           onClick={() => handleReaction("LIKE")}
         >
-          {reaction === "LIKE" ? <BiSolidLike /> : <BiLike />}
+          {reaction === "LIKE" ? (
+            <Icon name="LikeSolid" />
+          ) : (
+            <Icon name="Like" />
+          )}
         </button>
         <button
           className={`${
@@ -38,7 +42,11 @@ export function Reaction({ postId }: Props) {
           } rounded-full p-3 transition-all`}
           onClick={() => handleReaction("UNLIKE")}
         >
-          {reaction === "UNLIKE" ? <BiSolidDislike /> : <BiDislike />}
+          {reaction === "UNLIKE" ? (
+            <Icon name="DislikeSolid" />
+          ) : (
+            <Icon name="Dislike" />
+          )}
         </button>
       </div>
     </div>

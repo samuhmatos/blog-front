@@ -11,8 +11,8 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { TablePagination } from "@mui/material";
+import { Icon } from "../../Icon/Icon";
 
 function createData(
   name: string,
@@ -57,7 +57,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {open ? <IoIosArrowUp /> : <IoIosArrowDown />}
+            {open ? <Icon name="ArrowUp" /> : <Icon name="ArrowDown" />}
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">

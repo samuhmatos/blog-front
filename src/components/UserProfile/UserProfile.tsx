@@ -85,7 +85,7 @@ export function USerProfile({ open, onClose }: Props) {
                 placeholder="Digite sua biografia aqui..."
               />
 
-              <div className="flex justify-end">
+              <div className="flex gap-3 justify-end mt-3">
                 <LoadButton
                   loading={loading}
                   placeholder="Salvar"
@@ -93,12 +93,11 @@ export function USerProfile({ open, onClose }: Props) {
                   onClick={handleSubmit(handleUpdateUser)}
                   full
                 />
-                <button
+                <LoadButton
+                  placeholder="Fechar"
+                  paleteColor="danger"
                   onClick={handleClose}
-                  className="py-2.5 px-4 text-xs font-medium text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-red-800 ml-4 uppercase"
-                >
-                  Fechar
-                </button>
+                />
               </div>
             </div>
           </div>

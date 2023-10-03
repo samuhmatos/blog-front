@@ -1,9 +1,12 @@
-"use client";
-import { FormTextAreaInput, LoadButton, FormTextInput } from "@components";
+"use client";import {
+  FormTextAreaInput,
+  LoadButton,
+  FormTextInput,
+  Icon,
+} from "@components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ContatoSchema, contatoSchema } from "./ContatoPageSchema";
-import { BsGithub, BsSend } from "react-icons/bs";
 import Link from "next/link";
 import { useCreateContact } from "@domain";
 
@@ -65,9 +68,14 @@ export default function ContatoScreen() {
           <div className="mb-8">
             <h2 className="text-lg font-bold mb-2 flex gap-2 items-center">
               Meu projeto no GitHub
-              <Link href="https://github.com/samuhmatos/" target="_blank">
-                <BsGithub />
-              </Link>
+              <Icon
+                name="GitHub"
+                className="hover:text-sky-500"
+                link={{
+                  href: "https://github.com/samuhmatos",
+                  target: "_blank",
+                }}
+              />
             </h2>
             <Link
               href="https://github.com/samuhmatos/blog-front"
@@ -128,9 +136,10 @@ export default function ContatoScreen() {
 
             <LoadButton
               loading={loading}
-              endIcon={<BsSend />}
+              endIcon={<Icon name="Send" />}
               disabled={!formState.isValid}
               placeholder="Enviar"
+              className="mt-3"
             />
           </form>
         </div>

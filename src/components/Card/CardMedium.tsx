@@ -1,5 +1,5 @@
-import Image from "next/image";import Link from "next/link";
-import { BsEye } from "react-icons/bs";
+import Image from "next/image";
+import Link from "next/link";
 
 import { Post, PostWithDetails } from "@domain";
 import { CategoryBox } from "../CategoryBox/CategoryBox";

@@ -1,18 +1,8 @@
-import { Category, postCategoryService } from "@domain";
-import Image from "next/image";
+import { postCategoryService } from "@domain";import Image from "next/image";
 import Link from "next/link";
-import { BsInstagram, BsGithub, BsFillEnvelopeFill } from "react-icons/bs";
-import { AiFillLinkedin } from "react-icons/ai";
 import { Form } from "./components/Form";
 import { List } from "./components/List";
-
-interface PopularCategoryProps extends Pick<Category, "name" | "slug" | "id"> {
-  amount: number;
-}
-
-interface FooterProps {
-  popularCategories: PopularCategoryProps[];
-}
+import { Icon } from "../Icon/Icon";
 
 export async function Footer() {
   const popularCategories = await postCategoryService.getPopular();
@@ -38,39 +28,42 @@ export async function Footer() {
                 Este é um blog simulando postagens de vários segmentos e
                 entregando ao usuário
               </small>
-              <div className="flex gap-5 mt-4 text-lg">
-                <Link
+              <div className="flex gap-5 mt-4">
+                <Icon
+                  name="Instagram"
                   className="hover:text-sky-500"
-                  data-placement="bottom"
-                  href="https://www.instagram.com/samuh.matos/"
-                  target="_blank"
-                >
-                  <BsInstagram />
-                </Link>
-                <Link
+                  link={{
+                    href: "https://www.instagram.com/samuh.matos/",
+                    target: "_blank",
+                  }}
+                />
+
+                <Icon
+                  name="LinkedIn"
                   className="hover:text-sky-500"
-                  data-placement="bottom"
-                  href="https://www.linkedin.com/in/o-samuelmatos/"
-                  target="_blank"
-                >
-                  <AiFillLinkedin />
-                </Link>
-                <Link
+                  link={{
+                    href: "https://www.linkedin.com/in/o-samuelmatos/",
+                    target: "_blank",
+                  }}
+                />
+
+                <Icon
+                  name="Envelope"
                   className="hover:text-sky-500"
-                  href="mailto:samuhmatos@gmail.com"
-                  data-placement="bottom"
-                  target="_blank"
-                >
-                  <BsFillEnvelopeFill />
-                </Link>
-                <Link
+                  link={{
+                    href: "mailto:samuhmatos@gmail.com",
+                    target: "_blank",
+                  }}
+                />
+
+                <Icon
+                  name="GitHub"
                   className="hover:text-sky-500"
-                  href="https://github.com/samuhmatos"
-                  target="_blank"
-                  data-placement="bottom"
-                >
-                  <BsGithub />
-                </Link>
+                  link={{
+                    href: "https://github.com/samuhmatos",
+                    target: "_blank",
+                  }}
+                />
               </div>
 
               <div className="mt-5">
@@ -112,10 +105,10 @@ export async function Footer() {
           <div className="col-md-12 text-center">
             <br />
             <div className="copyright">
-              &copy; Blog. Desenvolvedor:{" "}
+              &copy; Blog. Desenvolvedor:
               <Link
                 href="/contact"
-                className="hover:text-sky-500 transition-all"
+                className="hover:text-sky-500 transition-all ml-1"
               >
                 Samuel Matos
               </Link>

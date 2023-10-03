@@ -9,12 +9,10 @@ import { ChangeEvent, Fragment, useState } from "react";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import IconButton from "@mui/material/IconButton";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Checkbox, LoadButton } from "@components";
-import { FaTrashCan } from "react-icons/fa6";
+import { Checkbox, Icon, LoadButton } from "@components";
 import { TableDetailsCollapsed } from "./TableDetailsCollapsed";
 import { useRouter } from "next/navigation";
 import { linkUtils } from "@utils";
@@ -80,7 +78,7 @@ export function Row({ post, refetch, isTrash }: RowsType) {
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {open ? <IoIosArrowUp /> : <IoIosArrowDown />}
+            {open ? <Icon name="ArrowUp" /> : <Icon name="ArrowDown" />}
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
@@ -120,7 +118,7 @@ export function Row({ post, refetch, isTrash }: RowsType) {
             />
           ) : (
             <LoadButton
-              placeholder={<FaTrashCan />}
+              placeholder={<Icon name="Trash" size="text-base" />}
               paleteColor="danger"
               loadingPosition="center"
               onClick={handleRemovePost}

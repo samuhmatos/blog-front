@@ -1,6 +1,4 @@
-import { BsWifi } from "react-icons/bs";
-import { PostWithDetails, postService } from "@domain";
-import { AdsBox, Pagination } from "@components";
+import { PostWithDetails, postService } from "@domain";import { AdsBox, Icon, Pagination } from "@components";
 import { CardMedium } from "@components";
 import { Page } from "@api";
 import Image from "next/image";
@@ -35,7 +33,7 @@ export async function Feed({
         <h4 className="flex items-center justify-center font-semibold text-xl lg:justify-normal">
           Notícias recentes
           <span className="text-red-600 ml-2 text-xl">
-            <BsWifi />
+            <Icon name="Wifi" size="text-xl" />
           </span>
         </h4>
       </div>

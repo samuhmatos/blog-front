@@ -1,11 +1,11 @@
-"use client";import Link from "next/link";
-import { BsInstagram, BsGithub, BsFillEnvelopeFill } from "react-icons/bs";
-import { AiFillLinkedin } from "react-icons/ai";
+"use client";
+import Link from "next/link";
 import { AuthModal } from "./AuthModal";
 import { useAuth } from "@domain";
 import { linkUtils } from "@utils";
 import Image from "next/image";
 import { UserCard } from "../../UserCard/UserCard";
+import { Icon } from "@components";
 
 interface Props {
   isDropDown: boolean;
@@ -14,11 +14,17 @@ interface Props {
 export function Navigation({ isDropDown }: Props) {
   const { user, logout } = useAuth();
 
+  // return (
+  //   <div>
+
+  //   </div>
+  // )
+
   return (
     <div
       className={`${
         isDropDown ? "flex" : "hidden"
-      } flex-1 flex-col absolute bg-sky-500 w-full mt-12 py-3 font-medium  lg:flex lg:flex-row lg:static lg:justify-around lg:mt-0 lg:py-0 2xl:text-lg`}
+      } flex-1 flex-col absolute bg-primary-600 w-full mt-12 py-3 font-medium  lg:flex lg:flex-row lg:static lg:justify-around lg:mt-0 lg:py-0 2xl:text-lg`}
     >
       <ul className="flex justify-center items-center flex-wrap">
         <li>
@@ -80,40 +86,48 @@ export function Navigation({ isDropDown }: Props) {
       </ul>
       <ul className="flex items-center justify-center mt-2 gap-3 text-2xl lg:mt-0">
         <li>
-          <Link
-            className=" hover:text-zinc-300"
-            href="https://www.instagram.com/samuh.matos/"
-            target="_blank"
-          >
-            <BsInstagram />
-          </Link>
+          <Icon
+            name="Instagram"
+            size="text-2xl"
+            className="hover:text-zinc-300"
+            link={{
+              href: "https://www.instagram.com/samuh.matos/",
+              target: "_blank",
+            }}
+          />
         </li>
         <li>
-          <Link
-            className=" hover:text-zinc-300"
-            href="https://www.linkedin.com/in/o-samuelmatos/"
-            target="_blank"
-          >
-            <AiFillLinkedin />
-          </Link>
+          <Icon
+            name="LinkedIn"
+            size="text-2xl"
+            className="hover:text-zinc-300"
+            link={{
+              href: "https://www.linkedin.com/in/o-samuelmatos/",
+              target: "_blank",
+            }}
+          />
         </li>
         <li>
-          <Link
-            className=" hover:text-zinc-300"
-            href="mailto:samuhmatos@gmail.com"
-            target="_blank"
-          >
-            <BsFillEnvelopeFill />
-          </Link>
+          <Icon
+            name="Envelope"
+            size="text-2xl"
+            className="hover:text-zinc-300"
+            link={{
+              href: "mailto:samuhmatos@gmail.com",
+              target: "_blank",
+            }}
+          />
         </li>
         <li>
-          <Link
-            className=" hover:text-zinc-300"
-            href="https://github.com/samuhmatos"
-            target="_blank"
-          >
-            <BsGithub />
-          </Link>
+          <Icon
+            name="GitHub"
+            size="text-2xl"
+            className="hover:text-zinc-300"
+            link={{
+              href: "https://github.com/samuhmatos",
+              target: "_blank",
+            }}
+          />
         </li>
       </ul>
       <div className="flex items-center justify-center mt-2 ml-1 lg:mt-0">

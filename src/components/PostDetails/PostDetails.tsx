@@ -1,4 +1,4 @@
-import Link from "next/link";import { BsEye } from "react-icons/bs";
+import Link from "next/link";import { Icon } from "../Icon/Icon";
 
 interface Props {
   linkPost: string;
@@ -19,7 +19,7 @@ export function PostDetails({
 }: Props) {
   return (
     <div
-      className={`flex flex-1 justify-around items-center gap-2 text-gray-500 flex-wrap sm:flex-nowrap sm:justify-center`}
+      className={`flex flex-1 justify-around items-center gap-4 text-gray-500 flex-wrap sm:flex-nowrap sm:justify-center`}
     >
       <small>
         <Link href={linkPost} className="hover:underline">
@@ -34,9 +34,9 @@ export function PostDetails({
       <small>
         <Link
           href={linkPost}
-          className="flex items-center gap-1 hover:underline"
+          className="flex items-center gap-1 hover:underline text-gray-500"
         >
-          <BsEye /> {views}
+          <Icon name="Eyes" /> {views}
         </Link>
       </small>
     </div>

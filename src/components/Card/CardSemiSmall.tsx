@@ -1,7 +1,7 @@
 import Image from "next/image";import Link from "next/link";
 import { PostWithDetails } from "@domain";
-import { FaPlay } from "react-icons/fa";
 import { linkUtils, textUtils } from "@utils";
+import { Icon } from "../Icon/Icon";
 
 interface Props {
   post: PostWithDetails;
@@ -24,9 +24,9 @@ export function CardSemiSmall({ post }: Props) {
               height={400}
             />
           </div>
-          <div className="hoverEffect absolute top-0 left-0 w-full h-full flex justify-center items-center">
-            <div className="videoHover text-4xl text-gray-300">
-              <FaPlay />
+          <div className="hoverEffect absolute top-0 left-0 w-full h-full flex justify-center items-center text-gray-300 text-white">
+            <div className="videoHover">
+              <Icon name="Play" size="text-4xl" />
             </div>
           </div>
         </Link>

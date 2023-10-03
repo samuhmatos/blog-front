@@ -1,8 +1,9 @@
-"use client";import { useAuth, useUserUpdate } from "@domain";
+"use client";
+import { useAuth, useUserUpdate } from "@domain";
 import Image from "next/image";
-import { AiFillPicture } from "react-icons/ai";
 import { useEffect, useRef, useState } from "react";
 import { CircularProgress } from "@mui/material";
+import { Icon } from "../../Icon/Icon";
 
 export function UserHeader() {
   const { user } = useAuth();
@@ -59,12 +60,16 @@ export function UserHeader() {
           alt={`Foto do usuário`}
         />
         <button
-          className="absolute -bottom-1 right-0 text-4xl rounded-lg"
+          className="absolute -bottom-1 right-0 "
           ref={buttonUpload}
           onClick={handleOpenUpload}
           disabled={loading}
         >
-          {loading ? <CircularProgress size={25} /> : <AiFillPicture />}
+          {loading ? (
+            <CircularProgress size={25} />
+          ) : (
+            <Icon name="Picture" size="text-4xl" className="rounded-lg" />
+          )}
         </button>
         <input
           type="file"

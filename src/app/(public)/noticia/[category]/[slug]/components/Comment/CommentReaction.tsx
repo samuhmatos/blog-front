@@ -1,7 +1,5 @@
-"use client";
-import { BiMinus, BiPlus } from "react-icons/bi";
-import { useState, useEffect } from "react";
-import { PostCommentReactionType, usePostCommentReaction } from "@domain";
+"use client";import { PostCommentReactionType, usePostCommentReaction } from "@domain";
+import { Icon } from "@components";
 
 interface Props {
   commentId: number;
@@ -43,7 +41,7 @@ export function CommentReaction({ commentId, like, postId, unLike }: Props) {
         } text-base`}
         onClick={() => handleReaction("LIKE")}
       >
-        <BiPlus />
+        <Icon name="Plus" size="text-base" />
       </button>
 
       <span className="text-base font-bod text-gray-200 text-center">
@@ -56,7 +54,7 @@ export function CommentReaction({ commentId, like, postId, unLike }: Props) {
         } text-base `}
         onClick={() => handleReaction("UNLIKE")}
       >
-        <BiMinus />
+        <Icon name="Minus" size="text-base" />
       </button>
     </div>
   );

@@ -1,7 +1,6 @@
-"use client";
-import Link from "next/link";
+"use client";import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BsFacebook, BsTwitter } from "react-icons/bs";
+import { Icon } from "@components";
 
 interface Props {
   justify?: "center" | "normal";
@@ -19,7 +18,7 @@ export function Share({ justify = "center", subTitle, title }: Props) {
         target="_blank"
         href={`https://www.facebook.com/sharer/sharer.php?u=${actualLink}`}
       >
-        <BsFacebook />
+        <Icon name="Facebook" />
         <span className="hidden md:block">Compartilhar no Facebook</span>
       </Link>
       <Link
@@ -27,7 +26,8 @@ export function Share({ justify = "center", subTitle, title }: Props) {
         target="_blank"
         href={`http://twitter.com/share?&url=${title}&text=${subTitle}`}
       >
-        <BsTwitter />
+        <Icon name="Twitter" />
+
         <span className="hidden md:block">Compartilhar no Twitter</span>
       </Link>
     </nav>

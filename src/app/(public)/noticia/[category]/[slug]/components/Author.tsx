@@ -1,11 +1,9 @@
-import Image from "next/image";
-import { BsInstagram, BsGithub, BsFillEnvelopeFill } from "react-icons/bs";
-import { AiFillLinkedin } from "react-icons/ai";
-import Link from "next/link";
-import { Post } from "../../../../../domain/Post";
+import Image from "next/image";import Link from "next/link";
+import { PostWithDetails } from "@domain";
 import { Box } from "./Box";
+import { Icon } from "@components";
 
-type AuthorType = Pick<Post, "author">;
+type AuthorType = Pick<PostWithDetails, "author">;
 export function Author({ author }: AuthorType) {
   return (
     <Box title="Autor">
@@ -26,40 +24,44 @@ export function Author({ author }: AuthorType) {
           <h6 className="mt-2">{author.description}</h6>
           <ul className="flex items-center gap-2 text-lg mt-3">
             <li>
-              <Link
-                className=" hover:text-sky-500 transition-all"
-                href="https://www.instagram.com/samuh.matos/"
-                target="_blank"
-              >
-                <BsInstagram />
-              </Link>
+              <Icon
+                name="Instagram"
+                className="hover:text-sky-500"
+                link={{
+                  href: "https://www.instagram.com/samuh.matos/",
+                  target: "_blank",
+                }}
+              />
             </li>
             <li>
-              <Link
-                className=" hover:text-sky-500 transition-all"
-                href="https://www.linkedin.com/in/o-samuelmatos/"
-                target="_blank"
-              >
-                <AiFillLinkedin />
-              </Link>
+              <Icon
+                name="LinkedIn"
+                className="hover:text-sky-500"
+                link={{
+                  href: "https://www.linkedin.com/in/o-samuelmatos/",
+                  target: "_blank",
+                }}
+              />
             </li>
             <li>
-              <Link
-                className=" hover:text-sky-500 transition-all"
-                href="mailto:samuhmatos@gmail.com"
-                target="_blank"
-              >
-                <BsFillEnvelopeFill />
-              </Link>
+              <Icon
+                name="Envelope"
+                className="hover:text-sky-500"
+                link={{
+                  href: "mailto:samuhmatos@gmail.com",
+                  target: "_blank",
+                }}
+              />
             </li>
             <li>
-              <Link
-                className=" hover:text-sky-500 transition-all"
-                href="https://github.com/samuhmatos"
-                target="_blank"
-              >
-                <BsGithub />
-              </Link>
+              <Icon
+                name="GitHub"
+                className="hover:text-sky-500"
+                link={{
+                  href: "https://github.com/samuhmatos",
+                  target: "_blank",
+                }}
+              />
             </li>
           </ul>
         </div>
