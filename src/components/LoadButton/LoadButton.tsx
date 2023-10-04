@@ -1,5 +1,4 @@
-"use client";
-import { twMerge } from "tailwind-merge";
+"use client";import { twMerge } from "tailwind-merge";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import React, { ReactNode } from "react";
 import { CircularProgress } from "@mui/material";
@@ -37,7 +36,6 @@ export function LoadButton({
         return "justify-center";
       default:
         return "flex-row justify-between";
-        break;
     }
   };
 

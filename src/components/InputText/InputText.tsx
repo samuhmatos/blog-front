@@ -5,15 +5,17 @@
   HTMLInputTypeAttribute,
 } from "react";
 import { FormLayout } from "../FormLayout/FormLayout";
+import { twMerge } from "tailwind-merge";
 
 export interface InputTextProps {
   type?: HTMLInputTypeAttribute;
-  placeholder: string;
+  placeholder?: string;
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
   errorMessage?: string;
   name: string;
   label?: string;
+  className?: string;
 }
 
 export function InputText({
@@ -24,6 +26,7 @@ export function InputText({
   type = "text",
   errorMessage,
   label,
+  className,
 }: InputTextProps) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
@@ -32,9 +35,11 @@ export function InputText({
   return (
     <FormLayout errorMessage={errorMessage} label={label} name={name}>
       <div
-        className={`transition-all py-2 px-4 bg-white rounded-lg rounded-t-lg border dark:bg-gray-800 dark:border-gray-700 ${
-          errorMessage ? "border-red-700" : "border-gray-200"
-        }`}
+        className={twMerge(
+          `transition-all py-2 px-4 bg-white rounded-lg border dark:bg-gray-800 dark:border-gray-700`,
+          errorMessage ? "border-red-700" : "border-gray-200",
+          className
+        )}
         onClick={(e) => {
           e.currentTarget.querySelector("input")?.focus();
         }}

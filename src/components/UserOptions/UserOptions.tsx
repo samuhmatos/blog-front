@@ -1,4 +1,5 @@
-"use client";import { useAuth } from "@domain";
+"use client";
+import { useAuth } from "@domain";
 import { Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
@@ -29,7 +30,7 @@ export function UserOptions({ anchor, onClose, open }: Props) {
         anchorEl={anchor}
         open={open}
         onClose={onClose}
-        className="text-base mt-4 rounded-lg"
+        className="text-base mt-1"
         id="user-dropdown-options"
       >
         <div className="px-4">

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { AuthModalInputs } from "./AuthModalInputs";
 import { useAuth } from "@domain";
-import { Alert, CircularProgress } from "@mui/material";
+import { Alert } from "@mui/material";
 import { LoadButton } from "../../LoadButton/LoadButton";
 
 const style = {
@@ -97,9 +97,10 @@ export function AuthModal({ isSignIn = false }: { isSignIn?: boolean }) {
 
   return (
     <div>
-      <button className={`hover:text-zinc-300`} onClick={handleOpen}>
-        {renderContent("Entrar", "Cadastrar")}
-      </button>
+      <LoadButton
+        placeholder={renderContent("Entrar", "Cadastrar")}
+        onClick={handleOpen}
+      />
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <div className="p-2 h-[400px]">
@@ -135,6 +136,7 @@ export function AuthModal({ isSignIn = false }: { isSignIn?: boolean }) {
                     full
                     disabled={disabled}
                     className="p-3"
+                    type="submit"
                   />
                 </form>
               </div>

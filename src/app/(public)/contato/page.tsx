@@ -1,4 +1,5 @@
-"use client";import {
+"use client";
+import {
   FormTextAreaInput,
   LoadButton,
   FormTextInput,
@@ -36,7 +37,7 @@ export default function ContatoScreen() {
   }
 
   return (
-    <div className="container mx-auto mt-10 px-2">
+    <div className="container mx-auto mt-32 px-2">
       <div className="flex gap-5 justify-center flex-wrap 2sm:flex-nowrap">
         <div className="w-full 2sm:w-1/2">
           <div className="mb-8">
@@ -147,3 +148,5 @@ export default function ContatoScreen() {
     </div>
   );
 }
+
+//TODO: LOADING CONTATO PAGE

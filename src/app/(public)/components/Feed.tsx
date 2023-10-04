@@ -1,7 +1,9 @@
-import { PostWithDetails, postService } from "@domain";import { AdsBox, Icon, Pagination } from "@components";
+import { PostWithDetails, postService } from "@domain";
+import { AdsBox, Icon, Pagination } from "@components";
 import { CardMedium } from "@components";
 import { Page } from "@api";
 import Image from "next/image";
+import { PageParams } from "@types";
 
 async function fetchData(
   page: number,
@@ -13,18 +15,16 @@ async function fetchData(
 
 export async function Feed({
   searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const page =
-    typeof searchParams.page === "string" ? Number(searchParams.page) : 1;
-
-  const search =
-    typeof searchParams.search === "string" ? searchParams.search : undefined;
+}: PageParams<{
+  search: string;
+  page: string;
+}>) {
+  const page = Number(searchParams.page) || 1;
+  const search = searchParams.search || undefined;
 
   const {
     data: posts,
-    meta: { currentPage, hasNextPage, hasPreviousPage, totalPage },
+    meta: { currentPage, hasNextPage, hasPreviousPage, totalPage, total },
   } = await fetchData(page, search);
 
   return (

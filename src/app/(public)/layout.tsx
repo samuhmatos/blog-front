@@ -22,7 +22,7 @@ export default async function RootLayout({
     <>
       <Header />
 
-      <main>{children}</main>
+      <main className="mt-16 md:mt-28">{children}</main>
 
       <Footer />
     </>

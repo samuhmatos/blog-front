@@ -1,5 +1,4 @@
-"use client";
-import { useRouter } from "next/navigation";
+"use client";import { useRouter } from "next/navigation";
 import { HTMLAttributeAnchorTarget } from "react";
 import { AiFillLinkedin, AiFillPicture } from "react-icons/ai";
 import {
@@ -32,6 +31,7 @@ import { UserIcon } from "./UserIcon";
 import { ArrowRightIcon } from "./ArrowRightIcon";
 import { HomeIcon } from "./HomeIcon";
 import { ArrowRightHalfIcon } from "./ArrowRightHalfIcon";
+import { SearchIcon } from "./SearchIcon";
 
 export interface IconProps {
   name: IconName;
@@ -98,6 +98,7 @@ const iconRegistry = {
   ArrowRight: ArrowRightIcon,
   Home: HomeIcon,
   ArrowRightHalf: ArrowRightHalfIcon,
+  Search: SearchIcon,
 };
 
 type Icontype = typeof iconRegistry;

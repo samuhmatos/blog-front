@@ -1,21 +1,21 @@
 import { SideBar, Screen } from "@components";
 import { Feed, Banner } from "./components/";
+import { PageParams } from "@types";
 
 export default function HomeScreen({
   searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+}: PageParams<{
+  search: string;
+  page: string;
+}>) {
   return (
-    <>
-      <div className="px-2">
-        <Banner />
+    <div className="px-2">
+      <Banner />
 
-        <Screen container>
-          <Feed searchParams={searchParams} />
-          <SideBar />
-        </Screen>
-      </div>
-    </>
+      <Screen container>
+        <Feed searchParams={searchParams} />
+        <SideBar />
+      </Screen>
+    </div>
   );
 }

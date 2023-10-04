@@ -25,7 +25,13 @@ const config: Config = {
           "900": "#0c4a6e",
           "950": "#082f49",
         },
-        teste: "#011224",
+        secondary: "#011224",
+      },
+      padding: {
+        "2.7": "0.70rem" /* 11.2px */,
+      },
+      height: {
+        "9.5": "2.375rem" /* 36px */,
       },
     },
     screens: {

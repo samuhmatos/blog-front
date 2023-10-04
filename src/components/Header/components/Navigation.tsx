@@ -1,152 +1,78 @@
-"use client";
-import Link from "next/link";
-import { AuthModal } from "./AuthModal";
-import { useAuth } from "@domain";
+"use client";import Link from "next/link";
 import { linkUtils } from "@utils";
 import Image from "next/image";
-import { UserCard } from "../../UserCard/UserCard";
-import { Icon } from "@components";
+import { twMerge } from "tailwind-merge";
+import { SearchInput } from "./SearchInput";
+import { useRef } from "react";
+import { Variants, motion } from "framer-motion";
+import { usePathname } from "next/navigation";
+
+const variants: Variants = {
+  open: {
+    opacity: 1,
+    display: "flex",
+  },
+  closed: {
+    opacity: 0,
+    display: "none",
+  },
+};
 
 interface Props {
-  isDropDown: boolean;
+  isOpen: boolean;
 }
 
-export function Navigation({ isDropDown }: Props) {
-  const { user, logout } = useAuth();
+export function Navigation({ isOpen }: Props) {
+  const pathname = usePathname();
 
-  // return (
-  //   <div>
+  const ulRef = useRef<HTMLUListElement>(null);
 
-  //   </div>
-  // )
+  function RenderItem({ url, label }: { url: string; label: string }) {
+    const activity = pathname === url;
+
+    return (
+      <li>
+        <Link
+          className={twMerge(
+            "block w-full px-3 py-1 rounded-md",
+            activity
+              ? "bg-secondary text-gray-300"
+              : "hover:bg-primary-700 text-gray-100"
+          )}
+          href={url}
+        >
+          <span className="text-base">{label}</span>
+        </Link>
+      </li>
+    );
+  }
 
   return (
-    <div
-      className={`${
-        isDropDown ? "flex" : "hidden"
-      } flex-1 flex-col absolute bg-primary-600 w-full mt-12 py-3 font-medium  lg:flex lg:flex-row lg:static lg:justify-around lg:mt-0 lg:py-0 2xl:text-lg`}
+    <motion.ul
+      className={
+        "border-t border-primary-600 font-medium text-base gap-3 pt-2 flex flex-wrap justify-center md:justify-start transition-all"
+      }
+      ref={ulRef}
+      initial={false}
+      animate={isOpen ? "open" : "closed"}
+      variants={variants}
+      transition={{ duration: 0.1 }}
     >
-      <ul className="flex justify-center items-center flex-wrap">
-        <li>
-          <Link
-            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300"
-            href="/"
-          >
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link
-            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300 "
-            href={linkUtils.linkCategory("tech")}
-          >
-            Tech
-          </Link>
-        </li>
-        <li>
-          <Link
-            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300 "
-            href={linkUtils.linkCategory("videos")}
-          >
-            Videos
-          </Link>
-        </li>
-        <li>
-          <Link
-            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300 "
-            href={linkUtils.linkCategory("portfolio")}
-          >
-            Portfólio
-          </Link>
-        </li>
-        <li>
-          <Link
-            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300 "
-            href={linkUtils.linkCategory("qualificacoes")}
-          >
-            Qualificações
-          </Link>
-        </li>
-        <li>
-          <Link
-            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300 "
-            href={linkUtils.linkCategory("reviews")}
-          >
-            Reviews
-          </Link>
-        </li>
-        <li>
-          <Link
-            className="px-2 py-2 hover:text-zinc-300 active:text-zinc-300 "
-            href="/contato"
-          >
-            Contato
-          </Link>
-        </li>
-      </ul>
-      <ul className="flex items-center justify-center mt-2 gap-3 text-2xl lg:mt-0">
-        <li>
-          <Icon
-            name="Instagram"
-            size="text-2xl"
-            className="hover:text-zinc-300"
-            link={{
-              href: "https://www.instagram.com/samuh.matos/",
-              target: "_blank",
-            }}
-          />
-        </li>
-        <li>
-          <Icon
-            name="LinkedIn"
-            size="text-2xl"
-            className="hover:text-zinc-300"
-            link={{
-              href: "https://www.linkedin.com/in/o-samuelmatos/",
-              target: "_blank",
-            }}
-          />
-        </li>
-        <li>
-          <Icon
-            name="Envelope"
-            size="text-2xl"
-            className="hover:text-zinc-300"
-            link={{
-              href: "mailto:samuhmatos@gmail.com",
-              target: "_blank",
-            }}
-          />
-        </li>
-        <li>
-          <Icon
-            name="GitHub"
-            size="text-2xl"
-            className="hover:text-zinc-300"
-            link={{
-              href: "https://github.com/samuhmatos",
-              target: "_blank",
-            }}
-          />
-        </li>
-      </ul>
-      <div className="flex items-center justify-center mt-2 ml-1 lg:mt-0">
-        <ul className="flex items-center gap-3">
-          {user ? (
-            <UserCard />
-          ) : (
-            <>
-              <li className="hover:text-zinc-300">
-                <AuthModal isSignIn />
-              </li>
-              <li className="hover:text-zinc-300">
-                <AuthModal />
-              </li>
-            </>
-          )}
-        </ul>
+      <div className="block 3sm:hidden w-full mb-2">
+        <SearchInput />
       </div>
-    </div>
+
+      <RenderItem label="Home" url="/" />
+      <RenderItem label="Tech" url={linkUtils.linkCategory("tech")} />
+      <RenderItem label="Videos" url={linkUtils.linkCategory("videos")} />
+      <RenderItem label="Portfólio" url={linkUtils.linkCategory("portfolio")} />
+      <RenderItem
+        label="Qualificações"
+        url={linkUtils.linkCategory("qualificacoes")}
+      />
+      <RenderItem label="Reviews" url={linkUtils.linkCategory("reviews")} />
+      <RenderItem label="Contato" url="/contato" />
+    </motion.ul>
   );
 }
 
