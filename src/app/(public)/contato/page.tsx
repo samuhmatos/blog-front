@@ -37,7 +37,7 @@ export default function ContatoScreen() {
   }
 
   return (
-    <div className="container mx-auto mt-32 px-2">
+    <div className="container mx-auto mt-24 md:mt-32 px-2">
       <div className="flex gap-5 justify-center flex-wrap 2sm:flex-nowrap">
         <div className="w-full 2sm:w-1/2">
           <div className="mb-8">
@@ -58,13 +58,6 @@ export default function ContatoScreen() {
               qualquer outra coisa? Entre em contato comigo
             </h3>
           </div>
-          <div className="mb-8">
-            <h2 className="text-lg font-bold mb-2">
-              O que usei para desenvolver este projeto?
-            </h2>
-            <h3 className="text-gray-500 text-sm">Front end: Next Js</h3>
-            <h3 className="text-gray-500 text-sm">Back end: Laravel</h3>
-          </div>
 
           <div className="mb-8">
             <h2 className="text-lg font-bold mb-2 flex gap-2 items-center">
@@ -83,12 +76,12 @@ export default function ContatoScreen() {
               target="_blank"
             >
               <h3 className="text-gray-500 text-sm underline">
-                Projeto Front end
+                Projeto Front end (Next Js)
               </h3>
             </Link>
             <Link href="https://github.com/samuhmatos/blog-api" target="_blank">
               <h3 className="text-gray-500 text-sm underline">
-                Projeto Back end
+                Projeto Back end (Laravel)
               </h3>
             </Link>
           </div>
