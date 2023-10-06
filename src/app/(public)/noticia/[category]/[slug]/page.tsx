@@ -21,9 +21,11 @@ async function getPost(postSlug: string): Promise<PostWithDetails> {
 export default async function PostScreen({ params }: PostScreenProps) {
   const post = await getPost(params.slug);
   return (
-    <Screen className="mt-16">
-      <PostSession params={params} post={post} />
-      <SideBar />
-    </Screen>
+    <div className="mt-24">
+      <Screen>
+        <PostSession params={params} post={post} />
+        <SideBar />
+      </Screen>
+    </div>
   );
 }

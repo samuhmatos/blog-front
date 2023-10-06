@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { FormTextInput } from "../FormTextInput/FormTextInput";
 import { FormTextAreaInput } from "../FormTextAreaInput/FormTextAreaInput";
 import { Button } from "../Button/Button";
+import { useEffect } from "react";
 
 interface Props {
   open: boolean;
@@ -18,17 +19,20 @@ export function USerProfile({ open, onClose }: Props) {
   const { user } = useAuth();
   const { loading, update } = useUserUpdate();
 
-  const { control, formState, handleSubmit, reset } =
+  const { control, formState, handleSubmit, reset, setValue } =
     useForm<UserProfileSchema>({
       resolver: zodResolver(userProfileSchema),
-      defaultValues: {
-        email: user?.email,
-        name: user?.name,
-        description: user?.description || "",
-        username: user?.username,
-      },
       mode: "onChange",
     });
+
+  useEffect(() => {
+    if (user) {
+      setValue("name", user.name);
+      setValue("email", user.email);
+      setValue("username", user.username);
+      user.description && setValue("description", user.description);
+    }
+  }, [user]);
 
   function handleUpdateUser(data: UserProfileSchema) {
     var formData = new FormData();

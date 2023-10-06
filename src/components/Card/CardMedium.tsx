@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image";import Link from "next/link";
 
 import { PostWithDetails } from "@domain";
 import { CategoryBox } from "../CategoryBox/CategoryBox";
@@ -16,11 +15,11 @@ export function CardMedium({ post }: CardProps) {
 
   return (
     <div className="flex flex-wrap mb-6  md:h-52 md:flex-nowrap">
-      <div className="post-media w-full h-72 md:h-auto md:w-64">
+      <div className="post-media w-full h-72 md:h-auto md:w-64 rounded-lg ">
         <Link href={linkPost}>
           <img
             src={post.imageURL}
-            className="rounded-lg object-fill"
+            className="object-fill"
             width={300}
             height={200}
           />

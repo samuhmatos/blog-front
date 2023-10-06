@@ -1,4 +1,5 @@
-import Image from "next/image";import Link from "next/link";
+import Image from "next/image";
+import Link from "next/link";
 import { PostWithDetails } from "@domain";
 import { linkUtils, textUtils } from "@utils";
 
@@ -14,7 +15,7 @@ export function CardSmall({ post }: Props) {
     <div className="py-1 mb-3">
       <Link href={linkPost} title="">
         <div className="flex gap-2">
-          <div className="w-24">
+          <div className="w-24 rounded-lg ">
             <img src={post.imageURL} alt="" width={400} height={400} />
           </div>
           <div className="text-base font-medium">

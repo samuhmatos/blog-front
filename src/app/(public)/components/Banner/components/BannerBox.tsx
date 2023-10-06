@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image";import Link from "next/link";
 import { PostWithDetails } from "@domain";
 import { CategoryBox } from "@components";
 import { linkUtils, textUtils } from "@utils";
@@ -17,7 +16,7 @@ export function BannerBox({ post, first = false }: BoxProps) {
     <div
       className={`${
         first ? "w-full lg:w-1/2" : "w-full md:w-[49%] lg:w-1/4"
-      } h-96 overflow-hidden`}
+      } h-96 overflow-hidden rounded`}
     >
       <div className="post-media w-full h-full relative">
         <Image
