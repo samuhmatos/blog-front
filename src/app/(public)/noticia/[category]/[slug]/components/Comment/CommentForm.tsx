@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { UsePostCommentProps, usePostComment } from "@domain";
-import { LoadButton, TextAreaInput } from "@components";
+import { Button, TextAreaInput } from "@components";
 
 interface Props {
   postId: number;
@@ -93,14 +93,14 @@ export function CommentForm({ postId }: Props) {
         name="comment"
       />
       <div className="flex gap-3 mt-3">
-        <LoadButton
+        <Button
           loading={loading}
           placeholder={renderSuccessButtonText()}
           disabled={!!!text}
           onClick={handleSubmit}
         />
         {(replyTo || action === "edit") && (
-          <LoadButton
+          <Button
             paleteColor="danger"
             placeholder={renderCancelButtonText()}
             onClick={handleCancelAction}
@@ -110,3 +110,5 @@ export function CommentForm({ postId }: Props) {
     </div>
   );
 }
+
+//TODO: ADD HOOK FORM + ZOD

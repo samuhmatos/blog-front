@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import { AuthModalInputs } from "./AuthModalInputs";
 import { useAuth } from "@domain";
 import { Alert } from "@mui/material";
-import { LoadButton } from "../../LoadButton/LoadButton";
+import { Button } from "../../Button/Button";
 
 const style = {
   position: "absolute" as "absolute",
@@ -97,7 +97,8 @@ export function AuthModal({ isSignIn = false }: { isSignIn?: boolean }) {
 
   return (
     <div>
-      <LoadButton
+      <Button
+        outline={!isSignIn}
         placeholder={renderContent("Entrar", "Cadastrar")}
         onClick={handleOpen}
       />
@@ -130,7 +131,7 @@ export function AuthModal({ isSignIn = false }: { isSignIn?: boolean }) {
                     handleChangeInputs={handleChangeInputs}
                     isSignIn={isSignIn}
                   />
-                  <LoadButton
+                  <Button
                     loading={loading}
                     placeholder={renderContent("Entrar", "Criar conta")}
                     full

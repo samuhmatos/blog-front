@@ -1,4 +1,5 @@
-"use client";import { Modal } from "@mui/material";
+"use client";
+import { Modal } from "@mui/material";
 import { UserHeader } from "./components/UserHeader";
 import { useAuth, useUserUpdate } from "@domain";
 import { UserProfileSchema, userProfileSchema } from "./UserProfileSchema";
@@ -6,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { FormTextInput } from "../FormTextInput/FormTextInput";
 import { FormTextAreaInput } from "../FormTextAreaInput/FormTextAreaInput";
-import { LoadButton } from "../LoadButton/LoadButton";
+import { Button } from "../Button/Button";
 
 interface Props {
   open: boolean;
@@ -86,14 +87,14 @@ export function USerProfile({ open, onClose }: Props) {
               />
 
               <div className="flex gap-3 justify-end mt-3">
-                <LoadButton
+                <Button
                   loading={loading}
                   placeholder="Salvar"
                   disabled={!formState.isValid}
                   onClick={handleSubmit(handleUpdateUser)}
                   full
                 />
-                <LoadButton
+                <Button
                   placeholder="Fechar"
                   paleteColor="danger"
                   onClick={handleClose}

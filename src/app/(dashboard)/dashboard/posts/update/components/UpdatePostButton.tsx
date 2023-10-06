@@ -1,4 +1,5 @@
-"use client";import { FormCheckbox, LoadButton } from "@components";
+"use client";
+import { FormCheckbox, Button } from "@components";
 import { UpdateServiceProps, useUpdatePost } from "@domain";
 import { ReturnPostSchemaType } from "../../hooks/usePostSchema";
 import { CreatePostSchema } from "../../components/Post/PostSchema";
@@ -53,7 +54,7 @@ export function UpdatePostButton({ schema, postId, isDraft }: Props) {
 
   return (
     <div className="flex gap-3">
-      <LoadButton
+      <Button
         loading={loading}
         placeholder="Editar Postagem"
         disabled={!formState.isValid}

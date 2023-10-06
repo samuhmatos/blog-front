@@ -1,4 +1,5 @@
-"use client";import { Icon, InputText, LoadButton } from "@components";
+"use client";
+import { Icon, InputText, Button } from "@components";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useCallback, useState } from "react";
 
@@ -37,7 +38,7 @@ export function SearchInput() {
           placeholder="Pesquisar..."
         />
       </div>
-      <LoadButton
+      <Button
         placeholder={<Icon name="Search" />}
         loadingPosition="center"
         className="rounded-l-none"

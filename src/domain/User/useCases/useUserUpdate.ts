@@ -1,11 +1,10 @@
-"use client";
-import { useContext, useState } from "react";
+"use client";import { useContext, useState } from "react";
 import { userService } from "../userService";
 import { AxiosError } from "axios";
 import { ErrorApi } from "@api";
 import { setCookie } from "cookies-next";
 import { AuthContext } from "@context";
-import { errorUtils } from "@utils";
+import { errorUtils, toastUtils } from "@utils";
 
 export function useUserUpdate() {
   const { setUser, setToken } = useContext(AuthContext);
@@ -24,6 +23,11 @@ export function useUserUpdate() {
         }
         setCookie("user", res.user);
         setUser(res.user!);
+
+        toastUtils.show({
+          message: "Atualizado com sucesso!",
+          type: "success",
+        });
       })
       .catch((err: AxiosError<ErrorApi>) => {
         errorUtils.setGlobalErrorMessage(err);

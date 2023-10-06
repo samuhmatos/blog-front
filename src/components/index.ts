@@ -9,7 +9,7 @@ export * from "./Breadcrumb/Breadcrumb";
 export * from "./CategoryBox/CategoryBox";
 export * from "./PostDetails/PostDetails";
 export * from "./InputText/InputText";
-export * from "./LoadButton/LoadButton";
+export * from "./Button/Button";
 export * from "./TextAreaInput/TextAreaInput";
 export * from "./FormTextAreaInput/FormTextAreaInput";
 export * from "./FormTextInput/FormTextInput";

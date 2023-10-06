@@ -1,5 +1,4 @@
-"use client";
-import {
+"use client";import {
   PostWithDetails,
   useRemovePost,
   useRestorePost,
@@ -12,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Checkbox, Icon, LoadButton } from "@components";
+import { Checkbox, Icon, Button } from "@components";
 import { TableDetailsCollapsed } from "./TableDetailsCollapsed";
 import { useRouter } from "next/navigation";
 import { linkUtils } from "@utils";
@@ -101,7 +100,7 @@ export function Row({ post, refetch, isTrash }: RowsType) {
           )}
         </TableCell>
         <TableCell align="right">
-          <LoadButton
+          <Button
             placeholder="Editar"
             onClick={handleOpenEditModal}
             paleteColor="warning"
@@ -110,14 +109,14 @@ export function Row({ post, refetch, isTrash }: RowsType) {
         </TableCell>
         <TableCell align="right">
           {isTrash ? (
-            <LoadButton
+            <Button
               placeholder="Restaurar"
               paleteColor="warning"
               onClick={handleRestorePost}
               loading={loadingRestore}
             />
           ) : (
-            <LoadButton
+            <Button
               placeholder={<Icon name="Trash" size="text-base" />}
               paleteColor="danger"
               loadingPosition="center"

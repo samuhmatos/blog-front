@@ -1,5 +1,5 @@
 "use client";import { FormEvent, useState } from "react";
-import { Button, InputText, LoadButton } from "@components";
+import { Button, InputText } from "@components";
 
 export function Form() {
   const [email, setEmail] = useState("");
@@ -21,8 +21,7 @@ export function Form() {
           name="email"
         />
 
-        {/* <Button /> */}
-        <LoadButton loading={false} placeholder="Enviar" />
+        <Button placeholder="Enviar" type="submit" />
       </div>
     </form>
   );

@@ -1,4 +1,5 @@
-import { postCategoryService } from "@domain";import Image from "next/image";
+import { postCategoryService } from "@domain";
+import Image from "next/image";
 import Link from "next/link";
 import { Form } from "./components/Form";
 import { List } from "./components/List";
@@ -10,7 +11,7 @@ export async function Footer() {
   return (
     <footer className="bg-black mt-16 py-6 text-white px-2 md:py-8">
       <div className="container m-auto">
-        <div className="flex justify-evenly gap-2 flex-wrap-reverse md:flex md:gap-5 md:flex-nowrap md:justify-between lg:gap-10">
+        <div className="flex justify-evenly gap-2 flex-wrap-reverse md:flex md:gap-5 md:flex-nowrap md:justify-around lg:gap-10">
           <div className="text-gray-400 w-full md:w-auto flex flex-col items-center md:items-start">
             <div className="text-left">
               <div className="flex items-center justify-center md:justify-normal gap-5">

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Post, PostWithDetails } from "@domain";
+import { PostWithDetails } from "@domain";
 import { CategoryBox } from "../CategoryBox/CategoryBox";
 import { linkUtils } from "@utils";
 import { PostDetails } from "../PostDetails/PostDetails";
@@ -20,18 +20,20 @@ export function CardMedium({ post }: CardProps) {
         <Link href={linkPost}>
           <img
             src={post.imageURL}
-            className="rounded"
-            width={400}
+            className="rounded-lg object-fill"
+            width={300}
             height={200}
           />
         </Link>
       </div>
 
       <div className="flex-1 mt-1 md:mt-0 md:px-4">
-        <h4 className="text-sky-500 font-extrabold text-lg hover:underline">
-          <Link href={linkPost}>{post.title}</Link>
-        </h4>
-        <p className="mt-2">{post.subTitle}</p>
+        <Link href={linkPost}>
+          <h4 className="text-sky-500 font-extrabold text-lg hover:underline break-words">
+            {post.title}
+          </h4>
+        </Link>
+        <p className="mt-2 break-words">{post.subTitle}</p>
 
         <div className="cardMedium-Bottom flex  items-center gap-2 mt-3 flex-wrap sm:justify-normal 2sm:justify-between">
           <div className="w-full 3sm:w-auto">

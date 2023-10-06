@@ -1,7 +1,9 @@
-"use client";import { Page, api } from "@api";
+"use client";
+import { Page, api } from "@api";
 import { PostWithDetails, postService, userService } from "@domain";
 import { BASE_URL } from "@config";
 import { getCookie, getCookies } from "cookies-next";
+import { Button } from "@components";
 
 async function fetchData(
   page: number,
@@ -22,6 +24,15 @@ export default function CategoryScreen() {
       <button type="button" className="bg-red-500 p-5" onClick={handle}>
         Teste
       </button>
+
+      <Button placeholder="Outline" outline paleteColor="danger" />
+      <Button placeholder="Normal" paleteColor="danger" />
+
+      <Button placeholder="Outline" outline paleteColor="warning" />
+      <Button placeholder="Normal" paleteColor="warning" />
+
+      <Button placeholder="Outline" outline />
+      <Button placeholder="Normal" />
     </div>
   );
 }

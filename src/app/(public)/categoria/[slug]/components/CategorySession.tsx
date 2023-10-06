@@ -1,8 +1,7 @@
-import { notFound } from "next/navigation";
-import { PagePaginationParams } from "../page";
+import { notFound } from "next/navigation";import { PagePaginationParams } from "../page";
 import { Category, PostWithDetails, postService } from "@domain";
 import { Page } from "@api";
-import { CardMedium, NavigationPathType, Pagination } from "@components";
+import { CardMedium, Pagination } from "@components";
 import { linkUtils } from "@utils";
 
 async function getPosts(

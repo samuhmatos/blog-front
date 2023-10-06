@@ -1,9 +1,9 @@
-"use client";
-import { useAuth } from "@domain";
+"use client";import { useAuth } from "@domain";
 import { Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
 import { USerProfile } from "../UserProfile/UserProfile";
+import { usePathname } from "next/navigation";
 
 interface Props {
   anchor: HTMLElement | null;
@@ -13,6 +13,7 @@ interface Props {
 
 export function UserOptions({ anchor, onClose, open }: Props) {
   const { user, logout } = useAuth();
+  const pathName = usePathname();
 
   const [openConfig, setOpenConfig] = useState<boolean>(false);
 
@@ -42,7 +43,7 @@ export function UserOptions({ anchor, onClose, open }: Props) {
           </span>
         </div>
         <ul className="py-2" aria-labelledby="user-menu-button">
-          {user?.isAdmin && (
+          {user?.isAdmin && !pathName.includes("/dashboard") && (
             <MenuItem>
               <Link
                 href="/dashboard"

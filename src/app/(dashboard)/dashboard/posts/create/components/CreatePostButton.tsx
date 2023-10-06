@@ -1,4 +1,5 @@
-"use client";import { LoadButton } from "@components";
+"use client";
+import { Button } from "@components";
 import { useCreatePost } from "@domain";
 import { ReturnPostSchemaType, usePostSchema } from "../../hooks/usePostSchema";
 import { CreatePostSchema } from "../../components/Post/PostSchema";
@@ -46,14 +47,14 @@ export function CreatePostButton({ schema }: Props) {
 
   return (
     <div className="flex gap-3">
-      <LoadButton
+      <Button
         loading={loadingPublish}
         placeholder="Publicar"
         disabled={!formState.isValid}
         onClick={handleSubmit(handlePublishPost)}
       />
 
-      <LoadButton
+      <Button
         loading={loadingDraft}
         placeholder="Rascunho"
         disabled={!formState.isValid}

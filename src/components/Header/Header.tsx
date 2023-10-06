@@ -1,4 +1,5 @@
-"use client";import Image from "next/image";
+"use client";
+import Image from "next/image";
 import Link from "next/link";
 
 import { useEffect, useState } from "react";
@@ -30,7 +31,7 @@ export function Header() {
 
   return (
     <header className="h-12 h-auto w-full fixed top-0 z-10">
-      <div className="py-2 px-6 bg-primary-500 font-semibold flex flex-col gap-2">
+      <div className="py-2 px-3 bg-primary-500 font-semibold flex flex-col gap-2">
         <div className="flex justify-between items-center gap-3">
           <Link href="/">
             <Image

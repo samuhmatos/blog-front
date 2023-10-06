@@ -1,10 +1,5 @@
 "use client";
-import {
-  FormTextAreaInput,
-  LoadButton,
-  FormTextInput,
-  Icon,
-} from "@components";
+import { FormTextAreaInput, Button, FormTextInput, Icon } from "@components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ContatoSchema, contatoSchema } from "./ContatoPageSchema";
@@ -128,12 +123,13 @@ export default function ContatoScreen() {
               label="Seu comentário"
             />
 
-            <LoadButton
+            <Button
               loading={loading}
               endIcon={<Icon name="Send" />}
               disabled={!formState.isValid}
               placeholder="Enviar"
               className="mt-3"
+              type="submit"
             />
           </form>
         </div>
