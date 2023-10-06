@@ -1,9 +1,9 @@
-"use client";import { useAuth } from "@domain";
+"use client";
+import { useAuth } from "@domain";
 import { Menu, MenuItem } from "@mui/material";
-import Link from "next/link";
 import { useState } from "react";
 import { USerProfile } from "../UserProfile/UserProfile";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
   anchor: HTMLElement | null;
@@ -14,6 +14,7 @@ interface Props {
 export function UserOptions({ anchor, onClose, open }: Props) {
   const { user, logout } = useAuth();
   const pathName = usePathname();
+  const router = useRouter();
 
   const [openConfig, setOpenConfig] = useState<boolean>(false);
 
@@ -42,31 +43,25 @@ export function UserOptions({ anchor, onClose, open }: Props) {
             {user?.email}
           </span>
         </div>
-        <ul className="py-2" aria-labelledby="user-menu-button">
+
+        <ul className="py-1">
           {user?.isAdmin && !pathName.includes("/dashboard") && (
-            <MenuItem>
-              <Link
-                href="/dashboard"
-                className="block  text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              >
+            <MenuItem onClick={() => router.push("/dashboard")}>
+              <span className="block w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                 Dashboard
-              </Link>
+              </span>
             </MenuItem>
           )}
-          <MenuItem
-            onClick={handleOpenConfigOptions}
-            className="text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-          >
-            Editar perfil
+          <MenuItem onClick={handleOpenConfigOptions}>
+            <span className="text-sm w-full text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+              Editar perfil
+            </span>
           </MenuItem>
 
-          <MenuItem>
-            <button
-              onClick={logout}
-              className="text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-            >
+          <MenuItem onClick={logout}>
+            <span className="text-sm w-full text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
               Desconectar
-            </button>
+            </span>
           </MenuItem>
         </ul>
       </Menu>

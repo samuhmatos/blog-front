@@ -1,6 +1,6 @@
 "use client";import Link from "next/link";
 import { MetaDataPage } from "@api";
-import { useRouter } from "next/navigation";
+import { twMerge } from "tailwind-merge";
 
 interface PaginationProps
   extends Pick<
@@ -18,7 +18,6 @@ export function Pagination({
   currentUrl,
 }: PaginationProps) {
   const arr = Array(totalPage).fill(undefined);
-  const router = useRouter();
 
   if (totalPage === 1) return null;
 
@@ -30,7 +29,7 @@ export function Pagination({
             href={`${currentUrl}?page=1`}
             className={`${
               !hasPreviousPage && "pointer-events-none"
-            } flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+            } flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-400`}
           >
             <span className="sr-only">Previous</span>
             <svg
@@ -53,11 +52,19 @@ export function Pagination({
         {arr.map((_, index) => {
           var pageIndex = index + 1;
           return (
-            <li key={pageIndex}>
+            <li
+              key={pageIndex}
+              aria-current={pageIndex === currentPage ? "page" : "false"}
+            >
               <Link
-                aria-current={pageIndex === currentPage ? "page" : "false"}
                 href={`${currentUrl}?page=${pageIndex}`}
-                className="z-10 flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                aria-disabled={pageIndex === currentPage}
+                className={twMerge(
+                  "z-10 flex items-center justify-center px-3 h-8 leading-tight border-gray-300",
+                  pageIndex === currentPage
+                    ? "bg-gray-700 text-gray-400"
+                    : "text-gray-500 bg-white border hover:bg-gray-400 hover:text-gray-700"
+                )}
               >
                 {pageIndex}
               </Link>
@@ -70,7 +77,7 @@ export function Pagination({
             href={`${currentUrl}?page=${currentPage + 1}`}
             className={`${
               !hasNextPage && "pointer-events-none"
-            } flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+            } flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-400`}
           >
             <span className="sr-only">Next</span>
             <svg

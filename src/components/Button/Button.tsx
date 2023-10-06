@@ -1,5 +1,5 @@
 "use client";import { twMerge } from "tailwind-merge";
-import React, { HTMLAttributes, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { CircularProgress } from "@mui/material";
 
 interface Props {
@@ -52,17 +52,13 @@ export function Button({
           );
         }
 
-        return twMerge(
-          "bg-red-700 text-gray-200 disabled:bg-red-900 hover:bg-red-800"
-        );
+        return "bg-red-700 text-gray-200 disabled:bg-red-900 hover:bg-red-800";
       case "warning":
         if (outline) {
           return twMerge(outlineStyle, "border-yellow-600 hover:bg-yellow-600");
         }
 
-        return twMerge(
-          "bg-yellow-600 hover:bg-yellow-700 text-primary-950 disabled:bg-yellow-800"
-        );
+        return "bg-yellow-600 hover:bg-yellow-700 text-primary-950 disabled:bg-yellow-800";
       default:
         if (outline) {
           return twMerge(
@@ -118,5 +114,3 @@ export function Button({
     </button>
   );
 }
-
-// FIXME: TYPE DEFAULT AGORA É BUTTON, CORRGIR AONDE PRECISA PARA PODER FUNCIONAR NORMALMMENTE

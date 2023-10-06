@@ -8,7 +8,7 @@ export function SideBar() {
     >
       <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul className="space-y-2 font-medium text-gray-900">
-          <RenderSideBarItem href="" IconName="Dashboard" label="Dashboard" />
+          <RenderSideBarItem href="/" IconName="Dashboard" label="Dashboard" />
 
           <RenderSideBarItem
             href="inbox"

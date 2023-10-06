@@ -79,7 +79,7 @@ export function useAuth() {
         deleteCookie("user");
         deleteCookie("token");
 
-        if (!pathName.includes("dashboard")) {
+        if (pathName.includes("dashboard")) {
           router.push("/");
         }
 
