@@ -1,5 +1,7 @@
-"use client";import { useEffect, useState } from "react";
-import { ReactionType, postReactionService } from "..";
+"use client";
+import { useEffect, useState } from "react";
+import { postReactionService } from "..";
+import { ReactionType } from "@types";
 import { AxiosError } from "axios";
 import { toastUtils } from "@utils";
 

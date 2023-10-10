@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { User } from "@domain";
-import { NextConfig } from "next";
 
 export default function middleware(request: NextRequest) {
   var token = request.cookies.get("token");

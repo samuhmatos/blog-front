@@ -4,7 +4,10 @@ import { api } from "@api";
 async function create({
   type,
   comment_id,
-}: Omit<PostCommentReactionApi, "user_id">): Promise<PostCommentReactionApi> {
+}: Pick<
+  PostCommentReactionApi["reaction"],
+  "comment_id" | "type"
+>): Promise<PostCommentReactionApi> {
   const response = await api.post<PostCommentReactionApi>(
     `comment/${comment_id}/reaction`,
     {
@@ -16,9 +19,7 @@ async function create({
 }
 
 async function destroy(comment_id: number): Promise<void> {
-  const response = await api.delete<PostCommentReactionApi>(
-    `comment/${comment_id}/reaction`
-  );
+  const response = await api.delete(`comment/${comment_id}/reaction`);
 
   return;
 }

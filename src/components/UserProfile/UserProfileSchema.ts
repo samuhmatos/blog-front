@@ -1,4 +1,5 @@
-import { z } from "zod";export const userProfileSchema = z.object({
+import { z } from "zod";
+export const userProfileSchema = z.object({
   name: z
     .string()
     .min(5, "Nome muito curto")

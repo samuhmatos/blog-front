@@ -1,13 +1,10 @@
 "use client";
 import { useState } from "react";
-import {
-  PostCommentReaction,
-  postCommentReactionService,
-  PostCommentReactionType,
-} from "..";
+import { PostCommentReaction, postCommentReactionService } from "..";
 import { errorUtils } from "@utils";
 import { AxiosError } from "axios";
 import { ErrorApi } from "@api";
+import { ReactionType } from "@types";
 
 interface Props {
   like: number;
@@ -16,25 +13,21 @@ interface Props {
 
 export function usePostCommentReaction({ like, unLike }: Props) {
   const [loading, setLoading] = useState<boolean>();
-  const [reaction, setReaction] = useState<PostCommentReactionType | null>(
-    null
-  );
+  const [reactionType, setReactionType] = useState<ReactionType | null>(null);
   const [likeCount, setLikeCount] = useState<number>(like);
   const [unLikeCount, setUnlikeCount] = useState<number>(unLike);
 
-  async function createReaction(params: PostCommentReaction) {
+  async function createReaction(
+    params: Pick<PostCommentReaction["reaction"], "commentId" | "type">
+  ) {
     setLoading(true);
     postCommentReactionService
       .create(params)
       .then((res) => {
-        setReaction(res.type);
+        setReactionType(res.reaction.type);
 
-        if (reaction !== res.type && res.type === "LIKE") {
-          setLikeCount((prev) => prev + 1);
-        } else if (reaction !== res.type && res.type === "UNLIKE") {
-          setUnlikeCount((prev) => prev + 1);
-        }
-        return res.type;
+        setLikeCount(res.count.like);
+        setUnlikeCount(res.count.unlike);
       })
       .catch((err: AxiosError<ErrorApi>) => {
         console.log(err);
@@ -51,13 +44,13 @@ export function usePostCommentReaction({ like, unLike }: Props) {
     postCommentReactionService
       .destroy(postId)
       .then((res) => {
-        if (reaction === "LIKE") {
+        if (reactionType === "LIKE") {
           setLikeCount((prev) => prev - 1);
-        } else if (reaction === "UNLIKE") {
+        } else if (reactionType === "UNLIKE") {
           setUnlikeCount((prev) => prev - 1);
         }
 
-        setReaction(null);
+        setReactionType(null);
       })
       .catch((err: AxiosError<ErrorApi>) => {
         console.log(err);
@@ -70,7 +63,7 @@ export function usePostCommentReaction({ like, unLike }: Props) {
 
   return {
     loading,
-    reaction,
+    reactionType,
     createReaction,
     deleteReaction,
     likeCount,

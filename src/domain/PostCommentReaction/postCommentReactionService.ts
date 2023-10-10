@@ -1,5 +1,4 @@
-import { postCommentReactionAdapter } from "./postCommentReactionAdapter";
-import { postCommentReactionApi } from "./postCommentReactionApi";
+import { postCommentReactionAdapter } from "./postCommentReactionAdapter";import { postCommentReactionApi } from "./postCommentReactionApi";
 import { PostCommentReaction } from "./PostCommentReactionType";
 
 async function destroy(postId: number): Promise<void> {
@@ -11,7 +10,10 @@ async function destroy(postId: number): Promise<void> {
 async function create({
   commentId,
   type,
-}: Omit<PostCommentReaction, "userId">): Promise<PostCommentReaction> {
+}: Pick<
+  PostCommentReaction["reaction"],
+  "commentId" | "type"
+>): Promise<PostCommentReaction> {
   const reactionApi = await postCommentReactionApi.create({
     comment_id: commentId,
     type,

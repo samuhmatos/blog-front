@@ -1,13 +1,12 @@
+import { ReactionType } from "@types";
 export interface PostReactionApi {
-  type: "LIKE" | "UNLIKE";
+  type: ReactionType;
   user_id: number;
   post_id: number;
 }
 
 export interface PostReaction {
-  type: "LIKE" | "UNLIKE";
+  type: ReactionType;
   userId: number;
   postId: number;
 }
-
-export type ReactionType = PostReaction["type"];

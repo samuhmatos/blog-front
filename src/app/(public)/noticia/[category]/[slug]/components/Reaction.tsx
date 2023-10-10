@@ -1,5 +1,7 @@
-"use client";import { ReactionType, useAuth, useReaction } from "@domain";
+"use client";
+import { useAuth, useReaction } from "@domain";
 import { Icon } from "@components";
+import { ReactionType } from "@types";
 
 interface Props {
   postId: number;

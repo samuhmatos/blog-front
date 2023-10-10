@@ -11,7 +11,7 @@ export function useUserUpdate() {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  function update(userId: number, params: FormData) {
+  function update(userId: number, params: FormData, callBack?: () => void) {
     setLoading(true);
 
     userService
@@ -28,6 +28,8 @@ export function useUserUpdate() {
           message: "Atualizado com sucesso!",
           type: "success",
         });
+
+        callBack && callBack();
       })
       .catch((err: AxiosError<ErrorApi>) => {
         errorUtils.setGlobalErrorMessage(err);

@@ -1,9 +1,9 @@
-"use client";
-import { useAuth } from "@domain";
+"use client";import { useAuth } from "@domain";
 import { Menu, MenuItem } from "@mui/material";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { USerProfile } from "../UserProfile/UserProfile";
 import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface Props {
   anchor: HTMLElement | null;
@@ -14,7 +14,7 @@ interface Props {
 export function UserOptions({ anchor, onClose, open }: Props) {
   const { user, logout } = useAuth();
   const pathName = usePathname();
-  const router = useRouter();
+  const dashboardRef = useRef<HTMLAnchorElement>(null);
 
   const [openConfig, setOpenConfig] = useState<boolean>(false);
 
@@ -46,10 +46,11 @@ export function UserOptions({ anchor, onClose, open }: Props) {
 
         <ul className="py-1">
           {user?.isAdmin && !pathName.includes("/dashboard") && (
-            <MenuItem onClick={() => router.push("/dashboard")}>
+            <MenuItem onClick={() => dashboardRef.current?.click()}>
               <span className="block w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                 Dashboard
               </span>
+              <Link href="/dashboard" ref={dashboardRef} className="hidden" />
             </MenuItem>
           )}
           <MenuItem onClick={handleOpenConfigOptions}>

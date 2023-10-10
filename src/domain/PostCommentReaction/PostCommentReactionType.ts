@@ -1,11 +1,25 @@
+import { ReactionType } from "@types";
 export interface PostCommentReactionApi {
-  type: "LIKE" | "UNLIKE";
-  comment_id: number;
+  reaction: {
+    type: ReactionType;
+    comment_id: number;
+    id: number;
+    user_id: number;
+  };
+  count: PostCommentReactionCount;
 }
 
 export interface PostCommentReaction {
-  type: "LIKE" | "UNLIKE";
-  commentId: number;
+  reaction: {
+    type: ReactionType;
+    commentId: number;
+    userId: number;
+    id: number;
+  };
+  count: PostCommentReactionCount;
 }
 
-export type PostCommentReactionType = PostCommentReaction["type"];
+interface PostCommentReactionCount {
+  like: number;
+  unlike: number;
+}

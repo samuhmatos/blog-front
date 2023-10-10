@@ -3,8 +3,16 @@ function toPostCommentReaction(
   postReactionApi: PostCommentReactionApi
 ): PostCommentReaction {
   return {
-    commentId: postReactionApi.comment_id,
-    type: postReactionApi.type,
+    reaction: {
+      id: postReactionApi.reaction.id,
+      commentId: postReactionApi.reaction.comment_id,
+      type: postReactionApi.reaction.type,
+      userId: postReactionApi.reaction.user_id,
+    },
+    count: {
+      like: postReactionApi.count.like,
+      unlike: postReactionApi.count.unlike,
+    },
   };
 }
 

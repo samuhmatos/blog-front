@@ -1,5 +1,7 @@
-"use client";import { PostCommentReactionType, usePostCommentReaction } from "@domain";
+"use client";
+import { usePostCommentReaction } from "@domain";
 import { Icon } from "@components";
+import { ReactionType } from "@types";
 
 interface Props {
   commentId: number;
@@ -11,7 +13,7 @@ export function CommentReaction({ commentId, like, postId, unLike }: Props) {
   const {
     createReaction,
     loading,
-    reaction,
+    reactionType,
     likeCount,
     unLikeCount,
     deleteReaction,
@@ -22,8 +24,8 @@ export function CommentReaction({ commentId, like, postId, unLike }: Props) {
 
   const diff = likeCount - unLikeCount;
 
-  async function handleReaction(e: PostCommentReactionType) {
-    if (e !== reaction) {
+  async function handleReaction(e: ReactionType) {
+    if (e !== reactionType) {
       createReaction({
         commentId,
         type: e,
@@ -37,7 +39,7 @@ export function CommentReaction({ commentId, like, postId, unLike }: Props) {
     <div className="px-3 py-2 bg-primary-900 flex flex-col gap-2 rounded">
       <button
         className={`${
-          reaction === "LIKE" ? "text-white" : "text-gray-500"
+          reactionType === "LIKE" ? "text-white" : "text-gray-500"
         } text-base`}
         onClick={() => handleReaction("LIKE")}
       >
@@ -50,7 +52,7 @@ export function CommentReaction({ commentId, like, postId, unLike }: Props) {
 
       <button
         className={`${
-          reaction === "UNLIKE" ? "text-white" : "text-gray-500"
+          reactionType === "UNLIKE" ? "text-white" : "text-gray-500"
         } text-base `}
         onClick={() => handleReaction("UNLIKE")}
       >

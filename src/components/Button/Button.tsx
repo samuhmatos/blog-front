@@ -1,4 +1,5 @@
-"use client";import { twMerge } from "tailwind-merge";
+"use client";
+import { twMerge } from "tailwind-merge";
 import React, { ReactNode } from "react";
 import { CircularProgress } from "@mui/material";
 
@@ -11,8 +12,8 @@ interface Props {
   disabled?: boolean;
   full?: boolean;
   className?: string;
-  onClick?: () => void;
-  paleteColor?: "default" | "danger" | "warning";
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  paleteColor?: "primary" | "secondary" | "danger" | "warning";
   outline?: boolean;
 }
 
@@ -26,7 +27,7 @@ export function Button({
   full,
   className,
   onClick,
-  paleteColor = "default",
+  paleteColor = "primary",
   outline,
 }: Props) {
   const position = () => {
@@ -59,6 +60,15 @@ export function Button({
         }
 
         return "bg-yellow-600 hover:bg-yellow-700 text-primary-950 disabled:bg-yellow-800";
+      case "secondary":
+        if (outline) {
+          return twMerge(
+            outlineStyle,
+            "border-gray-600 hover:bg-gray-600 hover:text-gray-50"
+          );
+        }
+
+        return "bg-gray-600 hover:bg-gray-700 text-gray-50 disabled:bg-gray-800";
       default:
         if (outline) {
           return twMerge(
