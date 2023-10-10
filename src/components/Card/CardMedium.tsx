@@ -17,11 +17,12 @@ export function CardMedium({ post }: CardProps) {
     <div className="flex flex-wrap mb-6  md:h-52 md:flex-nowrap">
       <div className="post-media w-full h-72 md:h-auto md:w-64 rounded-lg ">
         <Link href={linkPost}>
-          <img
+          <Image
             src={post.imageURL}
             className="object-fill"
             width={300}
             height={200}
+            alt={`Banner do post ${post.title}`}
           />
         </Link>
       </div>
@@ -44,6 +45,7 @@ export function CardMedium({ post }: CardProps) {
             linkCategory={linkCategory}
             linkPost={linkPost}
             views={post.views}
+            link
           />
         </div>
       </div>

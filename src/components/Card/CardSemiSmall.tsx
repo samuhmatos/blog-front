@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image";import Link from "next/link";
 import { PostWithDetails } from "@domain";
 import { linkUtils, textUtils } from "@utils";
 import { Icon } from "../Icon/Icon";
@@ -17,9 +16,9 @@ export function CardSemiSmall({ post }: Props) {
       <div className="post-media rounded-lg ">
         <Link href={linkPost} className="relative w-full">
           <div className="h-48 w-full mx-auto">
-            <img
+            <Image
               src={post.imageURL}
-              alt=""
+              alt={`Banner da postagem ${post.title}`}
               className="w-full"
               width={400}
               height={400}

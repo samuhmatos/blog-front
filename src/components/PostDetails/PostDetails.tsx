@@ -1,12 +1,21 @@
 import Link from "next/link";import { Icon } from "../Icon/Icon";
+import { numberUtils } from "@utils";
+import { ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
+  link?: boolean;
   linkPost: string;
   linkCategory: string;
   date: string;
   author: string;
   views: number;
-  justify?: "center" | "normal";
+}
+
+interface renderItemProps {
+  label: string | ReactNode;
+  className?: string;
+  href?: string;
 }
 
 export function PostDetails({
@@ -15,30 +24,43 @@ export function PostDetails({
   date,
   linkPost,
   views,
-  justify = "normal",
+  link,
 }: Props) {
+  function RenderItem({
+    label,
+    className,
+    href,
+  }: renderItemProps): ReactNode | string {
+    if (href) {
+      return (
+        <small>
+          <Link href={href} className={twMerge("hover:underline", className)}>
+            {label}
+          </Link>
+        </small>
+      );
+    }
+
+    return (
+      <small className={twMerge("cursor-default", className)}>{label}</small>
+    );
+  }
+
   return (
     <div
       className={`flex flex-1 justify-around items-center gap-4 text-gray-500 flex-wrap sm:flex-nowrap sm:justify-center`}
     >
-      <small>
-        <Link href={linkPost} className="hover:underline">
-          {date}
-        </Link>
-      </small>
-      <small>
-        <Link href={linkCategory} className="hover:underline">
-          por {author}
-        </Link>
-      </small>
-      <small>
-        <Link
-          href={linkPost}
-          className="flex items-center gap-1 hover:underline text-gray-500"
-        >
-          <Icon name="Eyes" /> {views}
-        </Link>
-      </small>
+      <RenderItem label={date} href={link ? linkPost : undefined} />
+      <RenderItem label={author} href={link ? linkCategory : undefined} />
+      <RenderItem
+        label={
+          <>
+            <Icon name="Eyes" /> {numberUtils.toRelativeAmount(views)}
+          </>
+        }
+        className="flex items-center gap-1 text-gray-500"
+        href={link ? linkPost : undefined}
+      />
     </div>
   );
 }

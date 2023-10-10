@@ -13,10 +13,16 @@ export function CardSmall({ post }: Props) {
 
   return (
     <div className="py-1 mb-3">
-      <Link href={linkPost} title="">
+      <Link href={linkPost}>
         <div className="flex gap-2">
-          <div className="w-24 rounded-lg ">
-            <img src={post.imageURL} alt="" width={400} height={400} />
+          <div className="w-24 rounded-lg">
+            <Image
+              src={post.imageURL}
+              alt={`Banner do post ${post.title}`}
+              width={400}
+              height={400}
+              className="rounded-lg"
+            />
           </div>
           <div className="text-base font-medium">
             <h5>{title}</h5>

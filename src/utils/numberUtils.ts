@@ -1,0 +1,15 @@
+function toRelativeAmount(num: number): string {
+  if (num < 1000) {
+    return num.toString();
+  } else if (num >= 1000 && num < 1000000) {
+    return (num % 1000 === 0 ? num / 1000 : (num / 1000).toFixed(1)) + "k";
+  } else {
+    return (
+      (num % 1000000 === 0 ? num / 1000000 : (num / 1000000).toFixed(1)) + "M"
+    );
+  }
+}
+
+export const numberUtils = {
+  toRelativeAmount,
+};
