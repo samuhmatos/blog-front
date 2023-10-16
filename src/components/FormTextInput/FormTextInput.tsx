@@ -11,6 +11,7 @@ export function FormTextInput<FormType extends FieldValues>({
   placeholder,
   type,
   label,
+  className,
 }: InputProps & UseControllerProps<FormType>) {
   return (
     <Controller
@@ -20,6 +21,7 @@ export function FormTextInput<FormType extends FieldValues>({
       render={({ field, fieldState }) => {
         return (
           <InputText
+            className={className}
             name={name}
             placeholder={placeholder}
             type={type}

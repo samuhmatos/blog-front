@@ -5,3 +5,4 @@ export * from "./PostReaction";
 export * from "./PostComment";
 export * from "./PostCommentReaction";
 export * from "./Contacts";
+export * from "./Newsletter";

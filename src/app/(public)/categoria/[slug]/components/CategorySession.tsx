@@ -1,4 +1,5 @@
-import { notFound } from "next/navigation";import { PagePaginationParams } from "../page";
+import { notFound } from "next/navigation";
+import { PagePaginationParams } from "../page";
 import { Category, PostWithDetails, postService } from "@domain";
 import { Page } from "@api";
 import { CardMedium, Pagination } from "@components";
@@ -9,7 +10,10 @@ async function getPosts(
   page: number
 ): Promise<Page<PostWithDetails>> {
   try {
-    const res = await postService.getPostsByCategorySlug(slug, page);
+    const res = await postService.getFeed({
+      category: slug,
+      page,
+    });
     return res;
   } catch (error) {
     console.error(error);

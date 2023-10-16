@@ -1,5 +1,4 @@
-import { PageAPI, PagePaginationParams, api } from "@api";
-import {
+import { PageAPI, PagePaginationParams, api } from "@api";import {
   PostApi,
   PostApiWithDetails,
   PostListApi,
@@ -25,16 +24,19 @@ async function getList(
 }
 
 async function getFeed(
-  params?: PagePaginationParams
+  params?: PagePaginationParams & { category?: string }
 ): Promise<PageAPI<PostApiWithDetails>> {
-  const response = await api.get<PageAPI<PostApiWithDetails>>(`${PATH}/feed`, {
-    params,
-  });
+  const response = await api.get<PageAPI<PostApiWithDetails>>(
+    `${PATH}/paginate`,
+    {
+      params,
+    }
+  );
   return response.data;
 }
 
 async function getDraft(
-  params?: PagePaginationParams
+  params?: PagePaginationParams & { category?: string }
 ): Promise<PageAPI<PostApiWithDetails>> {
   const response = await api.get<PageAPI<PostApiWithDetails>>(`${PATH}/draft`, {
     params,
@@ -43,13 +45,30 @@ async function getDraft(
 }
 
 async function getTrash(
-  params?: PagePaginationParams
+  params?: PagePaginationParams & { category?: string }
 ): Promise<PageAPI<PostApiWithDetails>> {
   const response = await api.get<PageAPI<PostApiWithDetails>>(`${PATH}/trash`, {
     params,
   });
   return response.data;
 }
+
+// async function getByCategorySlug(
+//   categorySlug: string,
+//   { page, per_page }: PagePaginationParams
+// ): Promise<PageAPI<PostApiWithDetails>> {
+//   const response = await api.get<PageAPI<PostApiWithDetails>>(
+//     `category/paginate/${categorySlug}`,
+//     {
+//       params: {
+//         per_page,
+//         page,
+//       },
+//     }
+//   );
+
+//   return response.data;
+// }
 
 async function addView(post_id: number): Promise<Pick<PostApi, "views">> {
   const response = await api.post<Pick<PostApi, "views">>(
@@ -60,23 +79,6 @@ async function addView(post_id: number): Promise<Pick<PostApi, "views">> {
 
 async function getSuggestion(): Promise<PostApiWithDetails[]> {
   const response = await api.get<PostApiWithDetails[]>(`${PATH}/suggestion`);
-
-  return response.data;
-}
-
-async function getPostsByCategorySlug(
-  categorySlug: string,
-  { page, per_page }: PagePaginationParams
-): Promise<PageAPI<PostApiWithDetails>> {
-  const response = await api.get<PageAPI<PostApiWithDetails>>(
-    `category/paginate/${categorySlug}`,
-    {
-      params: {
-        per_page,
-        page,
-      },
-    }
-  );
 
   return response.data;
 }
@@ -144,7 +146,7 @@ export const postApi = {
   getOne,
   getSuggestion,
   addView,
-  getPostsByCategorySlug,
+  // getByCategorySlug,
   create,
   update,
   remove,

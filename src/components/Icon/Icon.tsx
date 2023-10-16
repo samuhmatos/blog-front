@@ -1,4 +1,5 @@
-"use client";import { useRouter } from "next/navigation";
+"use client";
+import { useRouter } from "next/navigation";
 import { HTMLAttributeAnchorTarget } from "react";
 import { AiFillLinkedin, AiFillPicture } from "react-icons/ai";
 import {
@@ -8,6 +9,7 @@ import {
   BiPlus,
   BiSolidCategory,
   BiSolidDislike,
+  BiSolidEdit,
   BiSolidLike,
 } from "react-icons/bi";
 import {
@@ -99,6 +101,7 @@ const iconRegistry = {
   Home: HomeIcon,
   ArrowRightHalf: ArrowRightHalfIcon,
   Search: SearchIcon,
+  Edit: BiSolidEdit,
 };
 
 type Icontype = typeof iconRegistry;

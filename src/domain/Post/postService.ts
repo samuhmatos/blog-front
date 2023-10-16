@@ -13,7 +13,9 @@ async function getFeed({
   page,
   per_page = 10,
   search,
-}: PagePaginationParams): Promise<Page<PostWithDetails>> {
+}: PagePaginationParams & { category?: string }): Promise<
+  Page<PostWithDetails>
+> {
   const postPageAPI = await postApi.getFeed({
     page,
     per_page,
@@ -30,7 +32,9 @@ async function getDraft({
   page,
   per_page = 10,
   search,
-}: PagePaginationParams): Promise<Page<PostWithDetails>> {
+}: PagePaginationParams & { category?: string }): Promise<
+  Page<PostWithDetails>
+> {
   const postPageAPI = await postApi.getDraft({
     page,
     per_page,
@@ -47,7 +51,9 @@ async function getTrash({
   page,
   per_page = 10,
   search,
-}: PagePaginationParams): Promise<Page<PostWithDetails>> {
+}: PagePaginationParams & { category?: string }): Promise<
+  Page<PostWithDetails>
+> {
   const postPageAPI = await postApi.getTrash({
     page,
     per_page,
@@ -78,20 +84,20 @@ async function addView(
   return await postApi.addView(postId);
 }
 
-async function getPostsByCategorySlug(
-  categorySlug: string,
-  page: number
-): Promise<Page<PostWithDetails>> {
-  const postsAPI = await postApi.getPostsByCategorySlug(categorySlug, {
-    page,
-    per_page: 10,
-  });
+// async function getPostsByCategorySlug(
+//   categorySlug: string,
+//   page: number
+// ): Promise<Page<PostWithDetails>> {
+//   const postsAPI = await postApi.getPostsByCategorySlug(categorySlug, {
+//     page,
+//     per_page: 10,
+//   });
 
-  return {
-    data: postsAPI.data.map(postAdapter.toPostWithDetails),
-    meta: apiAdapter.toMetaDataPage(postsAPI.meta),
-  };
-}
+//   return {
+//     data: postsAPI.data.map(postAdapter.toPostWithDetails),
+//     meta: apiAdapter.toMetaDataPage(postsAPI.meta),
+//   };
+// }
 
 async function create(formData: FormData): Promise<Post> {
   const postAPI = await postApi.create(formData);
@@ -136,7 +142,7 @@ export const postService = {
   getOne,
   getSuggestion,
   addView,
-  getPostsByCategorySlug,
+  // getPostsByCategorySlug,
   create,
   getDraft,
   update,

@@ -1,17 +1,24 @@
-"use client";import { FormEvent, useState } from "react";
+"use client";
+import { FormEvent, useState } from "react";
 import { Button, InputText } from "@components";
+import { useCreateNewsletter } from "@domain";
 
-export function Form() {
-  const [email, setEmail] = useState("");
+export function NewsletterForm() {
+  const [email, setEmail] = useState<string>("");
+  const { loading, create } = useCreateNewsletter();
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    create(email, () => {
+      setEmail("");
+    });
   }
 
   return (
     <form className="form-inline form_getEmail" onSubmit={handleSubmit}>
       <label className="text-sm mb-2" htmlFor="contact">
-        Quer receber notificação de novas postagens?
+        Quer fazer parte de nossa Newsletter semanal?
       </label>
       <div className="flex gap-3">
         <InputText
@@ -21,7 +28,7 @@ export function Form() {
           name="email"
         />
 
-        <Button placeholder="Enviar" type="submit" />
+        <Button placeholder="Enviar" type="submit" loading={loading} />
       </div>
     </form>
   );

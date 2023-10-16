@@ -1,13 +1,13 @@
 import { toast } from "react-toastify";
 interface Props {
   message: string;
-  type: "success" | "error" | "warning" | "default" | "info";
+  type?: "success" | "error" | "warning" | "default" | "info";
   theme?: "light" | "dark" | "colored";
   position?: "top-center" | "top-right" | "top-left";
 }
 function show({
   message,
-  type,
+  type = "success",
   theme = "light",
   position = "top-right",
 }: Props) {

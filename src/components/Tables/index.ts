@@ -1,1 +1,2 @@
-export * from "./TableCollapse/TableCollapse";
+// export const Tables = {};
+export * from "./Table";

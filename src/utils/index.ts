@@ -5,3 +5,4 @@ export * from "./errorUtils";
 export * from "./toastUtils";
 export * from "./storageUtils";
 export * from "./numberUtils";
+export * from "./eventUtils";

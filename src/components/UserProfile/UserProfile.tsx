@@ -1,5 +1,4 @@
-"use client";
-import { Modal } from "@mui/material";
+"use client";import { Modal } from "@mui/material";
 import { UserHeader } from "./components/UserHeader";
 import { useAuth, useUserUpdate } from "@domain";
 import { UserProfileSchema, userProfileSchema } from "./UserProfileSchema";
@@ -140,7 +139,7 @@ export function USerProfile({ open, onClose }: Props) {
         anchor={anchorEl}
         isOpen={isOpenChangePassword}
         onClose={handleCloseChangePassword}
-        userId={user!.id}
+        userId={user?.id}
       />
     </>
   );

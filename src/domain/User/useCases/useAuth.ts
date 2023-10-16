@@ -113,5 +113,3 @@ export function useAuth() {
     token,
   };
 }
-
-// TODO: logut fazer os redirecionamentos

@@ -1,5 +1,4 @@
-import { RenderSideBarItem } from "./components/RenderSideBarItem";
-export function SideBar() {
+import { RenderSideBarItem } from "./components/RenderSideBarItem";export function SideBar() {
   return (
     <aside
       id="logo-sidebar"
@@ -28,7 +27,7 @@ export function SideBar() {
           />
 
           <RenderSideBarItem
-            href="categoria"
+            href="categorias"
             IconName="CategorySolid"
             label="Categorias"
           />
