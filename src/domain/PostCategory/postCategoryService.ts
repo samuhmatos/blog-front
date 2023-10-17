@@ -1,4 +1,5 @@
-import { Category } from "./categoryTypes";import { postCategoryApi } from "./postCategoryApi";
+import { Category } from "./categoryTypes";
+import { postCategoryApi } from "./postCategoryApi";
 import { postCategoryAdapter } from "./postCategoryAdapter";
 import { Page, PagePaginationParams, apiAdapter } from "@api";
 
@@ -8,8 +9,8 @@ async function getPopular(): Promise<Category[]> {
   return postCategoryPageAPI.map(postCategoryAdapter.toCategory);
 }
 
-async function show(slug: number): Promise<Category> {
-  const categoryAPI = await postCategoryApi.show(slug);
+async function show(slugOrId: number | string): Promise<Category> {
+  const categoryAPI = await postCategoryApi.show(slugOrId);
 
   return postCategoryAdapter.toCategory(categoryAPI);
 }

@@ -13,7 +13,11 @@ export default function CategoriasPage() {
 
   return (
     <>
-      <Button placeholder="Criar Categoria" onClick={handleOpenModal} />
+      <Button
+        placeholder="Criar Categoria"
+        onClick={handleOpenModal}
+        align="right"
+      />
 
       <TableCategory />
     </>

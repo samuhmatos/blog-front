@@ -1,7 +1,9 @@
-import { Screen, SideBar } from "@components";import { CategorySession } from "./components/CategorySession";
+import { Screen, SideBar } from "@components";
+import { CategorySession } from "./components/CategorySession";
 import { Category, postCategoryService } from "@domain";
 import { notFound } from "next/navigation";
 import { CategoryHeader } from "./components/CategoryHeader";
+import { PageParams } from "@types";
 
 export interface PagePaginationParams {
   params: {
@@ -10,21 +12,28 @@ export interface PagePaginationParams {
   };
 }
 
-async function loadCategory(slug: string): Promise<Category> {
+async function loadCategory(categorySlug: string): Promise<Category> {
   try {
-    return await postCategoryService.show(slug);
+    return await postCategoryService.show(categorySlug);
   } catch (error) {
+    console.log(error);
     throw notFound();
   }
 }
 
-export default async function CategoryScreen({ params }: PagePaginationParams) {
-  const category = await loadCategory(params.slug);
+export default async function CategoryScreen(
+  pageParams: PageParams<{ page: number }, { slug: string }>
+) {
+  const category = await loadCategory(pageParams.params.slug);
+
   return (
     <>
       <CategoryHeader category={category} />
       <Screen container>
-        <CategorySession params={params} category={category} />
+        <CategorySession
+          slug={pageParams.params.slug}
+          page={pageParams.searchParams.page}
+        />
         <SideBar />
       </Screen>
     </>

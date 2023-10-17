@@ -1,4 +1,5 @@
-import { Page, PageAPI, PagePaginationParams, api } from "@api";import { CategoryAPI } from "./categoryTypes";
+import { Page, PageAPI, PagePaginationParams, api } from "@api";
+import { CategoryAPI } from "./categoryTypes";
 
 const PATH = "postCategory/";
 
@@ -19,8 +20,8 @@ async function paginate(
   return response.data;
 }
 
-async function show(categoryId: number): Promise<CategoryAPI> {
-  const response = await api.get<CategoryAPI>(`${PATH}get/${categoryId}`);
+async function show(slugOrId: number | string): Promise<CategoryAPI> {
+  const response = await api.get<CategoryAPI>(`${PATH}get/${slugOrId}`);
   return response.data;
 }
 

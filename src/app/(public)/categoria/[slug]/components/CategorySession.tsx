@@ -1,9 +1,7 @@
-import { notFound } from "next/navigation";
-import { PagePaginationParams } from "../page";
-import { Category, PostWithDetails, postService } from "@domain";
-import { Page } from "@api";
+import { PostWithDetails, postService } from "@domain";import { Page } from "@api";
 import { CardMedium, Pagination } from "@components";
 import { linkUtils } from "@utils";
+import { PageParams } from "@types";
 
 async function getPosts(
   slug: string,
@@ -21,14 +19,13 @@ async function getPosts(
   }
 }
 
-interface Props extends PagePaginationParams {
-  category: Category;
-}
-
 export async function CategorySession({
-  params: { slug, page },
-  category,
-}: Props) {
+  slug,
+  page,
+}: {
+  page: number;
+  slug: string;
+}) {
   const {
     data: posts,
     meta: { currentPage, hasNextPage, hasPreviousPage, totalPage },
@@ -46,7 +43,7 @@ export async function CategorySession({
         hasNextPage={hasNextPage}
         hasPreviousPage={hasPreviousPage}
         totalPage={totalPage}
-        currentUrl={linkUtils.linkCategories()}
+        currentUrl={linkUtils.linkCategory("tech")}
       />
     </div>
   );
