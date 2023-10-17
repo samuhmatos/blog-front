@@ -15,6 +15,7 @@ interface Props {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   paleteColor?: "primary" | "secondary" | "danger" | "warning";
   outline?: boolean;
+  align?: "right" | "left";
 }
 
 export function Button({
@@ -29,6 +30,7 @@ export function Button({
   onClick,
   paleteColor = "primary",
   outline,
+  align = "left",
 }: Props) {
   const position = () => {
     switch (loadingPosition) {
@@ -41,7 +43,7 @@ export function Button({
     }
   };
 
-  const paleteColors = (): HTMLButtonElement["className"] => {
+  const paleteColors = (): string => {
     var outlineStyle = "bg-gray-100 text-primary-950 border";
 
     switch (paleteColor) {
@@ -81,7 +83,7 @@ export function Button({
     }
   };
 
-  const renderPlaceholder = () => {
+  const renderPlaceholder = (): ReactNode => {
     if (loadingPosition === "center" && loading) {
       return null;
     }
@@ -89,7 +91,7 @@ export function Button({
     return <span>{placeholder}</span>;
   };
 
-  const renderIcon = () => {
+  const renderIcon = (): ReactNode => {
     const circularProgress = <CircularProgress size={16} color="inherit" />;
 
     if (loading) {
@@ -103,24 +105,35 @@ export function Button({
     return null;
   };
 
+  function renderAlignment(): string | null {
+    switch (align) {
+      case "right":
+        return "justify-end";
+      default:
+        return null;
+    }
+  }
+
   return (
-    <button
-      className={twMerge(
-        `py-1.5 px-4 text-sm font-medium rounded-lg flex items-center gap-2  focus:ring-4 focus:ring-primary-200 disabled:opacity-90 cursor-pointer transition-all disabled:cursor-not-allowed disabled:text-gray-900 disabled:bg-gray-400 disabled:border-none`,
-        [
-          full ? "w-full" : "",
-          loading && "cursor-progress",
-          position(),
-          paleteColors(),
-          className,
-        ]
-      )}
-      disabled={disabled}
-      onClick={onClick}
-      type={type}
-    >
-      {renderPlaceholder()}
-      {renderIcon()}
-    </button>
+    <div className={`flex w-auto ${renderAlignment()}`}>
+      <button
+        className={twMerge(
+          `py-1.5 px-4 text-sm font-medium rounded-lg flex items-center gap-2  focus:ring-4 focus:ring-primary-200 disabled:opacity-90 cursor-pointer transition-all disabled:cursor-not-allowed disabled:text-gray-900 disabled:bg-gray-400 disabled:border-none`,
+          [
+            full ? "w-full" : "",
+            loading && "cursor-progress",
+            position(),
+            paleteColors(),
+            className,
+          ]
+        )}
+        disabled={disabled}
+        onClick={onClick}
+        type={type}
+      >
+        {renderPlaceholder()}
+        {renderIcon()}
+      </button>
+    </div>
   );
 }
