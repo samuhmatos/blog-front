@@ -1,4 +1,5 @@
-import { ErrorApi } from "@api";import { AxiosError } from "axios";
+import { ErrorApi } from "@api";
+import { AxiosError } from "axios";
 import { toastUtils } from "./toastUtils";
 
 function getErrorMessages(errorAPI: ErrorApi): string[] {
@@ -14,6 +15,7 @@ function getErrorMessages(errorAPI: ErrorApi): string[] {
 interface ErrorCustomProps {
   401?: string;
   403?: string;
+  404?: string;
   422?: string;
 }
 
@@ -34,6 +36,12 @@ function setGlobalErrorMessage(
         toastUtils.show({
           type: "error",
           message: customMessage?.[403] || "Ação não autorizada!",
+        });
+        break;
+      case 404:
+        toastUtils.show({
+          type: "error",
+          message: customMessage?.[404] || "Um erro aconteceu",
         });
         break;
       case 422:

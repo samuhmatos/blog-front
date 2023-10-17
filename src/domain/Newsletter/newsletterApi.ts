@@ -1,5 +1,4 @@
-import { api } from "@api";
-import { NewsletterApi } from "./newsletterTypes";
+import { api } from "@api";import { NewsletterApi } from "./newsletterTypes";
 
 const PATH = `newsletter/`;
 
@@ -11,6 +10,16 @@ async function create(email: string): Promise<NewsletterApi> {
   return response.data;
 }
 
+async function remove({
+  email,
+  token,
+}: Pick<NewsletterApi, "email" | "token">): Promise<void> {
+  const response = await api.delete(`${PATH + email}?token=${token}`);
+
+  return;
+}
+
 export const newsletterApi = {
   create,
+  remove,
 };

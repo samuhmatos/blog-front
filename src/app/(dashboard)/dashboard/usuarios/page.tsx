@@ -3,13 +3,6 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function UserManagement() {
-  const variants = {
-    open: { opacity: 1, x: 0 },
-    closed: { opacity: 0, x: "-100%" },
-  };
-
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <>
       <motion.div
