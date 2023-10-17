@@ -1,6 +1,8 @@
 "use client";import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Icon } from "@components";
+import { Icon, IconName } from "@components";
+import { linkUtils } from "@utils";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   justify?: "center" | "normal";
@@ -8,28 +10,47 @@ interface Props {
   subTitle: string;
 }
 
+interface RenderItemProps {
+  link: string;
+  icon: IconName;
+  label: string;
+  className: string;
+}
+
 export function Share({ justify = "center", subTitle, title }: Props) {
   const actualLink = usePathname();
 
+  function RenderItem({ link, icon, label, className }: RenderItemProps) {
+    return (
+      <Link
+        className={twMerge(
+          "px-6 py-3 flex items-center gap-4 rounded transition-all",
+          className
+        )}
+        target="_blank"
+        href={link}
+      >
+        <Icon name={icon} />
+        <span className="hidden md:block">{label}</span>
+      </Link>
+    );
+  }
+
   return (
     <nav className={`text-white font-bold flex gap-2 justify-${justify} my-4`}>
-      <Link
-        className="px-6 py-3 bg-blue-900 flex items-center gap-4 rounded transition-all hover:bg-blue-950"
-        target="_blank"
-        href={`https://www.facebook.com/sharer/sharer.php?u=${actualLink}`}
-      >
-        <Icon name="Facebook" />
-        <span className="hidden md:block">Compartilhar no Facebook</span>
-      </Link>
-      <Link
-        className="px-6 py-3 bg-sky-400 flex items-center gap-4 rounded transition-all hover:bg-sky-500"
-        target="_blank"
-        href={`http://twitter.com/share?&url=${title}&text=${subTitle}`}
-      >
-        <Icon name="Twitter" />
+      <RenderItem
+        link={linkUtils.share.facebook(actualLink)}
+        icon="Facebook"
+        label="Compartilhar no Facebook"
+        className="bg-blue-900 hover:bg-blue-950"
+      />
 
-        <span className="hidden md:block">Compartilhar no Twitter</span>
-      </Link>
+      <RenderItem
+        link={linkUtils.share.twitter(actualLink, title)}
+        icon="Twitter"
+        label="Compartilhar no Twitter"
+        className="bg-sky-400 hover:bg-sky-500"
+      />
     </nav>
   );
 }

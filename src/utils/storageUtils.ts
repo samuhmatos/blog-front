@@ -25,6 +25,13 @@ function loadStorageData(): Storage {
   }
 }
 
+function getOne<T>(key: keyof Storage): T | null {
+  const data = getCookie(key);
+
+  return data ? (JSON.parse(data) as T) : null;
+}
+
 export const storageUtils = {
   loadStorageData,
+  getOne,
 };

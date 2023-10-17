@@ -1,5 +1,4 @@
-import { PostWithDetails, postService } from "@domain";
-import { AdsBox, Icon, Pagination } from "@components";
+import { PostWithDetails, postService } from "@domain";import { AdsBox, Icon, Pagination } from "@components";
 import { CardMedium } from "@components";
 import { Page } from "@api";
 import Image from "next/image";
@@ -13,12 +12,12 @@ async function fetchData(
   return response;
 }
 
-export async function Feed({
-  searchParams,
-}: PageParams<{
-  search: string;
-  page: string;
-}>) {
+export async function Feed(
+  searchParams: PageParams<{
+    search: string;
+    page: string;
+  }>["searchParams"]
+) {
   const page = Number(searchParams.page) || 1;
   const search = searchParams.search || undefined;
 

@@ -1,7 +1,7 @@
-import { PostWithDetails, postService } from "@domain";import { Page } from "@api";
+import { PostWithDetails, postService } from "@domain";import { ErrorApi, Page } from "@api";
 import { CardMedium, Pagination } from "@components";
 import { linkUtils } from "@utils";
-import { PageParams } from "@types";
+import { AxiosError } from "axios";
 
 async function getPosts(
   slug: string,
@@ -12,8 +12,10 @@ async function getPosts(
       category: slug,
       page,
     });
+
     return res;
-  } catch (error) {
+  } catch (err) {
+    let error = err as AxiosError<ErrorApi>;
     console.error(error);
     throw new Error();
   }

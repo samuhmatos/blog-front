@@ -13,7 +13,7 @@ export default function HomeScreen({
       <Banner />
 
       <Screen container>
-        <Feed searchParams={searchParams} />
+        <Feed page={searchParams.page} search={searchParams.search} />
         <SideBar />
       </Screen>
     </div>

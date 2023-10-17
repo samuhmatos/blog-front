@@ -1,4 +1,5 @@
-import { Page, PagePaginationParams, apiAdapter } from "@api";import { Post, PostList, PostPageParams, PostWithDetails } from "./postTypes";
+import { Page, PagePaginationParams, apiAdapter } from "@api";
+import { Post, PostList, PostPageParams, PostWithDetails } from "./postTypes";
 import { postApi } from "./postApi";
 import { postAdapter } from "./postAdapter";
 import { CreatePostSchema } from "../../app/(dashboard)/dashboard/posts/components/Post/PostSchema";
@@ -13,6 +14,7 @@ async function getFeed({
   page,
   per_page = 10,
   search,
+  category,
 }: PagePaginationParams & { category?: string }): Promise<
   Page<PostWithDetails>
 > {
@@ -20,6 +22,7 @@ async function getFeed({
     page,
     per_page,
     search,
+    category,
   });
 
   return {
