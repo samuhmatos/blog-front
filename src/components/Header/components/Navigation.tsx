@@ -1,11 +1,12 @@
-"use client";import Link from "next/link";
-import { linkUtils } from "@utils";
-import Image from "next/image";
+"use client";
+import Link from "next/link";
+import { eventUtils, linkUtils } from "@utils";
 import { twMerge } from "tailwind-merge";
 import { SearchInput } from "./SearchInput";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Variants, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { Category, usePostCategoryGet } from "@domain";
 
 const variants: Variants = {
   open: {
@@ -19,13 +20,21 @@ const variants: Variants = {
 };
 
 interface Props {
-  isOpen: boolean;
+  categories: Category[];
 }
 
-export function Navigation({ isOpen }: Props) {
+export function Navigation({ categories }: Props) {
+  const [open, setOpen] = useState<boolean>(true);
   const pathname = usePathname();
-
   const ulRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    eventUtils.on("toggle-open-navigation", (isOpen) => {
+      setOpen(isOpen);
+    });
+
+    return eventUtils.remove("toggle-open-navigation", () => {});
+  }, []);
 
   function RenderItem({ url, label }: { url: string; label: string }) {
     const activity = pathname === url;
@@ -54,7 +63,7 @@ export function Navigation({ isOpen }: Props) {
       }
       ref={ulRef}
       initial={false}
-      animate={isOpen ? "open" : "closed"}
+      animate={open ? "open" : "closed"}
       variants={variants}
       transition={{ duration: 0.1 }}
     >
@@ -63,14 +72,15 @@ export function Navigation({ isOpen }: Props) {
       </div>
 
       <RenderItem label="Home" url="/" />
-      <RenderItem label="Tech" url={linkUtils.linkCategory("tech")} />
-      <RenderItem label="Videos" url={linkUtils.linkCategory("videos")} />
-      <RenderItem label="Portfólio" url={linkUtils.linkCategory("portfolio")} />
-      <RenderItem
-        label="Qualificações"
-        url={linkUtils.linkCategory("qualificacoes")}
-      />
-      <RenderItem label="Reviews" url={linkUtils.linkCategory("reviews")} />
+
+      {categories?.map((category) => (
+        <RenderItem
+          key={category.id}
+          label={category.name}
+          url={linkUtils.linkCategory(category.slug)}
+        />
+      ))}
+
       <RenderItem label="Contato" url="/contato" />
     </motion.ul>
   );

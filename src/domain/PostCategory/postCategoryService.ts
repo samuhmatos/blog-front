@@ -3,8 +3,8 @@ import { postCategoryApi } from "./postCategoryApi";
 import { postCategoryAdapter } from "./postCategoryAdapter";
 import { Page, PagePaginationParams, apiAdapter } from "@api";
 
-async function getPopular(): Promise<Category[]> {
-  const postCategoryPageAPI = await postCategoryApi.getPopular();
+async function getPopular(limit?: number): Promise<Category[]> {
+  const postCategoryPageAPI = await postCategoryApi.getPopular(limit || 5);
 
   return postCategoryPageAPI.map(postCategoryAdapter.toCategory);
 }

@@ -41,11 +41,28 @@ export function usePostCategoryGet() {
       });
   }
 
+  function getPopular(limit?: number) {
+    setLoading(true);
+
+    postCategoryService
+      .getPopular(limit)
+      .then((res) => {
+        setCategories(res);
+      })
+      .catch((res: AxiosError<ErrorApi>) => {
+        errorUtils.setGlobalErrorMessage(res);
+      })
+      .then(() => {
+        setLoading(false);
+      });
+  }
+
   return {
     loading,
     categories,
     category,
     getOne,
     getAll,
+    getPopular,
   };
 }

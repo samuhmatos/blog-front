@@ -3,8 +3,10 @@ import { CategoryAPI } from "./categoryTypes";
 
 const PATH = "postCategory/";
 
-async function getPopular(): Promise<CategoryAPI[]> {
-  const response = await api.get<CategoryAPI[]>(`${PATH}filter/popular`);
+async function getPopular(limit: number): Promise<CategoryAPI[]> {
+  const response = await api.get<CategoryAPI[]>(
+    `${PATH}filter/popular?limit=${limit}`
+  );
   return response.data;
 }
 

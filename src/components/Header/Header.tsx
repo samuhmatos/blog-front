@@ -1,33 +1,16 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
-
-import { useEffect, useState } from "react";
-import { HamburgerButton } from "./components/HamburgerButton";
 import { Navigation } from "./components/Navigation";
-import { UserCard } from "../UserCard/UserCard";
-import { AuthModal } from "./components/AuthModal";
-import { useAuth } from "@domain";
 import { SearchInput } from "./components/SearchInput";
+import { Actions } from "./components/Actions";
+import { Category, postCategoryService } from "@domain";
 
-export function Header() {
-  const [isOpen, setIsOpen] = useState(true);
+async function getPopularCategories(): Promise<Category[]> {
+  return await postCategoryService.getPopular();
+}
 
-  const { user } = useAuth();
-
-  useEffect(() => {
-    window.addEventListener("resize", (e) => {
-      var windowWidth = window.innerWidth;
-
-      if (windowWidth >= 768) {
-        setIsOpen(true);
-      } else {
-        setIsOpen(false);
-      }
-    });
-
-    return window.removeEventListener("resize", () => {});
-  });
+export async function Header() {
+  const categories = await getPopularCategories();
 
   return (
     <header className="h-12 h-auto w-full fixed top-0 z-10">
@@ -46,20 +29,10 @@ export function Header() {
             <SearchInput />
           </div>
 
-          <div className="flex items-center gap-2 justify-center h-full">
-            {user ? (
-              <UserCard />
-            ) : (
-              <>
-                <AuthModal isSignIn />
-                <AuthModal />
-              </>
-            )}
-            <HamburgerButton setIsOpen={setIsOpen} isOpen={isOpen} />
-          </div>
+          <Actions />
         </div>
 
-        <Navigation isOpen={isOpen} />
+        <Navigation categories={categories} />
       </div>
     </header>
   );

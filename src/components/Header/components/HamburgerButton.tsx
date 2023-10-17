@@ -1,28 +1,46 @@
-import { Dispatch, SetStateAction } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { eventUtils } from "@utils";
 
-interface Props {
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-  isOpen: boolean;
-}
+export function HamburgerButton() {
+  const [open, setOpen] = useState<boolean>(true);
 
-export function HamburgerButton({ setIsOpen, isOpen }: Props) {
   const Path = (props: any) => (
     <motion.path
       fill="transparent"
       strokeWidth="3"
       stroke="hsl(0, 0%, 18%)"
       strokeLinecap="round"
-      animate={isOpen ? "open" : "closed"}
+      animate={open ? "open" : "closed"}
       {...props}
     />
   );
+
+  function toggleOpen(val: boolean) {
+    eventUtils.emit("toggle-open-navigation", val);
+    setOpen(val);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", (e) => {
+      var windowWidth = window.innerWidth;
+
+      if (windowWidth >= 768) {
+        toggleOpen(true);
+      } else {
+        toggleOpen(false);
+      }
+    });
+
+    return window.removeEventListener("resize", () => {});
+  }, []);
 
   return (
     <button
       className="mr-2 md:hidden"
       type="button"
-      onClick={() => setIsOpen((value) => !value)}
+      onClick={() => toggleOpen(!open)}
     >
       <svg width="23" height="23" viewBox="0 0 23 23">
         <Path
