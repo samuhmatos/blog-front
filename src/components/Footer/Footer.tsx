@@ -73,7 +73,11 @@ export async function Footer() {
           <div>
             <h2 className="font-bold">Categorias</h2>
             <ul className="mt-4 md:mt-6 text-sm text-gray-400">
-              {popularCategories.map((category) => {
+              {popularCategories.map((category, index) => {
+                if (index > 4) {
+                  return;
+                }
+
                 return (
                   <List
                     name={category.name}
