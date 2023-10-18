@@ -1,6 +1,4 @@
-"use client";
-import { useRouter } from "next/navigation";
-import { HTMLAttributeAnchorTarget } from "react";
+"use client";import { HTMLAttributeAnchorTarget } from "react";
 import { AiFillLinkedin, AiFillPicture } from "react-icons/ai";
 import {
   BiDislike,
@@ -24,7 +22,7 @@ import {
   BsWifi,
 } from "react-icons/bs";
 import { FaPlay } from "react-icons/fa";
-import { FaTrashCan } from "react-icons/fa6";
+import { FaArrowLeft, FaTrashCan } from "react-icons/fa6";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { twMerge } from "tailwind-merge";
 import { DashboardIcon } from "./DashboardIcon";
@@ -37,9 +35,14 @@ import { SearchIcon } from "./SearchIcon";
 
 export interface IconProps {
   name: IconName;
-  // color?: string;
-  // hoverColor?: string | null;
-  size?: "text-lg" | "text-2xl" | "text-4xl" | "text-base" | "text-xl";
+  size?:
+    | "text-lg"
+    | "text-2xl"
+    | "text-4xl"
+    | "text-base"
+    | "text-xl"
+    | "text-sm"
+    | "text-xs";
   className?: string;
   link?: {
     href: string;
@@ -48,7 +51,6 @@ export interface IconProps {
 }
 
 export function Icon({ name, size = "text-lg", className, link }: IconProps) {
-  const router = useRouter();
   const SVGIcon = iconRegistry[name];
 
   return (
@@ -102,6 +104,7 @@ const iconRegistry = {
   ArrowRightHalf: ArrowRightHalfIcon,
   Search: SearchIcon,
   Edit: BiSolidEdit,
+  ArrowLeft: FaArrowLeft,
 };
 
 type Icontype = typeof iconRegistry;

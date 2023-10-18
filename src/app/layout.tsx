@@ -25,7 +25,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <AuthProvider>
-      <html lang="pt-br">
+      <html lang="pt-br" className="h-screen">
+        <link rel="icon" href="/assets/favicon.ico" sizes="any" />
         <body className={poppins.className}>
           <NextTopLoader color="rgb(21, 14, 233)" showSpinner={false} />
 

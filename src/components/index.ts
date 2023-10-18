@@ -29,3 +29,4 @@ export * from "./FormImagePreviewUpload/FormImagePreviewUpload";
 export * from "./Checkbox/CheckBox";
 export * from "./FormCheckbox/FormCheckbox";
 export * from "./Icon/Icon";
+export * from "./NotFoundPage/NotFoundPage";
