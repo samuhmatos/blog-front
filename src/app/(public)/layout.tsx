@@ -30,7 +30,7 @@ export default async function RootLayout({
     <>
       <Header />
 
-      <main className="mt-16 md:mt-28">
+      <main>
         <div>{children}</div>
       </main>
 

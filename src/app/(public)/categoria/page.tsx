@@ -1,4 +1,6 @@
-"use client";import { Metadata } from "next";
+import { Metadata } from "next";import { Screen, SideBar } from "@components";
+import { PageParams } from "@types";
+import { CategoryList } from "./components/CategoryList";
 
 export const metadata: Metadata = {
   title: "Categorias",
@@ -6,6 +8,18 @@ export const metadata: Metadata = {
   abstract: "Todas as categorias disponíveis para você passar o tempo!",
 };
 
-export default function CategoryScreen() {
-  return <div className="my-20"></div>;
+interface Props {
+  page: number;
+}
+export default function CategoryScreen({
+  searchParams: { page },
+}: PageParams<Props>) {
+  return (
+    <div className="mt-4">
+      <Screen container>
+        <CategoryList page={page} />
+        <SideBar />
+      </Screen>
+    </div>
+  );
 }

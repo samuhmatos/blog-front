@@ -8,7 +8,7 @@ export async function Footer() {
   const popularCategories = await postCategoryService.getPopular();
 
   return (
-    <footer className="bg-black mt-16 py-6 text-white px-2 md:py-8">
+    <footer className="bg-secondary w-full mt-16 py-6 text-white px-2 md:py-8">
       <div className="container m-auto">
         <div className="flex justify-evenly gap-2 flex-wrap-reverse md:flex md:gap-5 md:flex-nowrap md:justify-around lg:gap-10">
           <div className="text-gray-400 w-full md:w-auto flex flex-col items-center md:items-start">

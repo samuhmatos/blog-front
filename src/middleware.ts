@@ -1,5 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
-import { User } from "@domain";
+import { NextRequest, NextResponse } from "next/server";import { User } from "@domain";
 
 export default function middleware(request: NextRequest) {
   var token = request.cookies.get("token");
@@ -23,3 +22,5 @@ export default function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/dashboard/:path*"],
 };
+
+//TODO: VERIRIFICAR SE AS INFOS DO COOKIES, SE AINDA SÃO DE FATO AS MESMAS QUE DEVERIAM SER E SE O USUARIO AINDA ESTA LOGADO JÁ NA API

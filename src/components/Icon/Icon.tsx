@@ -1,4 +1,5 @@
-"use client";import { HTMLAttributeAnchorTarget } from "react";
+"use client";
+import { HTMLAttributeAnchorTarget } from "react";
 import { AiFillLinkedin, AiFillPicture } from "react-icons/ai";
 import {
   BiDislike,
@@ -22,7 +23,7 @@ import {
   BsWifi,
 } from "react-icons/bs";
 import { FaPlay } from "react-icons/fa";
-import { FaArrowLeft, FaTrashCan } from "react-icons/fa6";
+import { FaArrowLeft, FaTrashCan, FaArrowRightLong } from "react-icons/fa6";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { twMerge } from "tailwind-merge";
 import { DashboardIcon } from "./DashboardIcon";
@@ -99,7 +100,7 @@ const iconRegistry = {
   Dashboard: DashboardIcon,
   Inbox: InboxIcon,
   User: UserIcon,
-  ArrowRight: ArrowRightIcon,
+  ArrowRight: FaArrowRightLong,
   Home: HomeIcon,
   ArrowRightHalf: ArrowRightHalfIcon,
   Search: SearchIcon,
