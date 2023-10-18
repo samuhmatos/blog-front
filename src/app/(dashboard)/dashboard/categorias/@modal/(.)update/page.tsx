@@ -1,10 +1,19 @@
-"use client";import { Box, Modal, SxProps, Theme } from "@mui/material";
+"use client";
+import { Box, Modal, SxProps, Theme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { usePostCategoryGet } from "@domain";
 import { PageParams } from "@types";
 import { CategoryForm } from "../../components";
 import { usePostCategorySchema } from "../../hooks/usePostCategorySchema";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Atualizar Categoria",
+  robots: {
+    index: false,
+  },
+};
 
 const style: SxProps<Theme> = {
   position: "absolute" as "absolute",
@@ -50,3 +59,4 @@ export default function CreatePostPage(props: PageParams<{ id: number }>) {
 }
 
 // TODO: VALIDAR SE O INPUIT ESTA FOCADO E SE FOR FECHAR, VALIDAR SE O QUER SALVAR RASCUNHO OU APAGAR. FEATURE
+//TODO: CRIAR COMPONENTE DE MODAL

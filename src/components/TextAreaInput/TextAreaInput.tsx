@@ -1,4 +1,6 @@
-import { Dispatch, LegacyRef, SetStateAction } from "react";import { FormLayout } from "../FormLayout/FormLayout";
+import { Dispatch, LegacyRef, SetStateAction } from "react";
+import { FormLayout } from "../FormLayout/FormLayout";
+import { twMerge } from "tailwind-merge";
 
 export interface TextAreaProps {
   rows?: number;
@@ -10,6 +12,7 @@ export interface TextAreaProps {
   name: string;
   errorMessage?: string;
   ref?: LegacyRef<HTMLDivElement>;
+  resize?: boolean;
 }
 
 export function TextAreaInput({
@@ -22,6 +25,7 @@ export function TextAreaInput({
   name,
   errorMessage,
   ref,
+  resize = false,
 }: TextAreaProps) {
   return (
     <FormLayout errorMessage={errorMessage} label={label} name={name}>
@@ -38,7 +42,10 @@ export function TextAreaInput({
         <textarea
           id={name}
           rows={rows}
-          className={`px-0 w-full border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800`}
+          className={twMerge(
+            `px-0 w-full border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800`,
+            !resize && "resize-none"
+          )}
           placeholder={placeholder}
           required={required}
           value={value}

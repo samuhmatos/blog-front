@@ -38,7 +38,6 @@ async function update(user_id: number, params: FormData): Promise<AuthAPI> {
 async function CSRF_token(): Promise<void> {
   await api.get("sanctum/csrf-cookie", {
     baseURL: BASE_URL,
-    //withCredentials: true,
   });
 
   return;

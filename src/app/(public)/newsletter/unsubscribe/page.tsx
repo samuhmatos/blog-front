@@ -1,8 +1,15 @@
-"use client";
-import { Button } from "@components";
+"use client";import { Button } from "@components";
 import { PageParams } from "@types";
 import { Newsletter, useAuth, useRemoveNewsletter } from "@domain";
 import { toastUtils } from "@utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Desisncrever da Newsletter",
+  robots: {
+    index: false,
+  },
+};
 
 export default function UnsubscribeNewsletter({
   searchParams,

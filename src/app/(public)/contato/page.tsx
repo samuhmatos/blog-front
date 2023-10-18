@@ -5,6 +5,13 @@ import { useForm } from "react-hook-form";
 import { ContatoSchema, contatoSchema } from "./ContatoPageSchema";
 import Link from "next/link";
 import { useCreateContact } from "@domain";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contato",
+  description: "Entre em contato comigo",
+  abstract: "Entre em contato comigo",
+};
 
 export default function ContatoScreen() {
   const { loading, create } = useCreateContact();

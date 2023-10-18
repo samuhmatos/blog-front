@@ -3,6 +3,14 @@ import { Button } from "@components";
 import { TableCategory } from "./components/TableCategory";
 import { useRouter } from "next/navigation";
 import { linkUtils } from "@utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Categorias",
+  robots: {
+    index: false,
+  },
+};
 
 export default function CategoriasPage() {
   const router = useRouter();

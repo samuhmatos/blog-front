@@ -1,10 +1,17 @@
-"use client";
-import { PostForm } from "../components";
+"use client";import { PostForm } from "../components";
 import { usePostSchema } from "../hooks/usePostSchema";
 import { UpdatePostButton } from "./components/UpdatePostButton";
 import { useEffect } from "react";
 import { useGetPost } from "@domain";
 import { PageParams } from "@types";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Atualizar Postagem",
+  robots: {
+    index: false,
+  },
+};
 
 export default function UpdatePostPage(props: PageParams<{ id: number }>) {
   const postId = props.searchParams.id;

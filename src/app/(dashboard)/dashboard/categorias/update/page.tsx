@@ -4,6 +4,14 @@ import { usePostCategoryGet } from "@domain";
 import { PageParams } from "@types";
 import { usePostCategorySchema } from "../hooks/usePostCategorySchema";
 import { CategoryForm } from "../components";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Atualizar Categorias",
+  robots: {
+    index: false,
+  },
+};
 
 export default function UpdatePostPage(props: PageParams<{ id: number }>) {
   const categoryId = props.searchParams.id;

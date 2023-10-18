@@ -1,6 +1,13 @@
-"use client";
+"use client";import { Metadata } from "next";
 import { CategoryForm } from "../components";
 import { usePostCategorySchema } from "../hooks/usePostCategorySchema";
+
+export const metadata: Metadata = {
+  title: "Criar Categoria",
+  robots: {
+    index: false,
+  },
+};
 
 export default function CreatePostPage() {
   const schema = usePostCategorySchema();

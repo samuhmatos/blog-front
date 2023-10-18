@@ -1,5 +1,4 @@
-"use client";
-import { Box, Modal, SxProps, Theme } from "@mui/material";
+"use client";import { Box, Modal, SxProps, Theme } from "@mui/material";
 import { PostForm } from "../../components";
 import { useRouter, useSearchParams } from "next/navigation";
 import { usePostSchema } from "../../hooks/usePostSchema";
@@ -7,6 +6,14 @@ import { useEffect } from "react";
 import { useGetPost } from "@domain";
 import { UpdatePostButton } from "../../update/components/UpdatePostButton";
 import { PageParams } from "@types";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Atualizar Postagem",
+  robots: {
+    index: false,
+  },
+};
 
 const style: SxProps<Theme> = {
   position: "absolute" as "absolute",

@@ -1,3 +1,11 @@
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Inbox",
+  robots: {
+    index: false,
+  },
+};
+
 export default function InboxPage() {
   return (
     <main className="flex w-full h-full shadow-lg rounded-3xl">

@@ -1,10 +1,12 @@
-import { Screen, SideBar } from "@components";import { CategorySession } from "./components/CategorySession";
+import { Screen, SideBar } from "@components";
+import { CategorySession } from "./components/CategorySession";
 import { Category, postCategoryService } from "@domain";
 import { notFound } from "next/navigation";
 import { CategoryHeader } from "./components/CategoryHeader";
 import { PageParams } from "@types";
 import { AxiosError } from "axios";
 import { ErrorApi } from "@api";
+import { Metadata, ResolvingMetadata } from "next";
 
 export interface PagePaginationParams {
   params: {
@@ -25,6 +27,19 @@ async function loadCategory(categorySlug: string): Promise<Category> {
 
     throw new Error(error.response?.data.message);
   }
+}
+
+export async function generateMetadata(
+  { params }: PagePaginationParams,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const postCategory = await loadCategory(params.slug);
+
+  return {
+    title: postCategory.name,
+    description: postCategory.description,
+    abstract: postCategory.description,
+  };
 }
 
 export default async function CategoryScreen(

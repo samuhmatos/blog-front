@@ -1,8 +1,17 @@
-"use client";import { Box, Modal, SxProps, Theme } from "@mui/material";
+"use client";
+import { Box, Modal, SxProps, Theme } from "@mui/material";
 import { PostForm } from "../../components/";
 import { useRouter } from "next/navigation";
 import { usePostSchema } from "../../hooks/usePostSchema";
 import { CreatePostButton } from "../../create/components/CreatePostButton";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Criar Postagem",
+  robots: {
+    index: false,
+  },
+};
 
 const style: SxProps<Theme> = {
   position: "absolute" as "absolute",

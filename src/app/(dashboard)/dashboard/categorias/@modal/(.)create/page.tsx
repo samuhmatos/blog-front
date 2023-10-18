@@ -1,8 +1,17 @@
-"use client";import { Box, Modal, SxProps, Theme } from "@mui/material";
+"use client";
+import { Box, Modal, SxProps, Theme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { CategoryForm } from "../../components";
 import { usePostCategorySchema } from "../../hooks/usePostCategorySchema";
 import { linkUtils } from "@utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Criar Categoria",
+  robots: {
+    index: false,
+  },
+};
 
 const style: SxProps<Theme> = {
   position: "absolute" as "absolute",
