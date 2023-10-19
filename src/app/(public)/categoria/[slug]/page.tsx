@@ -1,5 +1,4 @@
-import { Screen, SideBar } from "@components";
-import { CategorySession } from "./components/CategorySession";
+import { Screen, SideBar } from "@components";import { CategorySession } from "./components/CategorySession";
 import { Category, postCategoryService } from "@domain";
 import { notFound } from "next/navigation";
 import { CategoryHeader } from "./components/CategoryHeader";
@@ -48,7 +47,7 @@ export default async function CategoryScreen(
   const category = await loadCategory(pageParams.params.slug);
 
   return (
-    <>
+    <div className="-mt-1">
       <CategoryHeader category={category} />
       <Screen container>
         <CategorySession
@@ -57,6 +56,6 @@ export default async function CategoryScreen(
         />
         <SideBar />
       </Screen>
-    </>
+    </div>
   );
 }

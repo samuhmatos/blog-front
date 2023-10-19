@@ -1,8 +1,9 @@
-"use client";import { Button } from "@components";
 import { PageParams } from "@types";
-import { Newsletter, useAuth, useRemoveNewsletter } from "@domain";
-import { toastUtils } from "@utils";
+import { Newsletter } from "@domain";
 import { Metadata } from "next";
+import { UnsubscribeAction } from "./components/UnsubscribeAction";
+import { redirect } from "next/navigation";
+import { RedirectType } from "next/dist/client/components/redirect";
 
 export const metadata: Metadata = {
   title: "Desisncrever da Newsletter",
@@ -11,32 +12,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function UnsubscribeNewsletter({
+export type UnsubscribePageParams = PageParams<
+  Pick<Newsletter, "email" | "token">
+>;
+
+export default function UnsubscribeNewsletterPage({
   searchParams,
-}: PageParams<Pick<Newsletter, "email" | "token">>) {
-  const { loading, remove } = useRemoveNewsletter();
-  const { user } = useAuth();
-
-  function handleUsubscribe() {
-    if (!searchParams.email || !searchParams.token) {
-      return toastUtils.show({
-        message: "Existem algumas credenciais faltando!",
-        type: "error",
-      });
-    }
-
-    if (user && user.email !== searchParams.email) {
-      return toastUtils.show({
-        message:
-          "Você não tem autorização para desinscrever um email que não é seu!",
-        type: "error",
-      });
-    }
-
-    remove({
-      email: searchParams.email,
-      token: searchParams.token,
-    });
+}: UnsubscribePageParams) {
+  if (!searchParams.email || !searchParams.token) {
+    redirect("/", RedirectType.replace);
   }
 
   return (
@@ -50,15 +34,11 @@ export default function UnsubscribeNewsletter({
             Você tem certeza que quer dizer adeus?
           </h3>
           <h5 className="mt-2 text-gray-500">
-            Estamos tristes em ver você indo, mas se realmente deseja
-            desinscrever de nossa newsletter, por favor, clique no botão a baixo
+            Estamos tristes em ver você indo, mas se realmente deseja não fazer
+            mais parte de nossa newsletter, por favor, clique no botão a baixo
           </h5>
-          <Button
-            placeholder="Desinscrever"
-            className="mt-3"
-            onClick={handleUsubscribe}
-            loading={loading}
-          />
+
+          <UnsubscribeAction searchParams={searchParams} />
         </div>
       </div>
     </div>

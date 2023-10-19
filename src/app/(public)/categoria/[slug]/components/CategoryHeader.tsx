@@ -8,7 +8,7 @@ interface Props {
 
 export function CategoryHeader({ category }: Props) {
   return (
-    <div className="bg-primary-500 min-h-32 -mt-1">
+    <div className="bg-primary-500">
       <div className="px-5 pt-5 pb-2 text-center">
         <Link href={linkUtils.linkCategory(category.slug)}>
           <h2 className="text-white font-bold text-3xl mb-3">

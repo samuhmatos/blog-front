@@ -1,4 +1,5 @@
-"use client";import {
+"use client";
+import {
   Dispatch,
   SetStateAction,
   ChangeEvent,
@@ -16,6 +17,7 @@ export interface InputTextProps {
   name: string;
   label?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 export function InputText({
@@ -27,6 +29,7 @@ export function InputText({
   errorMessage,
   label,
   className,
+  disabled = false,
 }: InputTextProps) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
@@ -52,6 +55,7 @@ export function InputText({
           onChange={handleChange}
           name={name}
           id={name}
+          disabled={disabled}
         />
       </div>
     </FormLayout>

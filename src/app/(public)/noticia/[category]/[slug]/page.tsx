@@ -1,5 +1,4 @@
-import { Screen, SideBar } from "@components";
-import { PostSession } from "./components/PostSession";
+import { Screen, SideBar } from "@components";import { PostSession } from "./components/PostSession";
 import { PostWithDetails, postService } from "@domain";
 import { notFound } from "next/navigation";
 import { Metadata, ResolvingMetadata } from "next";
@@ -36,9 +35,9 @@ export default async function PostScreen({ params }: PostScreenProps) {
   const post = await getPost(params.slug);
 
   return (
-    <div className="mt-24">
-      <Screen>
-        <PostSession params={params} post={post} />
+    <div>
+      <Screen className="mt-5">
+        <PostSession post={post} />
         <SideBar />
       </Screen>
     </div>

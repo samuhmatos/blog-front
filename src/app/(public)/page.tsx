@@ -9,7 +9,7 @@ export default function HomeScreen({
   page: string;
 }>) {
   return (
-    <div className="px-2">
+    <div className="px-2 mt-3">
       <Banner />
 
       <Screen container>

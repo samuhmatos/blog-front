@@ -1,4 +1,5 @@
-"use client";import { Menu } from "@mui/material";
+"use client";
+import { Menu } from "@mui/material";
 import { Button, FormTextInput } from "@components";
 import { useForm } from "react-hook-form";
 import {
@@ -64,6 +65,7 @@ export function ChangePassword({ anchor, onClose, isOpen, userId }: Props) {
           disabled={!formState.isValid}
           onClick={handleSubmit(handleChangePassword)}
           loading={loading}
+          full
         />
       </div>
     </Menu>
