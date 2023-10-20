@@ -1,22 +1,26 @@
 import { ReactionType } from "@types";
-export interface PostCommentReactionApi {
-  reaction: {
-    type: ReactionType;
-    comment_id: number;
-    id: number;
-    user_id: number;
-  };
+export interface PostCommentReactionWithCountApi {
+  reaction: PostCommentReactionApi;
+  count: PostCommentReactionCount;
+}
+
+export interface PostCommentReactionWithCount {
+  reaction: PostCommentReaction;
   count: PostCommentReactionCount;
 }
 
 export interface PostCommentReaction {
-  reaction: {
-    type: ReactionType;
-    commentId: number;
-    userId: number;
-    id: number;
-  };
-  count: PostCommentReactionCount;
+  type: ReactionType;
+  commentId: number;
+  userId: number;
+  id: number;
+}
+
+export interface PostCommentReactionApi {
+  type: ReactionType;
+  comment_id: number;
+  id: number;
+  user_id: number;
 }
 
 interface PostCommentReactionCount {

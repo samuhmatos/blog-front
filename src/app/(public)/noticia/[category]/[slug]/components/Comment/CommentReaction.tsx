@@ -1,7 +1,7 @@
-"use client";
-import { usePostCommentReaction } from "@domain";
+"use client";import { usePostCommentReaction } from "@domain";
 import { Icon } from "@components";
 import { ReactionType } from "@types";
+import { useEffect, useState } from "react";
 
 interface Props {
   commentId: number;
@@ -12,17 +12,21 @@ interface Props {
 export function CommentReaction({ commentId, like, postId, unLike }: Props) {
   const {
     createReaction,
-    loading,
     reactionType,
     likeCount,
     unLikeCount,
     deleteReaction,
+    show,
   } = usePostCommentReaction({
     like,
     unLike,
   });
 
   const diff = likeCount - unLikeCount;
+
+  useEffect(() => {
+    show(commentId);
+  }, []);
 
   async function handleReaction(e: ReactionType) {
     if (e !== reactionType) {

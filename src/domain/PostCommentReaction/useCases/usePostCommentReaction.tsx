@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PostCommentReaction, postCommentReactionService } from "..";
 import { errorUtils } from "@utils";
 import { AxiosError } from "axios";
@@ -18,7 +18,7 @@ export function usePostCommentReaction({ like, unLike }: Props) {
   const [unLikeCount, setUnlikeCount] = useState<number>(unLike);
 
   async function createReaction(
-    params: Pick<PostCommentReaction["reaction"], "commentId" | "type">
+    params: Pick<PostCommentReaction, "commentId" | "type">
   ) {
     setLoading(true);
     postCommentReactionService
@@ -61,6 +61,19 @@ export function usePostCommentReaction({ like, unLike }: Props) {
       });
   }
 
+  function show(commentId: number) {
+    setLoading(true);
+    postCommentReactionService
+      .show(commentId)
+      .then((res) => {
+        setReactionType(res.type);
+      })
+      .catch((err) => {})
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
   return {
     loading,
     reactionType,
@@ -68,6 +81,7 @@ export function usePostCommentReaction({ like, unLike }: Props) {
     deleteReaction,
     likeCount,
     unLikeCount,
+    show,
   };
 }
 

@@ -1,5 +1,8 @@
 import { postCommentReactionAdapter } from "./postCommentReactionAdapter";import { postCommentReactionApi } from "./postCommentReactionApi";
-import { PostCommentReaction } from "./PostCommentReactionType";
+import {
+  PostCommentReaction,
+  PostCommentReactionWithCount,
+} from "./PostCommentReactionType";
 
 async function destroy(postId: number): Promise<void> {
   const reactionApi = await postCommentReactionApi.destroy(postId);
@@ -11,18 +14,25 @@ async function create({
   commentId,
   type,
 }: Pick<
-  PostCommentReaction["reaction"],
+  PostCommentReaction,
   "commentId" | "type"
->): Promise<PostCommentReaction> {
+>): Promise<PostCommentReactionWithCount> {
   const reactionApi = await postCommentReactionApi.create({
     comment_id: commentId,
     type,
   });
 
-  return postCommentReactionAdapter.toPostCommentReaction(reactionApi);
+  return postCommentReactionAdapter.toPostCommentReactionWithCount(reactionApi);
+}
+
+async function show(commentId: number): Promise<PostCommentReaction> {
+  const reactionAPI = await postCommentReactionApi.show(commentId);
+
+  return postCommentReactionAdapter.toPostCommentReaction(reactionAPI);
 }
 
 export const postCommentReactionService = {
   create,
   destroy,
+  show,
 };

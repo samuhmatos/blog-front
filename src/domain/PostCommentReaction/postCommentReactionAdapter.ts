@@ -1,14 +1,24 @@
-import { PostCommentReaction, PostCommentReactionApi } from ".";
+import {  PostCommentReaction,
+  PostCommentReactionApi,
+  PostCommentReactionWithCount,
+  PostCommentReactionWithCountApi,
+} from ".";
 function toPostCommentReaction(
   postReactionApi: PostCommentReactionApi
 ): PostCommentReaction {
   return {
-    reaction: {
-      id: postReactionApi.reaction.id,
-      commentId: postReactionApi.reaction.comment_id,
-      type: postReactionApi.reaction.type,
-      userId: postReactionApi.reaction.user_id,
-    },
+    id: postReactionApi.id,
+    commentId: postReactionApi.comment_id,
+    type: postReactionApi.type,
+    userId: postReactionApi.user_id,
+  };
+}
+
+function toPostCommentReactionWithCount(
+  postReactionApi: PostCommentReactionWithCountApi
+): PostCommentReactionWithCount {
+  return {
+    reaction: toPostCommentReaction(postReactionApi["reaction"]),
     count: {
       like: postReactionApi.count.like,
       unlike: postReactionApi.count.unlike,
@@ -18,4 +28,5 @@ function toPostCommentReaction(
 
 export const postCommentReactionAdapter = {
   toPostCommentReaction,
+  toPostCommentReactionWithCount,
 };
