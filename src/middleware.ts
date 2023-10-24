@@ -1,26 +1,20 @@
-import { NextRequest, NextResponse } from "next/server";import { User } from "@domain";
+import { NextRequest, NextResponse } from "next/server";
+import { authMiddleware, dashboardMiddleware } from "@middlewares";
 
-export default function middleware(request: NextRequest) {
-  var token = request.cookies.get("token");
-  var userStorage = request.cookies.get("user");
-
-  if (!userStorage || !token) {
-    return NextResponse.redirect(new URL("/", request.url));
+export default function middleware(request: NextRequest): NextResponse {
+  if (request.url.includes("/dashboard")) {
+    return dashboardMiddleware(request);
   }
 
-  var user = JSON.parse(userStorage?.value) as User;
-
-  if (!user.isAdmin) {
-    return NextResponse.redirect(new URL("/", request.url));
+  if (request.url.includes("/auth")) {
+    return authMiddleware(request);
   }
 
-  const response = NextResponse.next();
-
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/dashboard/:path*", "/auth/:path*"],
 };
 
 //TODO: VERIRIFICAR SE AS INFOS DO COOKIES, SE AINDA SÃO DE FATO AS MESMAS QUE DEVERIAM SER E SE O USUARIO AINDA ESTA LOGADO JÁ NA API

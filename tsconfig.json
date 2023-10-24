@@ -29,7 +29,8 @@
       "@context": ["./src/context"],
       "@config": ["./config.ts"],
       "@schema": ["./src/schema"],
-      "@hooks": ["./src/hooks"]
+      "@hooks": ["./src/hooks"],
+      "@middlewares": ["./src/middlewares"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

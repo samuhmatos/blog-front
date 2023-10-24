@@ -5,7 +5,6 @@ import "react-toastify/ReactToastify.min.css";
 import { Poppins } from "next/font/google";
 
 import { AuthProvider } from "@context";
-// import NextTopLoader from "nextjs-toploader";
 import {
   ContainerLink,
   ContainerLinkProps,
