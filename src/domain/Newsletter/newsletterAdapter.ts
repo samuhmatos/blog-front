@@ -9,6 +9,17 @@ function toNewsletter(newsletterAPI: NewsletterApi): Newsletter {
   };
 }
 
+function toNullableNewsletter(
+  newsletterAPI: NewsletterApi | null
+): Newsletter | null {
+  if (newsletterAPI) {
+    return toNewsletter(newsletterAPI);
+  } else {
+    return null;
+  }
+}
+
 export const newsletterAdapter = {
   toNewsletter,
+  toNullableNewsletter,
 };

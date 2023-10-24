@@ -1,5 +1,11 @@
-import { User, UserAuthParams, UserParams } from ".";
-import { Auth } from "@api";
+import {
+  User,
+  UserAuthParams,
+  UserPagePaginationParam,
+  UserPagination,
+  UserParams,
+} from ".";
+import { Auth, Page, PagePaginationParams, apiAdapter } from "@api";
 import { userApi } from "./userApi";
 import { userAdapter } from "./userAdapter";
 
@@ -35,10 +41,47 @@ async function CSRF_token(): Promise<void> {
   return userApi.CSRF_token();
 }
 
+async function getList(
+  params: UserPagePaginationParam
+): Promise<Page<UserPagination>> {
+  const userAPI = await userApi.getList(params);
+
+  return {
+    meta: apiAdapter.toMetaDataPage(userAPI.meta),
+    data: userAPI.data.map(userAdapter.toUserPagination),
+  };
+}
+
+async function remove(userId: number): Promise<void> {
+  return await userApi.remove(userId);
+}
+
+async function show(userId: number): Promise<User> {
+  const userAPI = await userApi.show(userId);
+  return userAdapter.toUser(userAPI);
+}
+
+async function restore(userId: number): Promise<void> {
+  return await userApi.restore(userId);
+}
+
+async function create(
+  params: UserAuthParams & { is_admin: boolean }
+): Promise<User> {
+  const userAPI = await userApi.create(params);
+
+  return userAdapter.toUser(userAPI);
+}
+
 export const userService = {
   login,
   register,
   logout,
   update,
   CSRF_token,
+  getList,
+  remove,
+  show,
+  restore,
+  create,
 };

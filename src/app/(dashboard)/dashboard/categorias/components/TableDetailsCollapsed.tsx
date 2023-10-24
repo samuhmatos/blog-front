@@ -1,5 +1,4 @@
-import { Category } from "@domain";
-type TableDetailsType = Pick<Category, "description">;
+import { Category } from "@domain";type TableDetailsType = Pick<Category, "description">;
 
 export default function TableDetailsCollapsed({
   description,

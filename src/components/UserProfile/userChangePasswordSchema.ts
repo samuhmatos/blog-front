@@ -1,4 +1,5 @@
-import { z } from "zod";export const userChangePasswordSchema = z
+import { z } from "zod";
+export const userChangePasswordSchema = z
   .object({
     password: z.string().min(8, "Senha muito curto"),
     confirmPassword: z.string(),

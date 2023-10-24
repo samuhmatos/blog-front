@@ -4,6 +4,7 @@ import TablePaginationActions from "@mui/material/TablePagination/TablePaginatio
 import { ChangeEvent, useEffect, useState } from "react";
 import { useFeedList } from "@domain";
 import { TableBody } from "./TableBody";
+import { eventUtils } from "@utils";
 
 const tableLabels = [
   null,
@@ -33,6 +34,14 @@ export function TablePost() {
   useEffect(() => {
     refetch();
   }, [page, rowsPerPage, isDraft, isTrash]);
+
+  useEffect(() => {
+    eventUtils.on("close-modal", () => {
+      refetch();
+    });
+
+    return eventUtils.remove("close-modal", () => {});
+  }, []);
 
   const handleShowDraft = (e: ChangeEvent<HTMLInputElement>) => {
     var checked = e.target.checked;

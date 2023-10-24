@@ -4,13 +4,26 @@ import "react-toastify/ReactToastify.min.css";
 import { Poppins } from "next/font/google";
 
 import { AuthProvider } from "@context";
-import NextTopLoader from "nextjs-toploader";
+// import NextTopLoader from "nextjs-toploader";
+import {
+  ContainerLink,
+  ContainerLinkProps,
+  ProgressLoader,
+} from "nextjs-progressloader";
+
 import { ToastContainer } from "react-toastify";
 import { userService } from "@domain";
 import { hasCookie } from "cookies-next";
 import { useEffect } from "react";
 
 const poppins = Poppins({ subsets: ["devanagari"], weight: "400" });
+
+const links: ContainerLinkProps["links"] = [
+  {
+    href: "/",
+    nickname: "home",
+  },
+];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   async function getCsrfToken() {
@@ -28,7 +41,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <html lang="pt-br" className="h-screen">
         <link rel="icon" href="/assets/favicon.ico" sizes="any" />
         <body className={poppins.className}>
-          <NextTopLoader color="rgb(21, 14, 233)" showSpinner={false} />
+          <ProgressLoader color="rgb(21, 14, 233)" showSpinner={false} />
+          <ContainerLink links={links} />
 
           <div>{children}</div>
 
@@ -49,3 +63,5 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     </AuthProvider>
   );
 }
+
+//TODO:: ROUTE SEGMENT config

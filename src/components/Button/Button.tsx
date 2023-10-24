@@ -44,7 +44,7 @@ export function Button({
   };
 
   const paleteColors = (): string => {
-    var outlineStyle = "bg-gray-100 text-primary-950 border";
+    var outlineStyle = "bg-transparent text-primary-950 border";
 
     switch (paleteColor) {
       case "danger":
@@ -137,3 +137,5 @@ export function Button({
     </div>
   );
 }
+
+//TODO: RING PRESET

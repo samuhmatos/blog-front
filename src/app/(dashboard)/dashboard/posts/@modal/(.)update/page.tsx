@@ -1,6 +1,7 @@
-"use client";import { Box, Modal, SxProps, Theme } from "@mui/material";
+"use client";
+import { Box, Modal, SxProps, Theme } from "@mui/material";
 import { PostForm } from "../../components";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { usePostSchema } from "../../hooks/usePostSchema";
 import { useEffect } from "react";
 import { useGetPost } from "@domain";
@@ -37,8 +38,6 @@ export default function CreatePostPage(props: PageParams<{ id: number }>) {
 
   const router = useRouter();
   const schema = usePostSchema({ editMode: true });
-
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (postId) {

@@ -1,4 +1,5 @@
-import { PostWithDetails, postService } from "@domain";import { ErrorApi, Page } from "@api";
+import { PostWithDetails, postService } from "@domain";
+import { ErrorApi, Page } from "@api";
 import { CardMedium, Pagination } from "@components";
 import { linkUtils } from "@utils";
 import { AxiosError } from "axios";

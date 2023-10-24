@@ -1,4 +1,7 @@
-export interface User {  id: number;
+import { PagePaginationParams } from "@api";
+import { Newsletter, NewsletterApi } from "../Newsletter";
+export interface User {
+  id: number;
   name: string;
   username: string;
   imageURL: string | null;
@@ -22,6 +25,14 @@ export interface UserApi {
   updated_at: string; // "2023-08-30T02:07:20.000000Z";
 }
 
+export interface UserPaginationApi extends UserApi {
+  newsletter: NewsletterApi | null;
+}
+
+export interface UserPagination extends User {
+  newsletter: Newsletter | null;
+}
+
 export interface UserAuthParams extends Pick<User, "email"> {
   name: string;
   password: string;
@@ -32,4 +43,8 @@ export interface UserParams
   extends Partial<Pick<UserApi, "email" | "name" | "username">> {
   image?: any;
   //userId: number;
+}
+
+export interface UserPagePaginationParam extends PagePaginationParams {
+  is_trash: boolean;
 }

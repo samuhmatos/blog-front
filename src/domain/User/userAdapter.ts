@@ -1,6 +1,7 @@
-import { User, UserApi } from ".";
+import { User, UserApi, UserPagination, UserPaginationApi } from ".";
 import { Auth, AuthAPI } from "@api";
 import { dateUtils } from "@utils";
+import { newsletterAdapter } from "../Newsletter/newsletterAdapter";
 
 function toUser(userAPI: UserApi): User {
   return {
@@ -16,6 +17,13 @@ function toUser(userAPI: UserApi): User {
   };
 }
 
+function toUserPagination(userAPI: UserPaginationApi): UserPagination {
+  return {
+    ...toUser(userAPI),
+    newsletter: newsletterAdapter.toNullableNewsletter(userAPI.newsletter),
+  };
+}
+
 function toAuthResponse(authAPI: AuthAPI): Auth {
   return {
     user: toUser(authAPI.user),
@@ -27,4 +35,5 @@ function toAuthResponse(authAPI: AuthAPI): Auth {
 export const userAdapter = {
   toAuthResponse,
   toUser,
+  toUserPagination,
 };

@@ -1,6 +1,4 @@
-"use client";
-import { Metadata } from "next";
-import { Table, PostNavigateButton } from "./components";
+import { Metadata } from "next";import { Table, PostNavigateButton } from "./components";
 import { TablePost } from "./components/Table/TablePost";
 
 export const metadata: Metadata = {

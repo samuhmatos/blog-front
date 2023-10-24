@@ -1,5 +1,4 @@
-"use client";
-import {
+"use client";import {
   Dispatch,
   SetStateAction,
   ChangeEvent,
@@ -18,6 +17,7 @@ export interface InputTextProps {
   label?: string;
   className?: string;
   disabled?: boolean;
+  baseClassName?: string;
 }
 
 export function InputText({
@@ -30,13 +30,19 @@ export function InputText({
   label,
   className,
   disabled = false,
+  baseClassName,
 }: InputTextProps) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
   }
 
   return (
-    <FormLayout errorMessage={errorMessage} label={label} name={name}>
+    <FormLayout
+      errorMessage={errorMessage}
+      label={label}
+      name={name}
+      className={baseClassName}
+    >
       <div
         className={twMerge(
           `transition-all py-2 px-4 bg-white rounded-lg border dark:bg-gray-800 dark:border-gray-700`,

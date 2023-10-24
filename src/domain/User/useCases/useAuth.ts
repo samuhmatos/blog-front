@@ -6,7 +6,8 @@ import { Auth, ErrorApi } from "@api";
 import { userService } from "../userService";
 import { deleteCookie, setCookie } from "cookies-next";
 import { errorUtils, storageUtils } from "@utils";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { changeRoute } from "nextjs-progressloader";
 
 interface Props {
   name: string;
@@ -20,7 +21,6 @@ export function useAuth() {
   const [error, setError] = useState<string[] | null>(null);
   const { setUser, user, token, setToken } = useContext(AuthContext);
 
-  const router = useRouter();
   const pathName = usePathname();
 
   function setSuccessData(response: Auth) {
@@ -80,7 +80,7 @@ export function useAuth() {
         deleteCookie("token");
 
         if (pathName.includes("dashboard")) {
-          router.push("/");
+          changeRoute("home");
         }
 
         setUser(null);

@@ -27,7 +27,9 @@
       "@api": ["./src/api"],
       "@utils": ["./src/utils"],
       "@context": ["./src/context"],
-      "@config": ["./config.ts"]
+      "@config": ["./config.ts"],
+      "@schema": ["./src/schema"],
+      "@hooks": ["./src/hooks"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -1,14 +1,21 @@
-"use client";import { useContext, useState } from "react";
+"use client";
+import { useContext, useState } from "react";
 import { userService } from "../userService";
 import { AxiosError } from "axios";
 import { ErrorApi } from "@api";
 import { setCookie } from "cookies-next";
 import { AuthContext } from "@context";
 import { errorUtils, toastUtils } from "@utils";
+import { User } from "..";
 
 export function useUserUpdate() {
-  const { setUser, setToken } = useContext(AuthContext);
+  const {
+    setUser,
+    setToken,
+    user: authenticatedUser,
+  } = useContext(AuthContext);
 
+  const [data, setData] = useState<User>();
   const [loading, setLoading] = useState<boolean>(false);
 
   function update(userId: number, params: FormData, callBack?: () => void) {
@@ -17,12 +24,17 @@ export function useUserUpdate() {
     userService
       .update(userId, params)
       .then((res) => {
-        if (res.token) {
-          setCookie("token", res.token);
-          setToken(res.token);
+        if (res.user?.id === authenticatedUser?.id) {
+          if (res.token) {
+            setCookie("token", res.token);
+            setToken(res.token);
+          }
+
+          setCookie("user", res.user);
+          setUser(res.user!);
         }
-        setCookie("user", res.user);
-        setUser(res.user!);
+
+        setData(res.user);
 
         toastUtils.show({
           message: "Atualizado com sucesso!",
@@ -42,5 +54,6 @@ export function useUserUpdate() {
   return {
     loading,
     update,
+    user: data,
   };
 }

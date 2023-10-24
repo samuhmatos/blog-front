@@ -1,23 +1,31 @@
-"use client";
-import { usePostCategoryList } from "@domain";
+"use client";import { usePostCategoryList } from "@domain";
 import { Button, Icon, Pagination } from "@components";
 import { linkUtils } from "@utils";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import {
+  ContainerLink,
+  ContainerLinkProps,
+  changeRoute,
+} from "nextjs-progressloader";
 
 interface Props {
   page: number;
 }
 
 export function CategoryList({ page }: Props) {
-  const router = useRouter();
-
   const { list, refetch, hasNextPage, hasPreviousPage, totalPage } =
     usePostCategoryList({
       page: page || 0,
       per_page: 9,
     });
+
+  var links: ContainerLinkProps["links"] = list.map((category) => {
+    return {
+      href: linkUtils.linkCategory(category.slug),
+      nickname: `category-${category.slug}`,
+    };
+  });
 
   useEffect(() => {
     refetch();
@@ -25,6 +33,8 @@ export function CategoryList({ page }: Props) {
 
   return (
     <div className="w-full lg:w-3/4">
+      <ContainerLink links={links} />
+
       <div className="flex flex-wrap gap-4">
         {list.map((category) => (
           <div
@@ -43,7 +53,9 @@ export function CategoryList({ page }: Props) {
             <Button
               placeholder="Ver as postagens"
               endIcon={<Icon name="ArrowRight" />}
-              onClick={() => router.push(linkUtils.linkCategory(category.slug))}
+              onClick={() => {
+                changeRoute(linkUtils.linkCategory(category.slug));
+              }}
             />
           </div>
         ))}
