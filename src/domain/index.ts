@@ -6,3 +6,4 @@ export * from "./PostComment";
 export * from "./PostCommentReaction";
 export * from "./Contacts";
 export * from "./Newsletter";
+export * from "./Auth";

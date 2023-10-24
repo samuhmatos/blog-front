@@ -1,5 +1,4 @@
-import { LOCAL_URL } from "@config";
-function linkPost(postSlug: string, categorySlug: string): string {
+import { LOCAL_URL } from "@config";function linkPost(postSlug: string, categorySlug: string): string {
   var link = `${LOCAL_URL}/noticia/${categorySlug}/${postSlug}`;
   return link;
 }
@@ -19,6 +18,11 @@ function linkDashboard(path: string): string {
   return link;
 }
 
+function linkAuthRoute(path: string): string {
+  var link = `${LOCAL_URL}/auth/${path}`;
+  return link;
+}
+
 const share = {
   facebook: (path: string) => {
     const link = `https://www.facebook.com/share.php?u=${LOCAL_URL + path}`;
@@ -35,4 +39,5 @@ export const linkUtils = {
   linkCategories,
   linkDashboard,
   share,
+  linkAuthRoute,
 };

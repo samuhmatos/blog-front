@@ -1,4 +1,5 @@
-"use client";import "./globals.css";
+"use client";
+import "./globals.css";
 import "react-toastify/ReactToastify.min.css";
 
 import { Poppins } from "next/font/google";
@@ -15,6 +16,7 @@ import { ToastContainer } from "react-toastify";
 import { userService } from "@domain";
 import { hasCookie } from "cookies-next";
 import { useEffect } from "react";
+import { linkUtils } from "../utils/linkUtils";
 
 const poppins = Poppins({ subsets: ["devanagari"], weight: "400" });
 
@@ -22,6 +24,10 @@ const links: ContainerLinkProps["links"] = [
   {
     href: "/",
     nickname: "home",
+  },
+  {
+    href: linkUtils.linkAuthRoute("login"),
+    nickname: "login",
   },
 ];
 
