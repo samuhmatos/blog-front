@@ -1,5 +1,5 @@
 import { LOCAL_URL } from "@config";function linkPost(postSlug: string, categorySlug: string): string {
-  var link = `${LOCAL_URL}/noticia/${categorySlug}/${postSlug}`;
+  var link = `/noticia/${categorySlug}/${postSlug}`;
   return link;
 }
 
@@ -9,17 +9,17 @@ function linkCategory(categorySlug: string): string {
 }
 
 function linkCategories(): string {
-  var link = `${LOCAL_URL}/categoria/`;
+  var link = `/categoria/`;
   return link;
 }
 
 function linkDashboard(path: string): string {
-  var link = `${LOCAL_URL}/dashboard/${path}`;
+  var link = `/dashboard/${path}`;
   return link;
 }
 
 function linkAuthRoute(path: string): string {
-  var link = `${LOCAL_URL}/auth/${path}`;
+  var link = `/auth/${path}`;
   return link;
 }
 

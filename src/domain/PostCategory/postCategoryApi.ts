@@ -1,5 +1,4 @@
-import { Page, PageAPI, PagePaginationParams, api } from "@api";
-import { CategoryAPI } from "./categoryTypes";
+import { Page, PageAPI, PagePaginationParams, api } from "@api";import { CategoryAPI } from "./categoryTypes";
 
 const PATH = "postCategory/";
 
@@ -69,5 +68,3 @@ export const postCategoryApi = {
   update,
   getAll,
 };
-
-//TODO: SCREEN TO UNSUBSCRIBE FROM NEWSLETTER

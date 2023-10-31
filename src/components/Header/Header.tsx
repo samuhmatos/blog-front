@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image";import Link from "next/link";
 import { Navigation } from "./components/Navigation";
 import { SearchInput } from "./components/SearchInput";
 import { Actions } from "./components/Actions";
@@ -9,9 +8,6 @@ async function getPopularCategories(): Promise<Category[]> {
   return await postCategoryService.getPopular();
 }
 
-interface Props {
-  errorMessage: string;
-}
 export async function Header() {
   const categories = await getPopularCategories();
 

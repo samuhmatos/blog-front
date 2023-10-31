@@ -13,6 +13,7 @@ const nextConfig = {
       "images.unsplash.com",
     ], // Adicione 'robohash.org' à lista de domínios permitidos
   },
+  compress: true,
 };
 
 module.exports = nextConfig;

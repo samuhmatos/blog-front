@@ -19,7 +19,7 @@ export default function LoginPage({
   const { signIn, loading, error } = useAuth();
 
   var links: ContainerLinkProps["links"] = [
-    { href: redirect || "/", nickname: "redirect" },
+    { href: redirect, nickname: "redirect" },
   ];
 
   function onSubmit(val: LoginSchema) {
@@ -29,14 +29,18 @@ export default function LoginPage({
         password: val.password,
       },
       () => {
-        changeRoute("redirect");
+        try {
+          changeRoute("redirect");
+        } catch (error) {
+          changeRoute("home");
+        }
       }
     );
   }
 
   return (
     <>
-      <ContainerLink links={links} />
+      {redirect !== "/" && <ContainerLink links={links} />}
       <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-5">
         Faça login na sua conta
       </h1>
@@ -87,5 +91,3 @@ export default function LoginPage({
     </>
   );
 }
-
-// TODO: PROTECT ROUTE... with user alreary is authenticated, redirect

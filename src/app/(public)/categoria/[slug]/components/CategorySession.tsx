@@ -1,5 +1,4 @@
-import { PostWithDetails, postService } from "@domain";
-import { ErrorApi, Page } from "@api";
+import { PostWithDetails, postService } from "@domain";import { ErrorApi, Page } from "@api";
 import { CardMedium, Pagination } from "@components";
 import { linkUtils } from "@utils";
 import { AxiosError } from "axios";
@@ -51,4 +50,3 @@ export async function CategorySession({
     </div>
   );
 }
-// TODO: ADD NOT FOUND PAGE

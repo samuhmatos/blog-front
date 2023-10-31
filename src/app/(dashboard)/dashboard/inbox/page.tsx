@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 export const metadata: Metadata = {
   title: "Inbox",
   robots: {
@@ -218,10 +219,13 @@ export default function InboxPage() {
         <div className="flex justify-between items-center h-48 border-b-2 mb-8">
           <div className="flex space-x-4 items-center">
             <div className="h-12 w-12 rounded-full overflow-hidden">
-              <img
+              <Image
                 src="https://bit.ly/2KfKgdy"
                 loading="lazy"
                 className="h-full w-full object-cover"
+                alt=""
+                width={100}
+                height={100}
               />
             </div>
             <div className="flex flex-col">

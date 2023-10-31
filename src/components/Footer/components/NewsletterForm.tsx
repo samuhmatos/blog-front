@@ -1,5 +1,4 @@
-"use client";
-import { FormEvent, useState } from "react";
+"use client";import { FormEvent, useState } from "react";
 import { Button, InputText } from "@components";
 import { useCreateNewsletter } from "@domain";
 
@@ -33,5 +32,3 @@ export function NewsletterForm() {
     </form>
   );
 }
-
-// TODO: ENVIAR EMAIL PARA API

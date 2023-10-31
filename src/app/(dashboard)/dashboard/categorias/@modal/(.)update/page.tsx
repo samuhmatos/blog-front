@@ -1,5 +1,4 @@
-"use client";
-import { Box, Modal, SxProps, Theme } from "@mui/material";
+"use client";import { Box, Modal, SxProps, Theme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { usePostCategoryGet } from "@domain";
@@ -59,4 +58,3 @@ export default function CreatePostPage(props: PageParams<{ id: number }>) {
 }
 
 // TODO: VALIDAR SE O INPUIT ESTA FOCADO E SE FOR FECHAR, VALIDAR SE O QUER SALVAR RASCUNHO OU APAGAR. FEATURE
-//TODO: CRIAR COMPONENTE DE MODAL

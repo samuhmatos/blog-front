@@ -6,7 +6,7 @@ import { SearchInput } from "./SearchInput";
 import { useEffect, useRef, useState } from "react";
 import { Variants, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { Category, usePostCategoryGet } from "@domain";
+import { Category } from "@domain";
 
 const variants: Variants = {
   open: {
@@ -33,7 +33,9 @@ export function Navigation({ categories }: Props) {
       setOpen(isOpen);
     });
 
-    return eventUtils.remove("toggle-open-navigation", () => {});
+    return eventUtils.remove("toggle-open-navigation", (isOpen) => {
+      setOpen(isOpen);
+    });
   }, []);
 
   function RenderItem({ url, label }: { url: string; label: string }) {

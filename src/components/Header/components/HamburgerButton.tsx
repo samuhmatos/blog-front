@@ -1,10 +1,9 @@
-"use client";
-import { useEffect, useState } from "react";
+"use client";import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { eventUtils } from "@utils";
 
 export function HamburgerButton() {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
 
   const Path = (props: any) => (
     <motion.path
@@ -17,20 +16,26 @@ export function HamburgerButton() {
     />
   );
 
-  function toggleOpen(val: boolean) {
+  function changeState(val: boolean) {
     eventUtils.emit("toggle-open-navigation", val);
     setOpen(val);
   }
 
-  useEffect(() => {
-    window.addEventListener("resize", (e) => {
-      var windowWidth = window.innerWidth;
+  function toggleOpen() {
+    var windowWidth = window.innerWidth;
 
-      if (windowWidth >= 768) {
-        toggleOpen(true);
-      } else {
-        toggleOpen(false);
-      }
+    if (windowWidth >= 768) {
+      changeState(true);
+    } else {
+      changeState(false);
+    }
+  }
+
+  useEffect(() => {
+    toggleOpen();
+
+    window.addEventListener("resize", (e) => {
+      toggleOpen();
     });
 
     return window.removeEventListener("resize", () => {});
@@ -40,7 +45,7 @@ export function HamburgerButton() {
     <button
       className="mr-2 md:hidden"
       type="button"
-      onClick={() => toggleOpen(!open)}
+      onClick={() => changeState(!open)}
     >
       <svg width="23" height="23" viewBox="0 0 23 23">
         <Path
