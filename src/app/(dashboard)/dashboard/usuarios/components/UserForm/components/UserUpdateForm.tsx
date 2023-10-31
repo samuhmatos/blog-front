@@ -1,25 +1,43 @@
-"use client";
-import { useUserUpdate } from "@domain";
-import { UserFormProps } from "../UserForm";
-import { UserSchema } from "@schema";
+"use client";import { User, useUserUpdate } from "@domain";
+import { ReturnUserUpdateSchemaType, UserUpdateSchema } from "@schema";
 import { eventUtils } from "@utils";
 import {
   Button,
+  ChangePasswordModal,
   FormTextAreaInput,
   FormTextInput,
+  Icon,
   ImageUploadPreview,
 } from "@components";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
-export function UserUpdateForm({ schema, initialData }: UserFormProps) {
+interface UserUpdateFormProps {
+  schema: ReturnUserUpdateSchemaType;
+  initialData?: User;
+}
+
+export function UserUpdateForm({ schema, initialData }: UserUpdateFormProps) {
   const router = useRouter();
 
   const { control, formState, setValue, handleSubmit } = schema;
   const [imageProfile, setImageProfile] = useState<string | undefined>();
   const [id, setId] = useState<number>();
 
-  const { update, loading: loadingUpdate, user } = useUserUpdate();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const isOpenChangePassword = Boolean(anchorEl);
+
+  const handleOpenChangePassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseChangePassword = () => {
+    setAnchorEl(null);
+  };
+
+  const { update, loading, user } = useUserUpdate();
 
   useEffect(() => {
     if (initialData) {
@@ -56,7 +74,7 @@ export function UserUpdateForm({ schema, initialData }: UserFormProps) {
     }
   }, [user]);
 
-  function handleUpdate(val: UserSchema) {
+  function handleUpdate(val: UserUpdateSchema) {
     var form = new FormData();
 
     if (initialData?.name != val.name) {
@@ -85,9 +103,13 @@ export function UserUpdateForm({ schema, initialData }: UserFormProps) {
     <div>
       <ImageUploadPreview
         imagePath={imageProfile}
-        loading={loadingUpdate}
+        loading={loading}
         onUpload={handleUploadAvatar}
       />
+
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4 mt-2">
+        Editar usuário
+      </h1>
 
       <div className="flex w-full gap-3">
         <FormTextInput
@@ -106,7 +128,7 @@ export function UserUpdateForm({ schema, initialData }: UserFormProps) {
         />
       </div>
 
-      <div className="my-3">
+      <div className="my-1">
         <FormTextInput
           control={control}
           name="email"
@@ -122,12 +144,22 @@ export function UserUpdateForm({ schema, initialData }: UserFormProps) {
         label="Descrição"
       />
 
+      <Button
+        placeholder="Mudar senha"
+        className="mt-3"
+        full
+        paleteColor="secondary"
+        endIcon={<Icon name="ArrowRightHalf" />}
+        onClick={handleOpenChangePassword}
+        disabled={loading}
+      />
+
       <div className="flex gap-3 w-full justify-center mt-3">
         <Button
           placeholder="Editar"
           disabled={!formState.isValid}
           onClick={handleSubmit(handleUpdate)}
-          loading={loadingUpdate}
+          loading={loading}
         />
 
         <Button
@@ -138,6 +170,15 @@ export function UserUpdateForm({ schema, initialData }: UserFormProps) {
           onClick={close}
         />
       </div>
+
+      {initialData && (
+        <ChangePasswordModal
+          anchor={anchorEl}
+          isOpen={isOpenChangePassword}
+          onClose={handleCloseChangePassword}
+          userId={initialData.id}
+        />
+      )}
     </div>
   );
 }

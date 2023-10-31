@@ -1,11 +1,10 @@
-"use client";import { UseFormReturn, useForm } from "react-hook-form";
-import {
-  CreatePostSchema,
-  createPostSchema,
-} from "../components/Post/PostSchema";
+"use client";
+import { UseFormReturn, useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Category, usePostCategoryGet } from "@domain";
 import { useEffect } from "react";
+import { CreatePostSchema, createPostSchema } from "./../PostSchema";
 
 export type ReturnPostSchemaType = UseFormReturn<CreatePostSchema> & {
   categories: Category[] | null;

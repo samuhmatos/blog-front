@@ -6,7 +6,7 @@ import { changeRoute } from "nextjs-progressloader";
 import { usePathname } from "next/navigation";
 
 export function Actions() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const pathName = usePathname();
 
   function handleInvokeLoginPage() {
@@ -25,9 +25,14 @@ export function Actions() {
       {user ? (
         <UserCard />
       ) : (
-        <Button placeholder={"Entrar"} onClick={handleInvokeLoginPage} />
+        <Button
+          placeholder="Entrar"
+          onClick={handleInvokeLoginPage}
+          disabled={loading}
+        />
       )}
       <HamburgerButton />
     </div>
   );
 }
+// TODO: ADD LOADING STATE INSTEAD BUTTON COMPONENT WHEN 'INITIAL STATE' IS LOADING

@@ -1,15 +1,14 @@
 "use client";
 import { Button } from "@components";
 import { useCreatePost } from "@domain";
-import { ReturnPostSchemaType, usePostSchema } from "../../hooks/usePostSchema";
-import { CreatePostSchema } from "../../components/Post/PostSchema";
+import { CreatePostSchema, ReturnPostSchemaType } from "@schema";
 
 interface Props {
   schema: ReturnPostSchemaType;
 }
 export function CreatePostButton({ schema }: Props) {
   const { loadingDraft, loadingPublish, createPost } = useCreatePost();
-  const { formState, handleSubmit, reset } = schema;
+  const { formState, handleSubmit, reset, getValues } = schema;
 
   const formatData = (data: CreatePostSchema, isDraft: boolean): FormData => {
     let categoryId = Number(data.category);

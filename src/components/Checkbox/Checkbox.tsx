@@ -1,8 +1,9 @@
-import { Checkbox as CheckboxComponent } from "@mui/material";import { ChangeEvent } from "react";
+import { Checkbox as CheckboxComponent } from "@mui/material";
+import { ChangeEvent } from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface CheckboxProps {
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: any) => void;
   checked: boolean;
   id?: string;
   label?: string;
@@ -18,7 +19,9 @@ export function Checkbox({
   disabled = false,
 }: CheckboxProps) {
   return (
-    <div className={twMerge("flex items-center cursor-pointer", className)}>
+    <div
+      className={twMerge("flex items-center cursor-pointer text-sm", className)}
+    >
       <CheckboxComponent
         title={label}
         onChange={!disabled ? onChange : () => {}}
@@ -27,7 +30,13 @@ export function Checkbox({
         disabled={disabled}
       />
       {label && (
-        <label htmlFor={id} className="block cursor-pointer">
+        <label
+          htmlFor={id}
+          className="block cursor-pointer"
+          onClick={() => {
+            !disabled && onChange(!checked);
+          }}
+        >
           {label}
         </label>
       )}

@@ -1,15 +1,19 @@
-"use client";import { Modal } from "@mui/material";
-import { UserHeader } from "./components/UserHeader";
+"use client";
+import { useEffect, useState } from "react";
 import { useAuth, useUserUpdate } from "@domain";
 import { UserProfileSchema, userProfileSchema } from "./UserProfileSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { FormTextInput } from "../FormTextInput/FormTextInput";
-import { FormTextAreaInput } from "../FormTextAreaInput/FormTextAreaInput";
-import { Button } from "../Button/Button";
-import { useEffect, useState } from "react";
-import { Icon } from "../Icon/Icon";
-import { ChangePassword } from "./components/ChangePassword";
+import { UserHeader } from "./components/UserHeader";
+
+import {
+  Modal,
+  Icon,
+  Button,
+  FormTextAreaInput,
+  FormTextInput,
+  ChangePasswordModal,
+} from "@components";
 
 interface Props {
   open: boolean;
@@ -68,79 +72,75 @@ export function USerProfile({ open, onClose }: Props) {
 
   return (
     <>
-      <Modal onClose={onClose} open={open}>
-        <div className="p-3">
-          <div className=" flex items-center justify-center">
-            <div className="bg-white p-8 rounded-lg shadow-md w-96">
-              <UserHeader />
-              <h1 className="text-2xl font-semibold text-gray-800 mb-6 mt-2">
-                Editar Perfil
-              </h1>
-              <div>
-                <FormTextInput
-                  control={control}
-                  name="name"
-                  label="Nome"
-                  placeholder="Digite seu nome aqui..."
-                />
+      <Modal onClose={onClose} isOpen={open}>
+        <UserHeader />
+        <h1 className="text-2xl font-semibold text-gray-800 mb-6 mt-2">
+          Editar Perfil
+        </h1>
+        <div>
+          <FormTextInput
+            control={control}
+            name="name"
+            label="Nome"
+            placeholder="Digite seu nome aqui..."
+          />
 
-                <FormTextInput
-                  control={control}
-                  name="username"
-                  label="Username"
-                  placeholder="Digite seu username aqui..."
-                />
+          <FormTextInput
+            control={control}
+            name="username"
+            label="Username"
+            placeholder="Digite seu username aqui..."
+          />
 
-                <FormTextInput
-                  control={control}
-                  name="email"
-                  label="Email"
-                  placeholder="Digite seu email aqui..."
-                />
+          <FormTextInput
+            control={control}
+            name="email"
+            label="Email"
+            placeholder="Digite seu email aqui..."
+          />
 
-                <FormTextAreaInput
-                  control={control}
-                  name="description"
-                  label="Biografia"
-                  placeholder="Digite sua biografia aqui..."
-                />
+          <FormTextAreaInput
+            control={control}
+            name="description"
+            label="Biografia"
+            placeholder="Digite sua biografia aqui..."
+          />
 
-                <Button
-                  placeholder="Mudar senha"
-                  className="mt-2"
-                  full
-                  paleteColor="secondary"
-                  endIcon={<Icon name="ArrowRightHalf" />}
-                  onClick={handleOpenChangePassword}
-                  disabled={loading}
-                />
+          <Button
+            placeholder="Mudar senha"
+            className="mt-2"
+            full
+            paleteColor="secondary"
+            endIcon={<Icon name="ArrowRightHalf" />}
+            onClick={handleOpenChangePassword}
+            disabled={loading}
+          />
 
-                <div className="flex gap-3 justify-end mt-3">
-                  <Button
-                    loading={loading}
-                    placeholder="Salvar"
-                    disabled={!formState.isValid}
-                    onClick={handleSubmit(handleUpdateUser)}
-                    full
-                  />
-                  <Button
-                    placeholder="Fechar"
-                    paleteColor="danger"
-                    onClick={handleClose}
-                  />
-                </div>
-              </div>
-            </div>
+          <div className="flex gap-3 justify-end mt-3">
+            <Button
+              loading={loading}
+              placeholder="Salvar"
+              disabled={!formState.isValid}
+              onClick={handleSubmit(handleUpdateUser)}
+              full
+            />
+            <Button
+              placeholder="Fechar"
+              paleteColor="danger"
+              onClick={handleClose}
+            />
           </div>
         </div>
       </Modal>
 
-      <ChangePassword
-        anchor={anchorEl}
-        isOpen={isOpenChangePassword}
-        onClose={handleCloseChangePassword}
-        userId={user?.id}
-      />
+      {user && (
+        <ChangePasswordModal
+          anchor={anchorEl}
+          isOpen={isOpenChangePassword}
+          onClose={handleCloseChangePassword}
+          userId={user?.id}
+        />
+      )}
     </>
   );
 }

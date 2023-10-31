@@ -2,9 +2,9 @@
 import { Box, Modal, SxProps, Theme } from "@mui/material";
 import { PostForm } from "../../components/";
 import { useRouter } from "next/navigation";
-import { usePostSchema } from "../../hooks/usePostSchema";
 import { CreatePostButton } from "../../create/components/CreatePostButton";
 import { Metadata } from "next";
+import { usePostSchema } from "@schema";
 
 export const metadata: Metadata = {
   title: "Criar Postagem",

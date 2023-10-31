@@ -1,4 +1,5 @@
-"use client";import { Checkbox, Table } from "@components";
+"use client";
+import { Checkbox, Table } from "@components";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useUserList } from "@domain";
@@ -33,7 +34,6 @@ export function TableUsers() {
 
   useEffect(() => {
     eventUtils.on("close-modal", () => {
-      console.log("close-modal");
       refetch();
     });
 

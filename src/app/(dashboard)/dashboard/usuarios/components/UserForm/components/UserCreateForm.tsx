@@ -1,14 +1,16 @@
 "use client";
 import { useUserCreate } from "@domain";
-import { UserFormProps } from "../UserForm";
-import { UserSchema } from "@schema";
+import { ReturnUserCreateSchemaType, UserCreateSchema } from "@schema";
 import { eventUtils } from "@utils";
 import { Button, FormCheckbox, FormTextInput } from "@components";
 import { useRouter } from "next/navigation";
 
-export function UserCreateForm({ schema }: UserFormProps) {
-  const router = useRouter();
+interface UserCreateFormProps {
+  schema: ReturnUserCreateSchemaType;
+}
 
+export function UserCreateForm({ schema }: UserCreateFormProps) {
+  const router = useRouter();
   const { control, formState, handleSubmit } = schema;
 
   const { create, loading: loadingCreate } = useUserCreate();
@@ -17,7 +19,7 @@ export function UserCreateForm({ schema }: UserFormProps) {
     router.back();
   }
 
-  function handleCreate(val: UserSchema) {
+  function handleCreate(val: UserCreateSchema) {
     create(
       {
         email: val.email,
@@ -35,6 +37,10 @@ export function UserCreateForm({ schema }: UserFormProps) {
 
   return (
     <div>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4 mt-2">
+        Criar usuário
+      </h1>
+
       <FormTextInput
         control={control}
         name="name"
@@ -43,23 +49,20 @@ export function UserCreateForm({ schema }: UserFormProps) {
         baseClassName="w-full"
       />
 
-      <div className="my-3">
-        <FormTextInput
-          control={control}
-          name="email"
-          placeholder="Digite o email..."
-          label="Email"
-        />
-      </div>
+      <FormTextInput
+        control={control}
+        name="email"
+        placeholder="Digite o email..."
+        label="Email"
+      />
 
-      <FormCheckbox control={control} name="isAdmin" label="É admin?" />
+      <FormCheckbox control={control} name="isAdmin" label="Administrador" />
 
       <FormTextInput
         control={control}
         name="password"
         placeholder="Digite a senha..."
         label="Senha"
-        className="mb-3"
         type="password"
       />
 
@@ -68,11 +71,10 @@ export function UserCreateForm({ schema }: UserFormProps) {
         name="confirmPassword"
         placeholder="Digite a confirmação de senha..."
         label="Confirmar senha"
-        className="mb-3"
         type="password"
       />
 
-      <div className="flex gap-3 w-full justify-center mt-3">
+      <div className="flex gap-3 w-full justify-center mt-2">
         <Button
           placeholder="Salvar"
           disabled={!formState.isValid}

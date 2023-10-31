@@ -1,13 +1,8 @@
 "use client";
 import { Menu } from "@mui/material";
 import { Button, FormTextInput } from "@components";
-import { useForm } from "react-hook-form";
-import {
-  UserChangePasswordSchema,
-  userChangePasswordSchema,
-} from "../userChangePasswordSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useUserUpdate } from "@domain";
+import { UserChangePasswordSchema, useUserChangePasswordSchema } from "@schema";
 
 interface Props {
   anchor: HTMLElement | null;
@@ -16,22 +11,22 @@ interface Props {
   userId: number;
 }
 
-export function ChangePassword({ anchor, onClose, isOpen, userId }: Props) {
+export function ChangePasswordModal({
+  anchor,
+  onClose,
+  isOpen,
+  userId,
+}: Props) {
   const { loading, update } = useUserUpdate();
   const { control, formState, handleSubmit, reset } =
-    useForm<UserChangePasswordSchema>({
-      resolver: zodResolver(userChangePasswordSchema),
-      mode: "onChange",
-      defaultValues: {
-        confirmPassword: "",
-        password: "",
-      },
-    });
+    useUserChangePasswordSchema();
 
   function handleChangePassword(e: UserChangePasswordSchema) {
     var formData = new FormData();
     formData.append("password", e.password);
     formData.append("password_confirmation", e.password);
+
+    console.log(userId);
 
     update(userId, formData, handleClose);
     handleClose();
@@ -65,6 +60,7 @@ export function ChangePassword({ anchor, onClose, isOpen, userId }: Props) {
           disabled={!formState.isValid}
           onClick={handleSubmit(handleChangePassword)}
           loading={loading}
+          loadingPosition="center"
           full
         />
       </div>

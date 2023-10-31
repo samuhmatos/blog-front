@@ -1,13 +1,13 @@
-"use client";import {
+"use client";
+import {
   Category,
   usePostCategoryCreate,
   usePostCategoryUpdate,
 } from "@domain";
-import { ReturnPostCategorySchemaType } from "../hooks/usePostCategorySchema";
 import { useEffect } from "react";
 import { Button, FormTextInput } from "@components";
 import { useRouter } from "next/navigation";
-import { PostCategorySchema } from "../PostCategorySchema";
+import { PostCategorySchema, ReturnPostCategorySchemaType } from "@schema";
 import { eventUtils } from "@utils";
 
 interface Props {

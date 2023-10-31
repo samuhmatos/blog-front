@@ -1,17 +1,17 @@
 "use client";import { Modal } from "@components";
 import { useRouter } from "next/navigation";
 import { PageParams } from "@types";
-import { useUserSchema } from "@hooks";
+import { useUserUpdateSchema } from "@schema";
 import { useUserGet } from "@domain";
 import { useEffect } from "react";
-import { UserForm } from "../../components/UserForm/UserForm";
+import { UserUpdateForm } from "../../components/UserForm/components/UserUpdateForm";
 
 export default function CreateUserPage({
   searchParams: { id },
 }: PageParams<{ id: number }>) {
   const router = useRouter();
 
-  const schema = useUserSchema();
+  const schema = useUserUpdateSchema();
 
   const { user, loading, show } = useUserGet();
 
@@ -29,7 +29,7 @@ export default function CreateUserPage({
 
   return (
     <Modal isOpen onClose={handleClose}>
-      <UserForm schema={schema} initialData={user} />
+      <UserUpdateForm schema={schema} initialData={user} />
     </Modal>
   );
 }

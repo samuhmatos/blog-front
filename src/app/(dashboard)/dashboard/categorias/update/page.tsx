@@ -1,8 +1,7 @@
-"use client";
-import { useEffect } from "react";
+"use client";import { useEffect } from "react";
 import { usePostCategoryGet } from "@domain";
 import { PageParams } from "@types";
-import { usePostCategorySchema } from "../hooks/usePostCategorySchema";
+import { usePostCategorySchema } from "@schema";
 import { CategoryForm } from "../components";
 import { Metadata } from "next";
 

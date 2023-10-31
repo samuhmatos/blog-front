@@ -1,8 +1,7 @@
 "use client";
 import { FormCheckbox, Button } from "@components";
 import { UpdateServiceProps, useUpdatePost } from "@domain";
-import { ReturnPostSchemaType } from "../../hooks/usePostSchema";
-import { CreatePostSchema } from "../../components/Post/PostSchema";
+import { CreatePostSchema, ReturnPostSchemaType } from "@schema";
 
 interface Props {
   schema: ReturnPostSchemaType;

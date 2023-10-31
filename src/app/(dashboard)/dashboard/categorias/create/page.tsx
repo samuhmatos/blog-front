@@ -1,6 +1,7 @@
-"use client";import { Metadata } from "next";
+"use client";
+import { Metadata } from "next";
 import { CategoryForm } from "../components";
-import { usePostCategorySchema } from "../hooks/usePostCategorySchema";
+import { usePostCategorySchema } from "@schema";
 
 export const metadata: Metadata = {
   title: "Criar Categoria",

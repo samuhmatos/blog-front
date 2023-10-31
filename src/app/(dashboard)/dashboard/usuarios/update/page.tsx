@@ -1,9 +1,10 @@
-"use client";import { useUserGet } from "@domain";
-import { UserForm } from "../components/UserForm/UserForm";
-import { useUserSchema } from "@hooks";
+"use client";
+import { useUserGet } from "@domain";
+import { useUserUpdateSchema } from "@schema";
 import { PageParams } from "@types";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { UserUpdateForm } from "../components/UserForm/components/UserUpdateForm";
 
 export default function UpdateUserPage({
   searchParams: { id },
@@ -19,7 +20,7 @@ export default function UpdateUserPage({
     }
   }, []);
 
-  const schema = useUserSchema();
+  const schema = useUserUpdateSchema();
 
-  return <UserForm schema={schema} initialData={user} />;
+  return <UserUpdateForm schema={schema} initialData={user} />;
 }

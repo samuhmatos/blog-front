@@ -1,8 +1,7 @@
-import { Page, PagePaginationParams, apiAdapter } from "@api";
-import { Post, PostList, PostPageParams, PostWithDetails } from "./postTypes";
+import { Page, PagePaginationParams, apiAdapter } from "@api";import { Post, PostList, PostWithDetails } from "./postTypes";
 import { postApi } from "./postApi";
 import { postAdapter } from "./postAdapter";
-import { CreatePostSchema } from "../../app/(dashboard)/dashboard/posts/components/Post/PostSchema";
+import { CreatePostSchema } from "@schema";
 
 async function getList(query: keyof PostList): Promise<PostWithDetails[]> {
   const postList = await postApi.getList(query);
@@ -87,21 +86,6 @@ async function addView(
   return await postApi.addView(postId);
 }
 
-// async function getPostsByCategorySlug(
-//   categorySlug: string,
-//   page: number
-// ): Promise<Page<PostWithDetails>> {
-//   const postsAPI = await postApi.getPostsByCategorySlug(categorySlug, {
-//     page,
-//     per_page: 10,
-//   });
-
-//   return {
-//     data: postsAPI.data.map(postAdapter.toPostWithDetails),
-//     meta: apiAdapter.toMetaDataPage(postsAPI.meta),
-//   };
-// }
-
 async function create(formData: FormData): Promise<Post> {
   const postAPI = await postApi.create(formData);
   return postAdapter.toPost(postAPI);
@@ -145,7 +129,6 @@ export const postService = {
   getOne,
   getSuggestion,
   addView,
-  // getPostsByCategorySlug,
   create,
   getDraft,
   update,

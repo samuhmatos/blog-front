@@ -8,7 +8,7 @@ import {
 
 import { FormContentEditor } from "../FormContentEditor/FormContentEditor";
 import { Post } from "@domain";
-import { ReturnPostSchemaType } from "../../hooks/usePostSchema";
+import { ReturnPostSchemaType } from "@schema";
 
 interface Props {
   setCanClose?: () => Dispatch<SetStateAction<boolean>>;
@@ -23,7 +23,7 @@ export function PostForm({
   ActionsButton,
   schema,
 }: Props) {
-  const { control, categories, setValue, formState } = schema;
+  const { control, categories, setValue } = schema;
 
   async function setInitialData() {
     if (initialData) {

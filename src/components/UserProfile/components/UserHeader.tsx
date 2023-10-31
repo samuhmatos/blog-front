@@ -1,4 +1,5 @@
-"use client";import { useAuth, useUserUpdate } from "@domain";
+"use client";
+import { useAuth, useUserUpdate } from "@domain";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { CircularProgress } from "@mui/material";
@@ -22,7 +23,7 @@ export function UserHeader() {
       setLoading(true);
 
       var formData = new FormData();
-      formData.append("image", selectedFile);
+      formData.append("image", selectedFile[0]);
 
       update(user!.id, formData);
       setLoading(false);

@@ -1,4 +1,5 @@
-"use client";import { UserPagination, useUserRemove, useUserRestore } from "@domain";
+"use client";
+import { UserPagination, useUserRemove, useUserRestore } from "@domain";
 import { useState } from "react";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
@@ -6,10 +7,9 @@ import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Icon, Button, Modal } from "@components";
+import { Icon, Button } from "@components";
 import { TableUserDetailsCollapsed } from "./TableUserCollapsed";
-import { useRouter } from "next/navigation";
-import { linkUtils } from "@utils";
+import { changeRoute } from "nextjs-progressloader";
 
 interface RowsType {
   user: UserPagination;
@@ -18,8 +18,6 @@ interface RowsType {
 }
 
 export function Row({ user, refetch, isTrash }: RowsType) {
-  const router = useRouter();
-
   const [open, setOpen] = useState(false);
 
   const { loading: loadingRemove, remove } = useUserRemove();
@@ -38,7 +36,9 @@ export function Row({ user, refetch, isTrash }: RowsType) {
   }
 
   function handleOpenEditModal() {
-    router.push(linkUtils.linkDashboard(`usuarios/update?id=${user.id}`));
+    changeRoute("user.update", {
+      queryStrings: [{ key: "id", value: user.id }],
+    });
   }
 
   return (

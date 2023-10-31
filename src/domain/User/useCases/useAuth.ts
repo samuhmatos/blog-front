@@ -1,5 +1,4 @@
-"use client";
-import { AxiosError } from "axios";
+"use client";import { AxiosError } from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@context";
 import { Auth, ErrorApi } from "@api";
@@ -92,11 +91,13 @@ export function useAuth() {
   }
 
   function loadStorageData() {
+    setLoading(true);
     const { user: userStorage, token: tokenStorage } =
       storageUtils.loadStorageData();
 
     setUser(userStorage);
     setToken(tokenStorage);
+    setLoading(false);
   }
 
   useEffect(() => {

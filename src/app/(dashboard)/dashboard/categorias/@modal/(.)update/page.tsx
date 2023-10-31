@@ -1,10 +1,11 @@
-"use client";import { Box, Modal, SxProps, Theme } from "@mui/material";
+"use client";
+import { Box, Modal, SxProps, Theme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { usePostCategoryGet } from "@domain";
 import { PageParams } from "@types";
 import { CategoryForm } from "../../components";
-import { usePostCategorySchema } from "../../hooks/usePostCategorySchema";
+import { usePostCategorySchema } from "@schema";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

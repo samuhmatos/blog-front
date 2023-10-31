@@ -1,4 +1,5 @@
-"use client";import { Metadata } from "next";
+"use client";
+import { Metadata } from "next";
 import { Navigation, SideBar } from "./components";
 import { ContainerLink, LinkProps } from "nextjs-progressloader";
 import { linkUtils } from "@utils";
@@ -22,6 +23,10 @@ const links: LinkProps[] = [
   {
     href: linkUtils.linkDashboard("usuarios/create"),
     nickname: "createUser",
+  },
+  {
+    href: linkUtils.linkDashboard("usuarios/update"),
+    nickname: "user.update",
   },
   {
     href: linkUtils.linkDashboard("posts"),

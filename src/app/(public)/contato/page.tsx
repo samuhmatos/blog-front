@@ -1,7 +1,6 @@
-"use client";import { FormTextAreaInput, Button, FormTextInput, Icon } from "@components";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { ContatoSchema, contatoSchema } from "./ContatoPageSchema";
+"use client";
+import { FormTextAreaInput, Button, FormTextInput, Icon } from "@components";
+import { ContactSchema, useContactSchema } from "@schema";
 import Link from "next/link";
 import { useCreateContact } from "@domain";
 import { Metadata } from "next";
@@ -16,19 +15,9 @@ export const metadata: Metadata = {
 export default function ContatoScreen() {
   const { loading, create } = useCreateContact();
 
-  const { control, formState, handleSubmit, reset } = useForm<ContatoSchema>({
-    resolver: zodResolver(contatoSchema),
-    defaultValues: {
-      email: "",
-      fullName: "",
-      phone: "",
-      subject: "",
-      message: "",
-    },
-    mode: "onChange",
-  });
+  const { control, formState, handleSubmit, reset } = useContactSchema();
 
-  function submitForm(data: ContatoSchema) {
+  function submitForm(data: ContactSchema) {
     create(
       {
         ...data,

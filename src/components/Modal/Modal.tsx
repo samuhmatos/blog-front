@@ -1,6 +1,4 @@
-import { Box } from "@mui/material";
-import ModalMUI from "@mui/material/Modal";
-import { twMerge } from "tailwind-merge";
+import ModalMUI from "@mui/material/Modal";import { twMerge } from "tailwind-merge";
 
 interface Props {
   isOpen: boolean;
@@ -11,14 +9,14 @@ interface Props {
 export function Modal({ isOpen, onClose, className, children }: Props) {
   return (
     <ModalMUI open={isOpen} onClose={onClose}>
-      <Box
+      <div
         className={twMerge(
-          "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md shadow-xl p-6 h-4/5 bg-gray-50 rounded",
+          "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-sm shadow-md p-6 h-auto bg-white rounded-lg",
           className
         )}
       >
         {children}
-      </Box>
+      </div>
     </ModalMUI>
   );
 }

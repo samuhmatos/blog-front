@@ -1,7 +1,8 @@
-"use client";import { Metadata } from "next";
+"use client";
+import { Metadata } from "next";
 import { PostForm } from "../components";
-import { usePostSchema } from "../hooks/usePostSchema";
 import { CreatePostButton } from "./components/CreatePostButton";
+import { usePostSchema } from "@schema";
 
 export const metadata: Metadata = {
   title: "Criar Postagem",

@@ -1,10 +1,8 @@
-"use client";
-import { Box, Modal, SxProps, Theme } from "@mui/material";
+"use client";import { Box, Modal, SxProps, Theme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { CategoryForm } from "../../components";
-import { usePostCategorySchema } from "../../hooks/usePostCategorySchema";
-import { linkUtils } from "@utils";
 import { Metadata } from "next";
+import { usePostCategorySchema } from "@schema";
 
 export const metadata: Metadata = {
   title: "Criar Categoria",

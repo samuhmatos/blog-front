@@ -1,20 +1,20 @@
 "use client";
 import { Modal } from "@components";
 import { useRouter } from "next/navigation";
-import { UserForm } from "../../components/UserForm/UserForm";
-import { useUserSchema } from "@hooks";
+import { useUserCreateSchema } from "@schema";
+import { UserCreateForm } from "../../components/UserForm/components/UserCreateForm";
 
 export default function CreateUserPage() {
   const router = useRouter();
-  const schema = useUserSchema(true);
+  const schema = useUserCreateSchema();
 
   function handleClose() {
     router.back();
   }
 
   return (
-    <Modal isOpen onClose={handleClose} className="min-h-[90%]">
-      <UserForm schema={schema} />
+    <Modal isOpen onClose={handleClose}>
+      <UserCreateForm schema={schema} />
     </Modal>
   );
 }

@@ -1,10 +1,11 @@
-"use client";import { PostForm } from "../components";
-import { usePostSchema } from "../hooks/usePostSchema";
+"use client";
+import { PostForm } from "../components";
 import { UpdatePostButton } from "./components/UpdatePostButton";
 import { useEffect } from "react";
 import { useGetPost } from "@domain";
 import { PageParams } from "@types";
 import { Metadata } from "next";
+import { usePostSchema } from "@schema";
 
 export const metadata: Metadata = {
   title: "Atualizar Postagem",

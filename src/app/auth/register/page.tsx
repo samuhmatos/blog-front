@@ -1,5 +1,4 @@
-"use client";
-import { RegisterSchema, useRegisterSchema } from "@schema";
+"use client";import { RegisterSchema, useRegisterSchema } from "@schema";
 import Link from "next/link";
 import { FormTextInput, Button } from "@components";
 import { linkUtils } from "@utils";
@@ -31,14 +30,18 @@ export default function RegisterPage({
         password_confirmation: val.confirmPassword,
       },
       () => {
-        changeRoute("redirect");
+        try {
+          changeRoute("redirect");
+        } catch (error) {
+          changeRoute("home");
+        }
       }
     );
   }
 
   return (
     <>
-      <ContainerLink links={links} />
+      {redirect !== "/" && <ContainerLink links={links} />}
       <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-5">
         Crie sua conta no blog
       </h1>
