@@ -21,7 +21,7 @@ export function CardSmall({ post }: Props) {
               alt={`Banner do post ${post.title}`}
               width={400}
               height={400}
-              className="rounded-lg"
+              className="rounded-lg object-fill"
             />
           </div>
           <div className="text-base font-medium">

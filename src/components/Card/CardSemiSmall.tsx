@@ -19,7 +19,7 @@ export function CardSemiSmall({ post }: Props) {
             <Image
               src={post.imageURL}
               alt={`Banner da postagem ${post.title}`}
-              className="w-full"
+              className="w-full object-fill"
               width={400}
               height={400}
             />
