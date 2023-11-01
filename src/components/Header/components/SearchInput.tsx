@@ -1,19 +1,24 @@
 "use client";
 import { Icon, InputText, Button } from "@components";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useCallback, useState } from "react";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
+import { FormEvent, useCallback, useRef, useState } from "react";
 
 export function SearchInput() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-
+  const linkRef = useRef<HTMLAnchorElement>(null);
+  const [path, setPath] = useState<string>(pathname);
   const [value, setValue] = useState<string>("");
 
   function handleSearch(e: FormEvent) {
     e.preventDefault();
     const url = pathname + "?" + createQueryString("search", value);
-    router.push(url, { scroll: true });
+    setPath(url);
+
+    setTimeout(() => {
+      linkRef.current?.click();
+    }, 10);
   }
 
   const createQueryString = useCallback(
@@ -28,6 +33,7 @@ export function SearchInput() {
 
   return (
     <form className="h-9.5 w-full flex" onSubmit={handleSearch}>
+      <Link href={path} ref={linkRef} />
       <div className="flex-grow">
         <InputText
           name="search"

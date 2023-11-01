@@ -1,12 +1,10 @@
-"use client";import { Button } from "@components";
-import { useRouter } from "next/navigation";
-import { linkUtils } from "@utils";
+"use client";
+import { Button } from "@components";
+import { changeRoute } from "nextjs-progressloader";
 
 export function PostNavigateButton() {
-  const router = useRouter();
-
   const handleOpen = () => {
-    router.push(linkUtils.linkDashboard("posts/create"));
+    changeRoute("post.create");
   };
 
   return (

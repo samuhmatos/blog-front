@@ -17,6 +17,14 @@ const links: LinkProps[] = [
     nickname: "categories",
   },
   {
+    href: linkUtils.linkDashboard("categorias/create"),
+    nickname: "categoria.create",
+  },
+  {
+    href: linkUtils.linkDashboard("categorias/update"),
+    nickname: "categoria.update",
+  },
+  {
     href: linkUtils.linkDashboard("usuarios"),
     nickname: "users",
   },
@@ -31,6 +39,14 @@ const links: LinkProps[] = [
   {
     href: linkUtils.linkDashboard("posts"),
     nickname: "posts",
+  },
+  {
+    href: linkUtils.linkDashboard("posts/create"),
+    nickname: "post.create",
+  },
+  {
+    href: linkUtils.linkDashboard("posts/update"),
+    nickname: "post.update",
   },
 ];
 

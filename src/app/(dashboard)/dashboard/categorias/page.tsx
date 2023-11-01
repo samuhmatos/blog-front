@@ -1,9 +1,8 @@
 "use client";
 import { Button } from "@components";
 import { TableCategory } from "./components/TableCategory";
-import { useRouter } from "next/navigation";
-import { linkUtils } from "@utils";
 import { Metadata } from "next";
+import { changeRoute } from "nextjs-progressloader";
 
 export const metadata: Metadata = {
   title: "Categorias",
@@ -13,10 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function CategoriasPage() {
-  const router = useRouter();
-
   const handleOpenModal = () => {
-    router.push(linkUtils.linkDashboard("categorias/create"));
+    changeRoute("categoria.create");
   };
 
   return (

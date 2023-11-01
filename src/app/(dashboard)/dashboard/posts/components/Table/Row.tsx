@@ -1,4 +1,5 @@
-"use client";import {
+"use client";
+import {
   PostWithDetails,
   useRemovePost,
   useRestorePost,
@@ -13,9 +14,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Checkbox, Icon, Button } from "@components";
 import { TableDetailsCollapsed } from "./TableDetailsCollapsed";
-import { useRouter } from "next/navigation";
-import { linkUtils } from "@utils";
 import { CircularProgress } from "@mui/material";
+import { changeRoute } from "nextjs-progressloader";
 
 interface RowsType {
   post: PostWithDetails;
@@ -24,8 +24,6 @@ interface RowsType {
 }
 
 export function Row({ post, refetch, isTrash }: RowsType) {
-  const router = useRouter();
-
   const [open, setOpen] = useState(false);
   const [isDraft, setIsDraft] = useState<boolean>(post.isDraft);
 
@@ -65,7 +63,7 @@ export function Row({ post, refetch, isTrash }: RowsType) {
   }
 
   function handleOpenEditModal() {
-    router.push(linkUtils.linkDashboard(`posts/update?id=${post.id}`));
+    changeRoute("post.update");
   }
 
   return (

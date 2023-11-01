@@ -10,8 +10,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Icon, Button } from "@components";
 import TableDetailsCollapsed from "./TableDetailsCollapsed";
-import { useRouter } from "next/navigation";
-import { linkUtils } from "@utils";
+import { changeRoute } from "nextjs-progressloader";
 
 interface RowsType {
   category: Category;
@@ -20,8 +19,6 @@ interface RowsType {
 }
 
 export function TableRow({ category, refetch, isTrash }: RowsType) {
-  const router = useRouter();
-
   const [open, setOpen] = useState(false);
 
   const { loading: loadingRemove, remove } = usePostCategoryRemove();
@@ -79,9 +76,9 @@ export function TableRow({ category, refetch, isTrash }: RowsType) {
           <Button
             placeholder={<Icon name="Edit" size="text-base" />}
             onClick={() =>
-              router.push(
-                linkUtils.linkDashboard(`/categorias/update?id=${category.id}`)
-              )
+              changeRoute("categoria.update", {
+                queryStrings: [{ key: "id", value: category.id }],
+              })
             }
             paleteColor="warning"
             disabled={isTrash}
