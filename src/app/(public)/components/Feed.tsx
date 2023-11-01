@@ -1,4 +1,5 @@
-import { PostWithDetails, postService } from "@domain";import { AdsBox, Icon, Pagination } from "@components";
+import { PostWithDetails, postService } from "@domain";
+import { AdsBox, Icon, Pagination } from "@components";
 import { CardMedium } from "@components";
 import { Page } from "@api";
 import Image from "next/image";

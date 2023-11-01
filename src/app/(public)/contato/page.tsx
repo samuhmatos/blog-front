@@ -1,7 +1,5 @@
-"use client";
-import { FormTextAreaInput, Button, FormTextInput, Icon } from "@components";
+"use client";import { FormTextAreaInput, Button, FormTextInput, Icon } from "@components";
 import { ContactSchema, useContactSchema } from "@schema";
-import Link from "next/link";
 import { useCreateContact } from "@domain";
 import { Metadata } from "next";
 import { ContatoAboutSection } from "./components/ContatoAboutSection";

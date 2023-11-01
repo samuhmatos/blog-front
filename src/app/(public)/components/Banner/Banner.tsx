@@ -3,6 +3,15 @@ import { BannerBox } from "./components/BannerBox";
 import { AxiosError } from "axios";
 import { ErrorApi } from "@api";
 
+export async function func(time: number = 20000, message: string = "done") {
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log(message);
+      resolve;
+    }, time);
+  });
+}
+
 async function getList(): Promise<PostWithDetails[]> {
   try {
     return await postService.getList("best");

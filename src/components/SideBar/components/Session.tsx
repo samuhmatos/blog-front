@@ -1,20 +1,30 @@
 import { CardSemiSmall, CardSmall } from "@components";
-import { PostWithDetails } from "@domain";
+import { PostList, PostWithDetails, postService } from "@domain";
+
+async function getList(query: keyof PostList): Promise<PostWithDetails[]> {
+  try {
+    return await postService.getList(query);
+  } catch (error: any) {
+    throw new Error(JSON.stringify(error.response.data));
+  }
+}
 
 interface Props {
   title: string;
-  data: PostWithDetails[];
   semiSmall?: boolean;
+  query: keyof PostList;
 }
 
-export function Session({ title, data, semiSmall = false }: Props) {
+export async function Session({ title, semiSmall = false, query }: Props) {
+  const posts = await getList(query);
+
   return (
     <div className="mb-5">
       <h3 className="text-xl mb-4 font-bold text-center lg:text-start">
         {title}
       </h3>
       <div className="flex flex-row justify-center gap-2 flex-wrap md:flex-nowrap lg:flex-col">
-        {data.map((post) =>
+        {posts.map((post) =>
           semiSmall ? (
             <CardSemiSmall key={post.id} post={post} />
           ) : (

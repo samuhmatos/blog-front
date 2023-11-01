@@ -1,5 +1,4 @@
-"use client";
-import "./globals.css";
+"use client";import "./globals.css";
 import "react-toastify/ReactToastify.min.css";
 
 import { Poppins } from "next/font/google";
@@ -68,5 +67,3 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     </AuthProvider>
   );
 }
-
-//TODO:: ROUTE SEGMENT config

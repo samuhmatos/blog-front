@@ -1,4 +1,5 @@
-import { Screen, SideBar } from "@components";import { CategorySession } from "./components/CategorySession";
+import { Screen, SideBar } from "@components";
+import { CategorySession } from "./components/CategorySession";
 import { Category, postCategoryService } from "@domain";
 import { notFound } from "next/navigation";
 import { CategoryHeader } from "./components/CategoryHeader";
@@ -6,6 +7,8 @@ import { PageParams } from "@types";
 import { AxiosError } from "axios";
 import { ErrorApi } from "@api";
 import { Metadata, ResolvingMetadata } from "next";
+import { Suspense } from "react";
+import { FeedSkeleton } from "../../components/Skeleton";
 
 export interface PagePaginationParams {
   params: {
@@ -50,10 +53,12 @@ export default async function CategoryScreen(
     <div className="-mt-1">
       <CategoryHeader category={category} />
       <Screen container>
-        <CategorySession
-          slug={category.slug}
-          page={pageParams.searchParams.page}
-        />
+        <Suspense fallback={<FeedSkeleton />}>
+          <CategorySession
+            slug={category.slug}
+            page={pageParams.searchParams.page}
+          />
+        </Suspense>
         <SideBar />
       </Screen>
     </div>

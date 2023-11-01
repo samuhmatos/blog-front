@@ -1,4 +1,5 @@
-import Image from "next/image";import Link from "next/link";
+import Image from "next/image";
+import Link from "next/link";
 import { Navigation } from "./components/Navigation";
 import { SearchInput } from "./components/SearchInput";
 import { Actions } from "./components/Actions";

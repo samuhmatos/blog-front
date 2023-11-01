@@ -1,4 +1,6 @@
-/* eslint-disable @next/next/no-img-element */ "use client";
+/* eslint-disable @next/next/no-img-element */
+
+"use client";
 import { Dispatch, SetStateAction, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 

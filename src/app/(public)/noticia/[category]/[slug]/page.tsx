@@ -1,21 +1,13 @@
-import { Screen, SideBar } from "@components";import { PostSession } from "./components/PostSession";
-import { PostWithDetails, postService } from "@domain";
-import { notFound } from "next/navigation";
+import { Screen, SideBar } from "@components";
+import { PostSession, getPost } from "./components/PostSession";
 import { Metadata, ResolvingMetadata } from "next";
+import { Suspense } from "react";
 
 export interface PostScreenProps {
   params: {
     category: string;
     slug: string;
   };
-}
-
-async function getPost(postSlug: string): Promise<PostWithDetails> {
-  try {
-    return await postService.getOne(postSlug);
-  } catch (error: any) {
-    notFound();
-  }
 }
 
 export async function generateMetadata(
@@ -31,13 +23,17 @@ export async function generateMetadata(
   };
 }
 
-export default async function PostScreen({ params }: PostScreenProps) {
-  const post = await getPost(params.slug);
-
+export default function PostScreen({ params }: PostScreenProps) {
   return (
     <div>
       <Screen className="mt-5">
-        <PostSession post={post} />
+        <Suspense
+          fallback={
+            <div className="flex-1 bg-gray-400 rounded animate-pulse"></div>
+          }
+        >
+          <PostSession postSlug={params.slug} />
+        </Suspense>
         <SideBar />
       </Screen>
     </div>
