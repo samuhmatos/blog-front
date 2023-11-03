@@ -1,9 +1,11 @@
-"use client";import Menu from "@mui/material/Menu";
+"use client";
+import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { PostComment, useAuth, usePostComment } from "@domain";
+import { PostComment, usePostComment } from "@domain";
 import { useState } from "react";
 import { CircularProgress } from "@mui/material";
 import { CommentReportModal } from "./CommentReportModal";
+import { useAuth } from "@context";
 
 interface Props {
   commentId: number;

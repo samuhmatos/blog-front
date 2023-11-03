@@ -1,4 +1,5 @@
-"use client";import { zodResolver } from "@hookform/resolvers/zod";
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, loginSchema } from "../loginSchema";
 import { UseFormReturn, useForm } from "react-hook-form";
 
@@ -16,3 +17,6 @@ export function useLoginSchema(): ReturnLoginSchemaType {
 
   return schema;
 }
+// renomear as variaveis 'schemas'
+// ex.: useLoginForm
+// mover hooks para camada de pagina

@@ -1,4 +1,5 @@
-"use client";import { useState, useEffect } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import { CommentBox } from "./CommentBox";
 import { CommentForm } from "./CommentForm";
 import { PostComment, usePostComment } from "@domain";
@@ -62,3 +63,4 @@ export function Comment({ comments: initialData, postId }: Props) {
     </section>
   );
 }
+// TODO: REFACTOR COMMENT

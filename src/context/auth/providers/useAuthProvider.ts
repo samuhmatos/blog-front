@@ -1,39 +1,24 @@
-"use client";import { AxiosError } from "axios";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "@context";
+"use client";
+import { AxiosError } from "axios";
+import { useEffect, useState } from "react";
 import { Auth, ErrorApi } from "@api";
-import { userService } from "../userService";
 import { deleteCookie, setCookie } from "cookies-next";
 import { errorUtils, storageUtils } from "@utils";
-import { usePathname } from "next/navigation";
 import { changeRoute } from "nextjs-progressloader";
+import { AuthService } from "./AuthProvider";
+import { SignInParams, SignUpParams, authService, userService } from "@domain";
 
-interface Props {
-  name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-}
-
-export function useAuth() {
+export function useAuthProvider(): AuthService {
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string[] | null>(null);
-  const { setUser, user, token, setToken } = useContext(AuthContext);
-
-  const pathName = usePathname();
+  const [error, setError] = useState<string | null>(null);
+  const [user, setUser] = useState<AuthService["user"]>(null);
 
   function setSuccessData(response: Auth) {
     setCookie("token", response.token);
-    setCookie("user", response.user);
-
     setUser(response.user);
-    setToken(response.token);
   }
 
-  async function signIn(
-    params: Pick<Props, "email" | "password">,
-    handleClose: () => void
-  ) {
+  async function signIn(params: SignInParams, callbackFn: () => void) {
     setUser(null);
     setLoading(true);
 
@@ -42,18 +27,17 @@ export function useAuth() {
       .then(async (response) => {
         setSuccessData(response);
 
-        handleClose();
+        callbackFn();
       })
       .catch((err: AxiosError<ErrorApi>) => {
         let errors = errorUtils.getErrorMessages(err.response!.data);
 
-        setError(errors);
+        setError(errors[0]);
       })
       .finally(() => setLoading(false));
   }
 
-  async function signUp(params: Props, handleClose: () => void) {
-    setUser(null);
+  async function signUp(params: SignUpParams, callbackFn: () => void) {
     setLoading(true);
 
     userService
@@ -61,42 +45,49 @@ export function useAuth() {
       .then(async (response) => {
         setSuccessData(response);
 
-        handleClose();
+        callbackFn();
       })
       .catch((err: AxiosError<ErrorApi>) => {
         console.log(err);
         let errors = errorUtils.getErrorMessages(err.response!.data);
-        setError(errors);
+        setError(errors[0]);
       })
       .finally(() => setLoading(false));
   }
 
-  async function logout() {
+  async function logout(pathname: string) {
+    setLoading(true);
     userService
       .logout()
       .then(() => {
-        deleteCookie("user");
         deleteCookie("token");
 
-        if (pathName.includes("dashboard")) {
+        if (pathname.includes("dashboard")) {
           changeRoute("home");
         }
 
         setUser(null);
-        setToken(null);
       })
-      .catch((err: AxiosError) => {
+      .catch((err: AxiosError<ErrorApi>) => {
         console.log(err);
-      });
+        errorUtils.setGlobalErrorMessage(err);
+      })
+      .finally(() => setLoading(false));
   }
 
-  function loadStorageData() {
+  async function loadStorageData() {
     setLoading(true);
-    const { user: userStorage, token: tokenStorage } =
-      storageUtils.loadStorageData();
+    const token = storageUtils.getOne("token");
 
-    setUser(userStorage);
-    setToken(tokenStorage);
+    if (token) {
+      try {
+        const currentUser = await authService.currentUser();
+        setUser(currentUser);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     setLoading(false);
   }
 
@@ -109,8 +100,8 @@ export function useAuth() {
     signUp,
     logout,
     loading,
-    error,
+    errorMessage: error,
     user,
-    token,
+    setUser,
   };
 }

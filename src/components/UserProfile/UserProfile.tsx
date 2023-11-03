@@ -1,6 +1,5 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useAuth, useUserUpdate } from "@domain";
+"use client";import { useEffect, useState } from "react";
+import { useUserUpdate } from "@domain";
 import { UserProfileSchema, userProfileSchema } from "./UserProfileSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -14,6 +13,7 @@ import {
   FormTextInput,
   ChangePasswordModal,
 } from "@components";
+import { useAuth } from "@context";
 
 interface Props {
   open: boolean;

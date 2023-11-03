@@ -1,5 +1,4 @@
-"use client";
-import { useAuth } from "@domain";
+"use client";import { useAuth } from "@context";
 import Image from "next/image";
 import { useState } from "react";
 import { UserOptions } from "../UserOptions/UserOptions";

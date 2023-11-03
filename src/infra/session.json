@@ -1,0 +1,14 @@
+{
+  "user": {
+    "id": null,
+    "name": null,
+    "username": null,
+    "image_url": null,
+    "email": null,
+    "email_verified_at": null,
+    "description": null,
+    "is_admin": null,
+    "created_at": null,
+    "updated_at": null
+  }
+}

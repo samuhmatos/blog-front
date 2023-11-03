@@ -7,12 +7,10 @@ const createAxiosInstance = (): AxiosInstance => {
   const instance = axios.create({
     baseURL: BASE_API,
     headers: {
-      //Authorization: token ? `Bearer ${token}` : "",
       "Content-Type": "application/json",
       Accept: "application/json",
     },
     withCredentials: true,
-    // xsrfHeaderName: "X-CSRF-TOKEN",
   });
 
   if (token) {

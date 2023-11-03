@@ -1,8 +1,9 @@
-"use client";import { useAuth } from "@domain";
+"use client";
+import { useAuth, useAuthService } from "@context";
 import { Menu, MenuItem } from "@mui/material";
 import { useRef, useState } from "react";
 import { USerProfile } from "../UserProfile/UserProfile";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 interface Props {
@@ -12,7 +13,10 @@ interface Props {
 }
 
 export function UserOptions({ anchor, onClose, open }: Props) {
-  const { user, logout } = useAuth();
+  const pathname = usePathname();
+  const { user } = useAuth();
+  const { logout } = useAuthService();
+
   const pathName = usePathname();
   const dashboardRef = useRef<HTMLAnchorElement>(null);
 
@@ -25,6 +29,10 @@ export function UserOptions({ anchor, onClose, open }: Props) {
   const handleCloseConfigOptions = () => {
     setOpenConfig(false);
   };
+
+  function handleLogout() {
+    logout(pathname);
+  }
 
   return (
     <>
@@ -59,7 +67,7 @@ export function UserOptions({ anchor, onClose, open }: Props) {
             </span>
           </MenuItem>
 
-          <MenuItem onClick={logout}>
+          <MenuItem onClick={handleLogout}>
             <span className="text-sm w-full text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
               Desconectar
             </span>

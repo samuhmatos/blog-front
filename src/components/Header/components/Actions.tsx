@@ -1,5 +1,6 @@
-"use client";import { UserCard } from "./../../UserCard/UserCard";
-import { useAuth } from "@domain";
+"use client";
+import { UserCard } from "./../../UserCard/UserCard";
+import { useAuth } from "@context";
 import { HamburgerButton } from "./HamburgerButton";
 import { Button } from "../../Button/Button";
 import { changeRoute } from "nextjs-progressloader";

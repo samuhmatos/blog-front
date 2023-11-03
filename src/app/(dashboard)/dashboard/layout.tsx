@@ -1,8 +1,12 @@
 "use client";
 import { Metadata } from "next";
 import { Navigation, SideBar } from "./components";
-import { ContainerLink, LinkProps } from "nextjs-progressloader";
+import { ContainerLink, LinkProps, changeRoute } from "nextjs-progressloader";
 import { linkUtils } from "@utils";
+import { authService } from "@domain";
+import { useEffect, useState } from "react";
+import { useAuth } from "@context";
+import { CircularProgress } from "@mui/material";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -51,6 +55,35 @@ const links: LinkProps[] = [
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    (async () => {
+      authService
+        .currentUser()
+        .then((resUser) => {
+          if (!resUser.isAdmin) {
+            throw "Authorized";
+          }
+
+          setIsLoaded(true);
+        })
+        .catch((error) => {
+          setIsLoaded(false);
+          changeRoute("home");
+        });
+    })();
+  }, [user]);
+
+  if (!isLoaded) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center">
+        <CircularProgress size={60} />
+      </div>
+    );
+  }
+
   return (
     <div>
       <ContainerLink links={links} />

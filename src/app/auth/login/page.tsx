@@ -1,9 +1,8 @@
-"use client";
-import { LoginSchema, useLoginSchema } from "@schema";
+"use client";import { LoginSchema, useLoginSchema } from "@schema";
 import Link from "next/link";
 import { FormTextInput, Button } from "@components";
 import { linkUtils } from "@utils";
-import { useAuth } from "@domain";
+import { useAuth, useAuthService } from "@context";
 import {
   ContainerLink,
   ContainerLinkProps,
@@ -16,7 +15,8 @@ export default function LoginPage({
   searchParams: { redirect },
 }: PageParams<{ redirect: string }>) {
   const { control, handleSubmit, formState } = useLoginSchema();
-  const { signIn, loading, error } = useAuth();
+  const { signIn } = useAuthService();
+  const { loading, errorMessage } = useAuth();
 
   var links: ContainerLinkProps["links"] = [
     { href: redirect, nickname: "redirect" },
@@ -40,11 +40,11 @@ export default function LoginPage({
 
   return (
     <>
-      {redirect !== "/" && <ContainerLink links={links} />}
+      {redirect && redirect !== "/" && <ContainerLink links={links} />}
       <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-5">
         Faça login na sua conta
       </h1>
-      {error && <Alert severity="error">{error[0]}</Alert>}
+      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
       <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
         <FormTextInput
           control={control}
@@ -81,7 +81,7 @@ export default function LoginPage({
         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
           Ainda não tem uma conta?
           <Link
-            href={linkUtils.linkAuthRoute("register")}
+            href={linkUtils.linkAuthRoute("register") + `?redirect=${redirect}`}
             className="ml-1 font-medium text-primary-600 hover:underline dark:text-primary-500"
           >
             Criar conta

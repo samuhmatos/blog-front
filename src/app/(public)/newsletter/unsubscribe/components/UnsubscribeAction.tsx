@@ -1,8 +1,8 @@
-"use client";
-import { useAuth, useRemoveNewsletter } from "@domain";
+"use client";import { useRemoveNewsletter } from "@domain";
 import { toastUtils } from "@utils";
 import { UnsubscribePageParams } from "../page";
 import { Button } from "@components";
+import { useAuth } from "@context";
 
 export function UnsubscribeAction({
   searchParams,

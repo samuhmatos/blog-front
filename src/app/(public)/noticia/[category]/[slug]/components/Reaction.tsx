@@ -1,5 +1,5 @@
-"use client";
-import { useAuth, useReaction } from "@domain";
+"use client";import { useReaction } from "@domain";
+import { useAuth } from "@context";
 import { Icon } from "@components";
 import { ReactionType } from "@types";
 

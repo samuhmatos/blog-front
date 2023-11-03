@@ -30,7 +30,8 @@
       "@config": ["./config.ts"],
       "@schema": ["./src/schema"],
       "@hooks": ["./src/hooks"],
-      "@middlewares": ["./src/middlewares"]
+      "@middlewares": ["./src/middlewares"],
+      "@infra": ["./src/infra"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

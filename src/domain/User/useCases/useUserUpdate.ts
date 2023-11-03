@@ -1,19 +1,16 @@
 "use client";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { userService } from "../userService";
 import { AxiosError } from "axios";
 import { ErrorApi } from "@api";
 import { setCookie } from "cookies-next";
-import { AuthContext } from "@context";
+import { useAuth, useAuthService } from "@context";
 import { errorUtils, toastUtils } from "@utils";
 import { User } from "..";
 
 export function useUserUpdate() {
-  const {
-    setUser,
-    setToken,
-    user: authenticatedUser,
-  } = useContext(AuthContext);
+  const { setUser } = useAuthService();
+  const { user: authenticatedUser } = useAuth();
 
   const [data, setData] = useState<User>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -27,10 +24,8 @@ export function useUserUpdate() {
         if (res.user?.id === authenticatedUser?.id) {
           if (res.token) {
             setCookie("token", res.token);
-            setToken(res.token);
           }
 
-          setCookie("user", res.user);
           setUser(res.user!);
         }
 

@@ -1,25 +1,17 @@
-import { deleteCookie, getCookie, hasCookie, setCookie } from "cookies-next";
-import { User } from "@domain";
-
+import { deleteCookie, getCookie } from "cookies-next";
 interface Storage {
-  user: User | null;
   token: string | null;
 }
 
 function loadStorageData(): Storage {
-  const userStorage = getOne<User>("user");
   const tokenStorage = getOne("token");
 
-  if (userStorage && tokenStorage) {
-    // const userParsed: User = JSON.parse(userStorage);
-
+  if (tokenStorage) {
     return {
-      user: userStorage,
       token: tokenStorage,
     };
   } else {
     return {
-      user: null,
       token: null,
     };
   }

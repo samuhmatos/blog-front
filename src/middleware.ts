@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { authMiddleware, dashboardMiddleware } from "@middlewares";
 
-export default function middleware(request: NextRequest): NextResponse {
+export default function middleware(
+  request: NextRequest
+): Promise<NextResponse> {
   if (request.url.includes("/dashboard")) {
     return dashboardMiddleware(request);
   }

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { FormTextInput, Button } from "@components";
 import { linkUtils } from "@utils";
-import { useAuth } from "@domain";
+import { useAuth, useAuthService } from "@context";
 import {
   ContainerLink,
   ContainerLinkProps,
@@ -15,10 +15,11 @@ export default function RegisterPage({
   searchParams: { redirect },
 }: PageParams<{ redirect: string }>) {
   const { control, handleSubmit, formState } = useRegisterSchema();
-  const { signUp, loading, error } = useAuth();
+  const { loading, errorMessage } = useAuth();
+  const { signUp } = useAuthService();
 
   var links: ContainerLinkProps["links"] = [
-    { href: redirect || "/", nickname: "redirect" },
+    { href: redirect, nickname: "redirect" },
   ];
 
   function onSubmit(val: RegisterSchema) {
@@ -41,11 +42,11 @@ export default function RegisterPage({
 
   return (
     <>
-      {redirect !== "/" && <ContainerLink links={links} />}
+      {redirect && redirect !== "/" && <ContainerLink links={links} />}
       <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-5">
         Crie sua conta no blog
       </h1>
-      {error && <Alert severity="error">{error[0]}</Alert>}
+      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
       <div className="space-y-3">
         <div className="flex gap-3 flex-wrap 3sm:flex-nowrap">
           <FormTextInput
@@ -105,7 +106,7 @@ export default function RegisterPage({
         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
           Já tem uma conta?
           <Link
-            href={linkUtils.linkAuthRoute("login")}
+            href={linkUtils.linkAuthRoute("login") + `?redirect=${redirect}`}
             className="ml-1 font-medium text-primary-600 hover:underline dark:text-primary-500"
           >
             Entrar na conta

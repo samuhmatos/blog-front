@@ -1,5 +1,6 @@
-"use client";
-import { useAuth, useUserUpdate } from "@domain";
+"use client";import { useUserUpdate } from "@domain";
+import { useAuth } from "@context";
+
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { CircularProgress } from "@mui/material";
