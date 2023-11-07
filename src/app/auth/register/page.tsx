@@ -1,4 +1,5 @@
-"use client";import { RegisterSchema, useRegisterSchema } from "@schema";
+"use client";
+import { RegisterSchema } from "./registerSchema";
 import Link from "next/link";
 import { FormTextInput, Button } from "@components";
 import { linkUtils } from "@utils";
@@ -10,11 +11,12 @@ import {
 } from "nextjs-progressloader";
 import { Alert } from "@mui/material";
 import { PageParams } from "@types";
+import { useRegisterForm } from "./useRegisterForm";
 
 export default function RegisterPage({
   searchParams: { redirect },
 }: PageParams<{ redirect: string }>) {
-  const { control, handleSubmit, formState } = useRegisterSchema();
+  const { control, handleSubmit, formState } = useRegisterForm();
   const { loading, errorMessage } = useAuth();
   const { signUp } = useAuthService();
 

@@ -1,7 +1,8 @@
-import { Page, PagePaginationParams, apiAdapter } from "@api";import { Post, PostList, PostWithDetails } from "./postTypes";
+import { Page, PagePaginationParams, apiAdapter } from "@api";
+import { Post, PostList, PostWithDetails } from "./postTypes";
 import { postApi } from "./postApi";
 import { postAdapter } from "./postAdapter";
-import { CreatePostSchema } from "@schema";
+import { CreatePostSchema } from "../../app/(dashboard)/dashboard/posts/schemas";
 
 async function getList(query: keyof PostList): Promise<PostWithDetails[]> {
   const postList = await postApi.getList(query);
@@ -91,7 +92,9 @@ async function create(formData: FormData): Promise<Post> {
   return postAdapter.toPost(postAPI);
 }
 
-export type UpdateServiceProps = Omit<CreatePostSchema, "image">;
+export interface UpdateServiceProps extends Omit<CreatePostSchema, "image"> {
+  isDraft: boolean;
+}
 
 async function update(
   postId: number,

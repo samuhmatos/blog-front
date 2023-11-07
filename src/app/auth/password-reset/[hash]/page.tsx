@@ -1,16 +1,16 @@
 "use client";
 import { PageParams } from "@types";
 import { Button, FormTextInput } from "@components";
-import { PasswordResetSchema, usePasswordResetSchema } from "@schema";
+import { PasswordResetSchema } from "./passwordResetSchema";
 import { useEffect } from "react";
 import { usePasswordReset } from "@domain";
+import { usePasswordResetForm } from "./usePasswordResetForm";
 
 export default function PasswordResetPage({
   params,
   searchParams,
 }: PageParams<{ email: string }, { hash: string }>) {
-  const { control, formState, handleSubmit, setValue } =
-    usePasswordResetSchema();
+  const { control, formState, handleSubmit, setValue } = usePasswordResetForm();
 
   const { loading, action } = usePasswordReset();
 

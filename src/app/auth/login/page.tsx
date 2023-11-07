@@ -1,4 +1,5 @@
-"use client";import { LoginSchema, useLoginSchema } from "@schema";
+"use client";
+import { LoginSchema } from "./loginSchema";
 import Link from "next/link";
 import { FormTextInput, Button } from "@components";
 import { linkUtils } from "@utils";
@@ -10,11 +11,12 @@ import {
 } from "nextjs-progressloader";
 import { Alert } from "@mui/material";
 import { PageParams } from "@types";
+import { useLoginForm } from "./useLoginForm";
 
 export default function LoginPage({
   searchParams: { redirect },
 }: PageParams<{ redirect: string }>) {
-  const { control, handleSubmit, formState } = useLoginSchema();
+  const { control, handleSubmit, formState } = useLoginForm();
   const { signIn } = useAuthService();
   const { loading, errorMessage } = useAuth();
 

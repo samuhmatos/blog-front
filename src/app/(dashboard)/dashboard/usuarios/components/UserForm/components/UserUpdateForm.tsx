@@ -1,5 +1,6 @@
-"use client";import { User, useUserUpdate } from "@domain";
-import { ReturnUserUpdateSchemaType, UserUpdateSchema } from "@schema";
+"use client";
+import { User, useUserUpdate } from "@domain";
+import { UserUpdateSchema } from "../../../schema";
 import { eventUtils } from "@utils";
 import {
   Button,
@@ -11,9 +12,10 @@ import {
 } from "@components";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { ReturnUserUpdateFormType } from "../../../schema";
 
 interface UserUpdateFormProps {
-  schema: ReturnUserUpdateSchemaType;
+  schema: ReturnUserUpdateFormType;
   initialData?: User;
 }
 

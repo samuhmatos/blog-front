@@ -1,8 +1,10 @@
 "use client";import { FormTextAreaInput, Button, FormTextInput, Icon } from "@components";
-import { ContactSchema, useContactSchema } from "@schema";
+import { ContactSchema } from "./ContactSchema";
+
 import { useCreateContact } from "@domain";
 import { Metadata } from "next";
 import { ContatoAboutSection } from "./components/ContatoAboutSection";
+import { useContactForm } from "./useContactForm";
 
 export const metadata: Metadata = {
   title: "Contato",
@@ -12,8 +14,7 @@ export const metadata: Metadata = {
 
 export default function ContatoScreen() {
   const { loading, create } = useCreateContact();
-
-  const { control, formState, handleSubmit, reset } = useContactSchema();
+  const { control, formState, handleSubmit, reset } = useContactForm();
 
   function submitForm(data: ContactSchema) {
     create(
@@ -68,7 +69,7 @@ export default function ContatoScreen() {
               control={control}
               name="message"
               placeholder="Digite sua mensagem"
-              label="Seu comentário"
+              label="Sua mensagem"
             />
 
             <Button

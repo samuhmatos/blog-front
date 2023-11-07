@@ -1,12 +1,12 @@
 "use client";
 import { useUserCreate } from "@domain";
-import { ReturnUserCreateSchemaType, UserCreateSchema } from "@schema";
+import { ReturnUserCreateFormType, UserCreateSchema } from "../../../schema/";
 import { eventUtils } from "@utils";
 import { Button, FormCheckbox, FormTextInput } from "@components";
 import { useRouter } from "next/navigation";
 
 interface UserCreateFormProps {
-  schema: ReturnUserCreateSchemaType;
+  schema: ReturnUserCreateFormType;
 }
 
 export function UserCreateForm({ schema }: UserCreateFormProps) {

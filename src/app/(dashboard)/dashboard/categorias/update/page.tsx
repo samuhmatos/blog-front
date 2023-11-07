@@ -1,7 +1,8 @@
-"use client";import { useEffect } from "react";
+"use client";
+import { useEffect } from "react";
 import { usePostCategoryGet } from "@domain";
 import { PageParams } from "@types";
-import { usePostCategorySchema } from "@schema";
+import { usePostCategoryForm } from "./../schema";
 import { CategoryForm } from "../components";
 import { Metadata } from "next";
 
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 export default function UpdatePostPage(props: PageParams<{ id: number }>) {
   const categoryId = props.searchParams.id;
   const { category, getOne } = usePostCategoryGet();
-  const schema = usePostCategorySchema();
+  const schema = usePostCategoryForm();
 
   useEffect(() => {
     if (categoryId) {

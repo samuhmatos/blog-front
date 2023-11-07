@@ -1,6 +1,5 @@
-import { PasswordResetSchema } from "@schema";
-import { authApi } from "./authApi";
-import { User, userAdapter } from "../User";
+import { authApi } from "./authApi";import { User, userAdapter } from "../User";
+import { PasswordResetSchema } from "../../app/auth/password-reset/[hash]/passwordResetSchema";
 async function forgotPassword(email: string): Promise<{ status: string }> {
   return await authApi.forgotPassword(email);
 }

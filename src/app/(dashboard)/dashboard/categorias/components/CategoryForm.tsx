@@ -7,12 +7,12 @@ import {
 import { useEffect } from "react";
 import { Button, FormTextInput } from "@components";
 import { useRouter } from "next/navigation";
-import { PostCategorySchema, ReturnPostCategorySchemaType } from "@schema";
+import { PostCategorySchema, ReturnPostCategoryFormType } from "../schema";
 import { eventUtils } from "@utils";
 
 interface Props {
   initialData?: Category;
-  schema: ReturnPostCategorySchemaType;
+  schema: ReturnPostCategoryFormType;
   editMode?: boolean;
 }
 export function CategoryForm({ schema, initialData, editMode = false }: Props) {

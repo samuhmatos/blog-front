@@ -1,13 +1,12 @@
-"use client";
-import { Box, Modal, SxProps, Theme } from "@mui/material";
-import { PostForm } from "../../components";
+"use client";import { Box, Modal, SxProps, Theme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useGetPost } from "@domain";
-import { UpdatePostButton } from "../../update/components/UpdatePostButton";
 import { PageParams } from "@types";
 import { Metadata } from "next";
-import { usePostSchema } from "@schema";
+import { useGetCategories } from "../../hooks/useGetCategories";
+import { useUpdatePostForm } from "../../schemas";
+import { UpdatePostForm } from "../../components/Post/UpdatePostForm";
 
 export const metadata: Metadata = {
   title: "Atualizar Postagem",
@@ -37,7 +36,8 @@ export default function CreatePostPage(props: PageParams<{ id: number }>) {
   const { post, getOne } = useGetPost();
 
   const router = useRouter();
-  const schema = usePostSchema({ editMode: true });
+  const { categories, categoryData } = useGetCategories();
+  const schema = useUpdatePostForm(categories);
 
   useEffect(() => {
     if (postId) {
@@ -55,16 +55,10 @@ export default function CreatePostPage(props: PageParams<{ id: number }>) {
   return (
     <Modal open onClose={handleClose}>
       <Box sx={style}>
-        <PostForm
-          ActionsButton={
-            <UpdatePostButton
-              schema={schema}
-              postId={postId}
-              isDraft={post?.isDraft ? post.isDraft : false}
-            />
-          }
-          schema={schema}
+        <UpdatePostForm
+          categories={categoryData}
           initialData={post}
+          schema={schema}
         />
       </Box>
     </Modal>

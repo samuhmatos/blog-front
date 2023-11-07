@@ -1,7 +1,7 @@
-import { postCategoryService } from "@domain";import Image from "next/image";
+import { postCategoryService } from "@domain";
+import Image from "next/image";
 import Link from "next/link";
-import { NewsletterForm } from "./components/NewsletterForm";
-import { List } from "./components/List";
+import { List, NewsletterForm } from "./components";
 import { Icon } from "../Icon/Icon";
 
 export async function Footer() {

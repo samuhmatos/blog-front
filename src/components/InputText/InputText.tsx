@@ -1,4 +1,5 @@
-"use client";import {
+"use client";
+import {
   Dispatch,
   SetStateAction,
   ChangeEvent,
@@ -55,7 +56,7 @@ export function InputText({
       >
         <input
           type={type}
-          className={`px-0 w-full border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800`}
+          className={`px-0 w-full border-0 focus:ring-0 focus:outline-none text-secondary dark:text-white dark:placeholder-gray-400 dark:bg-gray-800`}
           placeholder={placeholder}
           value={value}
           onChange={handleChange}

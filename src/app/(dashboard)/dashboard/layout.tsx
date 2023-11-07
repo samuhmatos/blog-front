@@ -1,5 +1,4 @@
-"use client";
-import { Metadata } from "next";
+"use client";import { Metadata } from "next";
 import { Navigation, SideBar } from "./components";
 import { ContainerLink, LinkProps, changeRoute } from "nextjs-progressloader";
 import { linkUtils } from "@utils";

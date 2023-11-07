@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
 import { authService } from "../authService";
-import { PasswordResetSchema } from "@schema";
 import { errorUtils, toastUtils } from "@utils";
 import { changeRoute } from "nextjs-progressloader";
 import { AxiosError } from "axios";
 import { ErrorApi } from "@api";
+import { PasswordResetSchema } from "../../../app/auth/password-reset/[hash]/passwordResetSchema";
 
 export function usePasswordReset() {
   const [loading, setLoading] = useState<boolean>(false);

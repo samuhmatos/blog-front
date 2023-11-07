@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { CategoryForm } from "../../components";
 import { Metadata } from "next";
-import { usePostCategorySchema } from "@schema";
+import { usePostCategoryForm } from "../../schema";
 
 export const metadata: Metadata = {
   title: "Criar Categoria",
@@ -35,7 +35,7 @@ export default function CreatePostPage() {
     router.back();
   };
 
-  const schema = usePostCategorySchema();
+  const schema = usePostCategoryForm();
 
   return (
     <Modal open onClose={handleClose}>

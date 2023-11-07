@@ -1,12 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
-
-"use client";
+/* eslint-disable @next/next/no-img-element */"use client";
 import { Dispatch, SetStateAction, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface ImagePreviewUploadProps {
   imageURL: string;
-  value: File | undefined;
   setValue: Dispatch<SetStateAction<File>>;
   errorMessage?: string;
   label?: string;
@@ -15,7 +12,6 @@ export interface ImagePreviewUploadProps {
 export function ImagePreviewUpload({
   imageURL,
   setValue,
-  value,
   errorMessage,
   label,
 }: ImagePreviewUploadProps) {
@@ -61,3 +57,4 @@ export function ImagePreviewUpload({
     </div>
   );
 }
+// TODO: UPLOAD MUST SHOW THE IMAGE PREVIEW

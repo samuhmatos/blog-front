@@ -1,9 +1,9 @@
 "use client";
-import { useUserCreateSchema } from "@schema";
 import { UserCreateForm } from "../components/UserForm/components/UserCreateForm";
+import { useUserCreateForm } from "../schema";
 
 export default function CreateUserPage() {
-  const schema = useUserCreateSchema();
+  const schema = useUserCreateForm();
 
   return <UserCreateForm schema={schema} />;
 }

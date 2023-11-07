@@ -1,11 +1,10 @@
-"use client";
-import { PostForm } from "../components";
-import { UpdatePostButton } from "./components/UpdatePostButton";
-import { useEffect } from "react";
+"use client";import { useEffect } from "react";
 import { useGetPost } from "@domain";
 import { PageParams } from "@types";
 import { Metadata } from "next";
-import { usePostSchema } from "@schema";
+import { useGetCategories } from "../hooks/useGetCategories";
+import { useUpdatePostForm } from "../schemas";
+import { UpdatePostForm } from "../components/Post/UpdatePostForm";
 
 export const metadata: Metadata = {
   title: "Atualizar Postagem",
@@ -19,7 +18,8 @@ export default function UpdatePostPage(props: PageParams<{ id: number }>) {
 
   const { post, getOne } = useGetPost();
 
-  const schema = usePostSchema({ editMode: true });
+  const { categories, categoryData } = useGetCategories();
+  const schema = useUpdatePostForm(categories);
 
   useEffect(() => {
     if (postId) {
@@ -29,16 +29,10 @@ export default function UpdatePostPage(props: PageParams<{ id: number }>) {
 
   return (
     <div>
-      <PostForm
-        ActionsButton={
-          <UpdatePostButton
-            schema={schema}
-            postId={postId}
-            isDraft={post?.isDraft || false}
-          />
-        }
-        schema={schema}
+      <UpdatePostForm
+        categories={categoryData}
         initialData={post}
+        schema={schema}
       />
     </div>
   );

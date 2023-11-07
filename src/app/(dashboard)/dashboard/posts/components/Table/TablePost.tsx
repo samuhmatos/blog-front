@@ -1,5 +1,4 @@
-"use client";
-import { Checkbox, Table } from "@components";
+"use client";import { Checkbox, Table } from "@components";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useFeedList } from "@domain";
@@ -40,7 +39,9 @@ export function TablePost() {
       refetch();
     });
 
-    return eventUtils.remove("close-modal", () => {});
+    return eventUtils.remove("close-modal", () => {
+      refetch();
+    });
   }, []);
 
   const handleShowDraft = (e: ChangeEvent<HTMLInputElement>) => {

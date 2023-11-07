@@ -1,4 +1,5 @@
-"use client";import { Controller, UseControllerProps, FieldValues } from "react-hook-form";
+"use client";
+import { Controller, UseControllerProps, FieldValues } from "react-hook-form";
 import { ImagePreviewUploadProps, ImagePreviewUpload } from "@components";
 
 type InputProps = Omit<
@@ -23,7 +24,7 @@ export function FormImagePreviewUpload<FormType extends FieldValues>({
           <ImagePreviewUpload
             setValue={field.onChange}
             errorMessage={fieldState.error?.message}
-            value={field.value}
+            // value={field.value}
             {...rest}
           />
         );

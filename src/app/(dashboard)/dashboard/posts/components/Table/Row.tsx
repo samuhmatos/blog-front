@@ -1,5 +1,4 @@
-"use client";
-import {
+"use client";import {
   PostWithDetails,
   useRemovePost,
   useRestorePost,
@@ -63,7 +62,14 @@ export function Row({ post, refetch, isTrash }: RowsType) {
   }
 
   function handleOpenEditModal() {
-    changeRoute("post.update");
+    changeRoute("post.update", {
+      queryStrings: [
+        {
+          key: "id",
+          value: post.id,
+        },
+      ],
+    });
   }
 
   return (

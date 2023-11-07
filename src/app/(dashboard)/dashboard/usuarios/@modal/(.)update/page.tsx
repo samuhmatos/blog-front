@@ -1,17 +1,17 @@
-"use client";import { Modal } from "@components";
+"use client";
+import { Modal } from "@components";
 import { useRouter } from "next/navigation";
 import { PageParams } from "@types";
-import { useUserUpdateSchema } from "@schema";
 import { useUserGet } from "@domain";
 import { useEffect } from "react";
 import { UserUpdateForm } from "../../components/UserForm/components/UserUpdateForm";
+import { useUserUpdateForm } from "../../schema";
 
 export default function CreateUserPage({
   searchParams: { id },
 }: PageParams<{ id: number }>) {
   const router = useRouter();
-
-  const schema = useUserUpdateSchema();
+  const schema = useUserUpdateForm();
 
   const { user, loading, show } = useUserGet();
 

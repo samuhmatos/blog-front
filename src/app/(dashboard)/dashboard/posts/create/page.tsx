@@ -1,8 +1,8 @@
 "use client";
 import { Metadata } from "next";
-import { PostForm } from "../components";
-import { CreatePostButton } from "./components/CreatePostButton";
-import { usePostSchema } from "@schema";
+import { useCreatePostForm } from "../schemas";
+import { useGetCategories } from "../hooks/useGetCategories";
+import { CreatePostForm } from "../components/Post/CreatePostForm";
 
 export const metadata: Metadata = {
   title: "Criar Postagem",
@@ -12,14 +12,13 @@ export const metadata: Metadata = {
 };
 
 export default function CreatePostPage() {
-  const schema = usePostSchema({});
+  const { categories, categoryData } = useGetCategories();
+
+  const schema = useCreatePostForm(categories);
 
   return (
     <div>
-      <PostForm
-        ActionsButton={<CreatePostButton schema={schema} />}
-        schema={schema}
-      />
+      <CreatePostForm schema={schema} categories={categoryData} />
     </div>
   );
 }

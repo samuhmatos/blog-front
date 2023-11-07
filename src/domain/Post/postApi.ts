@@ -1,4 +1,5 @@
-import { PageAPI, PagePaginationParams, api } from "@api";import {
+import { PageAPI, PagePaginationParams, api } from "@api";
+import {
   PostApi,
   PostApiWithDetails,
   PostListApi,
@@ -52,23 +53,6 @@ async function getTrash(
   });
   return response.data;
 }
-
-// async function getByCategorySlug(
-//   categorySlug: string,
-//   { page, per_page }: PagePaginationParams
-// ): Promise<PageAPI<PostApiWithDetails>> {
-//   const response = await api.get<PageAPI<PostApiWithDetails>>(
-//     `category/paginate/${categorySlug}`,
-//     {
-//       params: {
-//         per_page,
-//         page,
-//       },
-//     }
-//   );
-
-//   return response.data;
-// }
 
 async function addView(post_id: number): Promise<Pick<PostApi, "views">> {
   const response = await api.post<Pick<PostApi, "views">>(

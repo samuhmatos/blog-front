@@ -1,12 +1,11 @@
-"use client";
-import { Box, Modal, SxProps, Theme } from "@mui/material";
+"use client";import { Box, Modal, SxProps, Theme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { usePostCategoryGet } from "@domain";
 import { PageParams } from "@types";
 import { CategoryForm } from "../../components";
-import { usePostCategorySchema } from "@schema";
 import { Metadata } from "next";
+import { usePostCategoryForm } from "../../schema";
 
 export const metadata: Metadata = {
   title: "Atualizar Categoria",
@@ -32,7 +31,7 @@ const style: SxProps<Theme> = {
 export default function CreatePostPage(props: PageParams<{ id: number }>) {
   const categoryId = props.searchParams.id;
   const router = useRouter();
-  const schema = usePostCategorySchema();
+  const schema = usePostCategoryForm();
 
   const { category, getOne } = usePostCategoryGet();
 

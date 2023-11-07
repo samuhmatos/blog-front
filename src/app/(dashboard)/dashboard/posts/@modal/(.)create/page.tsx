@@ -1,10 +1,10 @@
 "use client";
 import { Box, Modal, SxProps, Theme } from "@mui/material";
-import { PostForm } from "../../components/";
 import { useRouter } from "next/navigation";
-import { CreatePostButton } from "../../create/components/CreatePostButton";
 import { Metadata } from "next";
-import { usePostSchema } from "@schema";
+import { useGetCategories } from "../../hooks/useGetCategories";
+import { useCreatePostForm } from "../../schemas";
+import { CreatePostForm } from "../../components/Post/CreatePostForm";
 
 export const metadata: Metadata = {
   title: "Criar Postagem",
@@ -30,6 +30,7 @@ const style: SxProps<Theme> = {
 
 export default function CreatePostPage() {
   const router = useRouter();
+  const { categories, categoryData } = useGetCategories();
 
   const handleClose = (
     event: {},
@@ -38,15 +39,12 @@ export default function CreatePostPage() {
     router.back();
   };
 
-  const schema = usePostSchema({});
+  const schema = useCreatePostForm(categories);
 
   return (
     <Modal open onClose={handleClose}>
       <Box sx={style}>
-        <PostForm
-          ActionsButton={<CreatePostButton schema={schema} />}
-          schema={schema}
-        />
+        <CreatePostForm schema={schema} categories={categoryData} />
       </Box>
     </Modal>
   );
