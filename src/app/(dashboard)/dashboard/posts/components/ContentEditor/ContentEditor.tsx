@@ -1,4 +1,5 @@
-"use client";import { CKEditor } from "@ckeditor/ckeditor5-react";
+"use client";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic";
 import Editor from "ckeditor5-custom-build/build/ckeditor";
 import { FormLayout } from "@components";
@@ -15,6 +16,10 @@ export interface CommentEditorProps {
   isSubmitted: boolean;
 }
 
+type StatisticsType = {
+  words: number;
+  characters: number;
+};
 export function ContentEditor({
   onChange,
   errorMessage,
@@ -25,6 +30,11 @@ export function ContentEditor({
 }: CommentEditorProps) {
   const [data, setData] = useState<string>("");
   const [error, setError] = useState<string | undefined>(undefined);
+  const [statistics, setStatistics] = useState<StatisticsType>({
+    words: 0,
+    characters: 0,
+  });
+
   const ref = useRef<CKEditor<ClassicEditor.ClassicEditor>>(null);
   const ckCustomEditor = Editor.Editor;
 
@@ -45,7 +55,17 @@ export function ContentEditor({
   }, [data, isDirty]);
 
   return (
-    <FormLayout errorMessage={error} label={label} name="createPost">
+    <FormLayout
+      errorMessage={error}
+      label={label}
+      name="createPost"
+      bottomRightComponent={
+        <div className="flex gap-3">
+          <p>Words: {statistics.words}</p>
+          <p>Characters: {statistics.characters}</p>
+        </div>
+      }
+    >
       <div id="createPost" className={errorMessage && "border border-red-700"}>
         <CKEditor
           editor={ckCustomEditor}
@@ -60,6 +80,14 @@ export function ContentEditor({
                 side: "right",
                 verticalOffset: 5,
                 horizontalOffset: 5,
+              },
+            },
+            wordCount: {
+              onUpdate(data) {
+                setStatistics({
+                  words: data.words,
+                  characters: data.characters,
+                });
               },
             },
           }}
@@ -113,5 +141,3 @@ export function ContentEditor({
 }
 
 //TODO: AUTO SAVE
-//TODO: WORD COUNT
-// TODO: BALLON TOLL BAR
