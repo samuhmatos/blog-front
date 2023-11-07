@@ -1,7 +1,7 @@
-"use client";import { useAuth } from "@context";
-import Image from "next/image";
+"use client";
 import { useState } from "react";
-import { UserOptions } from "../UserOptions/UserOptions";
+import { useAuth } from "@context";
+import { UserOptions } from "./components/UserOptions";
 
 export function UserCard() {
   const { user } = useAuth();
@@ -43,15 +43,6 @@ export function UserCard() {
           className="w-10 h-10 rounded-full"
           alt={`Foto do usuário`}
         />
-
-        {/* <Image
-          width={100}
-          height={100}
-          className="w-8 h-8 rounded-full"
-          //src={user?.imageURL || "/assets/user.png"}
-          src="http://localhost:8000/storage/uploads/users/eP4AhjMCBK7JH038rbpOSRm978LpvzI93B0tlRKH.jpg"
-          alt={`Foto do usuário`}
-        /> */}
       </button>
 
       <UserOptions

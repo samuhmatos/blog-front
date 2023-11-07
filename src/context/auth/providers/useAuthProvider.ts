@@ -76,19 +76,17 @@ export function useAuthProvider(): AuthService {
   }
 
   async function loadStorageData() {
-    setLoading(true);
     const token = storageUtils.getOne("token");
 
     if (token) {
+      setLoading(true);
+
       try {
         const currentUser = await authService.currentUser();
         setUser(currentUser);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (_) {}
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   useEffect(() => {

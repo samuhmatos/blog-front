@@ -1,8 +1,7 @@
-"use client";import { useEffect, useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import { useUserUpdate } from "@domain";
-import { UserProfileSchema, userProfileSchema } from "./UserProfileSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { UserProfileSchema } from "./UserProfileSchema";
 import { UserHeader } from "./components/UserHeader";
 
 import {
@@ -14,6 +13,7 @@ import {
   ChangePasswordModal,
 } from "@components";
 import { useAuth } from "@context";
+import { useProfileForm } from "./useProfileForm";
 
 interface Props {
   open: boolean;
@@ -38,10 +38,7 @@ export function USerProfile({ open, onClose }: Props) {
   };
 
   const { control, formState, handleSubmit, reset, setValue } =
-    useForm<UserProfileSchema>({
-      resolver: zodResolver(userProfileSchema),
-      mode: "onChange",
-    });
+    useProfileForm();
 
   useEffect(() => {
     if (user) {
@@ -49,6 +46,8 @@ export function USerProfile({ open, onClose }: Props) {
       setValue("email", user.email);
       setValue("username", user.username);
       user.description && setValue("description", user.description);
+    } else {
+      handleCloseUserProfile();
     }
   }, [user]);
 
@@ -65,7 +64,7 @@ export function USerProfile({ open, onClose }: Props) {
     update(user!.id, formData);
   }
 
-  function handleClose() {
+  function handleCloseUserProfile() {
     onClose();
     reset();
   }
@@ -127,7 +126,7 @@ export function USerProfile({ open, onClose }: Props) {
             <Button
               placeholder="Fechar"
               paleteColor="danger"
-              onClick={handleClose}
+              onClick={handleCloseUserProfile}
             />
           </div>
         </div>

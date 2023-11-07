@@ -5,15 +5,15 @@ export const metadata: Metadata = {
   title:
     "Blog do Samuel Matos - Desenvolvedor Full Stack | Notícias, ponto de vista e experiências",
   description:
-    "Blog dedicado a mostrar meus talentos como programador, meus projetos e certificações. Descubra como posso ajudar você em seus projetos e sonhos.",
+    "Blog dedicado a mostrar meus talentos como programador, meus projetos e certificações, e todo o resto que rodeia o meu mundo.",
   keywords:
-    "programador, desenvolvedor, certificações, projetos, programação, blog de tecnologia, portfolio, fullStack, Full Stack, blog",
+    "programador, desenvolvedor, certificações, projetos, programação, blog de tecnologia, portfolio, fullStack, Full Stack, blog, blog pessoal",
   authors: {
     name: "Samuel matos",
   },
   abstract:
-    "Blog dedicado a mostrar meus talentos como programador, meus projetos e certificações. Descubra como posso ajudar você em seus projetos e sonhos.",
-  applicationName: "Blog Samuel Blog",
+    "Blog dedicado a mostrar meus talentos como programador, meus projetos e certificações, e todo o resto que rodeia o meu mundo.",
+  applicationName: "Blog Samuel Matos",
   creator: "Samuel Matos",
   icons: "/assets/favicon.ico",
   robots: {

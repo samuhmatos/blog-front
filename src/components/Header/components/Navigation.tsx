@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
-import { eventUtils, linkUtils } from "@utils";
+import { linkUtils } from "@utils";
 import { twMerge } from "tailwind-merge";
 import { SearchInput } from "./SearchInput";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Variants, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { Category } from "@domain";
+import { useToggleOpenNavigation } from "@hooks";
 
 const variants: Variants = {
   open: {
@@ -24,19 +25,10 @@ interface Props {
 }
 
 export function Navigation({ categories }: Props) {
-  const [open, setOpen] = useState<boolean>(true);
+  const { open } = useToggleOpenNavigation();
+
   const pathname = usePathname();
   const ulRef = useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    eventUtils.on("toggle-open-navigation", (isOpen) => {
-      setOpen(isOpen);
-    });
-
-    return eventUtils.remove("toggle-open-navigation", (isOpen) => {
-      setOpen(isOpen);
-    });
-  }, []);
 
   function RenderItem({ url, label }: { url: string; label: string }) {
     const activity = pathname === url;

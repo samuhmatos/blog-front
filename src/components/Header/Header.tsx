@@ -1,8 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Navigation } from "./components/Navigation";
-import { SearchInput } from "./components/SearchInput";
-import { Actions } from "./components/Actions";
+import Image from "next/image";import Link from "next/link";
+import { Navigation, SearchInput, Actions } from "./components";
 import { Category, postCategoryService } from "@domain";
 
 async function getPopularCategories(): Promise<Category[]> {
@@ -14,7 +11,7 @@ export async function Header() {
 
   return (
     <>
-      <header className="h-12 h-auto w-full fixed top-0 z-10">
+      <header className="w-full fixed top-0 z-10">
         <div className="py-2 px-3 bg-primary-500 font-semibold flex flex-col gap-2">
           <div className="flex justify-between items-center gap-3">
             <Link href="/">
@@ -22,7 +19,7 @@ export async function Header() {
                 src="/assets/logo.png"
                 alt="Logo do blog do Samuel Matos"
                 width={45}
-                height={50}
+                height={45}
               />
             </Link>
 

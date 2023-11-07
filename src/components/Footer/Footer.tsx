@@ -1,8 +1,9 @@
-import { postCategoryService } from "@domain";
 import Image from "next/image";
 import Link from "next/link";
+import { postCategoryService } from "@domain";
+import { Icon } from "@components";
+
 import { List, NewsletterForm } from "./components";
-import { Icon } from "../Icon/Icon";
 
 export async function Footer() {
   const popularCategories = await postCategoryService.getPopular();

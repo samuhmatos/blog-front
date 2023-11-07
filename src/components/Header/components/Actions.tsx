@@ -1,16 +1,17 @@
 "use client";
-import { UserCard } from "./../../UserCard/UserCard";
+import { usePathname } from "next/navigation";
+import { changeRoute } from "nextjs-progressloader";
+import { CircularProgress } from "@mui/material";
+
+import { UserCard, Button } from "@components";
 import { useAuth } from "@context";
 import { HamburgerButton } from "./HamburgerButton";
-import { Button } from "../../Button/Button";
-import { changeRoute } from "nextjs-progressloader";
-import { usePathname } from "next/navigation";
 
 export function Actions() {
   const { user, loading } = useAuth();
   const pathName = usePathname();
 
-  function handleInvokeLoginPage() {
+  function navigateToLoginPage() {
     changeRoute("login", {
       queryStrings: [
         {
@@ -21,19 +22,29 @@ export function Actions() {
     });
   }
 
+  function renderAction(): JSX.Element {
+    console.log(loading);
+    if (user) {
+      return <UserCard />;
+    } else {
+      if (loading) {
+        return <CircularProgress size={30} />;
+      } else {
+        return (
+          <Button
+            placeholder="Entrar"
+            onClick={navigateToLoginPage}
+            disabled={loading}
+          />
+        );
+      }
+    }
+  }
+
   return (
     <div className="flex items-center gap-2 justify-center h-full">
-      {user ? (
-        <UserCard />
-      ) : (
-        <Button
-          placeholder="Entrar"
-          onClick={handleInvokeLoginPage}
-          disabled={loading}
-        />
-      )}
+      {renderAction()}
       <HamburgerButton />
     </div>
   );
 }
-// TODO: ADD LOADING STATE INSTEAD BUTTON COMPONENT WHEN 'INITIAL STATE' IS LOADING

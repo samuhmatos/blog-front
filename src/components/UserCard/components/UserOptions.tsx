@@ -1,10 +1,11 @@
 "use client";
-import { useAuth, useAuthService } from "@context";
-import { Menu, MenuItem } from "@mui/material";
-import { useRef, useState } from "react";
-import { USerProfile } from "../UserProfile/UserProfile";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { CircularProgress, Menu, MenuItem } from "@mui/material";
+import { changeRoute } from "nextjs-progressloader";
+import { useAuth, useAuthService } from "@context";
+
+import { USerProfile } from "@components";
 
 interface Props {
   anchor: HTMLElement | null;
@@ -12,13 +13,17 @@ interface Props {
   onClose: () => void;
 }
 
+interface RenderItemProps {
+  onClick: () => void;
+  label: string;
+  hasLoading?: boolean;
+}
 export function UserOptions({ anchor, onClose, open }: Props) {
   const pathname = usePathname();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const { logout } = useAuthService();
 
   const pathName = usePathname();
-  const dashboardRef = useRef<HTMLAnchorElement>(null);
 
   const [openConfig, setOpenConfig] = useState<boolean>(false);
 
@@ -32,6 +37,21 @@ export function UserOptions({ anchor, onClose, open }: Props) {
 
   function handleLogout() {
     logout(pathname);
+  }
+
+  function RenderItem({
+    label,
+    onClick,
+    hasLoading,
+  }: RenderItemProps): JSX.Element {
+    return (
+      <MenuItem onClick={onClick}>
+        <span className="text-sm w-full text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+          {label}
+        </span>
+        {hasLoading && loading && <CircularProgress size={15} />}
+      </MenuItem>
+    );
   }
 
   return (
@@ -54,24 +74,14 @@ export function UserOptions({ anchor, onClose, open }: Props) {
 
         <ul className="py-1">
           {user?.isAdmin && !pathName.includes("/dashboard") && (
-            <MenuItem onClick={() => dashboardRef.current?.click()}>
-              <span className="block w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                Dashboard
-              </span>
-              <Link href="/dashboard" ref={dashboardRef} className="hidden" />
-            </MenuItem>
+            <RenderItem
+              onClick={() => changeRoute("dashboard")}
+              label="Dashboard"
+            />
           )}
-          <MenuItem onClick={handleOpenConfigOptions}>
-            <span className="text-sm w-full text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-              Editar perfil
-            </span>
-          </MenuItem>
+          <RenderItem onClick={handleOpenConfigOptions} label="Editar perfil" />
 
-          <MenuItem onClick={handleLogout}>
-            <span className="text-sm w-full text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-              Desconectar
-            </span>
-          </MenuItem>
+          <RenderItem onClick={handleLogout} label="Desconectar" hasLoading />
         </ul>
       </Menu>
 

@@ -1,9 +1,10 @@
 "use client";
+import { twMerge } from "tailwind-merge";
 import { Button, FormTextInput } from "@components";
 import { useCreateNewsletter } from "@domain";
+
 import { useNewsletterForm } from "./useNewsletterForm";
 import { NewsletterSchema } from "./newsletterSchema";
-import { twMerge } from "tailwind-merge";
 
 export function NewsletterForm() {
   const { control, formState, handleSubmit, reset, getFieldState } =

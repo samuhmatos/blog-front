@@ -2,6 +2,7 @@
 import { Icon, InputText, Button } from "@components";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { changeRoute } from "nextjs-progressloader";
 import { FormEvent, useCallback, useRef, useState } from "react";
 
 export function SearchInput() {
@@ -16,9 +17,20 @@ export function SearchInput() {
     const url = pathname + "?" + createQueryString("search", value);
     setPath(url);
 
-    setTimeout(() => {
-      linkRef.current?.click();
-    }, 10);
+    if (pathname === "/" || pathname.includes("/categoria")) {
+      setTimeout(() => {
+        linkRef.current?.click();
+      }, 10);
+    } else {
+      changeRoute("home", {
+        queryStrings: [
+          {
+            key: "search",
+            value,
+          },
+        ],
+      });
+    }
   }
 
   const createQueryString = useCallback(

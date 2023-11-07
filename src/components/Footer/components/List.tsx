@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { linkUtils } from "../../../utils/linkUtils";
+import { linkUtils } from "@utils";
 
 interface Props {
   slug: string;

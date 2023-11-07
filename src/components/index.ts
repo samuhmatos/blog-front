@@ -16,7 +16,6 @@ export * from "./FormTextInput/FormTextInput";
 export * from "./Card";
 export * from "./Alerts";
 export * from "./UserCard/UserCard";
-export * from "./UserOptions/UserOptions";
 export * from "./UserProfile/UserProfile";
 export * from "./Tables/";
 export * from "./SelectOption/SelectOption";
