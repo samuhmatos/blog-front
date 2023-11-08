@@ -1,4 +1,5 @@
-"use client";import { Menu } from "@mui/material";
+"use client";
+import { Menu } from "@mui/material";
 import { Button, FormTextInput } from "@components";
 import { useUserUpdate } from "@domain";
 import { UserChangePasswordSchema, useUserChangePasswordForm } from "@schema";
@@ -26,7 +27,6 @@ export function ChangePasswordModal({
     formData.append("password_confirmation", e.password);
 
     mutate({ userId, params: formData });
-    handleClose();
   }
 
   function handleClose() {

@@ -1,9 +1,9 @@
-import {
-  User,
+import {  User,
   UserAuthParams,
   UserPagePaginationParam,
   UserPagination,
   UserParams,
+  UserUpdateParams,
 } from ".";
 import { Auth, Page, PagePaginationParams, apiAdapter } from "@api";
 import { userApi } from "./userApi";
@@ -28,10 +28,10 @@ async function logout(): Promise<number> {
   return status;
 }
 
-async function update(
-  userId: number,
-  params: FormData
-): Promise<Partial<Auth>> {
+async function update({
+  userId,
+  params,
+}: UserUpdateParams): Promise<Partial<Auth>> {
   const userUpdated = await userApi.update(userId, params);
 
   return userAdapter.toAuthResponse(userUpdated);

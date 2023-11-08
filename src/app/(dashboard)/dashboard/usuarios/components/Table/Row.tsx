@@ -20,8 +20,8 @@ interface RowsType {
 export function Row({ user, refetch, isTrash }: RowsType) {
   const [open, setOpen] = useState(false);
 
-  const { loading: loadingRemove, remove } = useUserRemove();
-  const { loading: loadingRestore, restore } = useUserRestore();
+  const { loading: loadingRemove, mutate: remove } = useUserRemove();
+  const { loading: loadingRestore, mutate: restore } = useUserRestore();
 
   function handleRemovePost() {
     remove(user.id, () => {
@@ -30,9 +30,7 @@ export function Row({ user, refetch, isTrash }: RowsType) {
   }
 
   function handleRestoreUser() {
-    restore(user.id, () => {
-      refetch();
-    });
+    restore(user.id);
   }
 
   function handleOpenEditModal() {

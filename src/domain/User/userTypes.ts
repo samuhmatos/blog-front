@@ -48,3 +48,8 @@ export interface UserParams
 export interface UserPagePaginationParam extends PagePaginationParams {
   is_trash: boolean;
 }
+
+export interface UserUpdateParams {
+  userId: number;
+  params: FormData;
+}

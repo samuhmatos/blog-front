@@ -1,5 +1,4 @@
-import { User, UserApi, UserPagination, UserPaginationApi } from ".";
-import { Auth, AuthAPI } from "@api";
+import { User, UserApi, UserPagination, UserPaginationApi } from ".";import { Auth, AuthAPI } from "@api";
 import { dateUtils } from "@utils";
 import { newsletterAdapter } from "../Newsletter/newsletterAdapter";
 
@@ -28,7 +27,6 @@ function toAuthResponse(authAPI: AuthAPI): Auth {
   return {
     user: toUser(authAPI.user),
     token: authAPI.token,
-    CSRF: authAPI.CSRF,
   };
 }
 

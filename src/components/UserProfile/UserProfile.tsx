@@ -1,5 +1,4 @@
-"use client";
-import { useEffect, useState } from "react";
+"use client";import { useEffect, useState } from "react";
 import { useUserUpdate } from "@domain";
 import { UserProfileSchema } from "./UserProfileSchema";
 import { UserHeader } from "./components/UserHeader";
@@ -22,7 +21,7 @@ interface Props {
 
 export function USerProfile({ open, onClose }: Props) {
   const { user } = useAuth();
-  const { loading, update } = useUserUpdate();
+  const { loading, mutate } = useUserUpdate();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isOpenChangePassword = Boolean(anchorEl);
@@ -61,7 +60,7 @@ export function USerProfile({ open, onClose }: Props) {
     user!.username !== data.username &&
       formData.append("username", data.username);
 
-    update(user!.id, formData);
+    mutate({ userId: user!.id, params: formData });
   }
 
   function handleCloseUserProfile() {

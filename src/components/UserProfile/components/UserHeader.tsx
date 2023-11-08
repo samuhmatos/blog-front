@@ -1,4 +1,5 @@
-"use client";import { useUserUpdate } from "@domain";
+"use client";
+import { useUserUpdate } from "@domain";
 import { useAuth } from "@context";
 
 import Image from "next/image";
@@ -12,7 +13,7 @@ export function UserHeader() {
   const inputUpload = useRef<HTMLInputElement>(null);
   const buttonUpload = useRef<HTMLButtonElement>(null);
 
-  const { update } = useUserUpdate();
+  const { mutate } = useUserUpdate();
   const [loading, setLoading] = useState<boolean>(false);
 
   function handleUpdateAvatar(e: Event) {
@@ -26,7 +27,7 @@ export function UserHeader() {
       var formData = new FormData();
       formData.append("image", selectedFile[0]);
 
-      update(user!.id, formData);
+      mutate({ userId: user!.id, params: formData });
       setLoading(false);
     } else {
       return;

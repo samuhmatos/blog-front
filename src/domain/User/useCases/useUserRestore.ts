@@ -1,33 +1,17 @@
 "use client";
-import { useState } from "react";
-import { userService } from "..";
 import { errorUtils, toastUtils } from "@utils";
-import { AxiosError } from "axios";
-import { ErrorApi } from "@api";
+import { useMutation } from "@infra";
+import { userService } from "..";
 
 export function useUserRestore() {
-  const [loading, setLoading] = useState<boolean>(false);
-
-  function restore(userId: number, callbackFn: () => void) {
-    setLoading(true);
-
-    userService
-      .restore(userId)
-      .then(() => {
-        toastUtils.show({
-          message: "Usuário restaurado com sucesso!",
-        });
-
-        callbackFn();
-      })
-      .catch((error: AxiosError<ErrorApi>) => {
-        errorUtils.setGlobalErrorMessage(error);
-      })
-      .finally(() => setLoading(false));
-  }
-
-  return {
-    loading,
-    restore,
-  };
+  return useMutation<number, void>(userService.restore, {
+    onSuccess() {
+      toastUtils.show({
+        message: "Usuário restaurado com sucesso!",
+      });
+    },
+    onError(error) {
+      errorUtils.setGlobalErrorMessage(error);
+    },
+  });
 }

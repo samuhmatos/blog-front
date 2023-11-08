@@ -5,6 +5,7 @@ import { eventUtils } from "@utils";
 import {
   Button,
   ChangePasswordModal,
+  FormCheckbox,
   FormTextAreaInput,
   FormTextInput,
   Icon,
@@ -39,7 +40,11 @@ export function UserUpdateForm({ schema, initialData }: UserUpdateFormProps) {
     setAnchorEl(null);
   };
 
-  const { update, loading, user } = useUserUpdate();
+  const { mutate, loading, data } = useUserUpdate(() => {
+    eventUtils.emit("close-modal");
+    close();
+  });
+  const user = data?.user || null;
 
   useEffect(() => {
     if (initialData) {
@@ -47,6 +52,7 @@ export function UserUpdateForm({ schema, initialData }: UserUpdateFormProps) {
       setValue("name", initialData.name);
       setValue("username", initialData.username);
       setValue("email", initialData.email);
+      setValue("isAdmin", initialData.isAdmin);
 
       setImageProfile(initialData.imageURL || undefined);
       setId(initialData.id);
@@ -57,7 +63,7 @@ export function UserUpdateForm({ schema, initialData }: UserUpdateFormProps) {
     var formData = new FormData();
     formData.append("image", file[0]);
 
-    update(id!, formData);
+    mutate({ userId: id!, params: formData });
   }
 
   function renderImageProfile() {
@@ -95,9 +101,11 @@ export function UserUpdateForm({ schema, initialData }: UserUpdateFormProps) {
       form.append("email", val.email);
     }
 
-    update(id!, form, () => {
-      eventUtils.emit("close-modal");
-      close();
+    form.append("is_admin", val.isAdmin ? "1" : "0");
+
+    mutate({
+      userId: id!,
+      params: form,
     });
   }
 
@@ -145,6 +153,8 @@ export function UserUpdateForm({ schema, initialData }: UserUpdateFormProps) {
         placeholder="Digite a descrição..."
         label="Descrição"
       />
+
+      <FormCheckbox control={control} name="isAdmin" label="Administrador" />
 
       <Button
         placeholder="Mudar senha"
