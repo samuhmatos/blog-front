@@ -1,16 +1,14 @@
 import { PostWithDetails, postService } from "@domain";
-import { AdsBox, Icon, Pagination } from "@components";
+import { Icon, Pagination } from "@components";
 import { CardMedium } from "@components";
 import { Page } from "@api";
-import Image from "next/image";
 import { PageParams } from "@types";
 
 async function fetchData(
   page: number,
   search: string | undefined
 ): Promise<Page<PostWithDetails>> {
-  const response = await postService.getFeed({ page, search });
-  return response;
+  return await postService.getFeed({ page, search });
 }
 
 export async function Feed(
@@ -53,9 +51,4 @@ export async function Feed(
       />
     </div>
   );
-}
-
-{
-  /* {index == 2 && <AdsBox />}
-              {index >= 5 && index % 2 != 0 && <AdsBox />} */
 }

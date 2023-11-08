@@ -1,10 +1,10 @@
-"use client";import { FormTextAreaInput, Button, FormTextInput, Icon } from "@components";
-import { ContactSchema } from "./ContactSchema";
-
+"use client";import { Metadata } from "next";
+import { FormTextAreaInput, Button, FormTextInput, Icon } from "@components";
 import { useCreateContact } from "@domain";
-import { Metadata } from "next";
-import { ContatoAboutSection } from "./components/ContatoAboutSection";
+
+import { ContactSchema } from "./ContactSchema";
 import { useContactForm } from "./useContactForm";
+import { ContatoAboutSection } from "./components/ContatoAboutSection";
 
 export const metadata: Metadata = {
   title: "Contato",

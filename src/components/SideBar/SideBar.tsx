@@ -1,5 +1,5 @@
-import { Session } from "./components/Session";
 import { Suspense } from "react";
+import { Session } from "./components/Session";
 import { SessionSkeleton } from "../Skeleton/SideBarSkeleton/SessionSkeleton";
 
 export async function SideBar() {

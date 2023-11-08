@@ -1,4 +1,5 @@
-"use client";import { CKEditor } from "@ckeditor/ckeditor5-react";
+"use client";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic";
 import Editor from "ckeditor5-custom-build/build/ckeditor";
 import { FormLayout } from "@components";
@@ -133,9 +134,7 @@ export function ContentEditor({
             let onChangeData = editor.getData();
             setData(onChangeData);
           }}
-          onError={(event, details) => {
-            console.log(event, details);
-          }}
+          onError={(event, details) => {}}
         />
       </div>
     </FormLayout>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { PostWithDetails } from "@domain";
 import { linkUtils, textUtils } from "@utils";
@@ -8,7 +7,6 @@ interface Props {
 }
 export function CardSmall({ post }: Props) {
   var title = textUtils.textLength(post.title, 32);
-
   var linkPost = linkUtils.linkPost(post.slug, post.category.slug);
 
   return (
@@ -16,7 +14,7 @@ export function CardSmall({ post }: Props) {
       <Link href={linkPost}>
         <div className="flex gap-2">
           <div className="w-24 rounded-lg">
-            <Image
+            <img
               src={post.imageURL}
               alt={`Banner do post ${post.title}`}
               width={400}

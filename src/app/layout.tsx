@@ -1,21 +1,20 @@
-"use client";
-import "./globals.css";
+"use client";import "./globals.css";
 import "react-toastify/ReactToastify.min.css";
 
 import { Poppins } from "next/font/google";
 
-import { AuthProvider } from "@context";
+import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 import {
   ContainerLink,
   ContainerLinkProps,
   ProgressLoader,
 } from "nextjs-progressloader";
-
-import { ToastContainer } from "react-toastify";
-import { userService } from "@domain";
 import { hasCookie } from "cookies-next";
-import { useEffect } from "react";
-import { linkUtils } from "../utils/linkUtils";
+
+import { AuthProvider } from "@context";
+import { userService } from "@domain";
+import { linkUtils } from "@utils";
 
 const poppins = Poppins({ subsets: ["devanagari"], weight: "400" });
 
@@ -50,7 +49,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <html lang="pt-br" className="h-screen">
         <link rel="icon" href="/assets/favicon.ico" sizes="any" />
         <body className={poppins.className}>
-          <ProgressLoader color="rgb(21, 14, 233)" showSpinner={false} />
+          <ProgressLoader color="rgb(17, 12, 182)" showSpinner={false} />
           <ContainerLink links={links} />
 
           <div>{children}</div>

@@ -2,11 +2,7 @@ import { CardSemiSmall, CardSmall } from "@components";
 import { PostList, PostWithDetails, postService } from "@domain";
 
 async function getList(query: keyof PostList): Promise<PostWithDetails[]> {
-  try {
-    return await postService.getList(query);
-  } catch (error: any) {
-    throw new Error(JSON.stringify(error.response.data));
-  }
+  return await postService.getList(query);
 }
 
 interface Props {

@@ -1,8 +1,9 @@
+import { Suspense } from "react";
+import { PageParams } from "@types";
+
 import { SideBar, Screen } from "@components";
 import { Feed, Banner } from "./components/";
-import { PageParams } from "@types";
-import { ErrorMessage } from "../../components/Header/components/ErrorMessage";
-import { Suspense } from "react";
+import { ErrorMessage } from "./components/ErrorMessage";
 import { BannerSkeleton, FeedSkeleton } from "./components/Skeleton";
 
 export default function HomeScreen({

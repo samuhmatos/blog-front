@@ -1,4 +1,4 @@
-import Image from "next/image";import Link from "next/link";
+import Link from "next/link";
 import { PostWithDetails } from "@domain";
 import { CategoryBox } from "@components";
 import { linkUtils, textUtils } from "@utils";
@@ -19,7 +19,7 @@ export function BannerBox({ post, first = false }: BoxProps) {
       } h-96 overflow-hidden rounded`}
     >
       <div className="post-media w-full h-full relative">
-        <Image
+        <img
           src={post.imageURL}
           alt={`Banner da postagem ${title}`}
           width={400}
@@ -34,24 +34,6 @@ export function BannerBox({ post, first = false }: BoxProps) {
                   {title}
                 </Link>
               </h4>
-              <span className="flex gap-3">
-                <small className="text-xs">
-                  <Link
-                    href={linkPost}
-                    title={`Data da postagem ${post.createdAtFormatted}`}
-                  >
-                    {post.createdAtFormatted}
-                  </Link>
-                </small>
-                <small className="text-xs">
-                  <Link
-                    href={`/author/${post.author.username}`}
-                    title={`Autor da postagem ${post.author.name}`}
-                  >
-                    / Autor: {post.author.name}
-                  </Link>
-                </small>
-              </span>
             </div>
           </div>
         </div>

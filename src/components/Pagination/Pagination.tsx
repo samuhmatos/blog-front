@@ -1,6 +1,7 @@
-"use client";import Link from "next/link";
-import { MetaDataPage } from "@api";
+"use client";
+import Link from "next/link";
 import { twMerge } from "tailwind-merge";
+import { MetaDataPage } from "@api";
 
 interface PaginationProps
   extends Pick<

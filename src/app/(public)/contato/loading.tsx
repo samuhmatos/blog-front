@@ -1,4 +1,5 @@
-"use client";import { Button, Icon, InputText } from "@components";
+"use client";
+import { Button, Icon, InputText } from "@components";
 import { ContatoAboutSection } from "./components/ContatoAboutSection";
 
 export default function Loading() {
@@ -65,5 +66,3 @@ export default function Loading() {
     </div>
   );
 }
-
-//TODO: USAR SCREEN COMPONENT

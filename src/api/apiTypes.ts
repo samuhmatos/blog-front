@@ -1,5 +1,4 @@
-import { User, UserApi } from "@domain";
-export interface MetaDataPageAPI {
+import { User, UserApi } from "@domain";export interface MetaDataPageAPI {
   total: number; // 24;
   per_page: number; // 10;
   current_page: number; // 1;
@@ -49,13 +48,11 @@ export interface Page<Data> {
 export interface AuthAPI {
   user: UserApi;
   token: string;
-  CSRF: string;
 }
 
 export interface Auth {
   user: User;
   token: string;
-  CSRF: string;
 }
 
 export interface ErrorApi {

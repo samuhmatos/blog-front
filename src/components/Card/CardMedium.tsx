@@ -1,9 +1,7 @@
-import Image from "next/image";import Link from "next/link";
-
+import Link from "next/link";
 import { PostWithDetails } from "@domain";
-import { CategoryBox } from "../CategoryBox/CategoryBox";
 import { linkUtils } from "@utils";
-import { PostDetails } from "../PostDetails/PostDetails";
+import { PostDetails, CategoryBox } from "@components";
 
 interface CardProps {
   post: PostWithDetails;

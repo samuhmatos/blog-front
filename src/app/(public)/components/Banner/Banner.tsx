@@ -1,15 +1,8 @@
 import { PostWithDetails, postService } from "@domain";
 import { BannerBox } from "./components/BannerBox";
-import { AxiosError } from "axios";
-import { ErrorApi } from "@api";
 
 async function getList(): Promise<PostWithDetails[]> {
-  try {
-    return await postService.getList("best");
-  } catch (err) {
-    let error = err as AxiosError<ErrorApi>;
-    throw new Error(error.response?.data.message);
-  }
+  return await postService.getList("best");
 }
 export async function Banner() {
   const posts = await getList();

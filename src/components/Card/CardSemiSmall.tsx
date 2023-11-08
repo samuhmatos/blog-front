@@ -1,7 +1,7 @@
-import Image from "next/image";import Link from "next/link";
+import Link from "next/link";
 import { PostWithDetails } from "@domain";
 import { linkUtils, textUtils } from "@utils";
-import { Icon } from "../Icon/Icon";
+import { Icon } from "@components";
 
 interface Props {
   post: PostWithDetails;
@@ -16,7 +16,7 @@ export function CardSemiSmall({ post }: Props) {
       <div className="post-media rounded-lg ">
         <Link href={linkPost} className="relative w-full">
           <div className="h-48 w-full mx-auto">
-            <Image
+            <img
               src={post.imageURL}
               alt={`Banner da postagem ${post.title}`}
               className="w-full object-fill"
@@ -24,7 +24,7 @@ export function CardSemiSmall({ post }: Props) {
               height={400}
             />
           </div>
-          <div className="hoverEffect absolute top-0 left-0 w-full h-full flex justify-center items-center text-gray-300 text-white">
+          <div className="hoverEffect absolute top-0 left-0 w-full h-full flex justify-center items-center text-white">
             <div className="videoHover">
               <Icon name="Play" size="text-4xl" />
             </div>

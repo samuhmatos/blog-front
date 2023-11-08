@@ -1,5 +1,4 @@
-"use client";
-import { usePathname } from "next/navigation";
+"use client";import { usePathname } from "next/navigation";
 import { changeRoute } from "nextjs-progressloader";
 import { CircularProgress } from "@mui/material";
 
@@ -23,7 +22,6 @@ export function Actions() {
   }
 
   function renderAction(): JSX.Element {
-    console.log(loading);
     if (user) {
       return <UserCard />;
     } else {
