@@ -1,8 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
+import { PostComment } from "@domain";
+import { useComment, useCommentService } from "@context";
+
 import { CommentBox } from "./CommentBox";
 import { CommentForm } from "./CommentForm";
-import { PostComment, usePostComment } from "@domain";
 
 interface Props {
   comments: PostComment[];
@@ -10,8 +12,10 @@ interface Props {
 }
 
 export function Comment({ comments: initialData, postId }: Props) {
-  const { comments, setCommentState } = usePostComment();
   const [total, setTotal] = useState<number>(0);
+
+  const { comments } = useComment();
+  const { setCommentState } = useCommentService();
 
   useEffect(() => {
     setCommentState((prev) => ({
@@ -63,4 +67,3 @@ export function Comment({ comments: initialData, postId }: Props) {
     </section>
   );
 }
-// TODO: REFACTOR COMMENT

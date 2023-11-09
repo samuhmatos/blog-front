@@ -1,5 +1,4 @@
-"use client";
-import { CategoryBox, PostDetails } from "@components";
+"use client";import { CategoryBox, PostDetails } from "@components";
 import { PostWithDetails, postService } from "@domain";
 import { linkUtils } from "@utils";
 import { Share } from "./Share";

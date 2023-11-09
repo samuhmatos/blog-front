@@ -1,45 +1,39 @@
-"use client";
-import { useState, useEffect } from "react";
-import { UsePostCommentProps, usePostComment } from "@domain";
-import { Button, TextAreaInput } from "@components";
+"use client";import { useEffect } from "react";
+import { PostCommentParams } from "@domain";
+import { Button, FormTextAreaInput } from "@components";
+import { useComment, useCommentService } from "@context";
+import { useCommentForm } from "./useCommentForm";
+import { CommentSchema } from "./commentSchema";
 
 interface Props {
   postId: number;
 }
 
 export function CommentForm({ postId }: Props) {
-  const [text, setText] = useState<string>("");
+  const { control, handleSubmit, formState, reset, setValue } =
+    useCommentForm();
 
-  const { comment, loading, replyTo, action, setCommentState, createUpdate } =
-    usePostComment();
+  const { comment, replyTo, loading, action } = useComment();
+  const { createComment, updateComment, setCommentState } = useCommentService();
 
-  function handleSubmit() {
-    var textArea = document.querySelector("#comment-field") as HTMLDivElement;
-
-    textArea.classList.remove("border-red-700");
-    textArea.classList.add("border-gray-200");
-
-    if (!text.length) {
-      textArea.classList.remove("border-gray-200");
-      textArea.classList.add("border-red-700");
-      return;
-    }
-
-    var params: UsePostCommentProps["params"] = {
-      comment: text,
+  function submitComment({ message }: CommentSchema) {
+    var params: PostCommentParams = {
+      comment: message,
       postId,
       parentId: replyTo || undefined,
     };
 
-    if (action === "edit") params.commentId = comment!.id;
+    if (action === "update") {
+      params.commentId = comment!.id;
 
-    createUpdate({
-      type: action,
-      callBack() {
-        setText("");
-      },
-      params,
-    });
+      updateComment(params, () => {
+        reset();
+      });
+    } else {
+      createComment(params, () => {
+        reset();
+      });
+    }
   }
 
   function handleCancelAction() {
@@ -73,33 +67,33 @@ export function CommentForm({ postId }: Props) {
     ) as HTMLTextAreaElement;
     var offSetTop = textArea!.offsetTop;
 
-    window.scrollTo({ top: offSetTop - 100 });
+    window.scrollTo({ top: offSetTop - 200 });
     textArea!.focus();
   }
 
   useEffect(() => {
-    if (replyTo || action == "edit") {
-      setText(comment?.comment || "");
-      scrollToForm();
+    if (action == "update") {
+      setValue("message", comment!.comment);
     }
+
+    scrollToForm();
   }, [replyTo, action]);
 
   return (
     <div className="mb-6">
-      <TextAreaInput
+      <FormTextAreaInput
+        control={control}
+        name="message"
         placeholder="Deixe um comentário"
-        value={text}
-        setValue={setText}
-        name="comment"
       />
       <div className="flex gap-3 mt-3">
         <Button
           loading={loading}
           placeholder={renderSuccessButtonText()}
-          disabled={!!!text}
-          onClick={handleSubmit}
+          disabled={!formState.isValid}
+          onClick={handleSubmit(submitComment)}
         />
-        {(replyTo || action === "edit") && (
+        {(replyTo || action === "update") && (
           <Button
             paleteColor="danger"
             placeholder={renderCancelButtonText()}
@@ -110,5 +104,3 @@ export function CommentForm({ postId }: Props) {
     </div>
   );
 }
-
-//TODO: ADD HOOK FORM + ZOD

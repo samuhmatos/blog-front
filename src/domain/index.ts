@@ -7,3 +7,4 @@ export * from "./PostCommentReaction";
 export * from "./Contacts";
 export * from "./Newsletter";
 export * from "./Auth";
+export * from "./PostCommentReport";

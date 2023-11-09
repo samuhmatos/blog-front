@@ -1,4 +1,6 @@
-import { User, UserApi } from "@domain";export interface MetaDataPageAPI {
+import { User, UserApi } from "@domain";
+import { AxiosError } from "axios";
+export interface MetaDataPageAPI {
   total: number; // 24;
   per_page: number; // 10;
   current_page: number; // 1;
@@ -59,3 +61,5 @@ export interface ErrorApi {
   message: string;
   errors: Record<string, string[]>;
 }
+
+export type RequestError = AxiosError<ErrorApi>;

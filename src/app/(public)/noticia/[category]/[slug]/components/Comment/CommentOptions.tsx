@@ -5,7 +5,7 @@ import { PostComment, usePostComment } from "@domain";
 import { useState } from "react";
 import { CircularProgress } from "@mui/material";
 import { CommentReportModal } from "./CommentReportModal";
-import { useAuth } from "@context";
+import { useAuth, useComment, useCommentService } from "@context";
 
 interface Props {
   commentId: number;
@@ -16,8 +16,9 @@ interface Props {
 
 export function CommentOptions({ commentId, userId, comment, postId }: Props) {
   const { user } = useAuth();
-  const { setCommentState, destroyComment, loading, reportComment } =
-    usePostComment();
+
+  const { loading } = useComment();
+  const { removeComment, setCommentState } = useCommentService();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openOptions = Boolean(anchorEl);
@@ -43,14 +44,14 @@ export function CommentOptions({ commentId, userId, comment, postId }: Props) {
   function handleEdit() {
     setCommentState((prev) => ({
       ...prev,
-      action: "edit",
+      action: "update",
       comment,
     }));
     handleCloseOptions();
   }
 
   function handleDelete() {
-    destroyComment({
+    removeComment({
       commentId,
       postId,
     });
@@ -88,7 +89,6 @@ export function CommentOptions({ commentId, userId, comment, postId }: Props) {
         MenuListProps={{
           id: `commentToggle-${commentId}`,
         }}
-        //className="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
       >
         {user && user.id === userId && (
           <>
@@ -114,26 +114,4 @@ export function CommentOptions({ commentId, userId, comment, postId }: Props) {
       />
     </>
   );
-}
-{
-  /* <ul
-          className="py-1 text-sm text-gray-700 dark:text-gray-200"
-          aria-labelledby="dropdownMenuIconHorizontalButton"
-        >
-          <li>
-            <button className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-              Edit
-            </button>
-          </li>
-          <li>
-            <button className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-              Remove
-            </button>
-          </li>
-          <li>
-            <button className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-              Report
-            </button>
-          </li>
-        </ul> */
 }

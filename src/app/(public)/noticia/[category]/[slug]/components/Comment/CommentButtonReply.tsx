@@ -1,11 +1,13 @@
-"use client";import { PostComment, usePostComment } from "@domain";
+"use client";
+import { PostComment, usePostComment } from "@domain";
+import { useCommentService } from "@context";
 
 interface Props {
   comment: PostComment;
 }
 
 export function CommentButtonReply({ comment }: Props) {
-  const { setCommentState } = usePostComment();
+  const { setCommentState } = useCommentService();
 
   function handleClick() {
     var replyTo: number;

@@ -1,5 +1,4 @@
-import { PostComment, PostCommentParams } from ".";
-import { postCommentApi } from "./postCommentApi";
+import { PostComment, PostCommentParams } from ".";import { postCommentApi } from "./postCommentApi";
 import { postCommentAdapter } from "./postCommentAdapter";
 
 export interface EditPostCommentProps
@@ -46,18 +45,8 @@ async function destroy({
   });
 }
 
-async function report(
-  postId: number,
-  commentId: number,
-  reason: string
-): Promise<void> {
-  const res = await postCommentApi.report(postId, commentId, reason);
-  return;
-}
-
 export const postCommentService = {
   create,
   edit,
   destroy,
-  report,
 };

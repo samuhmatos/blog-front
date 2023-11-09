@@ -18,7 +18,6 @@ export function Reaction({ postId }: Props) {
 
   const [reaction, setReaction] = useState<ReactionType | null>(null);
 
-  // const { reaction, addReaction, deleteReaction } = useReaction(postId);
   const { mutate: loadReaction } = useGetPostReaction(setReaction);
   const { mutate: addReaction } = useCreatePostReaction(setReaction);
   const { mutate: deleteReaction } = useRemovePostReaction(setReaction);

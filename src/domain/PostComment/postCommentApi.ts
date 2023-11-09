@@ -1,22 +1,7 @@
-import { PostCommentApi, PostCommentParamsApi } from ".";
-import { api } from "@api";
+import { PostCommentApi, PostCommentParamsApi } from ".";import { api } from "@api";
 
 interface ParamsProps extends Omit<PostCommentParamsApi, "parent_id"> {
   comment_id: number;
-}
-
-async function report(
-  post_id: number,
-  comment_id: number,
-  reason: string
-): Promise<void> {
-  const response = await api.post(
-    `post/${post_id}/comment/${comment_id}/report`,
-    {
-      reason,
-    }
-  );
-  return;
 }
 
 async function edit({
@@ -59,5 +44,4 @@ export const postCommentApi = {
   create,
   edit,
   destroy,
-  report,
 };

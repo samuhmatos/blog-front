@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { CommentOptions } from "./CommentOptions";
+import Image from "next/image";import { CommentOptions } from "./CommentOptions";
 import { PostComment } from "@domain";
 
 interface Props {
@@ -14,12 +13,11 @@ export function CommentHeader({ user, commentId, date, comment }: Props) {
     <header className="flex justify-between items-center mb-2">
       <div className="flex items-center">
         <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
-          <Image
+          <img
             width="300"
             height="300"
             className="mr-2 w-6 h-6 rounded-full"
-            src={"/assets/user.png"}
-            //src={user.imageURL || "/assets/user.png"}
+            src={user.imageURL || "/assets/user.png"}
             alt={user.name}
           />{" "}
           {user.name}
