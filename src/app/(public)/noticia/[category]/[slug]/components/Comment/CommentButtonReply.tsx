@@ -1,5 +1,5 @@
 "use client";
-import { PostComment, usePostComment } from "@domain";
+import { PostComment } from "@domain";
 import { useCommentService } from "@context";
 
 interface Props {

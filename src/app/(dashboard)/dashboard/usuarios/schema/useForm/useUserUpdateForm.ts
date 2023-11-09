@@ -6,6 +6,8 @@ export type ReturnUserUpdateFormType = UseFormReturn<UserUpdateSchema>;
 
 export function useUserUpdateForm(): ReturnUserUpdateFormType {
   return useForm<UserUpdateSchema>(userUpdateSchema, {
-    isAdmin: false,
+    defaultValues: {
+      isAdmin: false,
+    },
   });
 }

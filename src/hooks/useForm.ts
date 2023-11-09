@@ -1,20 +1,19 @@
-"use client";import { zodResolver } from "@hookform/resolvers/zod";
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   UseFormReturn,
   useForm as RHFUseForm,
   FieldValues,
-  DefaultValues,
+  UseFormProps,
 } from "react-hook-form";
 
 export function useForm<SchemaType extends FieldValues = FieldValues>(
   schemaResolver: any,
-  defaultValues?: DefaultValues<SchemaType>
+  config?: UseFormProps<SchemaType>
 ): UseFormReturn<SchemaType> {
-  const formValidation = RHFUseForm<SchemaType>({
+  return RHFUseForm<SchemaType>({
     resolver: zodResolver(schemaResolver),
-    defaultValues,
     mode: "onChange",
+    ...config,
   });
-
-  return formValidation as UseFormReturn<SchemaType>;
 }

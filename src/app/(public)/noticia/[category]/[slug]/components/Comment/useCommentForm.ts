@@ -4,6 +4,8 @@ import { CommentSchema, commentSchema } from "./commentSchema";
 
 export function useCommentForm() {
   return useForm<CommentSchema>(commentSchema, {
-    message: "",
+    defaultValues: {
+      message: "",
+    },
   });
 }

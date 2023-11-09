@@ -6,7 +6,9 @@ export type ReturnPostCategoryFormType = UseFormReturn<PostCategorySchema>;
 
 export function usePostCategoryForm(): ReturnPostCategoryFormType {
   return useForm<PostCategorySchema>(postCategorySchema, {
-    description: "",
-    name: "",
+    defaultValues: {
+      description: "",
+      name: "",
+    },
   });
 }

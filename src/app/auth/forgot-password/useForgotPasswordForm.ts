@@ -1,21 +1,14 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { UseFormReturn, useForm } from "react-hook-form";
 import {
   ForgotPasswordSchema,
   forgotPasswordSchema,
 } from "./forgotPasswordSchema";
+import { useForm } from "@hooks";
 
-type ReturnRegisterFormType = UseFormReturn<ForgotPasswordSchema>;
-
-export function useForgotPasswordForm(): ReturnRegisterFormType {
-  const formValidation = useForm<ForgotPasswordSchema>({
-    resolver: zodResolver(forgotPasswordSchema),
+export function useForgotPasswordForm() {
+  return useForm<ForgotPasswordSchema>(forgotPasswordSchema, {
     defaultValues: {
       email: "",
     },
-    mode: "onChange",
   });
-
-  return formValidation;
 }
