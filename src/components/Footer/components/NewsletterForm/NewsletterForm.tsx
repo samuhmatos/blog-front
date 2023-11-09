@@ -38,7 +38,7 @@ export function NewsletterForm() {
         />
 
         <Button
-          disabled={!formState.isValid}
+          // disabled={!formState.isValid}
           placeholder="Enviar"
           type="submit"
           loading={loading}

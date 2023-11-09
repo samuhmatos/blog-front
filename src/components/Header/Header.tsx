@@ -1,4 +1,5 @@
-import Image from "next/image";import Link from "next/link";
+import Image from "next/image";
+import Link from "next/link";
 import { Navigation, SearchInput, Actions } from "./components";
 import { Category, postCategoryService } from "@domain";
 

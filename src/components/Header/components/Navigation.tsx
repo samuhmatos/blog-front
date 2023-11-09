@@ -1,24 +1,11 @@
-"use client";
-import Link from "next/link";
+"use client";import Link from "next/link";
 import { linkUtils } from "@utils";
 import { twMerge } from "tailwind-merge";
 import { SearchInput } from "./SearchInput";
-import { useRef } from "react";
-import { Variants, motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Category } from "@domain";
 import { useToggleOpenNavigation } from "@hooks";
-
-const variants: Variants = {
-  open: {
-    opacity: 1,
-    display: "flex",
-  },
-  closed: {
-    opacity: 0,
-    display: "none",
-  },
-};
 
 interface Props {
   categories: Category[];
@@ -50,16 +37,22 @@ export function Navigation({ categories }: Props) {
     );
   }
 
+  useEffect(() => {
+    if (open) {
+      ulRef.current?.classList.remove("hideNav");
+      ulRef.current?.classList.add("showNav");
+    } else {
+      ulRef.current?.classList.remove("showNav");
+      ulRef.current?.classList.add("hideNav");
+    }
+  }, [open]);
+
   return (
-    <motion.ul
+    <ul
       className={
-        "border-t border-primary-600 font-medium text-base gap-3 pt-2 flex flex-wrap justify-center md:justify-start transition-all"
+        "border-t border-primary-600 font-medium text-base gap-3 pt-2 flex flex-wrap justify-center md:justify-start overflow-hidden transition-all"
       }
       ref={ulRef}
-      initial={false}
-      animate={open ? "open" : "closed"}
-      variants={variants}
-      transition={{ duration: 0.1 }}
     >
       <div className="block 3sm:hidden w-full mb-2">
         <SearchInput />
@@ -76,8 +69,6 @@ export function Navigation({ categories }: Props) {
       ))}
 
       <RenderItem label="Contato" url="/contato" />
-    </motion.ul>
+    </ul>
   );
 }
-
-// TODO: usercard appear by server rendering end then appear using the custom hook
