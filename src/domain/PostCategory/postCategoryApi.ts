@@ -1,4 +1,5 @@
-import { Page, PageAPI, PagePaginationParams, api } from "@api";import { CategoryAPI } from "./categoryTypes";
+import { PageAPI, PagePaginationParams, api } from "@api";
+import { CategoryAPI } from "./categoryTypes";
 
 const PATH = "postCategory/";
 
@@ -10,7 +11,7 @@ async function getPopular(limit: number): Promise<CategoryAPI[]> {
 }
 
 async function paginate(
-  params: PagePaginationParams & { category?: string }
+  params: PagePaginationParams
 ): Promise<PageAPI<CategoryAPI>> {
   const response = await api.get<PageAPI<CategoryAPI>>(`${PATH}paginate`, {
     params: {

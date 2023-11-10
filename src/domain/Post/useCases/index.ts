@@ -1,4 +1,4 @@
-export * from "./list";
+export * from "./useFeedList";
 export * from "./useCreatePost";
 export * from "./useUpdatePost";
 export * from "./useGetPost";

@@ -1,9 +1,15 @@
-import { Category, postCategoryService } from "..";
 import { PagePaginationParams } from "@api";
-import { usePaginatedList } from "../../hooks/usePaginatedList";
+import { QueryKeys, usePaginatedList } from "@infra";
 
-export function usePostCategoryList(
-  params: PagePaginationParams & { category?: string }
-) {
-  return usePaginatedList<Category>(postCategoryService.paginate, params);
+import { Category, postCategoryService } from "..";
+
+export function usePostCategoryList(params: PagePaginationParams) {
+  function serviceList() {
+    return postCategoryService.paginate(params);
+  }
+
+  return usePaginatedList<Category>(
+    [QueryKeys.PostCategoryList, params.page, params.per_page],
+    serviceList
+  );
 }

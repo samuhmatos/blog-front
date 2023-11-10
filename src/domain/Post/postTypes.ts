@@ -1,6 +1,7 @@
 import { Page, PageAPI, PagePaginationParams } from "@api";import { Category, CategoryAPI } from "../PostCategory/categoryTypes";
 import { User, UserApi } from "../User";
 import { PostComment, PostCommentApi } from "../PostComment";
+import { UpdateServiceProps } from ".";
 
 export interface Post {
   id: number;
@@ -68,4 +69,9 @@ export interface PostList {
 export interface PostPageParams extends PagePaginationParams {
   is_draft?: boolean;
   is_trash?: boolean;
+}
+
+export interface UpdatePostParams {
+  postId: number;
+  formData: FormData | UpdateServiceProps;
 }

@@ -13,8 +13,10 @@ import {
 import { hasCookie } from "cookies-next";
 
 import { AuthProvider } from "@context";
-import { userService } from "@domain";
+import { authService } from "@domain";
 import { linkUtils } from "@utils";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const poppins = Poppins({ subsets: ["devanagari"], weight: "400" });
 
@@ -33,10 +35,12 @@ const links: ContainerLinkProps["links"] = [
   },
 ];
 
+const queryClient = new QueryClient();
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   async function getCsrfToken() {
     if (!hasCookie("XSRF-TOKEN")) {
-      await userService.CSRF_token();
+      await authService.CSRF_token();
     }
   }
 
@@ -45,29 +49,33 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AuthProvider>
-      <html lang="pt-br" className="h-screen">
-        <link rel="icon" href="/assets/favicon.ico" sizes="any" />
-        <body className={poppins.className}>
-          <ProgressLoader color="rgb(17, 12, 182)" showSpinner={false} />
-          <ContainerLink links={links} />
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <html lang="pt-br" className="h-screen">
+          <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+          <body className={poppins.className}>
+            <ProgressLoader color="rgb(17, 12, 182)" showSpinner={false} />
+            <ContainerLink links={links} />
 
-          <div>{children}</div>
+            <div>{children}</div>
 
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-        </body>
-      </html>
-    </AuthProvider>
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </body>
+        </html>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
+// use query csrf

@@ -1,15 +1,16 @@
 "use client";
 import { useForgotPassword } from "@domain";
-import { ForgotPasswordSchema } from "./forgotPasswordSchema";
 import { Button, FormTextInput } from "@components";
+
+import { ForgotPasswordSchema } from "./forgotPasswordSchema";
 import { useForgotPasswordForm } from "./useForgotPasswordForm";
 
 export default function ForgotPasswordPage() {
   const { control, formState, handleSubmit } = useForgotPasswordForm();
-  const { loading, action } = useForgotPassword();
+  const { loading, mutate } = useForgotPassword();
 
   function onSubmit({ email }: ForgotPasswordSchema) {
-    action(email);
+    mutate(email);
   }
 
   return (

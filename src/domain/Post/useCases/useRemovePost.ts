@@ -1,35 +1,19 @@
-"use client";import { useState } from "react";
-import { postService } from "..";
+"use client";
 import { errorUtils, toastUtils } from "@utils";
-import { AxiosError } from "axios";
-import { ErrorApi } from "@api";
+import { useMutation } from "@infra";
+
+import { postService } from "..";
 
 export function useRemovePost() {
-  const [loading, setLoading] = useState<boolean>(false);
-
-  function remove(postId: number, reset: () => void) {
-    setLoading(true);
-
-    postService
-      .remove(postId)
-      .then((res) => {
-        toastUtils.show({
-          message: "Post movido para lixeira!",
-          type: "warning",
-        });
-
-        reset();
-      })
-      .catch((err: AxiosError<ErrorApi>) => {
-        errorUtils.setGlobalErrorMessage(err);
-      })
-      .then(() => {
-        setLoading(false);
+  return useMutation<number, void>(postService.remove, {
+    onSuccess(data) {
+      toastUtils.show({
+        message: "Post movido para lixeira!",
+        type: "warning",
       });
-  }
-
-  return {
-    loading,
-    remove,
-  };
+    },
+    onError(error) {
+      errorUtils.setGlobalErrorMessage(error);
+    },
+  });
 }

@@ -2,20 +2,11 @@ import {  User,
   UserAuthParams,
   UserPagePaginationParam,
   UserPagination,
-  UserParams,
   UserUpdateParams,
 } from ".";
-import { Auth, Page, PagePaginationParams, apiAdapter } from "@api";
+import { Auth, Page, apiAdapter } from "@api";
 import { userApi } from "./userApi";
 import { userAdapter } from "./userAdapter";
-
-async function login(
-  params: Pick<UserAuthParams, "email" | "password">
-): Promise<Auth> {
-  const auth = await userApi.login(params);
-
-  return userAdapter.toAuthResponse(auth);
-}
 
 async function register(params: UserAuthParams): Promise<Auth> {
   const auth = await userApi.register(params);
@@ -35,10 +26,6 @@ async function update({
   const userUpdated = await userApi.update(userId, params);
 
   return userAdapter.toAuthResponse(userUpdated);
-}
-
-async function CSRF_token(): Promise<void> {
-  return userApi.CSRF_token();
 }
 
 async function getList(
@@ -74,11 +61,9 @@ async function create(
 }
 
 export const userService = {
-  login,
   register,
   logout,
   update,
-  CSRF_token,
   getList,
   remove,
   show,

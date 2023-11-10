@@ -1,4 +1,5 @@
-import { Category } from "./categoryTypes";import { postCategoryApi } from "./postCategoryApi";
+import { Category } from "./categoryTypes";
+import { postCategoryApi } from "./postCategoryApi";
 import { postCategoryAdapter } from "./postCategoryAdapter";
 import { Page, PagePaginationParams, apiAdapter } from "@api";
 
@@ -14,9 +15,7 @@ async function show(slugOrId: number | string): Promise<Category> {
   return postCategoryAdapter.toCategory(categoryAPI);
 }
 
-async function paginate(
-  params: PagePaginationParams & { category?: string }
-): Promise<Page<Category>> {
+async function paginate(params: PagePaginationParams): Promise<Page<Category>> {
   const categoryAPI = await postCategoryApi.paginate({
     ...params,
     per_page: params.per_page || 10,

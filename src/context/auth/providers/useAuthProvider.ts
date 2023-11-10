@@ -22,7 +22,7 @@ export function useAuthProvider(): AuthService {
     setUser(null);
     setLoading(true);
 
-    userService
+    authService
       .login(params)
       .then(async (response) => {
         setSuccessData(response);

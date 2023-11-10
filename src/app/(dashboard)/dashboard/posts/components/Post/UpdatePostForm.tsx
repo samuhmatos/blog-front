@@ -1,4 +1,5 @@
-"use client";import { useEffect } from "react";
+"use client";
+import { useEffect } from "react";
 import {
   Button,
   FormCheckbox,
@@ -6,9 +7,9 @@ import {
   FormSelectOption,
   FormTextInput,
 } from "@components";
+import { UpdateServiceProps, useUpdatePost } from "@domain";
 
 import { FormContentEditor } from "../FormContentEditor/FormContentEditor";
-import { UpdateServiceProps, useUpdatePost } from "@domain";
 import { ReturnUpdatePostFormType, UpdatePostSchema } from "../../schemas";
 import { PostFormProps } from "./CreatePostForm";
 
@@ -18,15 +19,13 @@ export function UpdatePostForm({
   schema,
   categories,
 }: PostFormProps<ReturnUpdatePostFormType>) {
-  const { loading, update } = useUpdatePost();
-  const { formState, handleSubmit, reset, setValue, control } = schema;
+  const { loading, mutate: update } = useUpdatePost();
+  const { formState, handleSubmit, setValue, control } = schema;
 
   const formatData = (
     data: UpdatePostSchema,
     isDraft: boolean
   ): FormData | UpdateServiceProps => {
-    let categoryId = Number(data.category);
-
     if (!data.image) {
       return {
         title: data.title,
@@ -40,8 +39,8 @@ export function UpdatePostForm({
       form.append("title", data.title);
       form.append("sub_title", data.subTitle);
       form.append("content", data.content);
-      form.append("category_id", categoryId);
-      form.append("is_draft", isDraft ? 1 : 0);
+      form.append("category_id", data.category);
+      form.append("is_draft", isDraft ? "1" : "0");
       form.append("banner", data.image);
 
       return form;
@@ -52,9 +51,6 @@ export function UpdatePostForm({
     update({
       formData: formatData(data, false),
       postId: initialData?.id!,
-      reset() {
-        //reset();
-      },
     });
   };
 

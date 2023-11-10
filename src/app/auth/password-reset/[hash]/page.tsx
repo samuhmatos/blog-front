@@ -1,9 +1,10 @@
 "use client";
+import { useEffect } from "react";
 import { PageParams } from "@types";
 import { Button, FormTextInput } from "@components";
-import { PasswordResetSchema } from "./passwordResetSchema";
-import { useEffect } from "react";
 import { usePasswordReset } from "@domain";
+
+import { PasswordResetSchema } from "./passwordResetSchema";
 import { usePasswordResetForm } from "./usePasswordResetForm";
 
 export default function PasswordResetPage({
@@ -12,7 +13,7 @@ export default function PasswordResetPage({
 }: PageParams<{ email: string }, { hash: string }>) {
   const { control, formState, handleSubmit, setValue } = usePasswordResetForm();
 
-  const { loading, action } = usePasswordReset();
+  const { loading, mutate } = usePasswordReset();
 
   useEffect(() => {
     if (params.hash && searchParams.email) {
@@ -22,7 +23,7 @@ export default function PasswordResetPage({
   }, []);
 
   function onSubmit(val: PasswordResetSchema) {
-    action(val);
+    mutate(val);
   }
 
   return (

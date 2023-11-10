@@ -1,27 +1,15 @@
-"use client";import { useState } from "react";
+"use client";
 import { authService } from "../authService";
-import { AxiosError } from "axios";
-import { ErrorApi } from "@api";
 import { errorUtils, toastUtils } from "@utils";
+import { useMutation } from "@infra";
 
 export function useForgotPassword() {
-  const [loading, setLoading] = useState<boolean>(false);
-
-  function action(email: string) {
-    setLoading(true);
-    authService
-      .forgotPassword(email)
-      .then((res) => {
-        toastUtils.show({ message: res.status });
-      })
-      .catch((error: AxiosError<ErrorApi>) => {
-        errorUtils.setGlobalErrorMessage(error);
-      })
-      .finally(() => setLoading(false));
-  }
-
-  return {
-    loading,
-    action,
-  };
+  return useMutation<string, { status: string }>(authService.forgotPassword, {
+    onSuccess(data) {
+      toastUtils.show({ message: data.status });
+    },
+    onError(error) {
+      errorUtils.setGlobalErrorMessage(error);
+    },
+  });
 }

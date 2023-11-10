@@ -1,13 +1,14 @@
-"use client";import { Dispatch, SetStateAction } from "react";
+"use client";
+import { Dispatch, SetStateAction, useState } from "react";
 import {
   Button,
   FormImagePreviewUpload,
   FormSelectOption,
   FormTextInput,
 } from "@components";
+import { Category, Post, useCreatePost } from "@domain";
 
 import { FormContentEditor } from "../FormContentEditor/FormContentEditor";
-import { Category, Post, useCreatePost } from "@domain";
 import { CreatePostSchema, ReturnCreatePostFormType } from "../../schemas";
 
 export interface PostFormProps<Schema> {
@@ -23,7 +24,9 @@ export function CreatePostForm({
   schema,
   categories,
 }: PostFormProps<ReturnCreatePostFormType>) {
-  const { loadingDraft, loadingPublish, createPost } = useCreatePost();
+  const [draftMode, setDraftMode] = useState<boolean>(false);
+
+  const { loading, mutate: createPost } = useCreatePost();
   const { control, reset, handleSubmit, formState } = schema;
 
   const options =
@@ -33,35 +36,29 @@ export function CreatePostForm({
     })) || [];
 
   const formatData = (data: CreatePostSchema, isDraft: boolean): FormData => {
-    let categoryId = Number(data.category);
-
     var form = new FormData();
     form.append("title", data.title);
     form.append("sub_title", data.subTitle);
     form.append("content", data.content);
-    form.append("category_id", categoryId);
+    form.append("category_id", data.category);
     form.append("banner", data.image);
-    form.append("is_draft", isDraft ? 1 : 0);
+    form.append("is_draft", isDraft ? "1" : "0");
 
     return form;
   };
 
-  const handlePublishPost = (data: CreatePostSchema) => {
-    submitPost(data, true);
-  };
-
-  const handleDraftPost = (data: CreatePostSchema) => {
+  function handlePublishPost(data: CreatePostSchema) {
+    setDraftMode(false);
     submitPost(data, false);
-  };
+  }
+
+  function handleDraftPost(data: CreatePostSchema) {
+    setDraftMode(true);
+    submitPost(data, true);
+  }
 
   function submitPost(data: CreatePostSchema, isDraft: boolean) {
-    createPost({
-      formData: formatData(data, true),
-      isDraft,
-      reset: () => {
-        reset();
-      },
-    });
+    createPost(formatData(data, isDraft), () => reset());
   }
 
   return (
@@ -102,14 +99,14 @@ export function CreatePostForm({
 
       <div className="flex gap-3">
         <Button
-          loading={loadingPublish}
+          loading={loading && !draftMode}
           placeholder="Publicar"
           disabled={!formState.isValid}
           onClick={handleSubmit(handlePublishPost)}
         />
 
         <Button
-          loading={loadingDraft}
+          loading={loading && draftMode}
           placeholder="Rascunho"
           disabled={!formState.isValid}
           onClick={handleSubmit(handleDraftPost)}
@@ -119,5 +116,3 @@ export function CreatePostForm({
     </div>
   );
 }
-
-// FIXME: CORRIGIR TIPAGEM PARA NUMBER CATEGORY

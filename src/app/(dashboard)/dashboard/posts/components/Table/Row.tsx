@@ -1,4 +1,5 @@
-"use client";import {
+"use client";
+import {
   PostWithDetails,
   useRemovePost,
   useRestorePost,
@@ -26,9 +27,9 @@ export function Row({ post, refetch, isTrash }: RowsType) {
   const [open, setOpen] = useState(false);
   const [isDraft, setIsDraft] = useState<boolean>(post.isDraft);
 
-  const { loading: loadingRemove, remove } = useRemovePost();
-  const { loading: loadingUpdate, update } = useUpdatePost();
-  const { loading: loadingRestore, restore } = useRestorePost();
+  const { loading: loadingRemove, mutate: remove } = useRemovePost();
+  const { loading: loadingUpdate, mutate: update } = useUpdatePost();
+  const { loading: loadingRestore, mutate: restore } = useRestorePost();
 
   function handleRemovePost() {
     remove(post.id, () => {
@@ -45,20 +46,22 @@ export function Row({ post, refetch, isTrash }: RowsType) {
   function handleChangeIsDraft(e: ChangeEvent<HTMLInputElement>) {
     let checked = e.target.checked;
 
-    update({
-      formData: {
-        title: post.title,
-        subTitle: post.subTitle,
-        content: post.content,
-        category: post.categoryId.toString(),
-        isDraft: checked,
+    update(
+      {
+        formData: {
+          title: post.title,
+          subTitle: post.subTitle,
+          content: post.content,
+          category: post.categoryId.toString(),
+          isDraft: checked,
+        },
+        postId: post.id,
       },
-      postId: post.id,
-      reset() {
+      () => {
         setIsDraft(checked);
         refetch();
-      },
-    });
+      }
+    );
   }
 
   function handleOpenEditModal() {

@@ -1,35 +1,22 @@
 "use client";
-import { useState } from "react";
 import { authService } from "../authService";
 import { errorUtils, toastUtils } from "@utils";
 import { changeRoute } from "nextjs-progressloader";
-import { AxiosError } from "axios";
-import { ErrorApi } from "@api";
 import { PasswordResetSchema } from "../../../app/auth/password-reset/[hash]/passwordResetSchema";
+import { useMutation } from "@infra";
 
 export function usePasswordReset() {
-  const [loading, setLoading] = useState<boolean>(false);
-
-  function action(params: PasswordResetSchema) {
-    setLoading(true);
-
-    authService
-      .passwordReset(params)
-      .then((res) => {
-        toastUtils.show({ message: res.status });
+  return useMutation<PasswordResetSchema, { status: string }>(
+    authService.passwordReset,
+    {
+      onSuccess(data) {
+        toastUtils.show({ message: data.status });
 
         changeRoute("login");
-      })
-      .catch((error: AxiosError<ErrorApi>) => {
+      },
+      onError(error) {
         errorUtils.setGlobalErrorMessage(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
-
-  return {
-    loading,
-    action,
-  };
+      },
+    }
+  );
 }

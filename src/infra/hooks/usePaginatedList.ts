@@ -1,35 +1,39 @@
-import {useEffect, useState} from 'react';
+"use client";
 
-import {useInfiniteQuery} from '@tanstack/react-query';
-import {Page} from '@types';
+import { useEffect, useState } from "react";
+
+import { useQuery } from "@tanstack/react-query";
+import { Page } from "@api";
 
 export interface UsePaginatedListResult<TData> {
   list: TData[];
   isError: boolean | null;
   isLoading: boolean;
   refresh: () => void;
-  fetchNextPage: () => void;
   hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  totalMeta: number;
+  totalPage: number;
+  error: unknown;
 }
 export function usePaginatedList<Data>(
   queryKey: readonly unknown[],
-  getList: (page: number) => Promise<Page<Data>>,
+  getList: () => Promise<Page<Data>>
 ): UsePaginatedListResult<Data> {
   const [list, setList] = useState<Data[]>([]);
+  const [totalMeta, setTotalMeta] = useState<number>(0);
 
-  const query = useInfiniteQuery({
+  const query = useQuery({
     queryKey,
-    queryFn: ({pageParam = 1}) => getList(pageParam),
-    getNextPageParam: ({meta}) =>
-      meta.hasNextPage ? meta.currentPage + 1 : undefined,
+    queryFn: () => getList(),
+    keepPreviousData: true,
+    staleTime: 300000, // 5 minutes
   });
 
   useEffect(() => {
     if (query.data) {
-      const newList = query.data.pages.reduce<Data[]>((prev, curr) => {
-        return [...prev, ...curr.data];
-      }, []);
-      setList(newList);
+      setList(query.data.data);
+      setTotalMeta(query.data.meta.total);
     }
   }, [query.data]);
 
@@ -38,7 +42,10 @@ export function usePaginatedList<Data>(
     isError: query.isError,
     isLoading: query.isLoading,
     refresh: query.refetch,
-    fetchNextPage: query.fetchNextPage,
-    hasNextPage: !!query.hasNextPage,
+    hasNextPage: !!query.data?.meta.hasNextPage,
+    hasPreviousPage: !!query.data?.meta.hasPreviousPage,
+    totalPage: list.length,
+    totalMeta,
+    error: query.error,
   };
 }

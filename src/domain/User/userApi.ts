@@ -1,20 +1,10 @@
-import { BASE_URL } from "@config";import {
+import {
   UserApi,
   UserAuthParams,
   UserPagePaginationParam,
   UserPaginationApi,
 } from ".";
-import { AuthAPI, PageAPI, PagePaginationParams, api } from "@api";
-
-async function login(
-  params: Pick<UserAuthParams, "email" | "password">
-): Promise<AuthAPI> {
-  const response = await api.post<AuthAPI>("login", {
-    ...params,
-  });
-
-  return response.data;
-}
+import { AuthAPI, PageAPI, api } from "@api";
 
 async function register(params: UserAuthParams): Promise<AuthAPI> {
   const response = await api.post<AuthAPI>("register", {
@@ -37,14 +27,6 @@ async function update(user_id: number, params: FormData): Promise<AuthAPI> {
   });
 
   return response.data;
-}
-
-async function CSRF_token(): Promise<void> {
-  await api.get("sanctum/csrf-cookie", {
-    baseURL: BASE_URL,
-  });
-
-  return;
 }
 
 async function getList(
@@ -86,11 +68,9 @@ async function create(
 }
 
 export const userApi = {
-  login,
   register,
   logout,
   update,
-  CSRF_token,
   getList,
   remove,
   show,

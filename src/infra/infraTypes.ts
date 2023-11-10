@@ -1,3 +1,6 @@
-import { User } from "@domain";export interface Session {
-  user: User;
+export enum QueryKeys {
+  GetPost = "GetPost",
+  PostList = "PostList",
+  UserList = "UserList",
+  PostCategoryList = "PostCategorylist",
 }

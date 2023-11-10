@@ -1,5 +1,5 @@
 import { Page, PagePaginationParams, apiAdapter } from "@api";
-import { Post, PostList, PostWithDetails } from "./postTypes";
+import { Post, PostList, PostWithDetails, UpdatePostParams } from "./postTypes";
 import { postApi } from "./postApi";
 import { postAdapter } from "./postAdapter";
 import { CreatePostSchema } from "../../app/(dashboard)/dashboard/posts/schemas";
@@ -96,10 +96,7 @@ export interface UpdateServiceProps extends Omit<CreatePostSchema, "image"> {
   isDraft: boolean;
 }
 
-async function update(
-  postId: number,
-  formData: FormData | UpdateServiceProps
-): Promise<Post> {
+async function update({ postId, formData }: UpdatePostParams): Promise<Post> {
   const postAPI = await postApi.update(
     postId,
     formData instanceof FormData

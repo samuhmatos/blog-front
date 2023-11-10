@@ -1,5 +1,8 @@
-import { api } from "@api";import { ForgotPasswordParamApi } from "./authTypes";
-import { UserApi } from "../User";
+import { AuthAPI, api } from "@api";
+import { BASE_URL } from "@config";
+
+import { ForgotPasswordParamApi } from "./authTypes";
+import { UserApi, UserAuthParams } from "../User";
 
 async function forgotPassword(email: string): Promise<{ status: string }> {
   const response = await api.post("forgot-password", {
@@ -25,10 +28,30 @@ async function currentUser(): Promise<UserApi> {
   return response.data;
 }
 
-// TODO: VALIDAR SE EMAIL ESTA VERIFICADO PARA TER ACESSO A ALGUMAS FUNÇÕES
+async function login(
+  params: Pick<UserAuthParams, "email" | "password">
+): Promise<AuthAPI> {
+  const response = await api.post<AuthAPI>("login", {
+    ...params,
+  });
+
+  return response.data;
+}
+
+async function CSRF_token(): Promise<void> {
+  await api.get("sanctum/csrf-cookie", {
+    baseURL: BASE_URL,
+  });
+
+  return;
+}
 
 export const authApi = {
   forgotPassword,
   passwordReset,
   currentUser,
+  login,
+  CSRF_token,
 };
+
+// TODO: VALIDAR SE EMAIL ESTA VERIFICADO PARA TER ACESSO A ALGUMAS FUNÇÕES

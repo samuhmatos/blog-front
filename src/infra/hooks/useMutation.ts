@@ -1,3 +1,4 @@
+"use client";
 import { AxiosError } from "axios";
 import { useState } from "react";
 import { ErrorApi } from "@api";

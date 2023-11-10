@@ -1,4 +1,5 @@
-"use client";import { Metadata } from "next";
+"use client";
+import { Metadata } from "next";
 import { FormTextAreaInput, Button, FormTextInput, Icon } from "@components";
 import { useCreateContact } from "@domain";
 
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default function ContatoScreen() {
-  const { loading, create } = useCreateContact();
+  const { loading, mutate: create } = useCreateContact();
   const { control, formState, handleSubmit, reset } = useContactForm();
 
   function submitForm(data: ContactSchema) {

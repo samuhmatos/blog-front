@@ -23,7 +23,7 @@ export function TablePost() {
   const [isDraft, setIsDraft] = useState<boolean>(false);
   const [isTrash, setIsTrash] = useState<boolean>(false);
 
-  const { list, total, refetch } = useFeedList({
+  const { list, refresh, totalMeta } = useFeedList({
     page: page + 1,
     per_page: rowsPerPage,
     is_draft: isDraft,
@@ -31,18 +31,14 @@ export function TablePost() {
   });
 
   useEffect(() => {
-    refetch();
-  }, [page, rowsPerPage, isDraft, isTrash]);
-
-  useEffect(() => {
     eventUtils.on("close-modal", () => {
-      refetch();
+      refresh();
     });
 
     return eventUtils.remove("close-modal", () => {
-      refetch();
+      refresh();
     });
-  }, []);
+  }, [page, rowsPerPage, isDraft, isTrash]);
 
   const handleShowDraft = (e: ChangeEvent<HTMLInputElement>) => {
     var checked = e.target.checked;
@@ -68,12 +64,12 @@ export function TablePost() {
   return (
     <Table
       headerLabels={tableLabels}
-      count={total}
+      count={totalMeta}
       page={page}
       rowsPerPage={rowsPerPage}
       setPage={setPage}
       setRowsPerPage={setRowsPerPage}
-      TableBody={<TableBody isTrash={isTrash} posts={list} refetch={refetch} />}
+      TableBody={<TableBody isTrash={isTrash} posts={list} refetch={refresh} />}
       FooterActionsComponents={(subprops) => (
         <>
           <Checkbox
@@ -93,7 +89,7 @@ export function TablePost() {
           />
 
           <TablePaginationActions
-            count={total}
+            count={totalMeta}
             onPageChange={handleChangePage}
             rowsPerPage={rowsPerPage}
             showLastButton

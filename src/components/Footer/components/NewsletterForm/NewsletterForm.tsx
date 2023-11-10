@@ -7,9 +7,8 @@ import { useNewsletterForm } from "./useNewsletterForm";
 import { NewsletterSchema } from "./newsletterSchema";
 
 export function NewsletterForm() {
-  const { control, formState, handleSubmit, reset, getFieldState } =
-    useNewsletterForm();
-  const { loading, create } = useCreateNewsletter();
+  const { control, formState, handleSubmit, reset } = useNewsletterForm();
+  const { loading, mutate: create } = useCreateNewsletter();
 
   function handleRegisterEmailOnNewsletter({ email }: NewsletterSchema) {
     create(email, () => {
@@ -25,7 +24,7 @@ export function NewsletterForm() {
       <div
         className={twMerge(
           "flex gap-3",
-          getFieldState("email").error?.message ? "items-center" : "items-end"
+          formState.errors.email?.message ? "items-center" : "items-end"
         )}
       >
         <FormTextInput
@@ -37,12 +36,7 @@ export function NewsletterForm() {
           baseClassName="text-gray-400"
         />
 
-        <Button
-          // disabled={!formState.isValid}
-          placeholder="Enviar"
-          type="submit"
-          loading={loading}
-        />
+        <Button placeholder="Enviar" type="submit" loading={loading} />
       </div>
     </form>
   );

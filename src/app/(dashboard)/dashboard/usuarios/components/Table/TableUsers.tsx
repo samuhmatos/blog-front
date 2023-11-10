@@ -22,19 +22,19 @@ export function TableUsers() {
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [isTrash, setIsTrash] = useState<boolean>(false);
 
-  const { list, total, refetch } = useUserList({
+  const { list, totalMeta, refresh } = useUserList({
     page: page + 1,
     per_page: rowsPerPage,
     is_trash: isTrash,
   });
 
   useEffect(() => {
-    refetch();
+    refresh();
   }, [page, rowsPerPage, isTrash]);
 
   useEffect(() => {
     eventUtils.on("close-modal", () => {
-      refetch();
+      refresh();
     });
 
     return eventUtils.remove("close-modal", () => {});
@@ -55,12 +55,12 @@ export function TableUsers() {
   return (
     <Table
       headerLabels={tableLabels}
-      count={total}
+      count={totalMeta}
       page={page}
       rowsPerPage={rowsPerPage}
       setPage={setPage}
       setRowsPerPage={setRowsPerPage}
-      TableBody={<TableBody isTrash={isTrash} users={list} refetch={refetch} />}
+      TableBody={<TableBody isTrash={isTrash} users={list} refetch={refresh} />}
       FooterActionsComponents={(subprops) => (
         <>
           <Checkbox
@@ -72,7 +72,7 @@ export function TableUsers() {
           />
 
           <TablePaginationActions
-            count={total}
+            count={totalMeta}
             onPageChange={handleChangePage}
             rowsPerPage={rowsPerPage}
             showLastButton

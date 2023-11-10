@@ -1,4 +1,5 @@
-"use client";import { Table } from "@components";
+"use client";
+import { Table } from "@components";
 import { useEffect, useState } from "react";
 import { TableBody } from "./TableBody";
 import { usePostCategoryList } from "@domain";
@@ -11,33 +12,31 @@ export function TableCategory() {
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [isTrash, setIsTrash] = useState<boolean>(false);
 
-  const { list, total, refetch } = usePostCategoryList({
+  const { list, totalMeta, refresh } = usePostCategoryList({
     page: page + 1,
     per_page: rowsPerPage,
   });
 
   useEffect(() => {
-    refetch();
-  }, [page, rowsPerPage, isTrash]);
-
-  useEffect(() => {
     eventUtils.on("close-modal", () => {
-      refetch();
+      refresh();
     });
 
-    return eventUtils.remove("close-modal", () => {});
-  }, []);
+    return eventUtils.remove("close-modal", () => {
+      refresh();
+    });
+  }, [page, rowsPerPage, isTrash]);
 
   return (
     <Table
       headerLabels={tableLabels}
-      count={total}
+      count={totalMeta}
       page={page}
       rowsPerPage={rowsPerPage}
       setPage={setPage}
       setRowsPerPage={setRowsPerPage}
       TableBody={
-        <TableBody isTrash={isTrash} categories={list} refetch={refetch} />
+        <TableBody isTrash={isTrash} categories={list} refetch={refresh} />
       }
     />
   );
