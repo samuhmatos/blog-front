@@ -1,19 +1,14 @@
 "use client";
-
-import { usePostCategoryGet } from "@domain";
-import { useEffect } from "react";
+import { usePostCategoryGetAll } from "@domain";
 
 export function useGetCategories() {
-  const { categories: categoryData, getAll } = usePostCategoryGet();
+  const { categories } = usePostCategoryGetAll();
 
-  useEffect(() => {
-    getAll();
-  }, []);
-
-  const categories = categoryData?.map((value) => value.id.toString()) || [];
+  const categoriesOptions =
+    categories?.map((value) => value.id.toString()) || [];
 
   return {
+    categoriesOptions,
     categories,
-    categoryData,
   };
 }

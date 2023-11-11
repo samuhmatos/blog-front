@@ -1,38 +1,20 @@
 "use client";
-import { useState } from "react";
-import { UserAuthParams, userService } from "..";
+import { User, UserAuthParams, userService } from "..";
 import { errorUtils, toastUtils } from "@utils";
-import { AxiosError } from "axios";
-import { ErrorApi } from "@api";
+import { useMutation } from "@infra";
 
 export function useUserCreate() {
-  const [loading, setLoading] = useState<boolean>(false);
-
-  function create(
-    params: UserAuthParams & { is_admin: boolean },
-    callbackFn: () => void
-  ) {
-    setLoading(true);
-
-    userService
-      .create(params)
-      .then(() => {
+  return useMutation<UserAuthParams & { is_admin: boolean }, User>(
+    userService.create,
+    {
+      onSuccess(data) {
         toastUtils.show({
           message: "Usuário criado com sucesso!",
         });
-
-        callbackFn();
-      })
-      .catch((error: AxiosError<ErrorApi>) => {
+      },
+      onError(error) {
         errorUtils.setGlobalErrorMessage(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
-
-  return {
-    loading,
-    create,
-  };
+      },
+    }
+  );
 }

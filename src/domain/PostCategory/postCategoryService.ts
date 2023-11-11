@@ -1,5 +1,4 @@
-import { Category } from "./categoryTypes";
-import { postCategoryApi } from "./postCategoryApi";
+import { Category, UpdateCategoryParams } from "./categoryTypes";import { postCategoryApi } from "./postCategoryApi";
 import { postCategoryAdapter } from "./postCategoryAdapter";
 import { Page, PagePaginationParams, apiAdapter } from "@api";
 
@@ -49,10 +48,10 @@ async function remove(categoryId: number): Promise<void> {
   return;
 }
 
-async function update(
-  categoryId: number,
-  params: Pick<Category, "name" | "description">
-): Promise<Category> {
+async function update({
+  categoryId,
+  params,
+}: UpdateCategoryParams): Promise<Category> {
   const categoryAPI = await postCategoryApi.update(categoryId, params);
 
   return postCategoryAdapter.toCategory(categoryAPI);

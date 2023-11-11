@@ -1,7 +1,9 @@
-"use client";import { useEffect } from "react";
+"use client";
+import { useEffect } from "react";
 import { PostCommentParams } from "@domain";
 import { Button, FormTextAreaInput } from "@components";
 import { useComment, useCommentService } from "@context";
+
 import { useCommentForm } from "./useCommentForm";
 import { CommentSchema } from "./commentSchema";
 
@@ -45,7 +47,7 @@ export function CommentForm({ postId }: Props) {
     }));
   }
 
-  function renderSuccessButtonText(): string {
+  function renderSendButtonText(): string {
     if (action === "create") {
       return replyTo ? "Responder comentário" : "Enviar comentário";
     } else {
@@ -89,7 +91,7 @@ export function CommentForm({ postId }: Props) {
       <div className="flex gap-3 mt-3">
         <Button
           loading={loading}
-          placeholder={renderSuccessButtonText()}
+          placeholder={renderSendButtonText()}
           disabled={!formState.isValid}
           onClick={handleSubmit(submitComment)}
         />

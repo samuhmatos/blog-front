@@ -1,13 +1,15 @@
-"use client";import { useRemoveNewsletter } from "@domain";
+"use client";
+import { useRemoveNewsletter } from "@domain";
 import { toastUtils } from "@utils";
-import { UnsubscribePageParams } from "../page";
 import { Button } from "@components";
 import { useAuth } from "@context";
+
+import { UnsubscribePageParams } from "../page";
 
 export function UnsubscribeAction({
   searchParams,
 }: Pick<UnsubscribePageParams, "searchParams">) {
-  const { loading, remove } = useRemoveNewsletter();
+  const { loading, mutate: remove } = useRemoveNewsletter();
   const { user } = useAuth();
 
   function handleUsubscribe() {

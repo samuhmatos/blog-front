@@ -1,9 +1,10 @@
 "use client";
-import { authService } from "../authService";
-import { errorUtils, toastUtils } from "@utils";
 import { changeRoute } from "nextjs-progressloader";
-import { PasswordResetSchema } from "../../../app/auth/password-reset/[hash]/passwordResetSchema";
+import { errorUtils, toastUtils } from "@utils";
+import { authService } from "../authService";
 import { useMutation } from "@infra";
+
+import { PasswordResetSchema } from "../../../app/auth/password-reset/[hash]/passwordResetSchema";
 
 export function usePasswordReset() {
   return useMutation<PasswordResetSchema, { status: string }>(

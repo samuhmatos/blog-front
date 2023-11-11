@@ -1,26 +1,29 @@
 "use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 import {
   Category,
   usePostCategoryCreate,
   usePostCategoryUpdate,
 } from "@domain";
-import { useEffect } from "react";
 import { Button, FormTextInput } from "@components";
-import { useRouter } from "next/navigation";
-import { PostCategorySchema, ReturnPostCategoryFormType } from "../schema";
 import { eventUtils } from "@utils";
+
+import { PostCategorySchema, ReturnPostCategoryFormType } from "../schema";
 
 interface Props {
   initialData?: Category;
   schema: ReturnPostCategoryFormType;
   editMode?: boolean;
 }
+
 export function CategoryForm({ schema, initialData, editMode = false }: Props) {
   const router = useRouter();
   const { control, setValue, reset, handleSubmit, formState } = schema;
 
-  const { loading: loadingCreate, create } = usePostCategoryCreate();
-  const { loading: loadingEdit, update } = usePostCategoryUpdate();
+  const { loading: loadingCreate, mutate: create } = usePostCategoryCreate();
+  const { loading: loadingEdit, mutate: update } = usePostCategoryUpdate();
 
   async function setInitialData() {
     if (initialData) {
@@ -41,10 +44,12 @@ export function CategoryForm({ schema, initialData, editMode = false }: Props) {
   function onSubmit(params: PostCategorySchema) {
     if (editMode) {
       update(
-        initialData!.id,
         {
-          name: params.name,
-          description: params.description,
+          categoryId: initialData!.id,
+          params: {
+            name: params.name,
+            description: params.description,
+          },
         },
         () => {
           eventUtils.emit("close-modal");

@@ -17,3 +17,8 @@ export interface CategoryAPI {
   updated_at: string;
   posts_count?: number;
 }
+
+export interface UpdateCategoryParams {
+  categoryId: number;
+  params: Pick<Category, "name" | "description">;
+}

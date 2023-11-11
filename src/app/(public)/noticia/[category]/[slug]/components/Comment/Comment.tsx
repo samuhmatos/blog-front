@@ -1,5 +1,4 @@
-"use client";
-import { useState, useEffect } from "react";
+"use client";import { useState, useEffect } from "react";
 import { PostComment } from "@domain";
 import { useComment, useCommentService } from "@context";
 
@@ -25,12 +24,10 @@ export function Comment({ comments: initialData, postId }: Props) {
   }, []);
 
   useEffect(() => {
-    let sub = comments.length;
-    comments.forEach(
-      (comment) => (sub += comment.answers ? comment.answers.length : 0)
-    );
+    let count = comments.length;
+    comments.forEach((comment) => (count += comment.answers?.length || 0));
 
-    setTotal(sub);
+    setTotal(count);
   }, [comments]);
 
   return (

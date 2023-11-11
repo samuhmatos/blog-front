@@ -4,16 +4,16 @@ import { QueryKeys } from "@infra";
 
 import { postCategoryService } from "..";
 
-export function usePostCategoryGet(categoryId: number) {
+export function usePostCategoryGetAll() {
   const { isLoading, data, refetch } = useQuery({
-    queryKey: [QueryKeys.PostCategoryGet, categoryId],
-    queryFn: () => postCategoryService.show(categoryId),
+    queryKey: [QueryKeys.PostCategoryGetAll],
+    queryFn: () => postCategoryService.getAll(),
     staleTime: 50000, // 5 minutes
   });
 
   return {
     isLoading,
-    category: data,
+    categories: data,
     refetch,
   };
 }

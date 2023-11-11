@@ -1,5 +1,4 @@
-"use client";
-import { Category, usePostCategoryRemove } from "@domain";
+"use client";import { Category, usePostCategoryRemove } from "@domain";
 
 import { Fragment, useState } from "react";
 import MUITableRow from "@mui/material/TableRow";
@@ -21,7 +20,7 @@ interface RowsType {
 export function TableRow({ category, refetch, isTrash }: RowsType) {
   const [open, setOpen] = useState(false);
 
-  const { loading: loadingRemove, remove } = usePostCategoryRemove();
+  const { loading: loadingRemove, mutate: remove } = usePostCategoryRemove();
 
   function handleRemovePost() {
     remove(category.id, () => {

@@ -1,33 +1,20 @@
 "use client";
-import { useState } from "react";
-import { User, userService } from "..";
-import { AxiosError } from "axios";
-import { ErrorApi } from "@api";
+import { userService } from "..";
 import { errorUtils } from "@utils";
+import { useQuery } from "@tanstack/react-query";
+import { QueryKeys } from "@infra";
 
-export function useUserGet() {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [user, setUser] = useState<User>();
-
-  function show(userId: number) {
-    setLoading(true);
-
-    userService
-      .show(userId)
-      .then((res) => {
-        setUser(res);
-      })
-      .catch((err: AxiosError<ErrorApi>) => {
-        errorUtils.setGlobalErrorMessage(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
+export function useUserGet(userId: number) {
+  const { data, isLoading, isError, refetch, error } = useQuery({
+    queryKey: [QueryKeys.UserGetById, userId],
+    queryFn: () => userService.show(userId),
+    staleTime: 60000, // 60 seconds
+  });
 
   return {
-    loading,
-    user,
-    show,
+    user: data,
+    isLoading,
+    isError,
+    refetch,
   };
 }

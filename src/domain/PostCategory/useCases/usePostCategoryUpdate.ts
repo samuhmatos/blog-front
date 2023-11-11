@@ -1,37 +1,21 @@
-"use client";import { useState } from "react";
-import { Category, postCategoryService } from "..";
+"use client";
 import { errorUtils, toastUtils } from "@utils";
-import { AxiosError } from "axios";
-import { ErrorApi } from "@api";
+import { useMutation } from "@infra";
+
+import { Category, UpdateCategoryParams, postCategoryService } from "..";
 
 export function usePostCategoryUpdate() {
-  const [loading, setLoading] = useState<boolean>(false);
-
-  function update(
-    categoryId: number,
-    params: Pick<Category, "name" | "description">,
-    callback: () => void
-  ) {
-    setLoading(true);
-
-    postCategoryService
-      .update(categoryId, params)
-      .then((res) => {
+  return useMutation<UpdateCategoryParams, Category>(
+    postCategoryService.update,
+    {
+      onSuccess(data) {
         toastUtils.show({
           message: "Categoria atualizada com sucesso!",
         });
-        callback();
-      })
-      .catch((err: AxiosError<ErrorApi>) => {
-        errorUtils.setGlobalErrorMessage(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
-
-  return {
-    loading,
-    update,
-  };
+      },
+      onError(error) {
+        errorUtils.setGlobalErrorMessage(error);
+      },
+    }
+  );
 }

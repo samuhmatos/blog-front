@@ -1,40 +1,25 @@
-"use client";import { useState } from "react";
-import { Category, postCategoryService } from "..";
+"use client";
 import { errorUtils, toastUtils } from "@utils";
-import { AxiosError } from "axios";
-import { ErrorApi } from "@api";
+import { useMutation } from "@infra";
+
+import { Category, postCategoryService } from "..";
 
 interface Props {
   name: string;
   description: string;
 }
 export function usePostCategoryCreate() {
-  const [loading, setLoading] = useState<boolean>(false);
-
-  async function create(
-    params: Pick<Category, "name" | "description">,
-    callBack: () => void
-  ) {
-    setLoading(true);
-    postCategoryService
-      .create(params)
-      .then((res) => {
+  return useMutation<Pick<Category, "name" | "description">, Category>(
+    postCategoryService.create,
+    {
+      onSuccess(data) {
         toastUtils.show({
           message: "Categoria criada com sucesso!",
         });
-
-        callBack();
-      })
-      .catch((err: AxiosError<ErrorApi>) => {
-        errorUtils.setGlobalErrorMessage(err);
-      })
-      .then(() => {
-        setLoading(false);
-      });
-  }
-
-  return {
-    loading,
-    create,
-  };
+      },
+      onError(error) {
+        errorUtils.setGlobalErrorMessage(error);
+      },
+    }
+  );
 }

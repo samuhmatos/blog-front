@@ -1,34 +1,25 @@
 "use client";
-import { useState } from "react";
-import { Newsletter, newsletterService } from "..";
 import { errorUtils, toastUtils } from "@utils";
-import { AxiosError } from "axios";
-import { ErrorApi } from "@api";
+import { useMutation } from "@infra";
+
+import { Newsletter, newsletterService } from "..";
 
 export function useRemoveNewsletter() {
-  const [loading, setLoading] = useState<boolean>(false);
-
-  function remove(params: Pick<Newsletter, "email" | "token">) {
-    setLoading(true);
-    newsletterService
-      .remove(params)
-      .then((res) => {
+  return useMutation<Pick<Newsletter, "email" | "token">, void>(
+    newsletterService.remove,
+    {
+      onSuccess(data) {
         toastUtils.show({
           message: "Agora é oficial, você se desinscreveu da newsletter 🥺",
           type: "warning",
         });
-      })
-      .catch((err: AxiosError<ErrorApi>) => {
-        errorUtils.setGlobalErrorMessage(err, {
+      },
+      onError(error) {
+        errorUtils.setGlobalErrorMessage(error, {
           "404":
             "Credenciais inválidas! Clique no link do email e tente novamente!",
         });
-      })
-      .finally(() => setLoading(false));
-  }
-
-  return {
-    loading,
-    remove,
-  };
+      },
+    }
+  );
 }

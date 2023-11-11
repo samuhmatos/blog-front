@@ -1,7 +1,12 @@
-"use client";import { usePostCommentReaction } from "@domain";
+"use client";import { useEffect, useState } from "react";
+
+import {
+  usePostCommentReactionCreate,
+  usePostCommentReactionDelete,
+  usePostCommentReactionGet,
+} from "@domain";
 import { Icon } from "@components";
 import { ReactionType } from "@types";
-import { useEffect, useState } from "react";
 
 interface Props {
   commentId: number;
@@ -10,32 +15,34 @@ interface Props {
   unLike: number;
 }
 export function CommentReaction({ commentId, like, postId, unLike }: Props) {
-  const {
-    createReaction,
-    reactionType,
-    likeCount,
-    unLikeCount,
-    deleteReaction,
-    show,
-  } = usePostCommentReaction({
-    like,
-    unLike,
+  const [reaction, setReaction] = useState<ReactionType | null>(null);
+  const [reactionCount, setReactionCount] = useState<number>(like - unLike);
+
+  const { reaction: reactionReq } = usePostCommentReactionGet(commentId);
+  const { mutate: create } = usePostCommentReactionCreate({
+    setReaction,
+    setReactionCount,
+  });
+  const { mutate: remove } = usePostCommentReactionDelete({
+    reaction,
+    setReaction,
+    setReactionCount,
   });
 
-  const diff = likeCount - unLikeCount;
-
   useEffect(() => {
-    show(commentId);
-  }, []);
+    if (reactionReq) {
+      setReaction(reactionReq.type);
+    }
+  }, [reactionReq]);
 
   async function handleReaction(e: ReactionType) {
-    if (e !== reactionType) {
-      createReaction({
+    if (e !== reaction) {
+      create({
         commentId,
         type: e,
       });
     } else {
-      deleteReaction(commentId);
+      remove(commentId);
     }
   }
 
@@ -43,7 +50,7 @@ export function CommentReaction({ commentId, like, postId, unLike }: Props) {
     <div className="px-3 py-2 bg-primary-900 flex flex-col gap-2 rounded">
       <button
         className={`${
-          reactionType === "LIKE" ? "text-white" : "text-gray-500"
+          reaction === "LIKE" ? "text-white" : "text-gray-500"
         } text-base`}
         onClick={() => handleReaction("LIKE")}
       >
@@ -51,12 +58,12 @@ export function CommentReaction({ commentId, like, postId, unLike }: Props) {
       </button>
 
       <span className="text-base font-bod text-gray-200 text-center">
-        {diff}
+        {reactionCount}
       </span>
 
       <button
         className={`${
-          reactionType === "UNLIKE" ? "text-white" : "text-gray-500"
+          reaction === "UNLIKE" ? "text-white" : "text-gray-500"
         } text-base `}
         onClick={() => handleReaction("UNLIKE")}
       >

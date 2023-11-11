@@ -1,5 +1,4 @@
-"use client";
-import { useUserCreate } from "@domain";
+"use client";import { useUserCreate } from "@domain";
 import { ReturnUserCreateFormType, UserCreateSchema } from "../../../schema/";
 import { eventUtils } from "@utils";
 import { Button, FormCheckbox, FormTextInput } from "@components";
@@ -13,7 +12,7 @@ export function UserCreateForm({ schema }: UserCreateFormProps) {
   const router = useRouter();
   const { control, formState, handleSubmit } = schema;
 
-  const { create, loading: loadingCreate } = useUserCreate();
+  const { mutate: create, loading } = useUserCreate();
 
   function close() {
     router.back();
@@ -79,7 +78,7 @@ export function UserCreateForm({ schema }: UserCreateFormProps) {
           placeholder="Salvar"
           disabled={!formState.isValid}
           onClick={handleSubmit(handleCreate)}
-          loading={loadingCreate}
+          loading={loading}
         />
         <Button
           placeholder="Cancelar"

@@ -1,10 +1,13 @@
-"use client";import { Box, Modal, SxProps, Theme } from "@mui/material";
+"use client";
 import { useRouter } from "next/navigation";
+import { Metadata } from "next";
 import { useEffect } from "react";
+
 import { usePostCategoryGet } from "@domain";
 import { PageParams } from "@types";
+import { Modal } from "@components";
+
 import { CategoryForm } from "../../components";
-import { Metadata } from "next";
 import { usePostCategoryForm } from "../../schema";
 
 export const metadata: Metadata = {
@@ -14,47 +17,26 @@ export const metadata: Metadata = {
   },
 };
 
-const style: SxProps<Theme> = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "50vw",
-  maxWidth: 800,
-  height: "auto",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  overflowY: "auto",
-};
-
 export default function CreatePostPage(props: PageParams<{ id: number }>) {
   const categoryId = props.searchParams.id;
   const router = useRouter();
   const schema = usePostCategoryForm();
 
-  const { category, getOne } = usePostCategoryGet();
-
   useEffect(() => {
-    if (categoryId) {
-      getOne(categoryId);
+    if (!categoryId) {
+      handleClose();
     }
   }, []);
 
-  const handleClose = (
-    event: {},
-    reason: "backdropClick" | "escapeKeyDown"
-  ) => {
+  const { category } = usePostCategoryGet(categoryId);
+
+  const handleClose = () => {
     router.back();
   };
 
   return (
-    <Modal open onClose={handleClose}>
-      <Box sx={style}>
-        <CategoryForm schema={schema} initialData={category} editMode />
-      </Box>
+    <Modal isOpen onClose={handleClose} className="max-w-3xl">
+      <CategoryForm schema={schema} initialData={category} editMode />
     </Modal>
   );
 }
-
-// TODO: VALIDAR SE O INPUIT ESTA FOCADO E SE FOR FECHAR, VALIDAR SE O QUER SALVAR RASCUNHO OU APAGAR. FEATURE
