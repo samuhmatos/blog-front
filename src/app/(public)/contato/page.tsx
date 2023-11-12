@@ -1,4 +1,5 @@
-"use client";import { Metadata } from "next";
+"use client";
+import { Metadata } from "next";
 import { FormTextAreaInput, Button, FormTextInput, Icon } from "@components";
 import { useCreateContact } from "@domain";
 

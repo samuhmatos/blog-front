@@ -1,5 +1,4 @@
-"use client";
-import { Button, Icon, InputText } from "@components";
+"use client";import { Button, Icon } from "@components";
 import { ContatoAboutSection } from "./components/ContatoAboutSection";
 
 export default function Loading() {
@@ -13,46 +12,35 @@ export default function Loading() {
             Entre em contato comigo
           </h4>
           <div>
-            <InputText
-              name="fullName"
-              setValue={() => {}}
-              value=""
-              disabled
-              placeholder="Digite seu nome completo"
-              label="Nome"
-            />
-            <InputText
-              name="phone"
-              setValue={() => {}}
-              value=""
-              disabled
-              placeholder="Digite seu email"
-              label="Email"
-            />
-            <InputText
-              name="email"
-              setValue={() => {}}
-              value=""
-              disabled
-              placeholder="Digite seu número de telefone"
-              label="Telefone"
-            />
-            <InputText
-              name="subject"
-              setValue={() => {}}
-              value=""
-              disabled
-              placeholder="Digite o assunto"
-              label="Assunto"
-            />
-            <InputText
-              name="message"
-              setValue={() => {}}
-              value=""
-              disabled
-              placeholder="Digite sua mensagem"
-              label="mensagem"
-            />
+            <div>
+              <span className="font-bold text-sm mb-1">Nome</span>
+              <div className="h-8 animate-pulse bg-gray-400 mb-2 rounded-lg"></div>
+            </div>
+
+            <div>
+              <span className="font-bold text-sm mb-1">Nome</span>
+              <div className="h-8 animate-pulse bg-gray-400 mb-2 rounded-lg"></div>
+            </div>
+
+            <div>
+              <span className="font-bold text-sm mb-1">Email</span>
+              <div className="h-8 animate-pulse bg-gray-400 mb-2 rounded-lg"></div>
+            </div>
+
+            <div>
+              <span className="font-bold text-sm mb-1">Telefone</span>
+              <div className="h-8 animate-pulse bg-gray-400 mb-2 rounded-lg"></div>
+            </div>
+
+            <div>
+              <span className="font-bold text-sm mb-1">Assunto</span>
+              <div className="h-8 animate-pulse bg-gray-400 mb-2 rounded-lg"></div>
+            </div>
+
+            <div>
+              <span className="font-bold text-sm mb-1">Sua mensagem</span>
+              <div className="h-28 animate-pulse bg-gray-400 mb-2 rounded-lg"></div>
+            </div>
 
             <Button
               endIcon={<Icon name="Send" />}

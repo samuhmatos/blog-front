@@ -1,21 +1,22 @@
-import Image from "next/image";
 import { PostWithDetails } from "@domain";
-import { Box } from "./Box";
 import { Icon } from "@components";
 
+import { Box } from "./Box";
+
 type AuthorType = Pick<PostWithDetails, "author">;
+
 export function Author({ author }: AuthorType) {
   return (
     <Box className="border-none mt-8 3sm:px-14">
       <section>
-        <div className="items-center bg-gray-100 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
-          <a href="#">
+        <div className="items-center bg-gray-100 rounded-lg shadow flex flex-wrap  dark:bg-gray-800 dark:border-gray-700 sm:flex-nowrap">
+          <div className="w-full 3sm:w-2/5 md:w-5/12 mx-auto">
             <img
-              className="w-full rounded-lg sm:rounded-none sm:rounded-l-lg"
+              className="w-full h-full  rounded-lg sm:rounded-l-lg"
               src={author.imageURL || "/assets/user.png"}
               alt={`Foto do autor ${author.name}`}
             />
-          </a>
+          </div>
           <div className="p-5">
             <h3 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
               <a href="#">{author.name}</a>

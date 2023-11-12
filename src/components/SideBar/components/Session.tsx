@@ -1,6 +1,8 @@
 import { CardSemiSmall, CardSmall } from "@components";
 import { PostList, PostWithDetails, postService } from "@domain";
 
+export const revalidate = 2100; // 35 minutes
+
 async function getList(query: keyof PostList): Promise<PostWithDetails[]> {
   return await postService.getList(query);
 }
