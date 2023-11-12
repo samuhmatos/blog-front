@@ -11,6 +11,8 @@ import { Button, FormTextInput } from "@components";
 import { eventUtils } from "@utils";
 
 import { PostCategorySchema, ReturnPostCategoryFormType } from "../schema";
+import { useQueryClient } from "@tanstack/react-query";
+import { QueryKeys } from "@infra";
 
 interface Props {
   initialData?: Category;
@@ -20,6 +22,8 @@ interface Props {
 
 export function CategoryForm({ schema, initialData, editMode = false }: Props) {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const { control, setValue, reset, handleSubmit, formState } = schema;
 
   const { loading: loadingCreate, mutate: create } = usePostCategoryCreate();
@@ -52,6 +56,9 @@ export function CategoryForm({ schema, initialData, editMode = false }: Props) {
           },
         },
         () => {
+          queryClient.invalidateQueries({
+            queryKey: [QueryKeys.PostCategoryGet, initialData!.id],
+          });
           eventUtils.emit("close-modal");
           handleClose();
         }

@@ -1,5 +1,7 @@
 "use client";
 import { useEffect } from "react";
+
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Button,
   FormCheckbox,
@@ -8,6 +10,8 @@ import {
   FormTextInput,
 } from "@components";
 import { UpdateServiceProps, useUpdatePost } from "@domain";
+import { QueryKeys } from "@infra";
+import { eventUtils } from "@utils";
 
 import { FormContentEditor } from "../FormContentEditor/FormContentEditor";
 import { ReturnUpdatePostFormType, UpdatePostSchema } from "../../schemas";
@@ -19,6 +23,8 @@ export function UpdatePostForm({
   schema,
   categories,
 }: PostFormProps<ReturnUpdatePostFormType>) {
+  const queryClient = useQueryClient();
+
   const { loading, mutate: update } = useUpdatePost();
   const { formState, handleSubmit, setValue, control } = schema;
 
@@ -47,11 +53,19 @@ export function UpdatePostForm({
     }
   };
 
-  const handlePublishPost = (data: UpdatePostSchema) => {
-    update({
-      formData: formatData(data, false),
-      postId: initialData?.id!,
-    });
+  const handleUpdate = (data: UpdatePostSchema) => {
+    update(
+      {
+        formData: formatData(data, false),
+        postId: initialData?.id!,
+      },
+      () => {
+        eventUtils.emit("close-modal");
+        queryClient.invalidateQueries({
+          queryKey: [QueryKeys.GetPost, initialData!.id],
+        });
+      }
+    );
   };
 
   async function setInitialData() {
@@ -118,7 +132,7 @@ export function UpdatePostForm({
           loading={loading}
           placeholder="Editar Postagem"
           disabled={!formState.isValid}
-          onClick={handleSubmit(handlePublishPost)}
+          onClick={handleSubmit(handleUpdate)}
         />
 
         <FormCheckbox
@@ -132,6 +146,4 @@ export function UpdatePostForm({
   );
 }
 
-// FIXME: CORRIGIR TIPAGEM PARA NUMBER CATEGORY
-// JetBrainsMono Nerd Font
 // TODO: ROW INPUT CHECKBOX BUG

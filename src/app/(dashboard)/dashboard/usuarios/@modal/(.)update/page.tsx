@@ -26,15 +26,17 @@ export default function CreateUserPage({
     router.back();
   }
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <CircularProgress size={30} />
+      </div>
+    );
+  }
+
   return (
     <Modal isOpen onClose={handleClose}>
-      {isLoading ? (
-        <div className="flex justify-center items-center">
-          <CircularProgress size={30} />
-        </div>
-      ) : (
-        <UserUpdateForm schema={schema} initialData={user} />
-      )}
+      <UserUpdateForm schema={schema} initialData={user} />
     </Modal>
   );
 }

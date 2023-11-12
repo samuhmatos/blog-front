@@ -1,8 +1,13 @@
-import { Metadata } from "next";import { Screen, SideBar } from "@components";
-import { PageParams } from "@types";
-import { CategoryList } from "./components/CategoryList";
 import { Suspense } from "react";
+import { Metadata } from "next";
+
+import { Screen, SideBar } from "@components";
+import { PageParams } from "@types";
+
+import { CategoryList } from "./components/CategoryList";
 import { FeedSkeleton } from "../components/Skeleton";
+
+export const revalidate = 300; // 5 minutes
 
 export const metadata: Metadata = {
   title: "Categorias",

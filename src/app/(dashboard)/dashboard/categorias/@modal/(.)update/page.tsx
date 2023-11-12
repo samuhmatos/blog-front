@@ -9,6 +9,7 @@ import { Modal } from "@components";
 
 import { CategoryForm } from "../../components";
 import { usePostCategoryForm } from "../../schema";
+import { CircularProgress } from "@mui/material";
 
 export const metadata: Metadata = {
   title: "Atualizar Categoria",
@@ -28,7 +29,7 @@ export default function CreatePostPage(props: PageParams<{ id: number }>) {
     }
   }, []);
 
-  const { category } = usePostCategoryGet(categoryId);
+  const { category, isLoading } = usePostCategoryGet(categoryId);
 
   const handleClose = () => {
     router.back();
@@ -36,7 +37,13 @@ export default function CreatePostPage(props: PageParams<{ id: number }>) {
 
   return (
     <Modal isOpen onClose={handleClose} className="max-w-3xl">
-      <CategoryForm schema={schema} initialData={category} editMode />
+      {isLoading ? (
+        <div className="flex justify-center items-center">
+          <CircularProgress size={30} />
+        </div>
+      ) : (
+        <CategoryForm schema={schema} initialData={category} editMode />
+      )}
     </Modal>
   );
 }

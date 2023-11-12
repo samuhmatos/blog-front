@@ -7,5 +7,6 @@ export function useCommentForm() {
     defaultValues: {
       message: "",
     },
+    mode: "onSubmit",
   });
 }

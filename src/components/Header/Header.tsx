@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Navigation, SearchInput, Actions } from "./components";
 import { Category, postCategoryService } from "@domain";
 
+export const revalidate = 7200; // 2 hours
+
 async function getPopularCategories(): Promise<Category[]> {
   return await postCategoryService.getPopular();
 }

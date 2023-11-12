@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-export async function dashboardMiddleware(
-  request: NextRequest
-): Promise<NextResponse> {
+export function dashboardMiddleware(request: NextRequest): NextResponse {
   var token = request.cookies.get("token");
 
   if (!token) {

@@ -1,8 +1,11 @@
-"use client";
-import { useEffect } from "react";
-import { PostCommentParams } from "@domain";
+"use client";import { useEffect } from "react";
+import {
+  PostCommentParams,
+  usePostCommentCreate,
+  usePostCommentUpdate,
+} from "@domain";
 import { Button, FormTextAreaInput } from "@components";
-import { useComment, useCommentService } from "@context";
+import { useComment } from "@context";
 
 import { useCommentForm } from "./useCommentForm";
 import { CommentSchema } from "./commentSchema";
@@ -15,8 +18,11 @@ export function CommentForm({ postId }: Props) {
   const { control, handleSubmit, formState, reset, setValue } =
     useCommentForm();
 
-  const { comment, replyTo, loading, action } = useComment();
-  const { createComment, updateComment, setCommentState } = useCommentService();
+  const { comment, replyTo, action, setCommentState } = useComment();
+  const { mutate: updateComment, loading: loadingUpdate } =
+    usePostCommentUpdate();
+  const { mutate: createComment, loading: loadingCreate } =
+    usePostCommentCreate();
 
   function submitComment({ message }: CommentSchema) {
     var params: PostCommentParams = {
@@ -63,22 +69,10 @@ export function CommentForm({ postId }: Props) {
     }
   }
 
-  function scrollToForm() {
-    var textArea = document.querySelector(
-      "#commentSection textarea"
-    ) as HTMLTextAreaElement;
-    var offSetTop = textArea!.offsetTop;
-
-    window.scrollTo({ top: offSetTop - 200 });
-    textArea!.focus();
-  }
-
   useEffect(() => {
     if (action == "update") {
       setValue("message", comment!.comment);
     }
-
-    scrollToForm();
   }, [replyTo, action]);
 
   return (
@@ -90,7 +84,7 @@ export function CommentForm({ postId }: Props) {
       />
       <div className="flex gap-3 mt-3">
         <Button
-          loading={loading}
+          loading={action === "create" ? loadingCreate : loadingUpdate}
           placeholder={renderSendButtonText()}
           disabled={!formState.isValid}
           onClick={handleSubmit(submitComment)}

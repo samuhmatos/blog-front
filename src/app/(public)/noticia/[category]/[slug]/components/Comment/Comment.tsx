@@ -1,6 +1,8 @@
-"use client";import { useState, useEffect } from "react";
+"use client";
+import { useState, useEffect } from "react";
+
 import { PostComment } from "@domain";
-import { useComment, useCommentService } from "@context";
+import { useComment } from "@context";
 
 import { CommentBox } from "./CommentBox";
 import { CommentForm } from "./CommentForm";
@@ -13,8 +15,7 @@ interface Props {
 export function Comment({ comments: initialData, postId }: Props) {
   const [total, setTotal] = useState<number>(0);
 
-  const { comments } = useComment();
-  const { setCommentState } = useCommentService();
+  const { comments, setCommentState } = useComment();
 
   useEffect(() => {
     setCommentState((prev) => ({

@@ -1,7 +1,7 @@
-"use client";
-import { Box, Modal, SxProps, Theme } from "@mui/material";
-import { useRouter } from "next/navigation";
+"use client";import { useRouter } from "next/navigation";
 import { Metadata } from "next";
+import { Modal } from "@components";
+
 import { useGetCategories } from "../../hooks/useGetCategories";
 import { useCreatePostForm } from "../../schemas";
 import { CreatePostForm } from "../../components/Post/CreatePostForm";
@@ -13,41 +13,19 @@ export const metadata: Metadata = {
   },
 };
 
-const style: SxProps<Theme> = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "90vw",
-  maxWidth: 1400,
-  height: "90vh",
-  maxHeight: 1000,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  overflowY: "auto",
-};
-
 export default function CreatePostPage() {
   const router = useRouter();
-  const { categories, categoryData } = useGetCategories();
+  const { categoriesOptions, categories } = useGetCategories();
 
-  const handleClose = (
-    event: {},
-    reason: "backdropClick" | "escapeKeyDown"
-  ) => {
+  const handleClose = () => {
     router.back();
   };
 
-  const schema = useCreatePostForm(categories);
+  const schema = useCreatePostForm(categoriesOptions);
 
   return (
-    <Modal open onClose={handleClose}>
-      <Box sx={style}>
-        <CreatePostForm schema={schema} categories={categoryData} />
-      </Box>
+    <Modal isOpen onClose={handleClose} className="w-[90vw] max-w-7xl">
+      <CreatePostForm schema={schema} categories={categories!} />
     </Modal>
   );
 }
-
-// TODO: VALIDAR SE O INPUIT ESTA FOCADO E SE FOR FECHAR, VALIDAR SE O QUER SALVAR RASCUNHO OU APAGAR. FEATURE

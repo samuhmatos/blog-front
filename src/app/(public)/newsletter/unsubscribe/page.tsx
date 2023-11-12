@@ -1,8 +1,9 @@
+import { Metadata } from "next";
+import { redirect } from "next/navigation";
+
 import { PageParams } from "@types";
 import { Newsletter } from "@domain";
-import { Metadata } from "next";
 import { UnsubscribeAction } from "./components/UnsubscribeAction";
-import { redirect } from "next/navigation";
 import { RedirectType } from "next/dist/client/components/redirect";
 
 export const metadata: Metadata = {

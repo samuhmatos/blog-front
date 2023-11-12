@@ -1,5 +1,4 @@
-"use client";
-import { Metadata } from "next";
+"use client";import { Metadata } from "next";
 import { FormTextAreaInput, Button, FormTextInput, Icon } from "@components";
 import { useCreateContact } from "@domain";
 
@@ -12,6 +11,8 @@ export const metadata: Metadata = {
   description: "Entre em contato comigo",
   abstract: "Entre em contato comigo",
 };
+
+export const revalidate = 3600; // 1 hour
 
 export default function ContatoScreen() {
   const { loading, mutate: create } = useCreateContact();

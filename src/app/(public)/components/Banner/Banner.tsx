@@ -1,6 +1,8 @@
 import { PostWithDetails, postService } from "@domain";
 import { BannerBox } from "./components/BannerBox";
 
+export const revalidate = 2400; // 40 minutes
+
 async function getList(): Promise<PostWithDetails[]> {
   return await postService.getList("best");
 }

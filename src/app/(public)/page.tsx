@@ -2,9 +2,12 @@ import { Suspense } from "react";
 import { PageParams } from "@types";
 
 import { SideBar, Screen } from "@components";
+
 import { Feed, Banner } from "./components/";
 import { ErrorMessage } from "./components/ErrorMessage";
 import { BannerSkeleton, FeedSkeleton } from "./components/Skeleton";
+
+export const revalidate = 300; // 5 minutes
 
 export default function HomeScreen({
   searchParams,

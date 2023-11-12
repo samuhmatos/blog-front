@@ -12,13 +12,13 @@ export const metadata: Metadata = {
 };
 
 export default function CreatePostPage() {
-  const { categories, categoryData } = useGetCategories();
+  const { categories, categoriesOptions } = useGetCategories();
 
-  const schema = useCreatePostForm(categories);
+  const schema = useCreatePostForm(categoriesOptions);
 
   return (
     <div>
-      <CreatePostForm schema={schema} categories={categoryData} />
+      <CreatePostForm schema={schema} categories={categories!} />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 import { userService } from "..";
-import { errorUtils } from "@utils";
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "@infra";
 

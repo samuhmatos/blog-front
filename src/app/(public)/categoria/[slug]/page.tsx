@@ -1,14 +1,18 @@
-import { Screen, SideBar } from "@components";
-import { CategorySession } from "./components/CategorySession";
-import { Category, postCategoryService } from "@domain";
-import { notFound } from "next/navigation";
-import { CategoryHeader } from "./components/CategoryHeader";
-import { PageParams } from "@types";
-import { AxiosError } from "axios";
-import { ErrorApi } from "@api";
 import { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { AxiosError } from "axios";
+
+import { Screen, SideBar } from "@components";
+import { ErrorApi } from "@api";
+import { Category, postCategoryService } from "@domain";
+import { PageParams } from "@types";
+
+import { CategorySession } from "./components/CategorySession";
+import { CategoryHeader } from "./components/CategoryHeader";
 import { FeedSkeleton } from "../../components/Skeleton";
+
+export const revalidate = 300; // 5 minutes
 
 export interface PagePaginationParams {
   params: {

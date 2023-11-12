@@ -1,11 +1,13 @@
 "use client";
+import { useState } from "react";
+
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { PostComment, usePostComment } from "@domain";
-import { useState } from "react";
+import { PostComment, usePostCommentRemove } from "@domain";
 import { CircularProgress } from "@mui/material";
+import { useAuth, useComment } from "@context";
+
 import { CommentReportModal } from "./CommentReportModal";
-import { useAuth, useComment, useCommentService } from "@context";
 
 interface Props {
   commentId: number;
@@ -17,8 +19,8 @@ interface Props {
 export function CommentOptions({ commentId, userId, comment, postId }: Props) {
   const { user } = useAuth();
 
-  const { loading } = useComment();
-  const { removeComment, setCommentState } = useCommentService();
+  const { setCommentState, scrollToForm } = useComment();
+  const { mutate: removeComment, loading } = usePostCommentRemove(commentId);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openOptions = Boolean(anchorEl);
@@ -48,6 +50,7 @@ export function CommentOptions({ commentId, userId, comment, postId }: Props) {
       comment,
     }));
     handleCloseOptions();
+    scrollToForm();
   }
 
   function handleDelete() {

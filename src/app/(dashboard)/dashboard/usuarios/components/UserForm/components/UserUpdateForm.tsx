@@ -1,5 +1,4 @@
-"use client";
-import { User, useUserUpdate } from "@domain";
+"use client";import { User, useUserUpdate } from "@domain";
 import { UserUpdateSchema } from "../../../schema";
 import { eventUtils } from "@utils";
 import {
@@ -14,6 +13,8 @@ import {
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { ReturnUserUpdateFormType } from "../../../schema";
+import { useQueryClient } from "@tanstack/react-query";
+import { QueryKeys } from "../../../../../../../infra/infraTypes";
 
 interface UserUpdateFormProps {
   schema: ReturnUserUpdateFormType;
@@ -22,6 +23,7 @@ interface UserUpdateFormProps {
 
 export function UserUpdateForm({ schema, initialData }: UserUpdateFormProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { control, formState, setValue, handleSubmit } = schema;
   const [imageProfile, setImageProfile] = useState<string | undefined>();
@@ -42,6 +44,9 @@ export function UserUpdateForm({ schema, initialData }: UserUpdateFormProps) {
 
   const { mutate, loading, data } = useUserUpdate(() => {
     eventUtils.emit("close-modal");
+    queryClient.invalidateQueries({
+      queryKey: [QueryKeys.UserGetById, initialData!.id],
+    });
     close();
   });
   const user = data?.user || null;
@@ -63,7 +68,7 @@ export function UserUpdateForm({ schema, initialData }: UserUpdateFormProps) {
     var formData = new FormData();
     formData.append("image", file[0]);
 
-    mutate({ userId: id!, params: formData });
+    mutate({ userId: id!, params: formData }, () => {});
   }
 
   function renderImageProfile() {

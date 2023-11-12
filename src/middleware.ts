@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { authMiddleware, dashboardMiddleware } from "@middlewares";
 
-export default function middleware(
-  request: NextRequest
-): Promise<NextResponse> {
+export default function middleware(request: NextRequest): NextResponse {
   if (request.url.includes("/dashboard")) {
     return dashboardMiddleware(request);
   }
@@ -18,5 +16,3 @@ export default function middleware(
 export const config = {
   matcher: ["/dashboard/:path*", "/auth/:path*"],
 };
-
-//TODO: VERIRIFICAR SE AS INFOS DO COOKIES, SE AINDA SÃO DE FATO AS MESMAS QUE DEVERIAM SER E SE O USUARIO AINDA ESTA LOGADO JÁ NA API
