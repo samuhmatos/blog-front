@@ -13,12 +13,19 @@ interface Props {
   postId: number;
   like: number;
   unLike: number;
+  userReaction: ReactionType | null;
 }
-export function CommentReaction({ commentId, like, postId, unLike }: Props) {
-  const [reaction, setReaction] = useState<ReactionType | null>(null);
+export function CommentReaction({
+  commentId,
+  like,
+  postId,
+  unLike,
+  userReaction,
+}: Props) {
+  const [reaction, setReaction] = useState<ReactionType | null>(userReaction);
   const [reactionCount, setReactionCount] = useState<number>(like - unLike);
 
-  const { reaction: reactionReq } = usePostCommentReactionGet(commentId);
+  // const { reaction: reactionReq } = usePostCommentReactionGet(commentId);
   const { mutate: create } = usePostCommentReactionCreate({
     setReaction,
     setReactionCount,
@@ -29,11 +36,11 @@ export function CommentReaction({ commentId, like, postId, unLike }: Props) {
     setReactionCount,
   });
 
-  useEffect(() => {
-    if (reactionReq) {
-      setReaction(reactionReq.type);
-    }
-  }, [reactionReq]);
+  // useEffect(() => {
+  //   if (reactionReq) {
+  //     setReaction(reactionReq.type);
+  //   }
+  // }, [reactionReq]);
 
   async function handleReaction(e: ReactionType) {
     if (e !== reaction) {

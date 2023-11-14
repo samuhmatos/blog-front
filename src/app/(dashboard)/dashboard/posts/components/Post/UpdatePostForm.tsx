@@ -1,5 +1,4 @@
-"use client";
-import { useEffect } from "react";
+"use client";import { useEffect } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
 import {
@@ -8,12 +7,12 @@ import {
   FormImagePreviewUpload,
   FormSelectOption,
   FormTextInput,
+  FormEditor,
 } from "@components";
 import { UpdateServiceProps, useUpdatePost } from "@domain";
 import { QueryKeys } from "@infra";
 import { eventUtils } from "@utils";
 
-import { FormContentEditor } from "../FormContentEditor/FormContentEditor";
 import { ReturnUpdatePostFormType, UpdatePostSchema } from "../../schemas";
 import { PostFormProps } from "./CreatePostForm";
 
@@ -120,7 +119,7 @@ export function UpdatePostForm({
         label="Sub Título"
       />
 
-      <FormContentEditor
+      <FormEditor
         control={control}
         name="content"
         label="Conteúdo"

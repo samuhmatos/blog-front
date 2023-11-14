@@ -32,3 +32,5 @@ export * from "./NotFoundPage/NotFoundPage";
 export * from "./Modal/Modal";
 export * from "./ImageUploadPreview/ImageUploadPreview";
 export * from "./ChangePasswordModal/ChangePasswordModal";
+export * from "./Editor";
+export * from "./FormEditor/FormEditor";

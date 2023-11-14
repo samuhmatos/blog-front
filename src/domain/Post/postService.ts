@@ -1,6 +1,6 @@
 import { Page, PagePaginationParams, apiAdapter } from "@api";
 import { Post, PostList, PostWithDetails, UpdatePostParams } from "./postTypes";
-import { postApi } from "./postApi";
+import { ReturnUploadPostContent, postApi } from "./postApi";
 import { postAdapter } from "./postAdapter";
 import { CreatePostSchema } from "../../app/(dashboard)/dashboard/posts/schemas";
 
@@ -122,6 +122,12 @@ async function restore(postId: number): Promise<Post> {
   return postAdapter.toPost(postAPI);
 }
 
+async function uploadPostContent(
+  content: FormData
+): Promise<ReturnUploadPostContent> {
+  return postApi.uploadPostContent(content);
+}
+
 export const postService = {
   getFeed,
   getList,
@@ -134,4 +140,5 @@ export const postService = {
   update,
   remove,
   restore,
+  uploadPostContent,
 };

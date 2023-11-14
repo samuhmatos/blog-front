@@ -11,6 +11,7 @@ function toPostComment(postCommentAPI: PostCommentApi): PostComment {
     parentId: postCommentAPI.parent_id,
     likeCount: postCommentAPI.like_count || 0,
     unLikeCount: postCommentAPI.unlike_count || 0,
+    userReaction: postCommentAPI.user_reaction,
     user: userAdapter.toUser(postCommentAPI.user),
     createdAt: postCommentAPI.created_at,
     updatedAt: postCommentAPI.updated_at,

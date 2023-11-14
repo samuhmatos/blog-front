@@ -1,8 +1,7 @@
-"use client";
-import { useRouter } from "next/navigation";
+"use client";import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { useUserGet } from "@domain";
+import { useUserGetOne } from "@domain";
 import { PageParams } from "@types";
 import { CircularProgress } from "@mui/material";
 
@@ -20,7 +19,7 @@ export default function UpdateUserPage({
     }
   }, [id]);
 
-  const { user, isLoading } = useUserGet(id);
+  const { user, isLoading } = useUserGetOne(id);
 
   const schema = useUserUpdateForm();
 

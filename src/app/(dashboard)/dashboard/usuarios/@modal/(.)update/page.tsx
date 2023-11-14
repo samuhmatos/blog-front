@@ -1,8 +1,7 @@
-"use client";
-import { Modal } from "@components";
+"use client";import { Modal } from "@components";
 import { useRouter } from "next/navigation";
 import { PageParams } from "@types";
-import { useUserGet } from "@domain";
+import { useUserGetOne } from "@domain";
 import { useEffect } from "react";
 import { UserUpdateForm } from "../../components/UserForm/components/UserUpdateForm";
 import { useUserUpdateForm } from "../../schema";
@@ -20,7 +19,7 @@ export default function CreateUserPage({
     }
   }, [id]);
 
-  const { user, isLoading } = useUserGet(id);
+  const { user, isLoading } = useUserGetOne(id);
 
   function handleClose() {
     router.back();

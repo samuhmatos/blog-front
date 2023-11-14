@@ -1,4 +1,5 @@
-import { CommentButtonReply } from "./CommentButtonReply";import { CommentHeader } from "./CommentHeader";
+import { CommentButtonReply } from "./CommentButtonReply";
+import { CommentHeader } from "./CommentHeader";
 
 import { PostComment } from "@domain";
 import { CommentReaction } from "./CommentReaction";
@@ -23,6 +24,7 @@ export function CommentBox({ comment, first }: Props) {
         like={comment.likeCount}
         unLike={comment.unLikeCount}
         postId={comment.postId}
+        userReaction={comment.userReaction}
       />
       <div className="flex-1">
         <CommentHeader

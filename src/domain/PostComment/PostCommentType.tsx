@@ -1,4 +1,4 @@
-import { User, UserApi } from "../User";
+import { ReactionType } from "@types";import { User, UserApi } from "../User";
 export interface PostCommentApi {
   id: number;
   user_id: number;
@@ -11,6 +11,7 @@ export interface PostCommentApi {
   updated_at: string;
   user: UserApi;
   answers?: PostCommentApi[];
+  user_reaction: ReactionType | null;
 }
 
 export interface PostComment {
@@ -26,6 +27,7 @@ export interface PostComment {
   updatedAtFormatted: string;
   user: User;
   answers?: PostComment[];
+  userReaction: ReactionType | null;
 }
 
 export interface PostCommentParamsApi {

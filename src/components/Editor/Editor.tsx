@@ -1,11 +1,13 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic";
-import Editor from "ckeditor5-custom-build/build/ckeditor";
 import { FormLayout } from "@components";
-import { getCookie } from "cookies-next";
-import { api } from "@api";
-import { useEffect, useRef, useState } from "react";
+import { postService } from "@domain";
+import { toastUtils } from "@utils";
+
+import CkEditor from "ckeditor5-custom-build/build/ckeditor";
 
 export interface CommentEditorProps {
   onChange: (val: string) => void;
@@ -20,7 +22,7 @@ type StatisticsType = {
   words: number;
   characters: number;
 };
-export function ContentEditor({
+export function Editor({
   onChange,
   errorMessage,
   label,
@@ -36,7 +38,6 @@ export function ContentEditor({
   });
 
   const ref = useRef<CKEditor<ClassicEditor.ClassicEditor>>(null);
-  const ckCustomEditor = Editor.Editor;
 
   useEffect(() => {
     setError(errorMessage);
@@ -68,7 +69,7 @@ export function ContentEditor({
     >
       <div id="createPost" className={errorMessage && "border border-red-700"}>
         <CKEditor
-          editor={ckCustomEditor}
+          editor={CkEditor.Editor}
           data={initialData}
           ref={ref}
           config={{
@@ -92,53 +93,45 @@ export function ContentEditor({
             },
           }}
           onReady={(editor) => {
-            if (data)
-              editor.plugins.get("FileRepository").createUploadAdapter =
-                function (loader) {
-                  return {
-                    upload: async function () {
-                      return loader.file.then((file) => {
-                        var form = new FormData();
-                        form.append("file", file);
-                        return api
-                          .post<{ url: string }>("post/upload-content", form, {
-                            headers: {
-                              "Content-Type": "multipart/form-data",
-                              Authorization: `Bearer ${getCookie("token")}`,
+            editor.plugins.get("FileRepository").createUploadAdapter =
+              function (loader) {
+                return {
+                  upload: async function () {
+                    return loader.file.then((file) => {
+                      var form = new FormData();
+                      form.append("file", file);
+                      return postService
+                        .uploadPostContent(form)
+                        .then((res) => {
+                          var imageUrl = res.url;
+                          return {
+                            default: imageUrl,
+                            html: editor.getData(),
+                            getMediaWidget: function () {
+                              var img = new Image();
+                              img.src = imageUrl;
+                              return img;
                             },
-                          })
-                          .then((res) => {
-                            var imageUrl = res.data.url;
-
-                            return {
-                              default: imageUrl,
-                              html: editor.getData(),
-                              getMediaWidget: function () {
-                                var img = new Image();
-                                img.src = imageUrl;
-                                return img;
-                              },
-                            };
-                          })
-                          .catch((error) => {
-                            throw new Error(
-                              `Unable to upload file: ${error.message}`
-                            );
+                          };
+                        })
+                        .catch((error) => {
+                          let msg = `Unable to upload file: ${error.message}`;
+                          toastUtils.show({
+                            message: msg,
                           });
-                      });
-                    },
-                  };
+
+                          throw msg;
+                        });
+                    });
+                  },
                 };
+              };
           }}
           onChange={(event, editor) => {
-            let onChangeData = editor.getData();
-            setData(onChangeData);
+            setData(editor.getData());
           }}
-          onError={(event, details) => {}}
         />
       </div>
     </FormLayout>
   );
 }
-
-//TODO: AUTO SAVE

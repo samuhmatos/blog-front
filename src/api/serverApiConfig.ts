@@ -1,9 +1,7 @@
-import axios, { AxiosInstance } from "axios";
-import { getCookie } from "cookies-next";
-import { BASE_API } from "@config";
+import axios, { AxiosInstance } from "axios";import { BASE_API } from "@config";
 
-const createAxiosInstance = (): AxiosInstance => {
-  var token = getCookie("token");
+const createAxiosInstance = async (): Promise<AxiosInstance> => {
+  const { token } = require("./../infra/session.json");
 
   const instance = axios.create({
     baseURL: BASE_API,
@@ -21,4 +19,4 @@ const createAxiosInstance = (): AxiosInstance => {
   return instance;
 };
 
-export const api = createAxiosInstance();
+export const serverApi = createAxiosInstance();

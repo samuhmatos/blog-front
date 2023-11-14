@@ -34,10 +34,25 @@ async function CSRF_token(): Promise<void> {
   return authApi.CSRF_token();
 }
 
+async function getToken(): Promise<string> {
+  return await authApi.getToken();
+}
+
+async function setToken(token: string): Promise<void> {
+  return await authApi.setToken(token);
+}
+
+async function removeToken(): Promise<void> {
+  return await authApi.removeToken();
+}
+
 export const authService = {
   forgotPassword,
   passwordReset,
   currentUser,
   login,
   CSRF_token,
+  setToken,
+  getToken,
+  removeToken,
 };

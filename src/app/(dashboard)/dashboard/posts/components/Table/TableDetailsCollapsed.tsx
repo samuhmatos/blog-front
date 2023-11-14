@@ -1,10 +1,10 @@
-import { PostWithDetails } from "@domain";import Editor from "ckeditor5-custom-build/build/ckeditor";
+import { PostWithDetails } from "@domain";
+import { ReadOnlyEditor } from "@components";
 
 type TableDetailsType = Pick<
   PostWithDetails,
   "subTitle" | "content" | "category"
 >;
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 
 export function TableDetailsCollapsed({
   category,
@@ -25,16 +25,7 @@ export function TableDetailsCollapsed({
         <li>
           <p className="text-center font-bold text-lg">Redação</p>
           <div>
-            <CKEditor
-              editor={Editor.Editor}
-              data={content}
-              onReady={(editor) => {
-                editor.enableReadOnlyMode(`read-post`);
-                const toolbarElement = editor.ui.view.toolbar.element;
-                editor.ui.getEditableElement()!.style.border = "none";
-                toolbarElement!.style.display = "none";
-              }}
-            />
+            <ReadOnlyEditor data={content} />
           </div>
         </li>
       </ul>

@@ -1,14 +1,20 @@
-"use client";
-import { AxiosError } from "axios";
+"use client";import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { Auth, ErrorApi } from "@api";
 import { deleteCookie, setCookie } from "cookies-next";
-import { errorUtils, storageUtils } from "@utils";
+import { errorUtils } from "@utils";
 import { changeRoute } from "nextjs-progressloader";
 import { AuthService } from "./AuthProvider";
-import { SignInParams, SignUpParams, authService, userService } from "@domain";
+import {
+  SignInParams,
+  SignUpParams,
+  authService,
+  useGetCurrentUser,
+  userService,
+} from "@domain";
 
 export function useAuthProvider(): AuthService {
+  const { data } = useGetCurrentUser();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<AuthService["user"]>(null);
@@ -26,6 +32,7 @@ export function useAuthProvider(): AuthService {
       .login(params)
       .then(async (response) => {
         setSuccessData(response);
+        await authService.setToken(response.token);
 
         callbackFn();
       })
@@ -44,6 +51,7 @@ export function useAuthProvider(): AuthService {
       .register(params)
       .then(async (response) => {
         setSuccessData(response);
+        await authService.setToken(response.token);
 
         callbackFn();
       })
@@ -59,8 +67,9 @@ export function useAuthProvider(): AuthService {
     setLoading(true);
     userService
       .logout()
-      .then(() => {
+      .then(async () => {
         deleteCookie("token");
+        await authService.removeToken();
 
         if (pathname.includes("dashboard")) {
           changeRoute("home");
@@ -75,23 +84,9 @@ export function useAuthProvider(): AuthService {
       .finally(() => setLoading(false));
   }
 
-  async function loadStorageData() {
-    const token = storageUtils.getOne("token");
-
-    if (token) {
-      setLoading(true);
-
-      try {
-        const currentUser = await authService.currentUser();
-        setUser(currentUser);
-      } catch (_) {}
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
-    loadStorageData();
-  }, []);
+    setUser(data || null);
+  }, [data]);
 
   return {
     signIn,

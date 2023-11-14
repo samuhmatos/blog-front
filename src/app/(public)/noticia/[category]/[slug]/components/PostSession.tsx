@@ -1,5 +1,4 @@
-import { Post } from "./Post";
-import { Author } from "./Author";
+import { Post } from "./Post";import { Author } from "./Author";
 import { Suggestion } from "./Suggestion";
 import { Comment } from "./Comment/Comment";
 import { CommentProvider } from "@context";
@@ -10,6 +9,7 @@ export async function getPost(postSlug: string): Promise<PostWithDetails> {
   try {
     return await postService.getOne(postSlug);
   } catch (error: any) {
+    console.log(error);
     notFound();
   }
 }
@@ -34,3 +34,4 @@ export async function PostSession({ postSlug }: Props) {
     </div>
   );
 }
+//TODO: not found page

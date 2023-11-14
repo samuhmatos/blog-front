@@ -1,14 +1,13 @@
-"use client";
-import { Dispatch, SetStateAction, useState } from "react";
+"use client";import { Dispatch, SetStateAction, useState } from "react";
 import {
   Button,
   FormImagePreviewUpload,
   FormSelectOption,
   FormTextInput,
+  FormEditor,
 } from "@components";
 import { Category, Post, useCreatePost } from "@domain";
 
-import { FormContentEditor } from "../FormContentEditor/FormContentEditor";
 import { CreatePostSchema, ReturnCreatePostFormType } from "../../schemas";
 
 export interface PostFormProps<Schema> {
@@ -90,7 +89,7 @@ export function CreatePostForm({
         label="Sub Título"
       />
 
-      <FormContentEditor
+      <FormEditor
         control={control}
         name="content"
         label="Conteúdo"

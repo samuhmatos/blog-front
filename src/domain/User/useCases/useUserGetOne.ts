@@ -1,9 +1,8 @@
-"use client";
-import { userService } from "..";
+"use client";import { userService } from "..";
 import { useQuery } from "@tanstack/react-query";
 import { QueryKeys } from "@infra";
 
-export function useUserGet(userId: number) {
+export function useUserGetOne(userId: number) {
   const { data, isLoading, isError, refetch, error } = useQuery({
     queryKey: [QueryKeys.UserGetById, userId],
     queryFn: () => userService.show(userId),

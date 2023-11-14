@@ -1,4 +1,5 @@
-import { dateUtils } from "@utils";import {
+import { dateUtils } from "@utils";
+import {
   Post,
   PostApi,
   PostApiWithDetails,
@@ -21,6 +22,7 @@ function toPost(postAPI: PostApi): Post {
     createdAtFormatted: dateUtils.formatDefault(postAPI.created_at),
     isDraft: postAPI.is_draft,
     categoryId: postAPI.category_id,
+    userReaction: postAPI.user_reaction,
   };
 }
 
@@ -39,7 +41,6 @@ function toPostWithDetails(postAPI: PostApiWithDetails): PostWithDetails {
       name: postAPI.category.name,
       description: postAPI.category.description,
       slug: postAPI.category.slug,
-      templateId: postAPI.category.template_id,
       createdAt: postAPI.category.created_at,
       createdAtFormatted: dateUtils.formatDefault(postAPI.category.created_at),
     },

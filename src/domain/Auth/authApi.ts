@@ -46,12 +46,43 @@ async function CSRF_token(): Promise<void> {
   return;
 }
 
+async function getToken(): Promise<string> {
+  const response = await api.get<string>("/token", {
+    baseURL: "http://127.0.0.1:3000/api",
+  });
+
+  return response.data;
+}
+
+async function setToken(token: string): Promise<void> {
+  await api.post<{ token: string }>(
+    "/token",
+    { token },
+    {
+      baseURL: "http://127.0.0.1:3000/api",
+    }
+  );
+
+  return;
+}
+
+async function removeToken(): Promise<void> {
+  await api.delete("/token", {
+    baseURL: "http://127.0.0.1:3000/api",
+  });
+
+  return;
+}
+
 export const authApi = {
   forgotPassword,
   passwordReset,
   currentUser,
   login,
   CSRF_token,
+  getToken,
+  setToken,
+  removeToken,
 };
 
 // TODO: VALIDAR SE EMAIL ESTA VERIFICADO PARA TER ACESSO A ALGUMAS FUNÇÕES

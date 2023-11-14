@@ -1,17 +1,12 @@
-import { PageAPI, PagePaginationParams, api } from "@api";
-import {
-  PostApi,
-  PostApiWithDetails,
-  PostListApi,
-  PostPageParams,
-} from "./postTypes";
+import { PageAPI, PagePaginationParams, api, serverApi } from "@api";
+import { PostApi, PostApiWithDetails, PostListApi } from "./postTypes";
 
 const PATH = "post";
 
 async function getOne(slugOrId: string): Promise<PostApiWithDetails> {
-  const response = await api.get<PostApiWithDetails>(
-    `${PATH}/filter/${slugOrId}`
-  );
+  const response = await (
+    await serverApi
+  ).get<PostApiWithDetails>(`${PATH}/filter/${slugOrId}`);
   return response.data;
 }
 
@@ -122,6 +117,25 @@ async function restore(post_id: number): Promise<PostApi> {
   return response.data;
 }
 
+export type ReturnUploadPostContent = {
+  url: string;
+};
+async function uploadPostContent(
+  content: FormData
+): Promise<ReturnUploadPostContent> {
+  const response = await api.post<ReturnUploadPostContent>(
+    `${PATH}/upload-content`,
+    content,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return response.data;
+}
+
 export const postApi = {
   getList,
   getFeed,
@@ -130,9 +144,9 @@ export const postApi = {
   getOne,
   getSuggestion,
   addView,
-  // getByCategorySlug,
   create,
   update,
   remove,
   restore,
+  uploadPostContent,
 };

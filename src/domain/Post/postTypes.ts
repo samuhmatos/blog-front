@@ -1,7 +1,14 @@
-import { Page, PageAPI, PagePaginationParams } from "@api";import { Category, CategoryAPI } from "../PostCategory/categoryTypes";
-import { User, UserApi } from "../User";
-import { PostComment, PostCommentApi } from "../PostComment";
+import { Page, PageAPI, PagePaginationParams } from "@api";
+import {
+  Category,
+  CategoryAPI,
+  PostComment,
+  PostCommentApi,
+  User,
+  UserApi,
+} from "@domain";
 import { UpdateServiceProps } from ".";
+import { ReactionType } from "@types";
 
 export interface Post {
   id: number;
@@ -17,6 +24,7 @@ export interface Post {
   createdAtFormatted: string;
   isDraft: boolean;
   categoryId: number;
+  userReaction: ReactionType | null;
 }
 
 export interface PostWithDetails extends Post {
@@ -40,6 +48,7 @@ export interface PostApi {
   like_count: number | null;
   unlike_count: number | null;
   is_draft: boolean;
+  user_reaction: ReactionType | null;
 }
 
 export interface PostApiWithDetails extends PostApi {

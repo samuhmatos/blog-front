@@ -1,13 +1,11 @@
-"use client";import { Controller, UseControllerProps, FieldValues } from "react-hook-form";
-import {
-  CommentEditorProps,
-  ContentEditor,
-} from "../ContentEditor/ContentEditor";
+"use client";
+import { Controller, UseControllerProps, FieldValues } from "react-hook-form";
+import { Editor, CommentEditorProps } from "@components";
 
 interface ContentEndEditorType
   extends Pick<CommentEditorProps, "label" | "initialData"> {}
 
-export function FormContentEditor<FormType extends FieldValues>({
+export function FormEditor<FormType extends FieldValues>({
   name,
   control,
   rules,
@@ -22,7 +20,7 @@ export function FormContentEditor<FormType extends FieldValues>({
       defaultValue={defaultValue}
       render={({ field, fieldState, formState }) => {
         return (
-          <ContentEditor
+          <Editor
             onChange={field.onChange}
             isSubmitted={formState.isSubmitted}
             isDirty={fieldState.isDirty}

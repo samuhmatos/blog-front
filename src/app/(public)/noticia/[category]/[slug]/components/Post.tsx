@@ -1,12 +1,12 @@
-"use client";import { CategoryBox, PostDetails } from "@components";
+"use client";
+import { useEffect, useState } from "react";
+
+import { CategoryBox, PostDetails, ReadOnlyEditor } from "@components";
 import { PostWithDetails, postService } from "@domain";
 import { linkUtils } from "@utils";
+
 import { Share } from "./Share";
-import Image from "next/image";
 import { Reaction } from ".";
-import { useEffect, useState } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import Editor from "ckeditor5-custom-build/build/ckeditor";
 
 interface Props {
   post: PostWithDetails;
@@ -63,18 +63,9 @@ export function Post({ post }: Props) {
             alt={`Banner da postagem ${post.title}`}
           />
 
-          <CKEditor
-            editor={Editor.Editor}
-            data={post.content}
-            onReady={(editor) => {
-              editor.enableReadOnlyMode(`read-post`);
-              const toolbarElement = editor.ui.view.toolbar.element;
-              editor.ui.getEditableElement()!.style.border = "none";
-              toolbarElement!.style.display = "none";
-            }}
-          />
+          <ReadOnlyEditor data={post.content} />
 
-          <Reaction postId={post.id} />
+          <Reaction postId={post.id} userReaction={post.userReaction} />
         </main>
       </div>
     </div>

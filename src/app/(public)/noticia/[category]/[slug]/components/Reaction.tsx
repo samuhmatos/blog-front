@@ -1,5 +1,4 @@
-"use client";
-import {
+"use client";import {
   useCreatePostReaction,
   useGetPostReaction,
   useRemovePostReaction,
@@ -11,20 +10,21 @@ import { useEffect, useState } from "react";
 
 interface Props {
   postId: number;
+  userReaction: ReactionType | null;
 }
 
-export function Reaction({ postId }: Props) {
+export function Reaction({ postId, userReaction }: Props) {
   const { user } = useAuth();
 
-  const [reaction, setReaction] = useState<ReactionType | null>(null);
+  const [reaction, setReaction] = useState<ReactionType | null>(userReaction);
 
-  const { mutate: loadReaction } = useGetPostReaction(setReaction);
+  // const { mutate: loadReaction } = useGetPostReaction(setReaction);
   const { mutate: addReaction } = useCreatePostReaction(setReaction);
   const { mutate: deleteReaction } = useRemovePostReaction(setReaction);
 
-  useEffect(() => {
-    loadReaction(postId);
-  }, [postId]);
+  // useEffect(() => {
+  //   loadReaction(postId);
+  // }, [postId]);
 
   function handleReaction(e: ReactionType) {
     if (e !== reaction) {
