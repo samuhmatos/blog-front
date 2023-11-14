@@ -1,5 +1,9 @@
-"use client";import { UserCard } from "@components";
+"use client";
 import Link from "next/link";
+
+import { UserCard } from "@components";
+import { BrandIcon } from "@brand";
+
 export function Navigation() {
   return (
     <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -29,11 +33,7 @@ export function Navigation() {
               </svg>
             </button>
             <Link href="/" className="flex ml-2 md:mr-24">
-              <img
-                src="https://flowbite.com/docs/images/logo.svg"
-                className="h-8 mr-3"
-                alt="FlowBite Logo"
-              />
+              <BrandIcon widthHeight={37} className="mr-1" />
               <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
                 Samuel Tech
               </span>

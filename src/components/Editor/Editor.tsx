@@ -1,5 +1,4 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
+"use client";import { useEffect, useRef, useState } from "react";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic";
@@ -99,7 +98,7 @@ export function Editor({
                   upload: async function () {
                     return loader.file.then((file) => {
                       var form = new FormData();
-                      form.append("file", file);
+                      form.append("file", file!);
                       return postService
                         .uploadPostContent(form)
                         .then((res) => {

@@ -34,3 +34,4 @@ export * from "./ImageUploadPreview/ImageUploadPreview";
 export * from "./ChangePasswordModal/ChangePasswordModal";
 export * from "./Editor";
 export * from "./FormEditor/FormEditor";
+export * from "./SocialMedia/SocialMedia";

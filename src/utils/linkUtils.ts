@@ -1,4 +1,5 @@
-import { LOCAL_URL } from "@config";function linkPost(postSlug: string, categorySlug: string): string {
+import { LOCAL_URL } from "@config";
+function linkPost(postSlug: string, categorySlug: string): string {
   var link = `/noticia/${categorySlug}/${postSlug}`;
   return link;
 }
@@ -33,6 +34,13 @@ const share = {
   },
 };
 
+const socialMedia = {
+  instagram: "https://www.instagram.com/samuh.matos/",
+  linkedIn: "https://www.linkedin.com/in/o-samuelmatos/",
+  email: "samuhmatos@gmail.com",
+  gitHub: "https://github.com/samuhmatos",
+};
+
 export const linkUtils = {
   linkPost,
   linkCategory,
@@ -40,4 +48,5 @@ export const linkUtils = {
   linkDashboard,
   share,
   linkAuthRoute,
+  socialMedia,
 };

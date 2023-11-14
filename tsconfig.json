@@ -31,7 +31,8 @@
       "@schema": ["./src/schema"],
       "@hooks": ["./src/hooks"],
       "@middlewares": ["./src/middlewares"],
-      "@infra": ["./src/infra"]
+      "@infra": ["./src/infra"],
+      "@brand": ["./src/brand"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

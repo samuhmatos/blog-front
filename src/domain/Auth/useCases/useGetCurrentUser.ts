@@ -8,6 +8,7 @@ export function useGetCurrentUser() {
     queryKey: [QueryKeys.GetCurrentUser],
     queryFn: () => authService.currentUser(),
     staleTime: 3600000, // 1 hour,
+    keepPreviousData: true,
   });
 
   return {
