@@ -1,4 +1,5 @@
-"use client";import { useEffect } from "react";
+"use client";
+import { useEffect } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
 import {
@@ -144,5 +145,3 @@ export function UpdatePostForm({
     </div>
   );
 }
-
-// TODO: ROW INPUT CHECKBOX BUG

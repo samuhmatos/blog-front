@@ -1,10 +1,11 @@
-/* eslint-disable @next/next/no-img-element */"use client";
-import { Dispatch, SetStateAction, useRef } from "react";
+/* eslint-disable jsx-a11y/alt-text */ /* eslint-disable @next/next/no-img-element */ "use client";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface ImagePreviewUploadProps {
   imageURL: string;
   setValue: Dispatch<SetStateAction<File>>;
+  value: File;
   errorMessage?: string;
   label?: string;
 }
@@ -14,11 +15,29 @@ export function ImagePreviewUpload({
   setValue,
   errorMessage,
   label,
+  value,
 }: ImagePreviewUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const previewImageRef = useRef<HTMLImageElement>(null);
 
   function handleClick() {
     inputRef.current!.click();
+  }
+
+  useEffect(() => {
+    if (value) {
+      previewImage();
+    }
+  }, [value]);
+
+  function previewImage() {
+    const reader = new FileReader();
+    reader.readAsDataURL(value);
+
+    reader.onload = function (e) {
+      let res = e.target?.result as string;
+      previewImageRef.current!.setAttribute("src", res);
+    };
   }
 
   return (
@@ -38,7 +57,11 @@ export function ImagePreviewUpload({
           </label>
         )}
 
-        <img className="object-none w-full h-full" src={imageURL} />
+        <img
+          className="object-contain w-full h-full"
+          src={imageURL}
+          ref={previewImageRef}
+        />
 
         <input
           type="file"
@@ -57,4 +80,3 @@ export function ImagePreviewUpload({
     </div>
   );
 }
-// TODO: UPLOAD MUST SHOW THE IMAGE PREVIEW
