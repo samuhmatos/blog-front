@@ -32,6 +32,12 @@ export function UpdatePostForm({
     data: UpdatePostSchema,
     isDraft: boolean
   ): FormData | UpdateServiceProps => {
+    const imgContentList = Array.from(
+      new DOMParser()
+        .parseFromString(data.content, "text/html")
+        .querySelectorAll("img")
+    ).map((img) => img.getAttribute("src")) as string[];
+
     if (!data.image) {
       return {
         title: data.title,
@@ -39,6 +45,7 @@ export function UpdatePostForm({
         content: data.content,
         category: data.category,
         isDraft: data.isDraft,
+        imgContentList: imgContentList.length >= 1 ? imgContentList : null,
       };
     } else {
       var form = new FormData();
@@ -48,6 +55,10 @@ export function UpdatePostForm({
       form.append("category_id", data.category);
       form.append("is_draft", isDraft ? "1" : "0");
       form.append("banner", data.image);
+      form.append(
+        "img_content_list",
+        imgContentList.length >= 1 ? JSON.stringify(imgContentList) : "null"
+      );
 
       return form;
     }
@@ -60,7 +71,7 @@ export function UpdatePostForm({
         postId: initialData?.id!,
       },
       () => {
-        eventUtils.emit("close-modal");
+        // eventUtils.emit("close-modal");
         queryClient.invalidateQueries({
           queryKey: [QueryKeys.GetPost, initialData!.id],
         });

@@ -1,5 +1,4 @@
-import { PageAPI, PagePaginationParams, api, serverApi } from "@api";
-import { PostApi, PostApiWithDetails, PostListApi } from "./postTypes";
+import { PageAPI, PagePaginationParams, api, serverApi } from "@api";import { PostApi, PostApiWithDetails, PostListApi } from "./postTypes";
 
 const PATH = "post";
 
@@ -28,24 +27,31 @@ async function getFeed(
       params,
     }
   );
+
   return response.data;
 }
 
 async function getDraft(
   params?: PagePaginationParams & { category?: string }
 ): Promise<PageAPI<PostApiWithDetails>> {
-  const response = await api.get<PageAPI<PostApiWithDetails>>(`${PATH}/draft`, {
-    params,
-  });
+  const response = await api.get<PageAPI<PostApiWithDetails>>(
+    `${PATH}/paginate/draft`,
+    {
+      params,
+    }
+  );
   return response.data;
 }
 
 async function getTrash(
   params?: PagePaginationParams & { category?: string }
 ): Promise<PageAPI<PostApiWithDetails>> {
-  const response = await api.get<PageAPI<PostApiWithDetails>>(`${PATH}/trash`, {
-    params,
-  });
+  const response = await api.get<PageAPI<PostApiWithDetails>>(
+    `${PATH}/paginate/trash`,
+    {
+      params,
+    }
+  );
   return response.data;
 }
 
@@ -77,6 +83,7 @@ interface UpdateProps {
   content: string;
   category_id: number;
   is_draft: boolean;
+  img_content_list: string[] | null;
 }
 async function update(
   post_id: number,

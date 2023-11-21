@@ -8,7 +8,7 @@ export interface ContactParamsProps {
 }
 
 async function create(params: ContactParamsProps): Promise<void> {
-  const response = await api.post("contact", {
+  await api.post("contact", {
     ...params,
   });
 

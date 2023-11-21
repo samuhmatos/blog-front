@@ -5,7 +5,7 @@ import { Post, UpdatePostParams, UpdateServiceProps, postService } from "..";
 
 export function useUpdatePost() {
   return useMutation<UpdatePostParams, Post>(postService.update, {
-    onSuccess(data) {
+    onSuccess() {
       toastUtils.show({
         message: "Post atualizado com sucesso!",
         type: "success",

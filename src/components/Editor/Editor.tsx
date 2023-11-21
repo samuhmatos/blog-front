@@ -1,4 +1,5 @@
-"use client";import { useEffect, useRef, useState } from "react";
+"use client";
+import { useEffect, useRef, useState } from "react";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic";
@@ -7,6 +8,9 @@ import { postService } from "@domain";
 import { toastUtils } from "@utils";
 
 import CkEditor from "ckeditor5-custom-build/build/ckeditor";
+
+// @ts-ignore
+// import ImageRemoveEventCallbackPlugin from "ckeditor5-image-remove-event-callback-plugin";
 
 export interface CommentEditorProps {
   onChange: (val: string) => void;
@@ -90,6 +94,11 @@ export function Editor({
                 });
               },
             },
+            balloonToolbar: ["bold", "italic", "|", "undo", "redo"],
+            simpleUpload: {
+              uploadUrl: "www.asdasd.com.br",
+            },
+            // extraPlugins: [ImageRemoveEventCallbackPlugin],
           }}
           onReady={(editor) => {
             editor.plugins.get("FileRepository").createUploadAdapter =

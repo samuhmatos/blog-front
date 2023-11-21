@@ -1,5 +1,4 @@
-import { Page, PagePaginationParams, apiAdapter } from "@api";
-import { Post, PostList, PostWithDetails, UpdatePostParams } from "./postTypes";
+import { Page, PagePaginationParams, apiAdapter } from "@api";import { Post, PostList, PostWithDetails, UpdatePostParams } from "./postTypes";
 import { ReturnUploadPostContent, postApi } from "./postApi";
 import { postAdapter } from "./postAdapter";
 import { CreatePostSchema } from "../../app/(dashboard)/dashboard/posts/schemas";
@@ -94,6 +93,7 @@ async function create(formData: FormData): Promise<Post> {
 
 export interface UpdateServiceProps extends Omit<CreatePostSchema, "image"> {
   isDraft: boolean;
+  imgContentList: string[] | null;
 }
 
 async function update({ postId, formData }: UpdatePostParams): Promise<Post> {
@@ -107,6 +107,7 @@ async function update({ postId, formData }: UpdatePostParams): Promise<Post> {
           title: formData.title,
           sub_title: formData.subTitle,
           is_draft: formData.isDraft,
+          img_content_list: formData.imgContentList
         }
   );
   return postAdapter.toPost(postAPI);

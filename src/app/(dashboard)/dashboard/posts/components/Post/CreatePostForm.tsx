@@ -35,6 +35,12 @@ export function CreatePostForm({
     })) || [];
 
   const formatData = (data: CreatePostSchema, isDraft: boolean): FormData => {
+    const imgContentList = Array.from(
+      new DOMParser()
+        .parseFromString(data.content, "text/html")
+        .querySelectorAll("img")
+    ).map((img) => img.getAttribute("src"));
+
     var form = new FormData();
     form.append("title", data.title);
     form.append("sub_title", data.subTitle);
@@ -42,6 +48,10 @@ export function CreatePostForm({
     form.append("category_id", data.category);
     form.append("banner", data.image);
     form.append("is_draft", isDraft ? "1" : "0");
+    form.append(
+      "img_content_list",
+      imgContentList.length >= 1 ? JSON.stringify(imgContentList) : "null"
+    );
 
     return form;
   };
@@ -57,7 +67,9 @@ export function CreatePostForm({
   }
 
   function submitPost(data: CreatePostSchema, isDraft: boolean) {
-    createPost(formatData(data, isDraft), () => reset());
+    createPost(formatData(data, isDraft), () => {
+      reset()
+    });
   }
 
   return (

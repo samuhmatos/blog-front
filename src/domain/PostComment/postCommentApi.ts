@@ -9,12 +9,9 @@ async function edit({
   post_id,
   comment_id,
 }: ParamsProps): Promise<PostCommentApi> {
-  const response = await api.patch<PostCommentApi>(
-    `post/${post_id}/comment/${comment_id}`,
-    {
-      comment,
-    }
-  );
+  const response = await api.patch<PostCommentApi>(`comment/${comment_id}`, {
+    comment,
+  });
 
   return response.data;
 }
@@ -23,8 +20,7 @@ async function destroy({
   post_id,
   comment_id,
 }: Omit<ParamsProps, "comment">): Promise<void> {
-  const response = await api.delete(`post/${post_id}/comment/${comment_id}`);
-  return;
+  await api.delete(`comment/${comment_id}`);
 }
 
 async function create({
@@ -32,9 +28,10 @@ async function create({
   post_id,
   parent_id,
 }: PostCommentParamsApi): Promise<PostCommentApi> {
-  const response = await api.post<PostCommentApi>(`post/${post_id}/comment`, {
+  const response = await api.post<PostCommentApi>(`comment`, {
     comment,
     parent_id,
+    post_id,
   });
 
   return response.data;

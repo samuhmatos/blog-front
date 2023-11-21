@@ -1,8 +1,7 @@
-import { getCookie } from "cookies-next";
-import { NextRequest, NextResponse } from "next/server";
+import { getCookie } from "cookies-next";import { NextRequest, NextResponse } from "next/server";
 import { fsUtils } from "../../../utils/fsUtils";
 
-const sessionPath = "./src/infra/session.json";
+const sessionPath = "./session.json";
 
 export async function GET(request: NextRequest) {
   var token = getCookie("token");

@@ -26,7 +26,7 @@ export async function PostSession({ postSlug }: Props) {
       <Post post={post} />
 
       <Author author={post.author} />
-      <Suggestion post={post} />
+      {/* <Suggestion post={post} /> */}
 
       <CommentProvider>
         <Comment comments={post.comments!} postId={post.id} />
@@ -34,4 +34,3 @@ export async function PostSession({ postSlug }: Props) {
     </div>
   );
 }
-//TODO: not found page

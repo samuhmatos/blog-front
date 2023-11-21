@@ -8,7 +8,7 @@ export function useRemoveNewsletter() {
   return useMutation<Pick<Newsletter, "email" | "token">, void>(
     newsletterService.remove,
     {
-      onSuccess(data) {
+      onSuccess() {
         toastUtils.show({
           message: "Agora é oficial, você se desinscreveu da newsletter 🥺",
           type: "warning",
