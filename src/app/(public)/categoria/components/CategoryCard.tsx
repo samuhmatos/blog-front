@@ -1,14 +1,16 @@
 "use client";
-import { Category } from "@domain";
 import Link from "next/link";
+import { useRouter } from "nextjs-progressloader";
+import { Category } from "@domain";
 import { linkUtils } from "@utils";
 import { Button, Icon } from "@components";
-import { changeRoute, eventEmitter } from "nextjs-progressloader";
 
 interface Props {
   category: Category;
 }
 export function CategoryCard({ category }: Props) {
+  const router = useRouter();
+
   return (
     <div
       key={category.id}
@@ -27,8 +29,7 @@ export function CategoryCard({ category }: Props) {
         placeholder="Ver as postagens"
         endIcon={<Icon name="ArrowRight" />}
         onClick={() => {
-          changeRoute(linkUtils.linkCategory(category.slug));
-          // changeRoute("home");
+          router.push(linkUtils.linkCategory(category.slug));
         }}
       />
     </div>
