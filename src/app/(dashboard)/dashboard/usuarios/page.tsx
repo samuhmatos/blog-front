@@ -1,23 +1,17 @@
 "use client";
-import { Metadata } from "next";
-import { TableUsers } from "./components/Table/TableUsers";
+import { useRouter } from "nextjs-progressloader";
 import { Button } from "@components";
-import { changeRoute } from "nextjs-progressloader";
-
-export const metadata: Metadata = {
-  title: "Usuários",
-  robots: {
-    index: false,
-  },
-};
+import { TableUsers } from "./components/Table/TableUsers";
 
 export default function UserManagement() {
+  const router = useRouter();
+
   return (
     <>
       <Button
         placeholder="Criar Usuário"
         align="right"
-        onClick={() => changeRoute("createUser")}
+        onClick={() => router.push("createUser")}
       />
       <TableUsers />
     </>

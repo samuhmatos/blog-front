@@ -1,7 +1,10 @@
-import axios, { AxiosInstance } from "axios";import { BASE_API } from "@config";
+import axios, { AxiosInstance } from "axios";
+import { BASE_API } from "@config";
+import { fsUtils } from "@/utils/fsUtils";
 
-const { token } = require("./session.json");
 const createAxiosInstance = async (): Promise<AxiosInstance> => {
+  const { token } = await fsUtils.read<{ token: string }>("./session.json");
+
   const instance = axios.create({
     baseURL: BASE_API,
     headers: {

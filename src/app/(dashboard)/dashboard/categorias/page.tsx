@@ -1,19 +1,13 @@
 "use client";
+import { useRouter } from "nextjs-progressloader";
 import { Button } from "@components";
 import { TableCategory } from "./components/TableCategory";
-import { Metadata } from "next";
-import { changeRoute } from "nextjs-progressloader";
-
-export const metadata: Metadata = {
-  title: "Categorias",
-  robots: {
-    index: false,
-  },
-};
 
 export default function CategoriasPage() {
+  const router = useRouter();
+
   const handleOpenModal = () => {
-    changeRoute("categoria.create");
+    router.push("categoria.create");
   };
 
   return (
