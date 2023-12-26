@@ -36,3 +36,6 @@ next-env.d.ts
 
 #session fle
 session.json
+
+.env
+config.ts

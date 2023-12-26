@@ -56,7 +56,6 @@ export function useAuthProvider(): AuthService {
         callbackFn();
       })
       .catch((err: AxiosError<ErrorApi>) => {
-        console.log(err);
         let errors = errorUtils.getErrorMessages(err.response!.data);
         setError(errors[0]);
       })
@@ -78,7 +77,6 @@ export function useAuthProvider(): AuthService {
         setUser(null);
       })
       .catch((err: AxiosError<ErrorApi>) => {
-        console.log(err);
         errorUtils.setGlobalErrorMessage(err);
       })
       .finally(() => setLoading(false));

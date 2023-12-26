@@ -1,5 +1,4 @@
-import {
-  UserApi,
+import {  UserApi,
   UserAuthParams,
   UserPagePaginationParam,
   UserPaginationApi,
@@ -7,7 +6,7 @@ import {
 import { AuthAPI, PageAPI, api } from "@api";
 
 async function register(params: UserAuthParams): Promise<AuthAPI> {
-  const response = await api.post<AuthAPI>("register", {
+  const response = await api.post<AuthAPI>("auth/register", {
     ...params,
   });
 
@@ -15,7 +14,7 @@ async function register(params: UserAuthParams): Promise<AuthAPI> {
 }
 
 async function logout(): Promise<number> {
-  const response = await api.delete("logout");
+  const response = await api.delete("auth/logout");
   return response.status;
 }
 

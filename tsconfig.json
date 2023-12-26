@@ -32,7 +32,8 @@
       "@hooks": ["./src/hooks"],
       "@middlewares": ["./src/middlewares"],
       "@infra": ["./src/infra"],
-      "@brand": ["./src/brand"]
+      "@brand": ["./src/brand"],
+      "@/*": ["./src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

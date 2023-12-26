@@ -1,5 +1,4 @@
-export * from "./Footer/Footer";
-export * from "./AdsBox/AdsBox";
+export * from "./Footer/Footer";export * from "./AdsBox/AdsBox";
 export * from "./Pagination/Pagination";
 export * from "./Header/Header";
 export * from "./SideBar/SideBar";
@@ -25,7 +24,7 @@ export * from "./FormFileInput/FormFileInput";
 export * from "./FormLayout/FormLayout";
 export * from "./ImagePreviewUpload/ImagePreviewUpload";
 export * from "./FormImagePreviewUpload/FormImagePreviewUpload";
-export * from "./Checkbox/CheckBox";
+export * from "./Checkbox/Checkbox";
 export * from "./FormCheckbox/FormCheckbox";
 export * from "./Icon/Icon";
 export * from "./NotFoundPage/NotFoundPage";

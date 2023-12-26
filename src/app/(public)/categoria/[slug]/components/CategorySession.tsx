@@ -1,24 +1,16 @@
-import { PostWithDetails, postService } from "@domain";import { ErrorApi, Page } from "@api";
+import { PostWithDetails, postService } from "@domain";
+import { Page } from "@api";
 import { CardMedium, Pagination } from "@components";
 import { linkUtils } from "@utils";
-import { AxiosError } from "axios";
 
-async function getPosts(
+async function getPostsByCategory(
   slug: string,
   page: number
 ): Promise<Page<PostWithDetails>> {
-  try {
-    const res = await postService.getFeed({
-      category: slug,
-      page,
-    });
-
-    return res;
-  } catch (err) {
-    let error = err as AxiosError<ErrorApi>;
-    console.error(error);
-    throw new Error();
-  }
+  return postService.getFeed({
+    category: slug,
+    page,
+  });
 }
 
 export async function CategorySession({
@@ -31,7 +23,7 @@ export async function CategorySession({
   const {
     data: posts,
     meta: { currentPage, hasNextPage, hasPreviousPage, totalPage },
-  } = await getPosts(slug, page || 1);
+  } = await getPostsByCategory(slug, page || 1);
 
   return (
     <div>

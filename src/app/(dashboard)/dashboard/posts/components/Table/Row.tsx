@@ -46,15 +46,22 @@ export function Row({ post, refetch, isTrash }: RowsType) {
   function handleChangeIsDraft(e: ChangeEvent<HTMLInputElement>) {
     let checked = e.target.checked;
 
+    const imgContentList = Array.from(
+      new DOMParser()
+        .parseFromString(post.content, "text/html")
+        .querySelectorAll("img")
+    ).map((img) => img.getAttribute("src"));
+
+    var form = new FormData();
+    form.append("is_draft", checked ? "1" : "0");
+    form.append(
+      "img_content_list",
+      imgContentList.length >= 1 ? JSON.stringify(imgContentList) : "null"
+    );
+
     update(
       {
-        formData: {
-          title: post.title,
-          subTitle: post.subTitle,
-          content: post.content,
-          category: post.categoryId.toString(),
-          isDraft: checked,
-        },
+        formData: form,
         postId: post.id,
       },
       () => {

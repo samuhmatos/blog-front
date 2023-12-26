@@ -1,4 +1,5 @@
-"use client";import { useEffect, useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import { useUserUpdate } from "@domain";
 import { UserProfileSchema } from "./UserProfileSchema";
 import { UserHeader } from "./components/UserHeader";
@@ -53,12 +54,25 @@ export function USerProfile({ open, onClose }: Props) {
   function handleUpdateUser(data: UserProfileSchema) {
     var formData = new FormData();
 
-    user!.email !== data.email && formData.append("email", data.email);
-    user!.name !== data.name && formData.append("name", data.name);
-    user?.description !== data?.description &&
+    if (user!.email !== data.email) {
+      formData.append("email", data.email);
+    }
+
+    if (user!.name !== data.name) {
+      formData.append("name", data.name);
+    }
+
+    if (user?.description !== data?.description) {
       formData.append("description", data.description);
-    user!.username !== data.username &&
+    }
+
+    if (user!.username !== data.username) {
       formData.append("username", data.username);
+    }
+
+    if (user!.isAdmin) {
+      formData.append("is_admin", user!.isAdmin ? "1" : "0");
+    }
 
     mutate({ userId: user!.id, params: formData });
   }

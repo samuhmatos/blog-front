@@ -1,9 +1,9 @@
-/* eslint-disable jsx-a11y/alt-text */ /* eslint-disable @next/next/no-img-element */ "use client";
+/* eslint-disable jsx-a11y/alt-text */ /* eslint-disable @next/next/no-img-element */"use client";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface ImagePreviewUploadProps {
-  imageURL: string;
+  imageURL?: string;
   setValue: Dispatch<SetStateAction<File>>;
   value: File;
   errorMessage?: string;

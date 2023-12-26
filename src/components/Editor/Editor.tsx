@@ -7,10 +7,7 @@ import { FormLayout } from "@components";
 import { postService } from "@domain";
 import { toastUtils } from "@utils";
 
-import CkEditor from "ckeditor5-custom-build/build/ckeditor";
-
-// @ts-ignore
-// import ImageRemoveEventCallbackPlugin from "ckeditor5-image-remove-event-callback-plugin";
+import CustomEditor from "ckeditor5-custom-build";
 
 export interface CommentEditorProps {
   onChange: (val: string) => void;
@@ -25,7 +22,8 @@ type StatisticsType = {
   words: number;
   characters: number;
 };
-export function Editor({
+
+export default function Editor({
   onChange,
   errorMessage,
   label,
@@ -42,37 +40,15 @@ export function Editor({
 
   const ref = useRef<CKEditor<ClassicEditor.ClassicEditor>>(null);
 
-  useEffect(() => {
-    setError(errorMessage);
-  }, [errorMessage]);
+  const [Editor, setEditor] = useState<JSX.Element>();
 
   useEffect(() => {
-    if (ref.current) {
-      if (!isDirty && data !== "" && isSubmitted) {
-        ref.current.editor?.data.set("");
-      }
+    async function loadModule() {
+      const { CKEditor } = await import("@ckeditor/ckeditor5-react");
 
-      if (data.length) {
-        onChange(data);
-      }
-    }
-  }, [data, isDirty]);
-
-  return (
-    <FormLayout
-      errorMessage={error}
-      label={label}
-      name="createPost"
-      bottomRightComponent={
-        <div className="flex gap-3">
-          <p>Words: {statistics.words}</p>
-          <p>Characters: {statistics.characters}</p>
-        </div>
-      }
-    >
-      <div id="createPost" className={errorMessage && "border border-red-700"}>
+      setEditor(
         <CKEditor
-          editor={CkEditor.Editor}
+          editor={CustomEditor.Editor}
           data={initialData}
           ref={ref}
           config={{
@@ -98,7 +74,6 @@ export function Editor({
             simpleUpload: {
               uploadUrl: "www.asdasd.com.br",
             },
-            // extraPlugins: [ImageRemoveEventCallbackPlugin],
           }}
           onReady={(editor) => {
             editor.plugins.get("FileRepository").createUploadAdapter =
@@ -139,6 +114,41 @@ export function Editor({
             setData(editor.getData());
           }}
         />
+      );
+    }
+    void loadModule();
+  }, [data]);
+
+  useEffect(() => {
+    setError(errorMessage);
+  }, [errorMessage]);
+
+  useEffect(() => {
+    if (ref.current) {
+      if (!isDirty && data !== "" && isSubmitted) {
+        ref.current.editor?.data.set("");
+      }
+
+      if (data.length) {
+        onChange(data);
+      }
+    }
+  }, [data, isDirty]);
+
+  return (
+    <FormLayout
+      errorMessage={error}
+      label={label}
+      name="createPost"
+      bottomRightComponent={
+        <div className="flex gap-3">
+          <p>Words: {statistics.words}</p>
+          <p>Characters: {statistics.characters}</p>
+        </div>
+      }
+    >
+      <div id="createPost" className={errorMessage && "border border-red-700"}>
+        {Editor}
       </div>
     </FormLayout>
   );

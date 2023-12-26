@@ -4,8 +4,10 @@ import { BASE_URL } from "@config";
 import { ForgotPasswordParamApi } from "./authTypes";
 import { UserApi, UserAuthParams } from "../User";
 
+const PATH = "auth/"
+
 async function forgotPassword(email: string): Promise<{ status: string }> {
-  const response = await api.post("forgot-password", {
+  const response = await api.post(`${PATH}forgot-password`, {
     email,
   });
 
@@ -15,7 +17,7 @@ async function forgotPassword(email: string): Promise<{ status: string }> {
 async function passwordReset(
   params: ForgotPasswordParamApi
 ): Promise<{ status: string }> {
-  const response = await api.post<{ status: string }>("reset-password", {
+  const response = await api.post<{ status: string }>(`${PATH}reset-password`, {
     ...params,
   });
 
@@ -23,7 +25,7 @@ async function passwordReset(
 }
 
 async function currentUser(): Promise<UserApi> {
-  const response = await api.get<UserApi>("user/me");
+  const response = await api.get<UserApi>(`user/me`);
 
   return response.data;
 }
@@ -31,7 +33,7 @@ async function currentUser(): Promise<UserApi> {
 async function login(
   params: Pick<UserAuthParams, "email" | "password">
 ): Promise<AuthAPI> {
-  const response = await api.post<AuthAPI>("login", {
+  const response = await api.post<AuthAPI>(`${PATH}login`, {
     ...params,
   });
 

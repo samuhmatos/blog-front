@@ -1,4 +1,5 @@
-import { getCookie } from "cookies-next";import { NextRequest, NextResponse } from "next/server";
+import { getCookie } from "cookies-next";
+import { NextRequest, NextResponse } from "next/server";
 import { fsUtils } from "../../../utils/fsUtils";
 
 const sessionPath = "./session.json";
@@ -11,7 +12,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(session);
   }
 
-  return Response.json({ token });
+  return NextResponse.json({ token });
 }
 
 export async function POST(request: NextRequest) {

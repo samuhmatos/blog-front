@@ -1,8 +1,7 @@
 import axios, { AxiosInstance } from "axios";import { BASE_API } from "@config";
 
+const { token } = require("./session.json");
 const createAxiosInstance = async (): Promise<AxiosInstance> => {
-  const { token } = require("./../infra/session.json");
-
   const instance = axios.create({
     baseURL: BASE_API,
     headers: {

@@ -12,14 +12,12 @@ import { CreatePostSchema, ReturnCreatePostFormType } from "../../schemas";
 
 export interface PostFormProps<Schema> {
   setCanClose?: () => Dispatch<SetStateAction<boolean>>;
-  initialData?: Post;
   schema: Schema;
   categories: Category[] | null;
 }
 
 export function CreatePostForm({
   setCanClose,
-  initialData,
   schema,
   categories,
 }: PostFormProps<ReturnCreatePostFormType>) {
@@ -68,17 +66,13 @@ export function CreatePostForm({
 
   function submitPost(data: CreatePostSchema, isDraft: boolean) {
     createPost(formatData(data, isDraft), () => {
-      reset()
+      reset();
     });
   }
 
   return (
     <div className="p-2 createPostForm">
-      <FormImagePreviewUpload
-        control={control}
-        imageURL={initialData?.imageURL}
-        name="image"
-      />
+      <FormImagePreviewUpload control={control} name="image" />
 
       <FormSelectOption
         control={control}
@@ -101,12 +95,7 @@ export function CreatePostForm({
         label="Sub Título"
       />
 
-      <FormEditor
-        control={control}
-        name="content"
-        label="Conteúdo"
-        defaultValue={initialData?.content || undefined}
-      />
+      <FormEditor control={control} name="content" label="Conteúdo" />
 
       <div className="flex gap-3">
         <Button

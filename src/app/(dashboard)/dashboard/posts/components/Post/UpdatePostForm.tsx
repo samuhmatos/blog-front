@@ -10,19 +10,22 @@ import {
   FormTextInput,
   FormEditor,
 } from "@components";
-import { UpdateServiceProps, useUpdatePost } from "@domain";
+import { PostWithDetails, UpdateServiceProps, useUpdatePost } from "@domain";
 import { QueryKeys } from "@infra";
-import { eventUtils } from "@utils";
 
 import { ReturnUpdatePostFormType, UpdatePostSchema } from "../../schemas";
 import { PostFormProps } from "./CreatePostForm";
+
+interface Props extends PostFormProps<ReturnUpdatePostFormType> {
+  initialData?: PostWithDetails;
+}
 
 export function UpdatePostForm({
   setCanClose,
   initialData,
   schema,
   categories,
-}: PostFormProps<ReturnUpdatePostFormType>) {
+}: Props) {
   const queryClient = useQueryClient();
 
   const { loading, mutate: update } = useUpdatePost();

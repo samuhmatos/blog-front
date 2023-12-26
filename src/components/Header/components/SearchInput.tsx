@@ -1,5 +1,4 @@
-"use client";
-import { Icon, InputText, Button } from "@components";
+"use client";import { Icon, InputText, Button } from "@components";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { changeRoute } from "nextjs-progressloader";
@@ -33,15 +32,22 @@ export function SearchInput() {
     }
   }
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
+  // const createQueryString2 = useCallback(
+  //   (name: string, value: string) => {
+  //     const params = new URLSearchParams(searchParams);
+  //     params.set(name, value);
 
-      return params.toString();
-    },
-    [searchParams]
-  );
+  //     return params.toString();
+  //   },
+  //   [searchParams]
+  // );
+
+  const createQueryString = useCallback((name: string, value: string) => {
+    const params = new URLSearchParams();
+    params.set(name, value);
+
+    return params.toString();
+  }, []);
 
   return (
     <form className="h-9.5 w-full flex" onSubmit={handleSearch}>

@@ -1,12 +1,16 @@
-"use client";
+"use client";import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
-import { CategoryBox, PostDetails, ReadOnlyEditor } from "@components";
+import { CategoryBox, PostDetails } from "@components";
 import { PostWithDetails, postService } from "@domain";
 import { linkUtils } from "@utils";
 
 import { Share } from "./Share";
 import { Reaction } from ".";
+
+const Editor = dynamic(() => import("@/components/Editor/ReadOnlyEditor"), {
+  ssr: false,
+});
 
 interface Props {
   post: PostWithDetails;
@@ -21,9 +25,7 @@ export function Post({ post }: Props) {
     try {
       const response = await postService.addView(post.id);
       setViews(response.views);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export function Post({ post }: Props) {
             alt={`Banner da postagem ${post.title}`}
           />
 
-          <ReadOnlyEditor data={post.content} />
+          <Editor data={post.content} />
 
           <Reaction postId={post.id} userReaction={post.userReaction} />
         </main>

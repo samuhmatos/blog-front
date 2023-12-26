@@ -1,5 +1,5 @@
+import dynamic from "next/dynamic";
 import { PostWithDetails } from "@domain";
-import { ReadOnlyEditor } from "@components";
 
 type TableDetailsType = Pick<
   PostWithDetails,
@@ -11,6 +11,10 @@ export function TableDetailsCollapsed({
   content,
   subTitle,
 }: TableDetailsType) {
+  const Editor = dynamic(() => import("@/components/Editor/ReadOnlyEditor"), {
+    ssr: false,
+  });
+
   return (
     <div>
       <ul className="flex flex-col gap-2 border-b border-b-gray-200">
@@ -25,7 +29,7 @@ export function TableDetailsCollapsed({
         <li>
           <p className="text-center font-bold text-lg">Redação</p>
           <div>
-            <ReadOnlyEditor data={content} />
+            <Editor data={content} />
           </div>
         </li>
       </ul>

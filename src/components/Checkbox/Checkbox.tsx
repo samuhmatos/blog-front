@@ -1,5 +1,4 @@
 import { Checkbox as CheckboxComponent } from "@mui/material";
-import { ChangeEvent } from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface CheckboxProps {

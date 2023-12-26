@@ -6,7 +6,7 @@ import { Category, postCategoryService } from "@domain";
 export const revalidate = 7200; // 2 hours
 
 async function getPopularCategories(): Promise<Category[]> {
-  return await postCategoryService.getPopular();
+  return postCategoryService.getPopular();
 }
 
 export async function Header() {

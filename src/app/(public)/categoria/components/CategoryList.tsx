@@ -1,19 +1,13 @@
-import { Category, postCategoryService } from "@domain";
-import { Pagination } from "@components";
+import { Category, postCategoryService } from "@domain";import { Pagination } from "@components";
 import { linkUtils } from "@utils";
 import { Page } from "@api";
 import { CategoryContainer } from "./CategoryContainer";
 
 async function getList(page: number): Promise<Page<Category>> {
-  try {
-    return await postCategoryService.paginate({
-      page,
-      per_page: 9,
-    });
-  } catch (error) {
-    console.log(error);
-    throw new Error(error);
-  }
+  return postCategoryService.paginate({
+    page,
+    per_page: 9,
+  });
 }
 
 interface Props {

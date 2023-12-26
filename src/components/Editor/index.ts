@@ -1,2 +1,1 @@
-export * from "./Editor";
-export * from "./ReadOnlyEditor";
+export { type CommentEditorProps } from "./Editor";

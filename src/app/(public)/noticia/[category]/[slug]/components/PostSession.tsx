@@ -1,15 +1,14 @@
-import { Post } from "./Post";import { Author } from "./Author";
-import { Suggestion } from "./Suggestion";
-import { Comment } from "./Comment/Comment";
+import { notFound } from "next/navigation";import { PostWithDetails, postService } from "@domain";
 import { CommentProvider } from "@context";
-import { notFound } from "next/navigation";
-import { PostWithDetails, postService } from "@domain";
+
+import { Post } from "./Post";
+import { Author } from "./Author";
+import { Comment } from "./Comment/Comment";
 
 export async function getPost(postSlug: string): Promise<PostWithDetails> {
   try {
     return await postService.getOne(postSlug);
-  } catch (error: any) {
-    console.log(error);
+  } catch (err: any) {
     notFound();
   }
 }
@@ -26,7 +25,6 @@ export async function PostSession({ postSlug }: Props) {
       <Post post={post} />
 
       <Author author={post.author} />
-      {/* <Suggestion post={post} /> */}
 
       <CommentProvider>
         <Comment comments={post.comments!} postId={post.id} />
