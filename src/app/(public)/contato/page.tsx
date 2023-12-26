@@ -1,4 +1,3 @@
-"use client";
 import { Metadata } from "next";
 import { ContatoAboutSection } from "./components/ContatoAboutSection";
 import { ContactForm } from "./components/ContactForm";

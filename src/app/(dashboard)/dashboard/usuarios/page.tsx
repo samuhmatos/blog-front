@@ -1,4 +1,5 @@
-"use client";import { Metadata } from "next";
+"use client";
+import { Metadata } from "next";
 import { TableUsers } from "./components/Table/TableUsers";
 import { Button } from "@components";
 import { changeRoute } from "nextjs-progressloader";

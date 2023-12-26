@@ -1,4 +1,12 @@
-export default function DashboardPage() {  return (
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Dashboard",
+  robots: {
+    index: false,
+  },
+};
+export default function DashboardPage() {
+  return (
     <>
       <div className="grid grid-cols-3 gap-4 mb-4">
         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">

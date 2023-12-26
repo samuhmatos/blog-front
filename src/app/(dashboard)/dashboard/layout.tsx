@@ -1,18 +1,11 @@
-"use client";import { Metadata } from "next";
+"use client";
 import { Navigation, SideBar } from "./components";
-import { ContainerLink, LinkProps, changeRoute } from "nextjs-progressloader";
+import { ContainerLink, LinkProps, useRouter } from "nextjs-progressloader";
 import { linkUtils } from "@utils";
 import { authService } from "@domain";
 import { useEffect, useState } from "react";
 import { useAuth } from "@context";
 import { CircularProgress } from "@mui/material";
-
-export const metadata: Metadata = {
-  title: "Dashboard",
-  robots: {
-    index: false,
-  },
-};
 
 const links: LinkProps[] = [
   {
@@ -54,6 +47,7 @@ const links: LinkProps[] = [
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
   const { user } = useAuth();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -70,7 +64,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         })
         .catch((error) => {
           setIsLoaded(false);
-          changeRoute("home");
+          router.push("home");
         });
     })();
   }, [user]);

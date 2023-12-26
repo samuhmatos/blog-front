@@ -5,7 +5,7 @@ import { Screen, SideBar } from "@components";
 
 import { PostSession, getPost } from "./components/PostSession";
 
-// export const revalidate = 3600;
+export const revalidate = 3600;
 export interface PostScreenProps {
   params: {
     category: string;

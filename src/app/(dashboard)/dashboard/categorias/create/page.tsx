@@ -1,7 +1,5 @@
-"use client";
 import { Metadata } from "next";
-import { CategoryForm } from "../components";
-import { usePostCategoryForm } from "../schema";
+import { Create } from "../components/Screens/Create";
 
 export const metadata: Metadata = {
   title: "Criar Categoria",
@@ -11,11 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function CreatePostPage() {
-  const schema = usePostCategoryForm();
-
-  return (
-    <div>
-      <CategoryForm schema={schema} />
-    </div>
-  );
+  return <Create />;
 }

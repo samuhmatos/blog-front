@@ -1,9 +1,5 @@
-"use client";
-import { useRouter } from "next/navigation";
-import { Modal } from "@components";
-import { CategoryForm } from "../../components";
 import { Metadata } from "next";
-import { usePostCategoryForm } from "../../schema";
+import { Create } from "../../components/Screens/Create";
 
 export const metadata: Metadata = {
   title: "Criar Categoria",
@@ -13,17 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function CreatePostPage() {
-  const router = useRouter();
-
-  const handleClose = () => {
-    router.back();
-  };
-
-  const schema = usePostCategoryForm();
-
-  return (
-    <Modal isOpen onClose={handleClose} className="w-1/2 max-w-3xl">
-      <CategoryForm schema={schema} />
-    </Modal>
-  );
+  return <Create modal />;
 }
