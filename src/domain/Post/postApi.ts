@@ -1,4 +1,4 @@
-import { PageAPI, PagePaginationParams, api, serverApi } from "@api";
+import { PageAPI, PagePaginationParams, api } from "@api";
 import { PostApi, PostApiWithDetails, PostListApi } from "./postTypes";
 
 const PATH = "post";
