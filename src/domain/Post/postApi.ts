@@ -1,11 +1,12 @@
-import { PageAPI, PagePaginationParams, api, serverApi } from "@api";import { PostApi, PostApiWithDetails, PostListApi } from "./postTypes";
+import { PageAPI, PagePaginationParams, api, serverApi } from "@api";
+import { PostApi, PostApiWithDetails, PostListApi } from "./postTypes";
 
 const PATH = "post";
 
 async function getOne(slugOrId: string): Promise<PostApiWithDetails> {
-  const response = await (
-    await serverApi
-  ).get<PostApiWithDetails>(`${PATH}/filter/${slugOrId}`);
+  const response = await api.get<PostApiWithDetails>(
+    `${PATH}/filter/${slugOrId}`
+  );
   return response.data;
 }
 
