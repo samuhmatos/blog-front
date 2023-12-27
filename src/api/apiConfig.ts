@@ -12,6 +12,7 @@ const createAxiosInstance = (): AxiosInstance => {
       Accept: "application/json",
     },
     withCredentials: true,
+    xsrfHeaderName: "X-XSRF-TOKEN",
   });
 
   if (token) {
