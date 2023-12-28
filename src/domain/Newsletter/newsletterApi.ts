@@ -1,7 +1,7 @@
 import { api } from "@api";
 import { NewsletterApi } from "./newsletterTypes";
 
-const PATH = `newsletter/`;
+const PATH = `newsletter`;
 
 async function create(email: string): Promise<void> {
   const response = await api.post<NewsletterApi>(PATH, {

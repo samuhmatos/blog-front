@@ -1,7 +1,10 @@
-import {  PostCommentReactionApi,
+import {
+  PostCommentReactionApi,
   PostCommentReactionWithCountApi,
 } from "./PostCommentReactionType";
 import { api } from "@api";
+
+const PATH = (comment_id: number) => `/comment/${comment_id}/`;
 
 async function create({
   type,
@@ -11,7 +14,7 @@ async function create({
   "comment_id" | "type"
 >): Promise<PostCommentReactionWithCountApi> {
   const response = await api.post<PostCommentReactionWithCountApi>(
-    `comment/${comment_id}/reaction`,
+    `${PATH(comment_id)}reaction`,
     {
       type,
     }
@@ -22,13 +25,13 @@ async function create({
 
 async function show(comment_id: number): Promise<PostCommentReactionApi> {
   const response = await api.get<PostCommentReactionApi>(
-    `comment/${comment_id}/reaction`
+    `${PATH(comment_id)}reaction`
   );
   return response.data;
 }
 
 async function destroy(comment_id: number): Promise<void> {
-  const response = await api.delete(`comment/${comment_id}/reaction`);
+  const response = await api.delete(`${PATH(comment_id)}reaction`);
 
   return;
 }

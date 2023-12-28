@@ -1,10 +1,11 @@
 import { AuthAPI, api } from "@api";
-import { BASE_URL } from "@config";
+import { BASE_URL, LOCAL_URL_API } from "@config";
 
 import { ForgotPasswordParamApi } from "./authTypes";
 import { UserApi, UserAuthParams } from "../User";
 
-const PATH = "auth/"
+const PATH = "auth/";
+const TOKEN_PATH = "/token";
 
 async function forgotPassword(email: string): Promise<{ status: string }> {
   const response = await api.post(`${PATH}forgot-password`, {
@@ -49,8 +50,8 @@ async function CSRF_token(): Promise<void> {
 }
 
 async function getToken(): Promise<string> {
-  const response = await api.get<string>("/token", {
-    baseURL: "http://127.0.0.1:3000/api",
+  const response = await api.get<string>(TOKEN_PATH, {
+    baseURL: LOCAL_URL_API,
   });
 
   return response.data;
@@ -58,10 +59,10 @@ async function getToken(): Promise<string> {
 
 async function setToken(token: string): Promise<void> {
   await api.post<{ token: string }>(
-    "/token",
+    TOKEN_PATH,
     { token },
     {
-      baseURL: "http://127.0.0.1:3000/api",
+      baseURL: LOCAL_URL_API,
     }
   );
 
@@ -69,8 +70,8 @@ async function setToken(token: string): Promise<void> {
 }
 
 async function removeToken(): Promise<void> {
-  await api.delete("/token", {
-    baseURL: "http://127.0.0.1:3000/api",
+  await api.delete(TOKEN_PATH, {
+    baseURL: LOCAL_URL_API,
   });
 
   return;

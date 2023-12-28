@@ -1,15 +1,18 @@
-import { PostCommentApi, PostCommentParamsApi } from ".";import { api } from "@api";
+import { PostCommentApi, PostCommentParamsApi } from ".";
+import { api } from "@api";
 
 interface ParamsProps extends Omit<PostCommentParamsApi, "parent_id"> {
   comment_id: number;
 }
+
+const PATH = "comment";
 
 async function edit({
   comment,
   post_id,
   comment_id,
 }: ParamsProps): Promise<PostCommentApi> {
-  const response = await api.patch<PostCommentApi>(`comment/${comment_id}`, {
+  const response = await api.patch<PostCommentApi>(`${PATH}/${comment_id}`, {
     comment,
   });
 
@@ -20,7 +23,7 @@ async function destroy({
   post_id,
   comment_id,
 }: Omit<ParamsProps, "comment">): Promise<void> {
-  await api.delete(`comment/${comment_id}`);
+  await api.delete(`${PATH}/${comment_id}`);
 }
 
 async function create({
@@ -28,7 +31,7 @@ async function create({
   post_id,
   parent_id,
 }: PostCommentParamsApi): Promise<PostCommentApi> {
-  const response = await api.post<PostCommentApi>(`comment`, {
+  const response = await api.post<PostCommentApi>(PATH, {
     comment,
     parent_id,
     post_id,

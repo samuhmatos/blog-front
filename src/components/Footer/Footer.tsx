@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { SocialMedia } from "@components";
+import Link from "next/link";import { SocialMedia } from "@components";
 import { BrandIcon } from "@brand";
 
 import { Categories, Copyrights, NewsletterForm } from "./components";
@@ -35,7 +34,7 @@ export async function Footer() {
         <div className="text-center mt-6">
           &copy; Blog. Desenvolvedor:
           <Link
-            href="/contact"
+            href="/contato"
             className="hover:text-sky-500 transition-all ml-1"
           >
             Samuel Matos

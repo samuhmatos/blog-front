@@ -1,5 +1,4 @@
-import axios, { AxiosInstance } from "axios";
-import { getCookie } from "cookies-next";
+import axios, { AxiosInstance } from "axios";import { getCookie } from "cookies-next";
 import { BASE_API } from "@config";
 
 const createAxiosInstance = (): AxiosInstance => {
@@ -12,7 +11,6 @@ const createAxiosInstance = (): AxiosInstance => {
       Accept: "application/json",
     },
     withCredentials: true,
-    xsrfHeaderName: "X-XSRF-TOKEN",
   });
 
   if (token) {

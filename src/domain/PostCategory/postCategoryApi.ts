@@ -1,10 +1,10 @@
 import { PageAPI, PagePaginationParams, api } from "@api";import { CategoryAPI } from "./categoryTypes";
 
-const PATH = "category/";
+const PATH = "category";
 
 async function getPopular(limit: number): Promise<CategoryAPI[]> {
   const response = await api.get<CategoryAPI[]>(
-    `${PATH}filter/popular?limit=${limit}`
+    `${PATH}/filter/popular?limit=${limit}`
   );
   return response.data;
 }
@@ -22,12 +22,12 @@ async function paginate(
 }
 
 async function show(slugOrId: number | string): Promise<CategoryAPI> {
-  const response = await api.get<CategoryAPI>(`${PATH}get/${slugOrId}`);
+  const response = await api.get<CategoryAPI>(`${PATH}/get/${slugOrId}`);
   return response.data;
 }
 
 async function getAll(): Promise<CategoryAPI[]> {
-  const response = await api.get<CategoryAPI[]>(`${PATH}all`);
+  const response = await api.get<CategoryAPI[]>(`${PATH}/all`);
 
   return response.data;
 }
@@ -43,14 +43,14 @@ async function create(
 }
 
 async function remove(categoryId: number): Promise<void> {
-  await api.delete(PATH + categoryId);
+  await api.delete(`${PATH}/${categoryId}`);
 }
 
 async function update(
   categoryId: number,
   params: Pick<CategoryAPI, "name" | "description">
 ): Promise<void> {
-  await api.put<CategoryAPI>(PATH + categoryId, {
+  await api.put<CategoryAPI>(`${PATH}/${categoryId}`, {
     ...params,
   });
 }
