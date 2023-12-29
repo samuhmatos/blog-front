@@ -44,8 +44,6 @@ export default function Editor({
 
   useEffect(() => {
     async function loadModule() {
-      const { CKEditor } = await import("@ckeditor/ckeditor5-react");
-
       setEditor(
         <CKEditor
           editor={CustomEditor.Editor}
@@ -116,8 +114,8 @@ export default function Editor({
         />
       );
     }
-    void loadModule();
-  }, [data]);
+    loadModule();
+  }, []);
 
   useEffect(() => {
     setError(errorMessage);

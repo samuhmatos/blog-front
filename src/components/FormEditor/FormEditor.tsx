@@ -1,14 +1,12 @@
-"use client";import dynamic from "next/dynamic";
+"use client";
+import dynamic from "next/dynamic";
 
 import { Controller, UseControllerProps, FieldValues } from "react-hook-form";
 import { CommentEditorProps } from "@components";
+import Editor from "../Editor/Editor";
 
 interface ContentEndEditorType
   extends Pick<CommentEditorProps, "label" | "initialData"> {}
-
-const Editor = dynamic(() => import("@/components/Editor/Editor"), {
-  ssr: false,
-});
 
 export function FormEditor<FormType extends FieldValues>({
   name,
@@ -17,6 +15,10 @@ export function FormEditor<FormType extends FieldValues>({
   defaultValue,
   ...rest
 }: ContentEndEditorType & UseControllerProps<FormType>) {
+  const Editor = dynamic(() => import("@/components/Editor/Editor"), {
+    ssr: false,
+  });
+
   return (
     <Controller
       control={control}

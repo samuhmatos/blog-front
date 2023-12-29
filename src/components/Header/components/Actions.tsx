@@ -1,5 +1,6 @@
-"use client";import { usePathname } from "next/navigation";
-import { changeRoute } from "nextjs-progressloader";
+"use client";
+import { usePathname } from "next/navigation";
+import { useRouter } from "nextjs-progressloader";
 import { CircularProgress } from "@mui/material";
 
 import { UserCard, Button } from "@components";
@@ -7,11 +8,13 @@ import { useAuth } from "@context";
 import { HamburgerButton } from "./HamburgerButton";
 
 export function Actions() {
+  const router = useRouter();
+
   const { user, loading } = useAuth();
   const pathName = usePathname();
 
   function navigateToLoginPage() {
-    changeRoute("login", {
+    router.push("login", {
       queryStrings: [
         {
           key: "redirect",
