@@ -1,5 +1,4 @@
-"use client";
-import { Menu } from "@mui/material";
+"use client";import { Menu } from "@mui/material";
 import { Button, FormTextInput } from "@components";
 import { useUserUpdate } from "@domain";
 import { UserChangePasswordSchema, useUserChangePasswordForm } from "@schema";
@@ -9,6 +8,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   userId: number;
+  userIsAdmin: boolean;
 }
 
 export function ChangePasswordModal({
@@ -16,6 +16,7 @@ export function ChangePasswordModal({
   onClose,
   isOpen,
   userId,
+  userIsAdmin,
 }: Props) {
   const { loading, mutate } = useUserUpdate(handleClose);
   const { control, formState, handleSubmit, reset } =
@@ -25,6 +26,10 @@ export function ChangePasswordModal({
     var formData = new FormData();
     formData.append("password", e.password);
     formData.append("password_confirmation", e.password);
+
+    if (userIsAdmin) {
+      formData.append("is_admin", "1");
+    }
 
     mutate({ userId, params: formData });
   }

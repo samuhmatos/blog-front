@@ -1,12 +1,9 @@
-"use client";import {
-  useCreatePostReaction,
-  useGetPostReaction,
-  useRemovePostReaction,
-} from "@domain";
-import { useAuth } from "@context";
+"use client";
+import { useState } from "react";
+import { useCreatePostReaction, useRemovePostReaction } from "@domain";
 import { Icon } from "@components";
 import { ReactionType } from "@types";
-import { useEffect, useState } from "react";
+import { useAuth } from "@auth";
 
 interface Props {
   postId: number;
@@ -14,17 +11,12 @@ interface Props {
 }
 
 export function Reaction({ postId, userReaction }: Props) {
-  const { user } = useAuth();
+  const { session } = useAuth();
 
   const [reaction, setReaction] = useState<ReactionType | null>(userReaction);
 
-  // const { mutate: loadReaction } = useGetPostReaction(setReaction);
   const { mutate: addReaction } = useCreatePostReaction(setReaction);
   const { mutate: deleteReaction } = useRemovePostReaction(setReaction);
-
-  // useEffect(() => {
-  //   loadReaction(postId);
-  // }, [postId]);
 
   function handleReaction(e: ReactionType) {
     if (e !== reaction) {
@@ -42,7 +34,7 @@ export function Reaction({ postId, userReaction }: Props) {
       <div className="flex justify-center gap-3 text-white text-2xl">
         <button
           className={`${
-            user && reaction === "LIKE"
+            session?.user && reaction === "LIKE"
               ? "bg-sky-700 hover:bg-sky-800"
               : "bg-sky-500 hover:bg-sky-600"
           } rounded-full p-3 transition-all`}
@@ -56,7 +48,7 @@ export function Reaction({ postId, userReaction }: Props) {
         </button>
         <button
           className={`${
-            user && reaction === "UNLIKE"
+            session?.user && reaction === "UNLIKE"
               ? "bg-sky-700 hover:bg-sky-800"
               : "bg-sky-500 hover:bg-sky-700"
           } rounded-full p-3 transition-all`}

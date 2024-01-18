@@ -1,42 +1,33 @@
 "use client";
 import Link from "next/link";
-
-import { useRouter } from "nextjs-progressloader";
+import { ContainerLink, ContainerLinkProps } from "nextjs-progressloader";
 import { Alert } from "@mui/material";
 import { FormTextInput, Button } from "@components";
 import { linkUtils } from "@utils";
-import { useAuth, useAuthService } from "@context";
 
 import { useLoginForm } from "../useLoginForm";
 import { LoginSchema } from "../loginSchema";
+import { useSignIn } from "@domain";
 
 interface Props {
   redirectPath: string;
 }
 export function LoginForm({ redirectPath }: Props) {
-  const router = useRouter();
   const { control, handleSubmit, formState } = useLoginForm();
-  const { signIn } = useAuthService();
-  const { loading, errorMessage } = useAuth();
+  const { signIn, loading, errorMessage } = useSignIn();
 
-  function onSubmit(val: LoginSchema) {
-    signIn(
-      {
-        email: val.email,
-        password: val.password,
-      },
-      () => {
-        try {
-          router.push("redirect");
-        } catch (error) {
-          router.push("home");
-        }
-      }
-    );
+  var links: ContainerLinkProps["links"] = [
+    { href: redirectPath, nickname: "redirect" },
+  ];
+
+  async function onSubmit(params: LoginSchema) {
+    await signIn(params);
   }
 
   return (
     <>
+      {redirectPath && redirectPath !== "/" && <ContainerLink links={links} />}
+
       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
 
       <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>

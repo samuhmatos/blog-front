@@ -4,13 +4,15 @@ import { useRouter } from "nextjs-progressloader";
 import { CircularProgress } from "@mui/material";
 
 import { UserCard, Button } from "@components";
-import { useAuth } from "@context";
 import { HamburgerButton } from "./HamburgerButton";
+import { useAuth } from "@auth";
 
 export function Actions() {
   const router = useRouter();
 
-  const { user, loading } = useAuth();
+  const { session, status } = useAuth();
+  var loading = status === "loading";
+
   const pathName = usePathname();
 
   function navigateToLoginPage() {
@@ -25,7 +27,7 @@ export function Actions() {
   }
 
   function renderAction(): JSX.Element {
-    if (user) {
+    if (session?.user) {
       return <UserCard />;
     } else {
       if (loading) {

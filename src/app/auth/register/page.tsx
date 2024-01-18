@@ -1,4 +1,4 @@
-import { Metadata } from "next";import { ContainerLink, ContainerLinkProps } from "nextjs-progressloader";
+import { Metadata } from "next";
 import { PageParams } from "@types";
 
 import { RegisterForm } from "./components/RegisterForm";
@@ -11,13 +11,8 @@ export const metadata: Metadata = {
 export default function RegisterPage({
   searchParams: { redirect },
 }: PageParams<{ redirect: string }>) {
-  var links: ContainerLinkProps["links"] = [
-    { href: redirect, nickname: "redirect" },
-  ];
-
   return (
     <>
-      {redirect && redirect !== "/" && <ContainerLink links={links} />}
       <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-5">
         Crie sua conta no blog
       </h1>

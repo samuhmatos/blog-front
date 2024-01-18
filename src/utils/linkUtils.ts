@@ -1,4 +1,3 @@
-import { LOCAL_URL } from "@config";
 function linkPost(postSlug: string, categorySlug: string): string {
   var link = `/noticia/${categorySlug}/${postSlug}`;
   return link;
@@ -26,11 +25,15 @@ function linkAuthRoute(path: string): string {
 
 const share = {
   facebook: (path: string) => {
-    const link = `https://www.facebook.com/share.php?u=${LOCAL_URL + path}`;
+    const link = `https://www.facebook.com/share.php?u=${
+      process.env.NEXT_PUBLIC_APP_URL + path
+    }`;
     return link;
   },
   twitter: (path: string, message: string) => {
-    return `http://twitter.com/share?&url=${LOCAL_URL + path}&text=${message}`;
+    return `http://twitter.com/share?&url=${
+      process.env.NEXT_PUBLIC_APP_URL + path
+    }&text=${message}`;
   },
 };
 

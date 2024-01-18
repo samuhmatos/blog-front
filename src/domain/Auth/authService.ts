@@ -1,7 +1,7 @@
-import { authApi } from "./authApi";
-import { User, UserAuthParams, userAdapter } from "../User";
+import { authApi } from "./authApi";import { User, UserAuthParams, userAdapter } from "../User";
 import { PasswordResetSchema } from "../../app/auth/password-reset/[hash]/passwordResetSchema";
 import { Auth } from "@api";
+import { apiServer } from "@/api/config/apiServer";
 
 async function login(
   params: Pick<UserAuthParams, "email" | "password">
@@ -46,6 +46,12 @@ async function removeToken(): Promise<void> {
   return await authApi.removeToken();
 }
 
+async function register(params: UserAuthParams): Promise<User> {
+  const registered = await authApi.register(params);
+
+  return userAdapter.toUser(registered.user);
+}
+
 export const authService = {
   forgotPassword,
   passwordReset,
@@ -54,5 +60,6 @@ export const authService = {
   CSRF_token,
   setToken,
   getToken,
+  register,
   removeToken,
 };

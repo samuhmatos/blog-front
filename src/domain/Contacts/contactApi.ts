@@ -1,4 +1,4 @@
-import { api } from "@api";
+import { apiClient } from "@api";
 export interface ContactParamsProps {
   name: string;
   email: string;
@@ -8,6 +8,8 @@ export interface ContactParamsProps {
 }
 
 async function create(params: ContactParamsProps): Promise<void> {
+  const api = await apiClient();
+
   await api.post("contact", {
     ...params,
   });

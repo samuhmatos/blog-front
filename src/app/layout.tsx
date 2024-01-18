@@ -1,4 +1,5 @@
-"use client";import "./globals.css";
+"use client";
+import "./globals.css";
 import "react-toastify/ReactToastify.min.css";
 
 import { Poppins } from "next/font/google";
@@ -11,12 +12,12 @@ import {
   ProgressLoader,
 } from "nextjs-progressloader";
 import { hasCookie } from "cookies-next";
-
-import { AuthProvider } from "@context";
-import { authService } from "@domain";
-import { linkUtils } from "@utils";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { SessionProvider } from "next-auth/react";
+
+import { authService } from "@domain";
+import { linkUtils } from "@utils";
 
 const poppins = Poppins({ subsets: ["devanagari"], weight: "400" });
 
@@ -50,10 +51,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <html lang="pt-br" className="h-screen">
-          <link rel="icon" href="/assets/favicon.ico" sizes="any" />
-          <body className={poppins.className}>
+      <html lang="pt-br" className="h-screen">
+        <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+        <body className={poppins.className}>
+          <SessionProvider>
             <ProgressLoader color="rgb(17, 12, 182)" showSpinner={false} />
             <ContainerLink links={links} />
 
@@ -72,9 +73,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               theme="light"
             />
             <ReactQueryDevtools initialIsOpen={false} />
-          </body>
-        </html>
-      </AuthProvider>
+          </SessionProvider>
+        </body>
+      </html>
     </QueryClientProvider>
   );
 }

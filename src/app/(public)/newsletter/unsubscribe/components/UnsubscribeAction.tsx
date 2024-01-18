@@ -2,7 +2,7 @@
 import { useRemoveNewsletter } from "@domain";
 import { toastUtils } from "@utils";
 import { Button } from "@components";
-import { useAuth } from "@context";
+import { useAuth } from "@auth";
 
 import { UnsubscribePageParams } from "../page";
 
@@ -10,7 +10,7 @@ export function UnsubscribeAction({
   searchParams,
 }: Pick<UnsubscribePageParams, "searchParams">) {
   const { loading, mutate: remove } = useRemoveNewsletter();
-  const { user } = useAuth();
+  const { session } = useAuth();
 
   function handleUsubscribe() {
     if (!searchParams.email || !searchParams.token) {
@@ -20,7 +20,7 @@ export function UnsubscribeAction({
       });
     }
 
-    if (user && user.email !== searchParams.email) {
+    if (session?.user && session.user.email !== searchParams.email) {
       return toastUtils.show({
         message:
           "Você não tem autorização para desinscrever um email que não é seu!",

@@ -1,12 +1,15 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { NextRequestWithAuth } from "next-auth/middleware";
+
 const errorMessage = "Você já está conectado em uma conta!";
 
-export function authMiddleware(request: NextRequest): NextResponse {
+export async function authMiddleware(
+  request: NextRequestWithAuth
+): Promise<NextResponse> {
   let url = request.url;
+  const user = request.nextauth.token;
 
-  var tokenStorage = request.cookies.get("token");
-
-  if (tokenStorage) {
+  if (user) {
     return NextResponse.redirect(
       new URL(`/?error_message=${errorMessage}`, url)
     );

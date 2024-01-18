@@ -1,11 +1,11 @@
 "use client";
 import { AxiosError } from "axios";
 import { useState } from "react";
-import { ErrorApi } from "@api";
+import { ErrorApi, RequestError } from "@api";
 
 export interface MutationOptions<TData> {
   onSuccess?: (data: TData) => void;
-  onError?: (error: AxiosError<ErrorApi>) => void;
+  onError?: (error: RequestError) => void;
   // errorMessage?: string;
 }
 
@@ -29,7 +29,7 @@ export function useMutation<TVariables, TData>(
 
         callbackFn && callbackFn();
       })
-      .catch((error: AxiosError<ErrorApi>) => {
+      .catch((error: RequestError) => {
         if (options?.onError) {
           options.onError(error);
         }

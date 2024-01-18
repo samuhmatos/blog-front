@@ -1,9 +1,6 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useUserUpdate } from "@domain";
-import { UserProfileSchema } from "./UserProfileSchema";
-import { UserHeader } from "./components/UserHeader";
+"use client";import { useEffect, useState } from "react";
 
+import { useUserUpdate } from "@domain";
 import {
   Modal,
   Icon,
@@ -12,16 +9,19 @@ import {
   FormTextInput,
   ChangePasswordModal,
 } from "@components";
-import { useAuth } from "@context";
-import { useProfileForm } from "./useProfileForm";
+import { useAuth } from "@auth";
 
+import { useProfileForm } from "./useProfileForm";
+import { UserProfileSchema } from "./UserProfileSchema";
+import { UserHeader } from "./components/UserHeader";
 interface Props {
   open: boolean;
   onClose: () => void;
 }
 
 export function USerProfile({ open, onClose }: Props) {
-  const { user } = useAuth();
+  const { session } = useAuth();
+
   const { loading, mutate } = useUserUpdate();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -37,49 +37,48 @@ export function USerProfile({ open, onClose }: Props) {
     setAnchorEl(null);
   };
 
-  const { control, formState, handleSubmit, reset, setValue } =
-    useProfileForm();
+  const { control, formState, handleSubmit, setValue } = useProfileForm();
 
   useEffect(() => {
-    if (user) {
-      setValue("name", user.name);
-      setValue("email", user.email);
-      setValue("username", user.username);
-      user.description && setValue("description", user.description);
+    if (session?.user) {
+      setValue("name", session.user.name);
+      setValue("email", session.user.email);
+      setValue("username", session.user.username);
+      session.user.description &&
+        setValue("description", session.user.description);
     } else {
       handleCloseUserProfile();
     }
-  }, [user]);
+  }, [session]);
 
-  function handleUpdateUser(data: UserProfileSchema) {
+  function handleUpdateUser(params: UserProfileSchema) {
     var formData = new FormData();
 
-    if (user!.email !== data.email) {
-      formData.append("email", data.email);
+    if (session!.user.email !== params.email) {
+      formData.append("email", params.email);
     }
 
-    if (user!.name !== data.name) {
-      formData.append("name", data.name);
+    if (session!.user.name !== params.name) {
+      formData.append("name", params.name);
     }
 
-    if (user?.description !== data?.description) {
-      formData.append("description", data.description);
+    if (session!.user.description !== params?.description) {
+      formData.append("description", params.description);
     }
 
-    if (user!.username !== data.username) {
-      formData.append("username", data.username);
+    if (session!.user.username !== params.username) {
+      formData.append("username", params.username);
     }
 
-    if (user!.isAdmin) {
-      formData.append("is_admin", user!.isAdmin ? "1" : "0");
+    if (session?.user.isAdmin) {
+      formData.append("is_admin", "1");
     }
 
-    mutate({ userId: user!.id, params: formData });
+    mutate({ userId: session!.user.id, params: formData });
   }
 
   function handleCloseUserProfile() {
     onClose();
-    reset();
   }
 
   return (
@@ -145,12 +144,13 @@ export function USerProfile({ open, onClose }: Props) {
         </div>
       </Modal>
 
-      {user && (
+      {session?.user && (
         <ChangePasswordModal
           anchor={anchorEl}
           isOpen={isOpenChangePassword}
           onClose={handleCloseChangePassword}
-          userId={user?.id}
+          userId={session.user.id}
+          userIsAdmin={session.user.isAdmin}
         />
       )}
     </>

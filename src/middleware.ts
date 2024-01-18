@@ -1,17 +1,30 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { withAuth } from "next-auth/middleware";
+
 import { authMiddleware, dashboardMiddleware } from "@middlewares";
 
-export default function middleware(request: NextRequest): NextResponse {
-  if (request.url.includes("/dashboard")) {
-    return dashboardMiddleware(request);
-  }
+export default withAuth(
+  async function middleware(req) {
+    const path = req.nextUrl.pathname;
 
-  if (request.url.includes("/auth")) {
-    return authMiddleware(request);
-  }
+    if (path.startsWith("/dashboard")) {
+      return await dashboardMiddleware(req);
+    }
 
-  return NextResponse.next();
-}
+    if (path.startsWith("/auth")) {
+      return await authMiddleware(req);
+    }
+
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      authorized() {
+        return true;
+      },
+    },
+  }
+);
 
 export const config = {
   matcher: ["/dashboard/:path*", "/auth/:path*"],

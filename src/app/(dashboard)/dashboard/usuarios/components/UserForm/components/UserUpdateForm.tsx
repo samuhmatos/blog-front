@@ -1,4 +1,5 @@
-"use client";import { User, useUserUpdate } from "@domain";
+"use client";
+import { User, useUserUpdate } from "@domain";
 import { UserUpdateSchema } from "../../../schema";
 import { eventUtils } from "@utils";
 import {
@@ -194,6 +195,7 @@ export function UserUpdateForm({ schema, initialData }: UserUpdateFormProps) {
           isOpen={isOpenChangePassword}
           onClose={handleCloseChangePassword}
           userId={initialData.id}
+          userIsAdmin={initialData.isAdmin}
         />
       )}
     </div>

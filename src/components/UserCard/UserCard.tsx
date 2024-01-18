@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import { useAuth } from "@context";
+import { useAuth } from "@auth";
 import { UserOptions } from "./components/UserOptions";
 
 export function UserCard() {
-  const { user } = useAuth();
+  const { session } = useAuth();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openOptions = Boolean(anchorEl);
@@ -37,7 +37,7 @@ export function UserCard() {
         <span className="sr-only">Abrir Menu</span>
 
         <img
-          src={user?.imageURL || "/assets/user.png"}
+          src={session?.user.imageURL || "/assets/user.png"}
           width={100}
           height={100}
           className="w-10 h-10 rounded-full"

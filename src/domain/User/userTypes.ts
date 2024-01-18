@@ -1,5 +1,4 @@
-import { PagePaginationParams } from "@api";
-import { Newsletter, NewsletterApi } from "../Newsletter";
+import { PagePaginationParams } from "@api";import { Newsletter, NewsletterApi } from "../Newsletter";
 export interface User {
   id: number;
   name: string;
@@ -52,4 +51,8 @@ export interface UserPagePaginationParam extends PagePaginationParams {
 export interface UserUpdateParams {
   userId: number;
   params: FormData;
+}
+
+export interface UserRegisteredApi {
+  user: UserApi;
 }

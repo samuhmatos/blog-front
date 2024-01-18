@@ -1,14 +1,13 @@
-"use client";
-import { useUserUpdate } from "@domain";
-import { useAuth } from "@context";
-
-import Image from "next/image";
+"use client";import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+
+import { useUserUpdate } from "@domain";
 import { CircularProgress } from "@mui/material";
-import { Icon } from "../../Icon/Icon";
+import { useAuth } from "@auth";
+import { Icon } from "@components";
 
 export function UserHeader() {
-  const { user } = useAuth();
+  const { session } = useAuth();
 
   const inputUpload = useRef<HTMLInputElement>(null);
   const buttonUpload = useRef<HTMLButtonElement>(null);
@@ -27,7 +26,11 @@ export function UserHeader() {
       var formData = new FormData();
       formData.append("image", selectedFile[0]);
 
-      mutate({ userId: user!.id, params: formData });
+      if (session?.user.isAdmin) {
+        formData.append("is_admin", "1");
+      }
+
+      mutate({ userId: session!.user.id, params: formData });
       setLoading(false);
     } else {
       return;
@@ -55,7 +58,7 @@ export function UserHeader() {
         /> */}
 
         <img
-          src={user?.imageURL || "/assets/user.png"}
+          src={session?.user.imageURL || "/assets/user.png"}
           width={100}
           height={100}
           className="rounded-2xl h-full w-full"

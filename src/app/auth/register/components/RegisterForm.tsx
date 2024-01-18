@@ -2,46 +2,33 @@
 import Link from "next/link";
 
 import { Alert } from "@mui/material";
-import { useRouter } from "nextjs-progressloader";
 import { FormTextInput, Button } from "@components";
 import { linkUtils } from "@utils";
-import { useAuth, useAuthService } from "@context";
 
 import { useRegisterForm } from "../useRegisterForm";
 import { RegisterSchema } from "../registerSchema";
+import { useSignUp } from "@domain";
 
 interface Props {
   redirectPath: string;
 }
 export function RegisterForm({ redirectPath }: Props) {
-  const router = useRouter();
+  const { loading, signUp, error } = useSignUp();
 
   const { control, handleSubmit, formState } = useRegisterForm();
-  const { loading, errorMessage } = useAuth();
-  const { signUp } = useAuthService();
 
-  function onSubmit(val: RegisterSchema) {
-    signUp(
-      {
-        email: val.email,
-        password: val.password,
-        name: val.firstName + " " + val.lastName,
-        password_confirmation: val.confirmPassword,
-      },
-      () => {
-        try {
-          router.push("redirect");
-        } catch (error) {
-          router.push("home");
-        }
-      }
-    );
+  async function onSubmit(params: RegisterSchema) {
+    await signUp({
+      ...params,
+      name: params.firstName + " " + params.lastName,
+      password_confirmation: params.confirmPassword,
+    });
   }
 
   return (
     <>
-      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-      <div className="space-y-3">
+      {error && <Alert severity="error">{error}</Alert>}
+      <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex gap-3 flex-wrap 3sm:flex-nowrap">
           <FormTextInput
             control={control}
@@ -92,7 +79,6 @@ export function RegisterForm({ redirectPath }: Props) {
           placeholder="Criar conta"
           loadingPosition="center"
           full
-          onClick={handleSubmit(onSubmit)}
           disabled={!formState.isValid}
           loading={loading}
           className="mt-3"
@@ -108,7 +94,7 @@ export function RegisterForm({ redirectPath }: Props) {
             Entrar na conta
           </Link>
         </p>
-      </div>
+      </form>
     </>
   );
 }

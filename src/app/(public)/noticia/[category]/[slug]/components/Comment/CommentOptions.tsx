@@ -3,9 +3,11 @@ import { useState } from "react";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { PostComment, usePostCommentRemove } from "@domain";
 import { CircularProgress } from "@mui/material";
-import { useAuth, useComment } from "@context";
+
+import { PostComment, usePostCommentRemove } from "@domain";
+import { useComment } from "@context";
+import { useAuth } from "@auth";
 
 import { CommentReportModal } from "./CommentReportModal";
 
@@ -17,7 +19,7 @@ interface Props {
 }
 
 export function CommentOptions({ commentId, userId, comment, postId }: Props) {
-  const { user } = useAuth();
+  const { session } = useAuth();
 
   const { setCommentState, scrollToForm } = useComment();
   const { mutate: removeComment, loading } = usePostCommentRemove(commentId);
@@ -93,7 +95,7 @@ export function CommentOptions({ commentId, userId, comment, postId }: Props) {
           id: `commentToggle-${commentId}`,
         }}
       >
-        {user && user.id === userId && (
+        {session?.user && session.user.id === userId && (
           <>
             <MenuItem onClick={handleEdit}>Edit</MenuItem>
             <MenuItem
@@ -105,7 +107,7 @@ export function CommentOptions({ commentId, userId, comment, postId }: Props) {
             </MenuItem>
           </>
         )}
-        {(!user || user.id !== userId) && (
+        {(!session?.user || session.user.id !== userId) && (
           <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
         )}
       </Menu>

@@ -2,10 +2,11 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { CircularProgress, Menu, MenuItem } from "@mui/material";
-import { changeRoute } from "nextjs-progressloader";
-import { useAuth, useAuthService } from "@context";
+import { useRouter } from "nextjs-progressloader";
 
 import { USerProfile } from "@components";
+import { useSignOut } from "@domain";
+import { useAuth } from "@auth";
 
 interface Props {
   anchor: HTMLElement | null;
@@ -19,13 +20,13 @@ interface RenderItemProps {
   hasLoading?: boolean;
 }
 export function UserOptions({ anchor, onClose, open }: Props) {
-  const pathname = usePathname();
-  const { user, loading } = useAuth();
-  const { logout } = useAuthService();
-
+  const router = useRouter();
   const pathName = usePathname();
 
   const [openConfig, setOpenConfig] = useState<boolean>(false);
+
+  const { session } = useAuth();
+  const { loading, signOut } = useSignOut();
 
   const handleOpenConfigOptions = () => {
     setOpenConfig(true);
@@ -35,8 +36,8 @@ export function UserOptions({ anchor, onClose, open }: Props) {
     setOpenConfig(false);
   };
 
-  function handleLogout() {
-    logout(pathname);
+  async function handleLogout() {
+    await signOut();
   }
 
   function RenderItem({
@@ -65,17 +66,17 @@ export function UserOptions({ anchor, onClose, open }: Props) {
       >
         <div className="px-4">
           <span className="block text-sm text-gray-900 dark:text-white">
-            {user?.name}
+            {session?.user.name}
           </span>
           <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
-            {user?.email}
+            {session?.user.email}
           </span>
         </div>
 
         <ul className="py-1">
-          {user?.isAdmin && !pathName.includes("/dashboard") && (
+          {session?.user.isAdmin && !pathName.includes("/dashboard") && (
             <RenderItem
-              onClick={() => changeRoute("dashboard")}
+              onClick={() => router.push("dashboard")}
               label="Dashboard"
             />
           )}

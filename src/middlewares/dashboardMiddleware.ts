@@ -1,9 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
-export function dashboardMiddleware(request: NextRequest): NextResponse {
-  var token = request.cookies.get("token");
+import { NextRequestWithAuth } from "next-auth/middleware";
+import { NextResponse } from "next/server";
 
-  if (!token) {
-    return NextResponse.redirect(new URL("/", request.url));
+export async function dashboardMiddleware(
+  req: NextRequestWithAuth
+): Promise<NextResponse> {
+  const url = req.url;
+  const user = req.nextauth.token;
+
+  if (!user || !user.user.isAdmin) {
+    return NextResponse.redirect(new URL("/", url));
   }
 
   return NextResponse.next();

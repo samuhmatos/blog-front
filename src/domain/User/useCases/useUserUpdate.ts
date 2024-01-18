@@ -1,23 +1,30 @@
-"use client";import { userService } from "../userService";
+"use client";
 import { Auth } from "@api";
-import { setCookie } from "cookies-next";
-import { useAuth, useAuthService } from "@context";
-import { errorUtils, toastUtils } from "@utils";
-import { UserUpdateParams } from "..";
 import { useMutation } from "@infra";
+import { errorUtils, toastUtils } from "@utils";
+import { useAuth } from "@auth";
+
+import { userService } from "../userService";
+import { UserUpdateParams } from "..";
 
 export function useUserUpdate(callBack?: () => void) {
-  const { setUser } = useAuthService();
-  const { user: authenticatedUser } = useAuth();
+  const { session, update } = useAuth();
+
+  const authenticatedUser = session?.user;
 
   return useMutation<UserUpdateParams, Partial<Auth>>(userService.update, {
-    onSuccess(data) {
-      if (data.user?.id === authenticatedUser?.id) {
+    async onSuccess(data) {
+      if (data.user?.id == authenticatedUser?.id) {
+        let updatedSession = {
+          ...session,
+          user: { ...session?.user, ...data.user },
+        };
+
         if (data.token) {
-          setCookie("token", data.token);
+          updatedSession.user.accessToken = data.token;
         }
 
-        setUser(data.user!);
+        await update(updatedSession);
       }
 
       toastUtils.show({

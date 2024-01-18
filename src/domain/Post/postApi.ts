@@ -1,9 +1,11 @@
-import { PageAPI, PagePaginationParams, api } from "@api";
+import { PageAPI, PagePaginationParams, apiClient } from "@api";
 import { PostApi, PostApiWithDetails, PostListApi } from "./postTypes";
 
 const PATH = "post";
 
 async function getOne(slugOrId: string): Promise<PostApiWithDetails> {
+  const api = await apiClient();
+
   const response = await api.get<PostApiWithDetails>(
     `${PATH}/filter/${slugOrId}`
   );
@@ -13,6 +15,8 @@ async function getOne(slugOrId: string): Promise<PostApiWithDetails> {
 async function getList(
   query: keyof PostListApi
 ): Promise<PostApiWithDetails[]> {
+  const api = await apiClient();
+
   const response = await api.get<PostApiWithDetails[]>(
     `${PATH}?category=${query}`
   );
@@ -22,6 +26,8 @@ async function getList(
 async function getFeed(
   params?: PagePaginationParams & { category?: string }
 ): Promise<PageAPI<PostApiWithDetails>> {
+  const api = await apiClient();
+
   const response = await api.get<PageAPI<PostApiWithDetails>>(
     `${PATH}/paginate`,
     {
@@ -35,6 +41,8 @@ async function getFeed(
 async function getDraft(
   params?: PagePaginationParams & { category?: string }
 ): Promise<PageAPI<PostApiWithDetails>> {
+  const api = await apiClient();
+
   const response = await api.get<PageAPI<PostApiWithDetails>>(
     `${PATH}/paginate/draft`,
     {
@@ -47,6 +55,8 @@ async function getDraft(
 async function getTrash(
   params?: PagePaginationParams & { category?: string }
 ): Promise<PageAPI<PostApiWithDetails>> {
+  const api = await apiClient();
+
   const response = await api.get<PageAPI<PostApiWithDetails>>(
     `${PATH}/paginate/trash`,
     {
@@ -57,6 +67,8 @@ async function getTrash(
 }
 
 async function addView(post_id: number): Promise<Pick<PostApi, "views">> {
+  const api = await apiClient();
+
   const response = await api.post<Pick<PostApi, "views">>(
     `${PATH}/${post_id}/view`
   );
@@ -64,12 +76,16 @@ async function addView(post_id: number): Promise<Pick<PostApi, "views">> {
 }
 
 async function getSuggestion(): Promise<PostApiWithDetails[]> {
+  const api = await apiClient();
+
   const response = await api.get<PostApiWithDetails[]>(`${PATH}/suggestion`);
 
   return response.data;
 }
 
 async function create(formData: FormData): Promise<PostApi> {
+  const api = await apiClient();
+
   const response = await api.post<PostApi>(PATH, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -90,6 +106,8 @@ async function update(
   post_id: number,
   formData: FormData | UpdateProps
 ): Promise<PostApi> {
+  const api = await apiClient();
+
   let params;
   let headers;
 
@@ -115,12 +133,14 @@ async function update(
 }
 
 async function remove(post_id: number): Promise<void> {
-  const response = await api.delete(`${PATH}/${post_id}`);
+  const api = await apiClient();
 
-  return;
+  await api.delete(`${PATH}/${post_id}`);
 }
 
 async function restore(post_id: number): Promise<PostApi> {
+  const api = await apiClient();
+
   const response = await api.post<PostApi>(`${PATH}/${post_id}/restore`);
   return response.data;
 }
@@ -131,6 +151,8 @@ export type ReturnUploadPostContent = {
 async function uploadPostContent(
   content: FormData
 ): Promise<ReturnUploadPostContent> {
+  const api = await apiClient();
+
   const response = await api.post<ReturnUploadPostContent>(
     `${PATH}/upload-content`,
     content,

@@ -4,7 +4,7 @@ import { CardMedium } from "@components";
 import { Page } from "@api";
 import { PageParams } from "@types";
 
-export const revalidate = 3600; // 1 hour
+// export const revalidate = 3600; // 1 hour
 
 async function fetchData(
   page: number,
