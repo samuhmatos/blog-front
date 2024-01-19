@@ -22,7 +22,6 @@ export function Author({ author }: Props) {
             <h3 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
               <a href="#">{author.name}</a>
             </h3>
-            <span>CEO & Web Developer</span>
             <p className="mt-3 mb-4 font-light">{author.description}</p>
 
             <SocialMedia className="gap-4" />

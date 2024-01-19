@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Alert } from "@mui/material";
 import { FormTextInput, Button } from "@components";
 import { linkUtils } from "@utils";
+import { useSignUp } from "@domain";
 
 import { useRegisterForm } from "../useRegisterForm";
 import { RegisterSchema } from "../registerSchema";
-import { useSignUp } from "@domain";
 
 interface Props {
   redirectPath: string;
@@ -81,6 +81,7 @@ export function RegisterForm({ redirectPath }: Props) {
           full
           disabled={!formState.isValid}
           loading={loading}
+          type="submit"
           className="mt-3"
         />
         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
