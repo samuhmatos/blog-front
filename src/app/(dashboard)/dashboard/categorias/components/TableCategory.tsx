@@ -1,11 +1,10 @@
 "use client";
-import { Table } from "@components";
 import { useEffect, useState } from "react";
-import { TableBody } from "./TableBody";
+
+import { Table } from "@components";
 import { usePostCategoryList } from "@domain";
 import { eventUtils } from "@utils";
-
-const tableLabels = [null, "Nome", "Data", "Posts", null, null];
+import { TableBody } from "./TableBody";
 
 export function TableCategory() {
   const [page, setPage] = useState<number>(0);
@@ -29,12 +28,14 @@ export function TableCategory() {
 
   return (
     <Table
-      headerLabels={tableLabels}
-      count={totalMeta}
-      page={page}
-      rowsPerPage={rowsPerPage}
-      setPage={setPage}
-      setRowsPerPage={setRowsPerPage}
+      header={{ labels: [null, "Nome", "Data", "Posts", null, null] }}
+      pagination={{
+        count: totalMeta,
+        page,
+        setPage,
+        rowsPerPage,
+        setRowsPerPage,
+      }}
       TableBody={
         <TableBody isTrash={isTrash} categories={list} refetch={refresh} />
       }

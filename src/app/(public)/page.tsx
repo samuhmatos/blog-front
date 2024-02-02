@@ -6,10 +6,8 @@ import { SideBar, Screen } from "@components";
 import { Feed, Banner } from "./components/";
 import { ErrorMessage } from "./components/ErrorMessage";
 import { BannerSkeleton, FeedSkeleton } from "./components/Skeleton";
-import { headers } from "next/headers";
-import { eventUtils } from "@utils";
 
-export const revalidate = 300; // 5 minutes
+export const revalidate = Number(process.env.NEXT_PUBLIC_REVALIDATE_30_MINUTES);
 
 export default async function HomeScreen({
   searchParams,

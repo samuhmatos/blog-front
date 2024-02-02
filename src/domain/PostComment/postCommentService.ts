@@ -1,4 +1,6 @@
-import { PostComment, PostCommentParams } from ".";import { postCommentApi } from "./postCommentApi";
+import { Page, apiAdapter } from "@api";
+import { PaginateCommentWithReports, PostComment, PostCommentParams } from ".";
+import { postCommentApi } from "./postCommentApi";
 import { postCommentAdapter } from "./postCommentAdapter";
 
 export interface EditPostCommentProps
@@ -45,8 +47,24 @@ async function destroy({
   });
 }
 
+async function paginateWithReports(
+  params: PaginateCommentWithReports
+): Promise<Page<PostComment>> {
+  const page = await postCommentApi.paginateWithReports({
+    ...params,
+    per_page: params.perPage,
+    reports_type: params.reportsType,
+  });
+
+  return {
+    meta: apiAdapter.toMetaDataPage(page.meta),
+    data: page.data.map(postCommentAdapter.toPostComment),
+  };
+}
+
 export const postCommentService = {
   create,
   edit,
   destroy,
+  paginateWithReports,
 };

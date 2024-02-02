@@ -2,7 +2,11 @@ import { EventEmitter } from "events";
 const eventEmitter = new EventEmitter();
 
 interface EventType {
-  events: "close-modal" | "toggle-open-navigation" | "error-message";
+  events:
+    | "close-modal"
+    | "toggle-open-navigation"
+    | "error-message"
+    | "refresh-data";
 }
 
 const emit = (eventName: EventType["events"], ...data: any[]) => {

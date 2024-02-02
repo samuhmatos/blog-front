@@ -7,7 +7,7 @@ import { PageParams } from "@types";
 import { CategoryList } from "./components/CategoryList";
 import { FeedSkeleton } from "../components/Skeleton";
 
-export const revalidate = 300; // 5 minutes
+export const revalidate = Number(process.env.NEXT_PUBLIC_REVALIDATE_5_MINUTES);
 
 export const metadata: Metadata = {
   title: "Categorias",

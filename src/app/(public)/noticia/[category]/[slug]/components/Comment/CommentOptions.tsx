@@ -1,5 +1,4 @@
-"use client";
-import { useState } from "react";
+"use client";import { useState } from "react";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -95,7 +94,7 @@ export function CommentOptions({ commentId, userId, comment, postId }: Props) {
           id: `commentToggle-${commentId}`,
         }}
       >
-        {session?.user && session.user.id === userId && (
+        {session?.user && session.user.id == userId && (
           <>
             <MenuItem onClick={handleEdit}>Edit</MenuItem>
             <MenuItem
@@ -107,7 +106,7 @@ export function CommentOptions({ commentId, userId, comment, postId }: Props) {
             </MenuItem>
           </>
         )}
-        {(!session?.user || session.user.id !== userId) && (
+        {(!session?.user || session.user.id != userId) && (
           <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
         )}
       </Menu>

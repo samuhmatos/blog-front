@@ -1,4 +1,9 @@
 import { ReactionType } from "@types";import { User, UserApi } from "../User";
+import {
+  PostCommentReport,
+  PostCommentReportApi,
+  ReportStatus,
+} from "../PostCommentReport";
 export interface PostCommentApi {
   id: number;
   user_id: number;
@@ -10,8 +15,10 @@ export interface PostCommentApi {
   created_at: string;
   updated_at: string;
   user: UserApi;
-  answers?: PostCommentApi[];
   user_reaction: ReactionType | null;
+
+  answers?: PostCommentApi[];
+  reports?: PostCommentReportApi[];
 }
 
 export interface PostComment {
@@ -26,8 +33,10 @@ export interface PostComment {
   updatedAt: string;
   updatedAtFormatted: string;
   user: User;
-  answers?: PostComment[];
   userReaction: ReactionType | null;
+
+  answers?: PostComment[];
+  reports?: PostCommentReport[];
 }
 
 export interface PostCommentParamsApi {
@@ -42,4 +51,16 @@ export interface PostCommentParams {
   comment: string;
   parentId?: number;
   commentId?: number;
+}
+
+export interface PaginateCommentWithReportsApi {
+  page: number;
+  per_page: number;
+  reports_type?: ReportStatus;
+}
+
+export interface PaginateCommentWithReports {
+  page: number;
+  perPage: number;
+  reportsType?: ReportStatus;
 }

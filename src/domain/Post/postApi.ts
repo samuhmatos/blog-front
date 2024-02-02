@@ -1,5 +1,4 @@
-import { PageAPI, PagePaginationParams, apiClient } from "@api";
-import { PostApi, PostApiWithDetails, PostListApi } from "./postTypes";
+import { PageAPI, PagePaginationParams, apiClient } from "@api";import { PostApi, PostApiWithDetails, PostListApi } from "./postTypes";
 
 const PATH = "post";
 
@@ -123,7 +122,7 @@ async function update(
     headers = {};
   }
 
-  const response = await api.put<PostApi>(
+  const response = await api.post<PostApi>(
     `${PATH}/${post_id}`,
     params,
     headers

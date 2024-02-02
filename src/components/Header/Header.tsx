@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Navigation, SearchInput, Actions } from "./components";
 import { Category, postCategoryService } from "@domain";
 
-export const revalidate = 7200; // 2 hours
+export const revalidate = Number(process.env.NEXT_PUBLIC_REVALIDATE_2_HOUR);
 
 async function getPopularCategories(): Promise<Category[]> {
   return postCategoryService.getPopular();

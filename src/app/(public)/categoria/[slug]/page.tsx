@@ -1,5 +1,4 @@
-import { Metadata, ResolvingMetadata } from "next";
-import { notFound } from "next/navigation";
+import { Metadata, ResolvingMetadata } from "next";import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { AxiosError } from "axios";
 
@@ -12,7 +11,7 @@ import { CategorySession } from "./components/CategorySession";
 import { CategoryHeader } from "./components/CategoryHeader";
 import { FeedSkeleton } from "../../components/Skeleton";
 
-export const revalidate = 300; // 5 minutes
+export const revalidate = Number(process.env.NEXT_PUBLIC_REVALIDATE_5_MINUTES);
 
 export interface PagePaginationParams {
   params: {

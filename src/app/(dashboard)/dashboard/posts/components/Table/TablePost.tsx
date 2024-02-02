@@ -1,21 +1,12 @@
-"use client";import { Checkbox, Table } from "@components";
-import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
+"use client";
 import { ChangeEvent, useEffect, useState } from "react";
+import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
+
+import { Checkbox, Table } from "@components";
 import { useFeedList } from "@domain";
-import { TableBody } from "./TableBody";
 import { eventUtils } from "@utils";
 
-const tableLabels = [
-  null,
-  "Título",
-  "Visualizações",
-  "Data",
-  "Likes",
-  "Unlikes",
-  "Rascunho",
-  null,
-  null,
-];
+import { TableBody } from "./TableBody";
 
 export function TablePost() {
   const [page, setPage] = useState<number>(0);
@@ -63,43 +54,57 @@ export function TablePost() {
 
   return (
     <Table
-      headerLabels={tableLabels}
-      count={totalMeta}
-      page={page}
-      rowsPerPage={rowsPerPage}
-      setPage={setPage}
-      setRowsPerPage={setRowsPerPage}
+      header={{
+        labels: [
+          null,
+          "Título",
+          "Visualizações",
+          "Data",
+          "Likes",
+          "Unlikes",
+          "Rascunho",
+          null,
+          null,
+        ],
+      }}
+      pagination={{
+        count: totalMeta,
+        page,
+        rowsPerPage,
+        setRowsPerPage,
+        setPage,
+        FooterActionsComponents: (props) => (
+          <>
+            <Checkbox
+              onChange={handleShowDraft}
+              id="draftCheckBox"
+              checked={isDraft}
+              label="Exibir Rascunhos"
+              className={props.className}
+            />
+
+            <Checkbox
+              onChange={handleShowTrash}
+              id="trashCheckBox"
+              checked={isTrash}
+              label="Exibir lixeira"
+              className={props.className}
+            />
+
+            <TablePaginationActions
+              count={totalMeta}
+              onPageChange={handleChangePage}
+              rowsPerPage={rowsPerPage}
+              showLastButton
+              showFirstButton
+              page={page}
+              getItemAriaLabel={() => ""}
+              className="flex"
+            />
+          </>
+        ),
+      }}
       TableBody={<TableBody isTrash={isTrash} posts={list} refetch={refresh} />}
-      FooterActionsComponents={(subprops) => (
-        <>
-          <Checkbox
-            onChange={handleShowDraft}
-            id="draftCheckBox"
-            checked={isDraft}
-            label="Exibir Rascunhos"
-            className={subprops.className}
-          />
-
-          <Checkbox
-            onChange={handleShowTrash}
-            id="trashCheckBox"
-            checked={isTrash}
-            label="Exibir lixeira"
-            className={subprops.className}
-          />
-
-          <TablePaginationActions
-            count={totalMeta}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            showLastButton
-            showFirstButton
-            page={page}
-            getItemAriaLabel={() => ""}
-            className="flex"
-          />
-        </>
-      )}
     />
   );
 }

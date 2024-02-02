@@ -1,5 +1,8 @@
-import { PostCommentApi, PostCommentParamsApi } from ".";
-import { apiClient } from "@api";
+import {  PaginateCommentWithReportsApi,
+  PostCommentApi,
+  PostCommentParamsApi,
+} from ".";
+import { PageAPI, apiClient } from "@api";
 
 interface ParamsProps extends Omit<PostCommentParamsApi, "parent_id"> {
   comment_id: number;
@@ -46,8 +49,21 @@ async function create({
   return response.data;
 }
 
+async function paginateWithReports(
+  params: PaginateCommentWithReportsApi
+): Promise<PageAPI<PostCommentApi>> {
+  const api = await apiClient();
+
+  const res = await api.get<PageAPI<PostCommentApi>>("comment/report", {
+    params,
+  });
+
+  return res.data;
+}
+
 export const postCommentApi = {
   create,
   edit,
   destroy,
+  paginateWithReports,
 };

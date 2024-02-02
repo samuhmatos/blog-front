@@ -1,5 +1,4 @@
-function linkPost(postSlug: string, categorySlug: string): string {
-  var link = `/noticia/${categorySlug}/${postSlug}`;
+function linkPost(postSlug: string, categorySlug: string): string {  var link = `/noticia/${categorySlug}/${postSlug}`;
   return link;
 }
 
@@ -40,7 +39,7 @@ const share = {
 const socialMedia = {
   instagram: "https://www.instagram.com/samuh.matos/",
   linkedIn: "https://www.linkedin.com/in/o-samuelmatos/",
-  email: "samuhmatos@gmail.com",
+  email: "mailto:samuhmatos@gmail.com",
   gitHub: "https://github.com/samuhmatos",
 };
 

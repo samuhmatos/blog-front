@@ -1,4 +1,5 @@
-import { RenderSideBarItem } from "./components/RenderSideBarItem";export function SideBar() {
+import { RenderSideBarItem } from "./components/RenderSideBarItem";
+export function SideBar() {
   return (
     <aside
       id="logo-sidebar"
@@ -24,6 +25,12 @@ import { RenderSideBarItem } from "./components/RenderSideBarItem";export functi
             href="posts"
             IconName="PostCard"
             label="Postagens"
+          />
+
+          <RenderSideBarItem
+            href="comentarios"
+            IconName="PostCard"
+            label="Comentários"
           />
 
           <RenderSideBarItem

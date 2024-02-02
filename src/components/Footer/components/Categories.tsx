@@ -1,6 +1,8 @@
 import { postCategoryService } from "@domain";
 import { List } from ".";
 
+export const revalidate = Number(process.env.NEXT_PUBLIC_REVALIDATE_30_MINUTES);
+
 export async function Categories() {
   const popularCategories = await postCategoryService.getPopular();
 

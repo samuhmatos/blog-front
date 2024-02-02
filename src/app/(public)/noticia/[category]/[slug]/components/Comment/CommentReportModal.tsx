@@ -1,4 +1,5 @@
-"use client";import { useCreatePostCommentReport } from "@domain";
+"use client";
+import { useCreatePostCommentReport } from "@domain";
 import { Button, FormTextAreaInput, Modal } from "@components";
 import { useCommentForm } from "./useCommentForm";
 import { CommentSchema } from "./commentSchema";
@@ -17,18 +18,19 @@ export function CommentReportModal({
   handleClose,
 }: Props) {
   const { loading, mutate: reportComment } = useCreatePostCommentReport();
-  const { control, handleSubmit, formState } = useCommentForm();
+  const { control, handleSubmit, formState, reset } = useCommentForm();
 
   function submitReport({ message }: CommentSchema) {
-    reportComment({ postId, commentId, reason: message }, handleCloseReport);
+    reportComment({ postId, commentId, message }, handleCloseReport);
   }
 
   function handleCloseReport() {
+    reset();
     handleClose();
   }
 
   return (
-    <Modal isOpen={open} onClose={handleClose} className="max-w-lg">
+    <Modal isOpen={open} onClose={handleCloseReport} className="max-w-lg">
       <form onSubmit={handleSubmit(submitReport)}>
         <h2 className="text-xl font-semibold text-center mb-3">
           Qual o seu report?

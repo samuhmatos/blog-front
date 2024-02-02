@@ -74,7 +74,6 @@ export function UpdatePostForm({
         postId: initialData?.id!,
       },
       () => {
-        // eventUtils.emit("close-modal");
         queryClient.invalidateQueries({
           queryKey: [QueryKeys.GetPost, initialData!.id],
         });

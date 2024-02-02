@@ -1,5 +1,4 @@
-"use client";
-import { ContainerLink, LinkProps } from "nextjs-progressloader";
+"use client";import { ContainerLink, LinkProps } from "nextjs-progressloader";
 import { linkUtils } from "@utils";
 import { Navigation, SideBar } from "./components";
 
@@ -31,6 +30,10 @@ const links: LinkProps[] = [
   {
     href: linkUtils.linkDashboard("posts"),
     nickname: "posts",
+  },
+  {
+    href: linkUtils.linkDashboard("comentarios"),
+    nickname: "comentarios",
   },
   {
     href: linkUtils.linkDashboard("posts/create"),

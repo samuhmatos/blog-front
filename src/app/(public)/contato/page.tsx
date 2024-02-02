@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   abstract: "Entre em contato comigo",
 };
 
-export const revalidate = 3600; // 1 hour
+export const revalidate = Number(process.env.NEXT_PUBLIC_REVALIDATE_1_HOUR);
 
 export default function ContatoScreen() {
   return (

@@ -1,2 +1,2 @@
-// export const Tables = {};
 export * from "./Table";
+export * from "./TableRowCollapse";

@@ -6,6 +6,8 @@ export enum QueryKeys {
   PostCategoryGet = "PostCategoryGet",
   PostCategoryGetAll = "PostCategoryGetAll",
 
+  PostCommentReportList = "PostCommentReportList",
+
   PostCommentReactionGet = "PostCommentReactionGet",
 
   UserList = "UserList",

@@ -1,21 +1,11 @@
 "use client";
-import { Checkbox, Table } from "@components";
-import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useUserList } from "@domain";
-import { TableBody } from "./TableBody";
-import { eventUtils } from "@utils";
+import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 
-const tableLabels = [
-  null,
-  "Nome",
-  "Usuário",
-  "email",
-  "Administrador",
-  "Newsletter",
-  null,
-  null,
-];
+import { Checkbox, Table } from "@components";
+import { useUserList } from "@domain";
+import { eventUtils } from "@utils";
+import { TableBody } from "./TableBody";
 
 export function TableUsers() {
   const [page, setPage] = useState<number>(0);
@@ -54,35 +44,48 @@ export function TableUsers() {
 
   return (
     <Table
-      headerLabels={tableLabels}
-      count={totalMeta}
-      page={page}
-      rowsPerPage={rowsPerPage}
-      setPage={setPage}
-      setRowsPerPage={setRowsPerPage}
-      TableBody={<TableBody isTrash={isTrash} users={list} refetch={refresh} />}
-      FooterActionsComponents={(subprops) => (
-        <>
-          <Checkbox
-            onChange={handleShowTrash}
-            id="trashCheckBox"
-            checked={isTrash}
-            label="Exibir lixeira"
-            className={subprops.className}
-          />
+      header={{
+        labels: [
+          null,
+          "Nome",
+          "Usuário",
+          "email",
+          "Administrador",
+          "Newsletter",
+          null,
+          null,
+        ],
+      }}
+      pagination={{
+        count: totalMeta,
+        page,
+        setPage,
+        rowsPerPage,
+        setRowsPerPage,
+        FooterActionsComponents: (subprops) => (
+          <>
+            <Checkbox
+              onChange={handleShowTrash}
+              id="trashCheckBox"
+              checked={isTrash}
+              label="Exibir lixeira"
+              className={subprops.className}
+            />
 
-          <TablePaginationActions
-            count={totalMeta}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            showLastButton
-            showFirstButton
-            page={page}
-            getItemAriaLabel={() => ""}
-            className="flex"
-          />
-        </>
-      )}
+            <TablePaginationActions
+              count={totalMeta}
+              onPageChange={handleChangePage}
+              rowsPerPage={rowsPerPage}
+              showLastButton
+              showFirstButton
+              page={page}
+              getItemAriaLabel={() => ""}
+              className="flex"
+            />
+          </>
+        ),
+      }}
+      TableBody={<TableBody isTrash={isTrash} users={list} refetch={refresh} />}
     />
   );
 }

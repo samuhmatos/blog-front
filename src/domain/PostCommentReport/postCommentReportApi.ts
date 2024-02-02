@@ -1,18 +1,30 @@
-import { apiClient } from "@api";import { PostCommentReportParamsApi } from ".";
+import { apiClient } from "@api";
+import { PostCommentReportParamsApi, UpdatePostCommentReportParams } from ".";
 
-async function create({
-  comment_id,
-  post_id,
-  reason,
-}: PostCommentReportParamsApi): Promise<void> {
+const BASE_PATH = "/comment/report";
+
+const path = (id: number) => `${BASE_PATH}/${id}`;
+
+async function create(params: PostCommentReportParamsApi): Promise<void> {
   const api = await apiClient();
 
-  await api.post(`post/${post_id}/comment/${comment_id}/report`, {
-    reason,
+  await api.post(BASE_PATH, {
+    ...params,
   });
-  return;
+}
+
+async function update({
+  id,
+  status,
+}: UpdatePostCommentReportParams): Promise<void> {
+  const api = await apiClient();
+
+  await api.put(path(id), {
+    status,
+  });
 }
 
 export const postCommentReportApi = {
   create,
+  update,
 };

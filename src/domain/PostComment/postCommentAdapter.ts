@@ -1,6 +1,7 @@
 import { PostComment, PostCommentApi } from ".";
 import { dateUtils } from "@utils";
 import { userAdapter } from "../User/userAdapter";
+import { postCommentReportAdapter } from "./../PostCommentReport/postCommentReportAdapter";
 
 function toPostComment(postCommentAPI: PostCommentApi): PostComment {
   const postCommentParsed: PostComment = {
@@ -21,6 +22,9 @@ function toPostComment(postCommentAPI: PostCommentApi): PostComment {
   return {
     ...postCommentParsed,
     answers: postCommentAPI.answers?.map(toPostComment),
+    reports: postCommentAPI.reports?.map(
+      postCommentReportAdapter.toPostCommentReport
+    ),
   };
 }
 
