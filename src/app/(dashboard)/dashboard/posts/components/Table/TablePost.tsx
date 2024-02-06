@@ -1,5 +1,4 @@
-"use client";
-import { ChangeEvent, useEffect, useState } from "react";
+"use client";import { ChangeEvent, useEffect, useState } from "react";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 
 import { Checkbox, Table } from "@components";
@@ -73,7 +72,7 @@ export function TablePost() {
         rowsPerPage,
         setRowsPerPage,
         setPage,
-        FooterActionsComponents: (props) => (
+        ActionsComponent: (props) => (
           <>
             <Checkbox
               onChange={handleShowDraft}

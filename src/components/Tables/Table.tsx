@@ -11,7 +11,7 @@ import {
 } from "./components/TablePagination";
 
 interface Pagination extends Omit<TablePaginationProps, "ActionsComponent"> {
-  FooterActionsComponents?: React.ElementType<TablePaginationActionsProps>;
+  ActionsComponent?: React.ElementType<TablePaginationActionsProps>;
 }
 
 interface Header {

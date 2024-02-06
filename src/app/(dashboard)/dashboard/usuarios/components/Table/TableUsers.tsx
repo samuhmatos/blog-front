@@ -1,5 +1,4 @@
-"use client";
-import { ChangeEvent, useEffect, useState } from "react";
+"use client";import { ChangeEvent, useEffect, useState } from "react";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 
 import { Checkbox, Table } from "@components";
@@ -62,7 +61,7 @@ export function TableUsers() {
         setPage,
         rowsPerPage,
         setRowsPerPage,
-        FooterActionsComponents: (subprops) => (
+        ActionsComponent: (subprops) => (
           <>
             <Checkbox
               onChange={handleShowTrash}
